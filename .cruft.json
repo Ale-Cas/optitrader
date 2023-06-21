@@ -1,0 +1,31 @@
+{
+  "template": "https://github.com/radix-ai/poetry-cookiecutter",
+  "commit": "715f2bb25440f8fb18576a499be7c16207336191",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "package_name": "optifolio",
+      "package_description": "Optifolio is an opne-source Python package for portfolio optimization. ",
+      "package_url": "https://github.com/Ale-Cas/optifolio",
+      "author_name": "Alessio Castrica",
+      "author_email": "castricaalessio@gmail.com",
+      "python_version": "3.10",
+      "development_environment": "simple",
+      "with_conventional_commits": "1",
+      "with_fastapi_api": "1",
+      "with_jupyter_lab": "1",
+      "with_pydantic_typing": "1",
+      "with_sentry_logging": "0",
+      "with_streamlit_app": "1",
+      "with_typer_cli": "1",
+      "continuous_integration": "GitHub",
+      "docstring_style": "NumPy",
+      "private_package_repository_name": "",
+      "private_package_repository_url": "",
+      "__package_name_kebab_case": "optifolio",
+      "__package_name_snake_case": "optifolio",
+      "_template": "https://github.com/radix-ai/poetry-cookiecutter"
+    }
+  },
+  "directory": null
+}
