@@ -1,8 +1,11 @@
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optifolio)
 
-# optifolio
+# Optifolio
 
-Optifolio is an opne-source Python package for portfolio optimization. 
+## Description 
+
+Optifolio is an open-source Python package for portfolio optimization and quantitative finance applications. 
+It is meant to provide a comprehensive suite of tools to easily build a custom portfolio, analyze the optimization results and it also supports the trade execution by leveraging [Alpaca's Trading API](https://alpaca.markets/docs/trading/).
 
 ## Using
 
@@ -83,3 +86,10 @@ The following development environments are supported:
 - Run `cz bump` to bump the package's version, update the `CHANGELOG.md`, and create a git tag.
 
 </details>
+
+
+## Similar projects 
+Optifolio is built by keeping in mind the availability of other great open-source repositories, such as:
+
+- [Riskfolio-Lib](https://github.com/dcajasn/Riskfolio-Lib)
+- [PyPortfolioOpt](https://github.com/robertmartin8/PyPortfolioOpt)
