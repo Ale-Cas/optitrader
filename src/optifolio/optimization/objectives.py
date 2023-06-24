@@ -42,15 +42,6 @@ class ObjectiveFunction(metaclass=ABCMeta):
     ) -> tuple[dict[ObjectiveName, cp.Minimize], list[cp.Constraint]]:
         """Get optimization matrices."""
 
-    # def __subclasses__(self) -> list:
-    #     """Return the implemented subclasses."""
-    #     return [
-    #         CVaRObjectiveFunction,
-    #         ExpectedReturnsObjectiveFunction,
-    #         MADObjectiveFunction,
-    #         VarianceObjectiveFunction,
-    #     ]
-
 
 class CVaRObjectiveFunction(ObjectiveFunction):
     """CVaR objective function."""

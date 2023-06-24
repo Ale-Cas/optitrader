@@ -6,6 +6,7 @@ from optifolio.market.alpaca_market_data import AlpacaMarketData
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.market.enums import BarsField, DataProvider
 from optifolio.market.yahoo_market_data import YahooMarketData
+from optifolio.models.asset import AssetModel
 
 
 class MarketData:
@@ -15,9 +16,11 @@ class MarketData:
         self,
         data_provider: DataProvider = DataProvider.ALPACA,
     ) -> None:
+        self.__alpaca_client = AlpacaMarketData()
+        self.__yahoo_client = YahooMarketData()
         provider_mapping: dict[DataProvider, BaseDataProvider] = {
-            DataProvider.ALPACA: AlpacaMarketData(),
-            DataProvider.YAHOO: YahooMarketData(),
+            DataProvider.ALPACA: self.__alpaca_client,
+            DataProvider.YAHOO: self.__yahoo_client,
         }
         self.__provider_client = provider_mapping[data_provider]
 
@@ -95,3 +98,24 @@ class MarketData:
         )
         # remove tickers that do not have enough observations
         return returns.dropna(axis=1, thresh=int(returns.shape[0] * required_pct_obs))
+
+    def get_asset_from_ticker(self, ticker: str) -> AssetModel:
+        """
+        Return asset info from ticker.
+
+        Parameters
+        ----------
+        `ticker`: str
+            A str representing the ticker.
+
+        Returns
+        -------
+        `asset`
+            AssetModel data model.
+        """
+        apca_asset = self.__alpaca_client.get_alpaca_asset(ticker)
+        yahoo_asset = self.__yahoo_client.get_yahoo_asset(ticker)
+        return AssetModel(
+            **apca_asset.dict(),
+            **yahoo_asset.dict(),
+        )

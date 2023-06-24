@@ -3,6 +3,7 @@ import pandas as pd
 import vcr
 
 from optifolio.market import MarketData
+from optifolio.models.asset import AssetModel
 
 
 @vcr.use_cassette("tests/data/cassettes/test_get_bars.yaml")
@@ -37,3 +38,13 @@ def test_get_total_returns(
     )
     assert isinstance(returns, pd.DataFrame)
     assert sorted(returns.columns) == sorted(test_tickers)
+
+
+def test_get_asset(
+    market_data: MarketData,
+) -> None:
+    """Test get_total_returns method."""
+    asset = market_data.get_asset_from_ticker(
+        ticker="AAPL",
+    )
+    assert isinstance(asset, AssetModel)

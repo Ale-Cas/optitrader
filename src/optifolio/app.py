@@ -42,8 +42,9 @@ TEST_TICKERS = (
     "COIN",
 )
 if objective_names:
+    market_data = MarketData()
     solver = Solver(
-        returns=MarketData().get_total_returns(
+        returns=market_data.get_total_returns(
             tickers=TEST_TICKERS,
             start_date=pd.Timestamp(start_date),
             end_date=pd.Timestamp.today().utcnow() - pd.Timedelta(value=1, unit="day"),
@@ -53,7 +54,7 @@ if objective_names:
         ],
         constraint_functions=[SumToOneConstraint(), NoShortSellConstraint()],
     )
-    if st.button(label="Solve problem."):
+    if st.button(label="Solve optimization problem."):
         opt_ptf = solver.solve(weights_tolerance=1e-2)
         fig1, ax1 = plt.subplots()
         weights = opt_ptf.get_non_zero_weights()
@@ -67,3 +68,5 @@ if objective_names:
         ax1.axis("equal")  # Equal aspect ratio ensures that pie is drawn as a circle.
 
         st.pyplot(fig1)
+        opt_ptf.set_market_data(market_data)
+        st.dataframe(opt_ptf.get_holdings_df())
