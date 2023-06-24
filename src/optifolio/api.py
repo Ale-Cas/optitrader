@@ -4,6 +4,7 @@ import logging
 
 import coloredlogs
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 app = FastAPI()
 
@@ -19,6 +20,6 @@ def startup_event() -> None:
 
 
 @app.get("/")
-def read_root() -> str:
-    """Read root."""
-    return "Hello world"
+def reroute_to_docs() -> RedirectResponse:
+    """Automatically redirect homepage to docs."""
+    return RedirectResponse(url="/docs")
