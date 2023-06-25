@@ -2,6 +2,7 @@
 
 import pandas as pd
 
+from optifolio.config import SETTINGS
 from optifolio.market.alpaca_market_data import AlpacaMarketData
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.market.enums import BarsField, DataProvider
@@ -12,11 +13,20 @@ from optifolio.models.asset import AssetModel
 class MarketData:
     """Class that implements market data connections."""
 
-    def __init__(
+    def __init__(  # noqa: PLR0913
         self,
         data_provider: DataProvider = DataProvider.ALPACA,
+        trading_key: str | None = SETTINGS.ALPACA_TRADING_API_KEY,
+        trading_secret: str | None = SETTINGS.ALPACA_TRADING_API_SECRET,
+        broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
+        broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
     ) -> None:
-        self.__alpaca_client = AlpacaMarketData()
+        self.__alpaca_client = AlpacaMarketData(
+            trading_key=trading_key,
+            trading_secret=trading_secret,
+            broker_key=broker_key,
+            broker_secret=broker_secret,
+        )
         self.__yahoo_client = YahooMarketData()
         provider_mapping: dict[DataProvider, BaseDataProvider] = {
             DataProvider.ALPACA: self.__alpaca_client,

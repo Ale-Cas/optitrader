@@ -1,6 +1,7 @@
 """Implementation of Alpaca as DataProvider."""
 
 import pandas as pd
+from alpaca.broker import BrokerClient
 from alpaca.data import Adjustment, BarSet, StockBarsRequest, StockHistoricalDataClient, TimeFrame
 from alpaca.trading import Asset, AssetClass, AssetStatus, GetAssetsRequest, TradingClient
 
@@ -12,19 +13,39 @@ from optifolio.market.enums import BarsField
 class AlpacaMarketData(BaseDataProvider):
     """Class to get market data from Alpaca."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        trading_key: str | None = SETTINGS.ALPACA_TRADING_API_KEY,
+        trading_secret: str | None = SETTINGS.ALPACA_TRADING_API_SECRET,
+        broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
+        broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
+    ) -> None:
         super().__init__()
-        api_key = SETTINGS.ALPACA_TRADING_API_KEY
-        secret_key = SETTINGS.ALPACA_TRADING_API_SECRET
-        assert isinstance(api_key, str)
-        assert isinstance(secret_key, str)
-        self.data_client = StockHistoricalDataClient(
-            api_key=SETTINGS.ALPACA_TRADING_API_KEY,
-            secret_key=SETTINGS.ALPACA_TRADING_API_SECRET,
+        assert (
+            SETTINGS.is_trading or SETTINGS.is_broker
+        ), "Either Trading API or Broker API keys must be provided to use this service."
+        self.__data_client = (
+            StockHistoricalDataClient(
+                api_key=trading_key,
+                secret_key=trading_secret,
+            )
+            if SETTINGS.is_trading
+            else StockHistoricalDataClient(
+                api_key=broker_key,
+                secret_key=broker_secret,
+                use_basic_auth=True,
+            )
         )
-        self.trading_client = TradingClient(
-            api_key=SETTINGS.ALPACA_TRADING_API_KEY,
-            secret_key=SETTINGS.ALPACA_TRADING_API_SECRET,
+        self.__asset_client: BrokerClient | TradingClient = (
+            TradingClient(
+                api_key=trading_key,
+                secret_key=trading_secret,
+            )
+            if SETTINGS.is_trading
+            else BrokerClient(
+                api_key=broker_key,
+                secret_key=broker_secret,
+            )
         )
 
     def get_bars(
@@ -50,7 +71,7 @@ class AlpacaMarketData(BaseDataProvider):
         `bars`
             a pd.DataFrame with the bars for the tickers.
         """
-        bars = self.data_client.get_stock_bars(
+        bars = self.__data_client.get_stock_bars(
             StockBarsRequest(
                 symbol_or_symbols=sorted(tickers),
                 start=start_date,
@@ -99,7 +120,7 @@ class AlpacaMarketData(BaseDataProvider):
 
     def get_alpaca_asset(self, ticker: str) -> Asset:
         """Get alpaca asset by ticker."""
-        asset = self.trading_client.get_asset(symbol_or_asset_id=ticker)
+        asset = self.__asset_client.get_asset(symbol_or_asset_id=ticker)
         assert isinstance(asset, Asset)
         return asset
 
@@ -109,7 +130,7 @@ class AlpacaMarketData(BaseDataProvider):
         asset_class: AssetClass = AssetClass.US_EQUITY,
     ) -> list[Asset]:
         """Get alpaca asset by ticker."""
-        assets = self.trading_client.get_all_assets(
+        assets = self.__asset_client.get_all_assets(
             GetAssetsRequest(
                 status=status,
                 asset_class=asset_class,

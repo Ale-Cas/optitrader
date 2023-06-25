@@ -24,5 +24,15 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
 
+    @property
+    def is_trading(self) -> bool:
+        """If the settings are for the trading keys."""
+        return bool(self.ALPACA_TRADING_API_KEY or self.ALPACA_TRADING_API_SECRET)
+
+    @property
+    def is_broker(self) -> bool:
+        """If the settings are for the broker keys."""
+        return bool(self.ALPACA_BROKER_API_KEY or self.ALPACA_BROKER_API_SECRET)
+
 
 SETTINGS = Settings()

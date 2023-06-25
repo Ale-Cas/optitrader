@@ -45,7 +45,7 @@ jobs:
             envkey_ALPACA_BROKER_API_KEY: ${{ secrets.ALPACA_BROKER_API_KEY}}
             envkey_ALPACA_BROKER_API_SECRET: ${{ secrets.ALPACA_BROKER_API_SECRET}}
 
-            file_name: testing.env
+            file_name: .env
             fail_on_empty: true
 
       - name: Lint package
