@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 
+from optifolio.investment_universe import TEST_TICKERS
 from optifolio.market.market_data import MarketData
 from optifolio.optimization.constraints import NoShortSellConstraint, SumToOneConstraint
 from optifolio.optimization.objectives import ObjectiveName, objective_mapping
@@ -18,29 +19,7 @@ start_date = st.date_input(
     label="Choose the start date.",
     value=pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day"),
 )
-TEST_TICKERS = (
-    "AAPL",
-    "AMZN",
-    "TSLA",
-    "GOOGL",
-    "BRK.B",
-    "V",
-    "JPM",
-    "NVDA",
-    "MSFT",
-    "DIS",
-    "NFLX",
-    "META",
-    "WMT",
-    "BABA",
-    "AMD",
-    "ACN",
-    "PFE",
-    "ORCL",
-    "ZM",
-    "SHOP",
-    "COIN",
-)
+
 if objective_names:
     market_data = MarketData()
     solver = Solver(
@@ -49,10 +28,8 @@ if objective_names:
             start_date=pd.Timestamp(start_date),
             end_date=pd.Timestamp.today().utcnow() - pd.Timedelta(value=1, unit="day"),
         ),
-        objective_functions=[
-            objective_mapping[ObjectiveName(obj_name)] for obj_name in objective_names
-        ],
-        constraint_functions=[SumToOneConstraint(), NoShortSellConstraint()],
+        objectives=[objective_mapping[ObjectiveName(obj_name)] for obj_name in objective_names],
+        constraints=[SumToOneConstraint(), NoShortSellConstraint()],
     )
     if st.button(label="Solve optimization problem."):
         opt_ptf = solver.solve(weights_tolerance=1e-2)

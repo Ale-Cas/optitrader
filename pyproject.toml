@@ -93,7 +93,7 @@ fix = true
 ignore-init-module-imports = true
 line-length = 100
 select = ["A", "ASYNC", "B", "C4", "C90", "D", "DTZ", "E", "F", "FLY", "I", "ISC", "N", "NPY", "PGH", "PIE", "PLC", "PLE", "PLR", "PLW", "PT", "RET", "RUF", "RSE", "SIM", "TID", "UP", "W", "YTT"]
-ignore = ["E501", "PGH001", "PGH002", "PGH003", "RET504", "S101"]
+ignore = ["E501", "PGH001", "PGH002", "PGH003", "RET504", "S101", "DTZ011", "DTZ003"]
 unfixable = ["F401", "F841"]
 src = ["src", "tests"]
 target-version = "py310"
@@ -138,10 +138,10 @@ convention = "numpy"
     default = "0.0.0.0"
 
     [[tool.poe.tasks.api.args]]
-    help = "Bind socket to this port (default: 8000)"
+    help = "Bind socket to this port (default: 8080)"
     name = "port"
     options = ["--port"]
-    default = "8000"
+    default = "8080"
 
     [[tool.poe.tasks.api.args]]
     help = "Enable development mode"

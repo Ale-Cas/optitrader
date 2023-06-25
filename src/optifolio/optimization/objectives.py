@@ -23,7 +23,7 @@ class ObjectiveValue(BaseModel):
     value: float
 
 
-class ObjectiveFunction(metaclass=ABCMeta):
+class PortfolioObjective(metaclass=ABCMeta):
     """Objective function abstract class."""
 
     def __init__(
@@ -43,7 +43,7 @@ class ObjectiveFunction(metaclass=ABCMeta):
         """Get optimization matrices."""
 
 
-class CVaRObjectiveFunction(ObjectiveFunction):
+class CVaRObjectiveFunction(PortfolioObjective):
     """CVaR objective function."""
 
     def __init__(
@@ -72,7 +72,7 @@ class CVaRObjectiveFunction(ObjectiveFunction):
         ]
 
 
-class CovarianceObjectiveFunction(ObjectiveFunction):
+class CovarianceObjectiveFunction(PortfolioObjective):
     """Variance objective function."""
 
     def __init__(
@@ -93,7 +93,7 @@ class CovarianceObjectiveFunction(ObjectiveFunction):
         return {self.name: cp.Minimize(self.weight * objective_function)}, []
 
 
-class ExpectedReturnsObjectiveFunction(ObjectiveFunction):
+class ExpectedReturnsObjectiveFunction(PortfolioObjective):
     """Expected Returns objective function."""
 
     def __init__(
@@ -114,7 +114,7 @@ class ExpectedReturnsObjectiveFunction(ObjectiveFunction):
         return {self.name: cp.Minimize(self.weight * objective_function)}, []
 
 
-class MADObjectiveFunction(ObjectiveFunction):
+class MADObjectiveFunction(PortfolioObjective):
     """Mean Absolute Deviation objective function."""
 
     def __init__(
@@ -140,7 +140,7 @@ class MADObjectiveFunction(ObjectiveFunction):
         ]
 
 
-objective_mapping: dict[ObjectiveName, ObjectiveFunction] = {
+objective_mapping: dict[ObjectiveName, PortfolioObjective] = {
     ObjectiveName.CVAR: CVaRObjectiveFunction(),
     ObjectiveName.EXPECTED_RETURNS: ExpectedReturnsObjectiveFunction(),
     ObjectiveName.MEAN_ABSOLUTE_DEVIATION: MADObjectiveFunction(),

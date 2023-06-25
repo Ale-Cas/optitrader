@@ -23,8 +23,8 @@ def test_solver_cvar(
             start_date=test_start_date,
             end_date=test_end_date,
         ),
-        objective_functions=[CVaRObjectiveFunction()],
-        constraint_functions=[SumToOneConstraint(), NoShortSellConstraint()],
+        objectives=[CVaRObjectiveFunction()],
+        constraints=[SumToOneConstraint(), NoShortSellConstraint()],
     ).solve()
     assert all(sol.weights.values >= 0)
     assert 1 - sum(sol.weights) <= _tollerance
@@ -46,8 +46,8 @@ def test_solver_mad(
                 start_date=test_start_date,
                 end_date=test_end_date,
             ),
-            objective_functions=[MADObjectiveFunction()],
-            constraint_functions=[SumToOneConstraint(), NoShortSellConstraint()],
+            objectives=[MADObjectiveFunction()],
+            constraints=[SumToOneConstraint(), NoShortSellConstraint()],
         )
         .solve(weights_tolerance=_tollerance)
         .get_non_zero_weights()

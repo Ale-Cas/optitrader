@@ -1,10 +1,19 @@
 """Objectives."""
 from abc import ABCMeta, abstractmethod
+from enum import Enum
 
 import cvxpy as cp
 
 
-class ConstraintFunction(metaclass=ABCMeta):
+class ConstraintName(str, Enum):
+    """Support constraints."""
+
+    SUM_TO_ONE = "SUM_TO_ONE"
+    LONG_ONLY = "LONG_ONLY"
+    NUMER_OF_ASSETS = "NUMER_OF_ASSETS"
+
+
+class PortfolioConstraint(metaclass=ABCMeta):
     """Objective function abstract class."""
 
     @abstractmethod
@@ -12,7 +21,7 @@ class ConstraintFunction(metaclass=ABCMeta):
         """Get optimization matrices."""
 
 
-class NoShortSellConstraint(ConstraintFunction):
+class NoShortSellConstraint(PortfolioConstraint):
     """NoShortSell constraint."""
 
     def get_constraints_list(self, weights_variable: cp.Variable) -> list[cp.Constraint]:
@@ -20,7 +29,7 @@ class NoShortSellConstraint(ConstraintFunction):
         return [weights_variable >= 0]
 
 
-class SumToOneConstraint(ConstraintFunction):
+class SumToOneConstraint(PortfolioConstraint):
     """SumToOne constraint."""
 
     def get_constraints_list(self, weights_variable: cp.Variable) -> list[cp.Constraint]:
@@ -28,7 +37,7 @@ class SumToOneConstraint(ConstraintFunction):
         return [cp.sum(weights_variable) == 1]
 
 
-class NumberOfAssetsConstraint(ConstraintFunction):
+class NumberOfAssetsConstraint(PortfolioConstraint):
     """NumberOfAssets constraint."""
 
     def __init__(
@@ -48,3 +57,10 @@ class NumberOfAssetsConstraint(ConstraintFunction):
         if self.upper_bound is not None:
             constraints.append(cp.sum(w_bool) <= self.upper_bound)
         return constraints
+
+
+constraint_mapping: dict[ConstraintName, PortfolioConstraint] = {
+    ConstraintName.SUM_TO_ONE: SumToOneConstraint(),
+    ConstraintName.LONG_ONLY: NoShortSellConstraint(),
+    ConstraintName.NUMER_OF_ASSETS: NumberOfAssetsConstraint(),
+}

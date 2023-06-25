@@ -1,12 +1,18 @@
 """optifolio REST API."""
 
 import logging
+from collections import OrderedDict
 
 import coloredlogs
+import pandas as pd
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-app = FastAPI()
+from optifolio.market.market_data import MarketData
+from optifolio.models import OptimizationRequest, OptimizationResponse
+from optifolio.optimization.solver import Solver
+
+app = FastAPI(title="Optifolio API")
 
 
 @app.on_event("startup")
@@ -23,3 +29,26 @@ def startup_event() -> None:
 def reroute_to_docs() -> RedirectResponse:
     """Automatically redirect homepage to docs."""
     return RedirectResponse(url="/docs")
+
+
+@app.post("/optimization")
+def compute_optimal_portfolio(
+    request_body: OptimizationRequest,
+) -> OptimizationResponse:
+    """Compute the optimal portfolio."""
+    market = MarketData()
+    opt_ptf = Solver(
+        returns=market.get_total_returns(
+            tickers=request_body.tickers,
+            start_date=pd.Timestamp(request_body.start_date),
+            end_date=pd.Timestamp(request_body.end_date),
+        ),
+        constraints=[con.to_ptf_constraint() for con in request_body.constraints],
+        objectives=[obj.to_ptf_objective() for obj in request_body.objectives],
+    ).solve(
+        weights_tolerance=request_body.weights_tolerance,
+    )
+    return OptimizationResponse(
+        weights=opt_ptf.get_non_zero_weights().to_dict(OrderedDict),
+        objective_values=opt_ptf.objective_values,
+    )

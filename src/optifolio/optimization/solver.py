@@ -4,8 +4,8 @@ from typing import Any
 import cvxpy as cp
 import pandas as pd
 
-from optifolio.optimization.constraints import ConstraintFunction
-from optifolio.optimization.objectives import ObjectiveFunction, ObjectiveName, ObjectiveValue
+from optifolio.optimization.constraints import PortfolioConstraint
+from optifolio.optimization.objectives import ObjectiveName, ObjectiveValue, PortfolioObjective
 from optifolio.portfolio import Portfolio
 
 
@@ -15,14 +15,14 @@ class Solver:
     def __init__(
         self,
         returns: pd.DataFrame,
-        objective_functions: list[ObjectiveFunction],
-        constraint_functions: list[ConstraintFunction],
+        objectives: list[PortfolioObjective],
+        constraints: list[PortfolioConstraint],
     ) -> None:
         if returns.isna().sum().sum():
             raise AssertionError("Passed `returns` contains NaN.")
         self.returns = returns
-        self.objective_functions = objective_functions
-        self.constraint_functions = constraint_functions
+        self.objectives = objectives
+        self.constraints = constraints
         self._universe = list(self.returns.columns)
 
     def _get_cvxpy_objectives_and_constraints(
@@ -30,17 +30,17 @@ class Solver:
     ) -> tuple[list[dict[ObjectiveName, cp.Minimize]], list[cp.Constraint]]:
         """Get portfolio optimization problem."""
         assert (
-            self.objective_functions
+            self.objectives
         ), "To get a portfolio optimization problem, at least one objective is needed."
         cvxpy_objectives: list[dict[ObjectiveName, cp.Minimize]] = []
         cvxpy_constraints: list[cp.Constraint] = []
-        for obj_fun in self.objective_functions:
+        for obj_fun in self.objectives:
             objective, constr_list = obj_fun.get_objective_and_auxiliary_constraints(
                 returns=self.returns, weights_variable=weights_variable
             )
             cvxpy_objectives.append(objective)
             cvxpy_constraints.extend(constr_list)
-        for constr_fun in self.constraint_functions:
+        for constr_fun in self.constraints:
             cvxpy_constraints.extend(
                 constr_fun.get_constraints_list(weights_variable=weights_variable)
             )
