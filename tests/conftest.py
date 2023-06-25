@@ -46,10 +46,10 @@ def test_tickers() -> tuple[str, ...]:
 @pytest.fixture()
 def test_start_date() -> pd.Timestamp:
     """Start date for testing."""
-    return pd.Timestamp("2023-01-01")
+    return pd.Timestamp("2023-01-01").normalize()
 
 
 @pytest.fixture()
 def test_end_date() -> pd.Timestamp:
     """Start date for testing."""
-    return pd.Timestamp("2023-06-01")
+    return pd.Timestamp("2023-06-01").normalize()

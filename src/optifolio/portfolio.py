@@ -24,6 +24,11 @@ class Portfolio:
         """Non zero weights."""
         return self.weights[self.weights != 0]
 
+    def get_tickers(self, only_non_zero: bool = True) -> tuple[str, ...]:
+        """Get the tickers in portfolio."""
+        weights = self.get_non_zero_weights() if only_non_zero else self.weights
+        return tuple(weights.keys())
+
     @typechecked
     def set_market_data(self, market_data: MarketData) -> None:
         """Set the market data."""
@@ -50,3 +55,19 @@ class Portfolio:
         return pd.DataFrame(
             [asset.dict() for asset in self.get_assets_in_portfolio()],
         ).set_index("symbol")
+
+    def get_history(
+        self,
+        start_date: pd.Timestamp,
+        end_date: pd.Timestamp | None = None,
+    ) -> pd.Series:
+        """Get the portfolio wealth history."""
+        assert isinstance(
+            self.market_data, MarketData
+        ), "You must set the market data to get the assets info."
+        rets = self.market_data.get_total_returns(
+            tickers=self.get_tickers(),
+            start_date=start_date,
+            end_date=end_date,
+        )
+        return 1 + (rets * self.get_non_zero_weights()).sum(axis=1, skipna=True).cumsum()

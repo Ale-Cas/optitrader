@@ -75,7 +75,7 @@ class AlpacaMarketData(BaseDataProvider):
             StockBarsRequest(
                 symbol_or_symbols=sorted(tickers),
                 start=start_date,
-                end=end_date + pd.Timedelta(5, unit="hours"),  # needed to include last day
+                end=end_date or (pd.Timestamp.utcnow() - pd.Timedelta(15, unit="min")),
                 adjustment=Adjustment.ALL,
                 timeframe=TimeFrame.Day,
             )

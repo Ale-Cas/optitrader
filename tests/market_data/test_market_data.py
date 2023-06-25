@@ -1,12 +1,13 @@
 """Test market_data module."""
 import pandas as pd
+import pytest
 import vcr
 
 from optifolio.market import MarketData
 from optifolio.models.asset import AssetModel
 
 
-@vcr.use_cassette("tests/data/cassettes/test_get_bars.yaml")
+@pytest.mark.vcr()
 def test_load_prices(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -23,7 +24,7 @@ def test_load_prices(
     assert sorted(prices.columns) == sorted(test_tickers)
 
 
-@vcr.use_cassette("tests/data/cassettes/test_get_bars.yaml")
+@vcr.use_cassette("tests/data/cassettes/test_load_prices.yaml")
 def test_get_total_returns(
     market_data: MarketData,
     test_tickers: tuple[str, ...],

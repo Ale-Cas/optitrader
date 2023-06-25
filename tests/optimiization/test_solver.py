@@ -8,7 +8,7 @@ from optifolio.optimization.objectives import CVaRObjectiveFunction, MADObjectiv
 from optifolio.optimization.solver import Solver
 
 
-@vcr.use_cassette("tests/data/cassettes/test_get_bars.yaml")
+@vcr.use_cassette("tests/data/cassettes/test_load_prices.yaml")
 def test_solver_cvar(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -30,7 +30,7 @@ def test_solver_cvar(
     assert 1 - sum(sol.weights) <= _tollerance
 
 
-@vcr.use_cassette("tests/data/cassettes/test_get_bars.yaml")
+@vcr.use_cassette("tests/data/cassettes/test_load_prices.yaml")
 def test_solver_mad(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
