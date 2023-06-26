@@ -127,7 +127,7 @@ class AlpacaMarketData(BaseDataProvider):
         return asset
 
     @lru_cache(maxsize=256)  # noqa: B019
-    def get_alpaca_assets(  # noqa: PLR0913
+    def get_alpaca_assets(
         self,
         only_ticker: bool = True,
         status: AssetStatus = AssetStatus.ACTIVE,

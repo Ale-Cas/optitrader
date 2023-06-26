@@ -13,7 +13,7 @@ from optifolio.models.asset import AssetModel
 class MarketData:
     """Class that implements market data connections."""
 
-    def __init__(  # noqa: PLR0913
+    def __init__(
         self,
         data_provider: DataProvider = DataProvider.ALPACA,
         trading_key: str | None = SETTINGS.ALPACA_TRADING_API_KEY,
