@@ -4,7 +4,7 @@ from typing import Protocol
 
 import pandas as pd
 
-from optifolio.market.enums import BarsField
+from optifolio.enums import BarsField
 
 
 class BaseDataProvider(Protocol):

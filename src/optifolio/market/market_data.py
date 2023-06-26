@@ -3,9 +3,9 @@
 import pandas as pd
 
 from optifolio.config import SETTINGS
+from optifolio.enums import BarsField, DataProvider
 from optifolio.market.alpaca_market_data import AlpacaMarketData
 from optifolio.market.base_data_provider import BaseDataProvider
-from optifolio.market.enums import BarsField, DataProvider
 from optifolio.market.yahoo_market_data import YahooMarketData
 from optifolio.models.asset import AssetModel
 
@@ -129,3 +129,67 @@ class MarketData:
             **apca_asset.dict(),
             **yahoo_asset.dict(),
         )
+
+    def get_tradable_tickers(self) -> tuple[str, ...]:
+        """Get all tradable tickers from Alpaca."""
+        return tuple(self.__alpaca_client.get_alpaca_assets())  # type: ignore
+
+    def get_total_number_of_shares(
+        self,
+        tickers: tuple[str, ...],
+    ) -> pd.Series:
+        """Get the number of shares for each ticket in tickets."""
+        return self.__yahoo_client.get_multi_number_of_shares(tickers)
+
+    def get_market_caps(
+        self,
+        tickers: tuple[str, ...],
+        start_date: pd.Timestamp,
+        end_date: pd.Timestamp | None = None,
+    ) -> pd.DataFrame:
+        """
+        Return total return dataframe.
+
+        Parameters
+        ----------
+        `tickers`: tuple[str, ...]
+            A tuple of str representing the tickers.
+        `start_date`: pd.Timestamp
+            A pd.Timestamp representing start date.
+        `end_date`: pd.Timestamp
+            A pd.Timestamp representing end date.
+        `required_pct_obs`: float
+            Minimum treshold for non NaNs in each column.
+            Columns with more NaNs(%)>required_pct_obs will be dropped.
+
+        Returns
+        -------
+        `returns`
+            pd.DataFrame with market linear returns.
+        """
+        return self.load_prices(
+            tickers=tickers,
+            start_date=start_date,
+            end_date=end_date,
+        ) * self.get_total_number_of_shares(tickers)
+
+    def get_top_market_caps(
+        self,
+        tickers: tuple[str, ...],
+        top: int,
+    ) -> pd.Series:
+        """Get the tickers with the top market cap."""
+        caps = self.get_market_caps(
+            tickers=tickers,
+            # only taking last week data for the market cap
+            start_date=pd.Timestamp.today() - pd.Timedelta(days=5),
+        )
+        return caps.iloc[-1, :].sort_values(ascending=False)[:top]
+
+    def get_top_market_cap_tickers(
+        self,
+        tickers: tuple[str, ...],
+        top: int = 10,
+    ) -> tuple[str, ...]:
+        """Get the tickers with the top market cap."""
+        return tuple(self.get_top_market_caps(tickers=tickers, top=top).index)

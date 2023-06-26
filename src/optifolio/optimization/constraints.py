@@ -16,6 +16,9 @@ class ConstraintName(str, Enum):
 class PortfolioConstraint(metaclass=ABCMeta):
     """Objective function abstract class."""
 
+    def __init__(self, name) -> None:
+        self.name = name
+
     @abstractmethod
     def get_constraints_list(self, weights_variable: cp.Variable) -> list[cp.Constraint]:
         """Get optimization matrices."""
@@ -24,6 +27,9 @@ class PortfolioConstraint(metaclass=ABCMeta):
 class NoShortSellConstraint(PortfolioConstraint):
     """NoShortSell constraint."""
 
+    def __init__(self) -> None:
+        super().__init__(name=ConstraintName.LONG_ONLY)
+
     def get_constraints_list(self, weights_variable: cp.Variable) -> list[cp.Constraint]:
         """Get no short sell constraint matrices."""
         return [weights_variable >= 0]
@@ -31,6 +37,9 @@ class NoShortSellConstraint(PortfolioConstraint):
 
 class SumToOneConstraint(PortfolioConstraint):
     """SumToOne constraint."""
+
+    def __init__(self) -> None:
+        super().__init__(name=ConstraintName.SUM_TO_ONE)
 
     def get_constraints_list(self, weights_variable: cp.Variable) -> list[cp.Constraint]:
         """Get sum to one constraint matrices."""
@@ -45,6 +54,7 @@ class NumberOfAssetsConstraint(PortfolioConstraint):
         lower_bound: int | None = None,
         upper_bound: int | None = None,
     ) -> None:
+        super().__init__(name=ConstraintName.NUMER_OF_ASSETS)
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
 

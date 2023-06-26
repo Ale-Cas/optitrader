@@ -4,6 +4,7 @@
 from collections import OrderedDict
 from datetime import date, datetime, timedelta
 
+from optifolio.market.investment_universe import UniverseName
 from optifolio.models.base import CustomBaseModel as BaseModel
 from optifolio.optimization.constraints import (
     ConstraintName,
@@ -42,7 +43,8 @@ class ConstraintModel(BaseModel):
 class OptimizationRequest(BaseModel):
     """Optimization request body."""
 
-    tickers: tuple[str, ...]
+    tickers: tuple[str, ...] | None
+    universe_name: UniverseName | None = UniverseName.POPULAR_STOCKS
     start_date: date = datetime.utcnow().date() - timedelta(days=365 * 2)
     end_date: date = datetime.utcnow().date() - timedelta(days=1)
     objectives: list[ObjectiveModel]

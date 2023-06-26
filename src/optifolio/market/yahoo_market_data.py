@@ -3,8 +3,8 @@
 import pandas as pd
 from yahooquery import Ticker
 
+from optifolio.enums import BarsField
 from optifolio.market.base_data_provider import BaseDataProvider
-from optifolio.market.enums import BarsField
 from optifolio.models.asset import YahooAssetModel
 
 
@@ -17,6 +17,10 @@ class YahooMarketData(BaseDataProvider):
     def parse_ticker_for_yahoo(self, ticker: str) -> str:
         """Replace a dot with a hyphen for yahoo in ticker."""
         return ticker.replace(".", "-")
+
+    def parse_ticker_from_yahoo(self, ticker: str) -> str:
+        """Replace a dot with a hyphen for yahoo in ticker."""
+        return ticker.replace("-", ".")
 
     def parse_tickers_for_yahoo(self, tickers: tuple[str, ...]) -> tuple[str, ...]:
         """Replace a dot with a hyphen for yahoo in tickers."""
@@ -92,4 +96,21 @@ class YahooMarketData(BaseDataProvider):
             **_profile,
             business_summary=_profile["longBusinessSummary"],
             total_number_of_shares=_ticker.key_stats[ticker]["sharesOutstanding"],
+        )
+
+    def get_number_of_shares(self, ticker: str) -> int:
+        """Get the sharesOutstanding field from yahoo query."""
+        return int(Ticker(ticker).key_stats[ticker]["sharesOutstanding"])
+
+    def get_multi_number_of_shares(self, tickers: tuple[str, ...]) -> pd.Series:
+        """Get the sharesOutstanding field from yahoo query."""
+        tickers = self.parse_tickers_for_yahoo(tickers)
+        y_tickers = Ticker(symbols=sorted(tickers), asynchronous=True, max_workers=20)
+        return pd.Series(
+            {
+                self.parse_ticker_from_yahoo(ticker): int(
+                    y_tickers.key_stats[ticker]["sharesOutstanding"]
+                )
+                for ticker in tickers
+            }
         )

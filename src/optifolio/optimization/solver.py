@@ -4,8 +4,12 @@ from typing import Any
 import cvxpy as cp
 import pandas as pd
 
-from optifolio.optimization.constraints import PortfolioConstraint
-from optifolio.optimization.objectives import ObjectiveName, ObjectiveValue, PortfolioObjective
+from optifolio.optimization.constraints import ConstraintName, PortfolioConstraint
+from optifolio.optimization.objectives import (
+    ObjectiveValue,
+    OptimizationVariables,
+    PortfolioObjective,
+)
 from optifolio.portfolio import Portfolio
 
 
@@ -27,12 +31,12 @@ class Solver:
 
     def _get_cvxpy_objectives_and_constraints(
         self, weights_variable: cp.Variable
-    ) -> tuple[list[dict[ObjectiveName, cp.Minimize]], list[cp.Constraint]]:
+    ) -> tuple[list[OptimizationVariables], list[cp.Constraint]]:
         """Get portfolio optimization problem."""
         assert (
             self.objectives
         ), "To get a portfolio optimization problem, at least one objective is needed."
-        cvxpy_objectives: list[dict[ObjectiveName, cp.Minimize]] = []
+        cvxpy_objectives: list[OptimizationVariables] = []
         cvxpy_constraints: list[cp.Constraint] = []
         for obj_fun in self.objectives:
             objective, constr_list = obj_fun.get_objective_and_auxiliary_constraints(
@@ -62,20 +66,24 @@ class Solver:
             weights_var
         )
         problem = cp.Problem(
-            objective=cp.sum([min_obj for obj in cvxpy_objectives for min_obj in obj.values()]),
+            # objective=cp.sum([min_obj for obj in cvxpy_objectives for min_obj in obj.values()]),
+            objective=cp.sum([obj.minimize for obj in cvxpy_objectives]),
             constraints=cvxpy_constraints,
         )
         problem.solve(**kwargs)
         if problem.status != "optimal":
             raise AssertionError(f"Problem status is not optimal but: {problem.status}")
         weights_series = pd.Series(dict(zip(self._universe, weights_var.value, strict=True)))
+        if ConstraintName.SUM_TO_ONE in [c.name for c in self.constraints]:
+            assert 1 - weights_series.sum() <= weights_tolerance
+        elif ConstraintName.LONG_ONLY in [c.name for c in self.constraints]:
+            assert all(weights_series >= 0)
         if weights_tolerance is not None:
             weights_series[abs(weights_series) < weights_tolerance] = 0.0
         return Portfolio(
             weights=weights_series,
             objective_values=[
-                ObjectiveValue(name=name, value=obj.value)
+                ObjectiveValue(name=cvxpy_obj.name, value=cvxpy_obj.minimize.value)
                 for cvxpy_obj in cvxpy_objectives
-                for name, obj in cvxpy_obj.items()
             ],
         )

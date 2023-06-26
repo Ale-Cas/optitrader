@@ -12,8 +12,14 @@ from optifolio.optimization.solver import Solver
 
 st.title("Optifolio Dashboard")
 
+universe_name = st.selectbox(
+    label="Choose the investment universe",
+    options=[name.value for name in list(UniverseName)],
+)
 objective_names = st.multiselect(
-    label="Choose objectives", options=[obj_name.value for obj_name in list(ObjectiveName)]
+    label="Choose objectives",
+    options=[obj_name.value for obj_name in list(ObjectiveName)],
+    default=[ObjectiveName.CVAR],
 )
 start_date = pd.Timestamp(
     st.date_input(
@@ -22,11 +28,11 @@ start_date = pd.Timestamp(
     )
 )
 
-if objective_names:
+if objective_names and universe_name:
     market_data = MarketData()
     solver = Solver(
         returns=market_data.get_total_returns(
-            tickers=InvestmentUniverse(name=UniverseName.POPULAR_STOCKS).tickers,
+            tickers=InvestmentUniverse(name=UniverseName(universe_name)).tickers,
             start_date=start_date,
             end_date=pd.Timestamp.today().utcnow() - pd.Timedelta(value=1, unit="day"),
         ),
@@ -34,29 +40,36 @@ if objective_names:
         constraints=[SumToOneConstraint(), NoShortSellConstraint()],
     )
     if st.button(label="Solve optimization problem."):
-        opt_ptf = solver.solve(weights_tolerance=1e-2)
-        weights = opt_ptf.get_non_zero_weights()
+        with st.spinner("Optimization in progress"):
+            opt_ptf = solver.solve(weights_tolerance=1e-2)
+        with st.spinner("Elaborating solution"):
+            weights = opt_ptf.get_non_zero_weights()
 
-        st.plotly_chart(
-            figure_or_data=px.pie(
-                data_frame=weights,
-                names=weights.keys(),
-                values=weights.values,
-                title="Portfolio Allocation",
-            ),
-            use_container_width=True,
-        )
-        opt_ptf.set_market_data(market_data)
-        st.dataframe(opt_ptf.get_holdings_df())
-        history = opt_ptf.get_history(start_date=start_date)
-        st.plotly_chart(
-            figure_or_data=px.line(
-                data_frame=history,
-                x=history.index,
-                y=history.values,
-                # labels={"timestamp": "Days", "y": "Portfolio Value"},
-                labels={"timestamp": "", "y": ""},
-                title="Portfolio Value",
-            ),
-            use_container_width=True,
-        )
+            st.plotly_chart(
+                figure_or_data=px.pie(
+                    data_frame=weights,
+                    names=weights.keys(),
+                    values=weights.values,
+                    title="Portfolio Allocation",
+                ),
+                use_container_width=True,
+            )
+            opt_ptf.set_market_data(market_data)
+            _cols = ["name", "weight_in_ptf"]
+            holdings_df = opt_ptf.get_holdings_df()
+            st.dataframe(
+                holdings_df,
+                column_order=[*_cols, *(c for c in holdings_df.columns if c not in _cols)],
+            )
+            history = opt_ptf.get_history(start_date=start_date)
+            st.plotly_chart(
+                figure_or_data=px.line(
+                    data_frame=history,
+                    x=history.index,
+                    y=history.values,
+                    # labels={"timestamp": "Days", "y": "Portfolio Value"},
+                    labels={"timestamp": "", "y": ""},
+                    title="Portfolio Value",
+                ),
+                use_container_width=True,
+            )

@@ -1,0 +1,238 @@
+interactions:
+- request:
+    body: null
+    headers:
+      APCA-API-KEY-ID:
+      - SECRET
+      APCA-API-SECRET-KEY:
+      - SECRET
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - APCA-PY/0.8.2
+    method: GET
+    uri: https://paper-api.alpaca.markets/v2/assets/AAPL
+  response:
+    body:
+      string: '{"id":"b0b6dd9d-8b9b-48a9-ba46-b9d54906e415","class":"us_equity","exchange":"NASDAQ","symbol":"AAPL","name":"Apple
+        Inc. Common Stock","status":"active","tradable":true,"marginable":true,"maintenance_margin_requirement":30,"shortable":true,"easy_to_borrow":true,"fractionable":true,"attributes":[]}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Apca-Api-Key-Id, Apca-Api-Secret-Key, Authorization
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS, PUT, DELETE, POST, PATCH
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '297'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 26 Jun 2023 14:54:23 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Vary:
+      - Origin
+      X-Ratelimit-Limit:
+      - '200'
+      X-Ratelimit-Remaining:
+      - '199'
+      X-Ratelimit-Reset:
+      - '1687791264'
+      X-Request-Id:
+      - de5a4c7ad2c6c27ada33550827aa3bbe
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
+        Chrome/81.0.4044.138 Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v10/finance/quoteSummary/AAPL?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"quoteSummary":{"result":[{"assetProfile":{"address1":"One Apple Park
+        Way","city":"Cupertino","state":"CA","zip":"95014","country":"United States","phone":"408
+        996 1010","website":"https://www.apple.com","industry":"Consumer Electronics","industryDisp":"Consumer
+        Electronics","sector":"Technology","longBusinessSummary":"Apple Inc. designs,
+        manufactures, and markets smartphones, personal computers, tablets, wearables,
+        and accessories worldwide. The company offers iPhone, a line of smartphones;
+        Mac, a line of personal computers; iPad, a line of multi-purpose tablets;
+        and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch,
+        Beats products, and HomePod. It also provides AppleCare support and cloud
+        services; and operates various platforms, including the App Store that allow
+        customers to discover and download applications and digital content, such
+        as books, music, video, games, and podcasts. In addition, the company offers
+        various services, such as Apple Arcade, a game subscription service; Apple
+        Fitness+, a personalized fitness service; Apple Music, which offers users
+        a curated listening experience with on-demand radio stations; Apple News+,
+        a subscription news and magazine service; Apple TV+, which offers exclusive
+        original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless
+        payment service, as well as licenses its intellectual property. The company
+        serves consumers, and small and mid-sized businesses; and the education, enterprise,
+        and government markets. It distributes third-party applications for its products
+        through the App Store. The company also sells its products through its retail
+        and online stores, and direct sales force; and third-party cellular network
+        carriers, wholesalers, retailers, and resellers. Apple Inc. was incorporated
+        in 1977 and is headquartered in Cupertino, California.","fullTimeEmployees":164000,"companyOfficers":[{"maxAge":1,"name":"Mr.
+        Timothy D. Cook","age":61,"title":"CEO & Director","yearBorn":1961,"fiscalYear":2022,"totalPay":{"raw":16425933,"fmt":"16.43M","longFmt":"16,425,933"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Luca  Maestri","age":59,"title":"CFO & Sr. VP","yearBorn":1963,"fiscalYear":2022,"totalPay":{"raw":5019783,"fmt":"5.02M","longFmt":"5,019,783"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Jeffrey E. Williams","age":58,"title":"Chief Operating Officer","yearBorn":1964,"fiscalYear":2022,"totalPay":{"raw":5018337,"fmt":"5.02M","longFmt":"5,018,337"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Katherine L. Adams","age":58,"title":"Sr. VP, Gen. Counsel & Sec.","yearBorn":1964,"fiscalYear":2022,"totalPay":{"raw":5015208,"fmt":"5.02M","longFmt":"5,015,208"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Deirdre  O''Brien","age":55,"title":"Sr. VP of Retail","yearBorn":1967,"fiscalYear":2022,"totalPay":{"raw":5019783,"fmt":"5.02M","longFmt":"5,019,783"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Chris  Kondo","title":"Sr. Director of Corp. Accounting","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        James  Wilson","title":"Chief Technology Officer","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Mary  Demby","title":"Chief Information Officer","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Nancy  Paxton","title":"Sr. Director of Investor Relations & Treasury","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Greg  Joswiak","title":"Sr. VP of Worldwide Marketing","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}}],"auditRisk":4,"boardRisk":1,"compensationRisk":5,"shareHolderRightsRisk":1,"overallRisk":1,"governanceEpochDate":1685577600,"compensationAsOfEpochDate":1672444800,"maxAge":86400}}],"error":null}}'
+    headers:
+      Age:
+      - '1'
+      Connection:
+      - keep-alive
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=1, stale-while-revalidate=9
+      content-encoding:
+      - gzip
+      content-length:
+      - '1547'
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Mon, 26 Jun 2023 14:54:23 GMT
+      server:
+      - ATS
+      vary:
+      - Origin,Accept-Encoding
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '1'
+      x-request-id:
+      - b4c23057-da64-4cd1-a9b6-63b9384e1f91
+      x-yahoo-request-id:
+      - 287ocepi9j9l0
+      y-rid:
+      - 287ocepi9j9l0
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
+        Chrome/81.0.4044.138 Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v10/finance/quoteSummary/AAPL?modules=defaultKeyStatistics&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"quoteSummary":{"result":[{"defaultKeyStatistics":{"maxAge":1,"priceHint":2,"enterpriseValue":2989976977408,"forwardPE":28.576864,"profitMargins":0.24493,"floatShares":15712029576,"sharesOutstanding":15728700416,"sharesShort":117654782,"sharesShortPriorMonth":124657645,"sharesShortPreviousMonthDate":1682640000,"dateShortInterest":1685491200,"sharesPercentSharesOut":0.0075,"heldPercentInsiders":7.1000005E-4,"heldPercentInstitutions":0.61232,"shortRatio":2.03,"shortPercentOfFloat":0.0075,"beta":1.289436,"impliedSharesOutstanding":15728700416,"category":null,"bookValue":3.953,"priceToBook":47.49557,"fundFamily":null,"legalType":null,"lastFiscalYearEnd":1663977600,"nextFiscalYearEnd":1695513600,"mostRecentQuarter":1680307200,"earningsQuarterlyGrowth":-0.034,"netIncomeToCommon":94321000448,"trailingEps":5.9,"forwardEps":6.57,"pegRatio":3.92,"lastSplitFactor":"4:1","lastSplitDate":1598832000,"enterpriseToRevenue":7.764,"enterpriseToEbitda":24.154,"52WeekChange":0.31780314,"SandP52WeekChange":0.11492491,"lastDividendValue":0.24,"lastDividendDate":1683849600}}],"error":null}}'
+    headers:
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=1, stale-while-revalidate=9
+      content-length:
+      - '1085'
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Mon, 26 Jun 2023 14:54:24 GMT
+      server:
+      - ATS
+      vary:
+      - Origin,Accept-Encoding
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '5'
+      x-request-id:
+      - f50e37d1-7693-4256-aa8e-eec7998acf0b
+      x-yahoo-request-id:
+      - 5k53s0hi9j9l0
+      y-rid:
+      - 5k53s0hi9j9l0
+    status:
+      code: 200
+      message: OK
+version: 1

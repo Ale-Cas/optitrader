@@ -1,13 +1,15 @@
 """Implementation of Alpaca as DataProvider."""
 
+from functools import lru_cache
+
 import pandas as pd
 from alpaca.broker import BrokerClient
 from alpaca.data import Adjustment, BarSet, StockBarsRequest, StockHistoricalDataClient, TimeFrame
 from alpaca.trading import Asset, AssetClass, AssetStatus, GetAssetsRequest, TradingClient
 
 from optifolio.config import SETTINGS
+from optifolio.enums import BarsField
 from optifolio.market.base_data_provider import BaseDataProvider
-from optifolio.market.enums import BarsField
 
 
 class AlpacaMarketData(BaseDataProvider):
@@ -124,11 +126,16 @@ class AlpacaMarketData(BaseDataProvider):
         assert isinstance(asset, Asset)
         return asset
 
-    def get_alpaca_assets(
+    @lru_cache(maxsize=256)  # noqa: B019
+    def get_alpaca_assets(  # noqa: PLR0913
         self,
+        only_ticker: bool = True,
         status: AssetStatus = AssetStatus.ACTIVE,
         asset_class: AssetClass = AssetClass.US_EQUITY,
-    ) -> list[Asset]:
+        tradable: bool = True,
+        marginable: bool = True,
+        fractionable: bool = True,
+    ) -> list[str] | list[Asset]:
         """Get alpaca asset by ticker."""
         assets = self.__asset_client.get_all_assets(
             GetAssetsRequest(
@@ -137,4 +144,10 @@ class AlpacaMarketData(BaseDataProvider):
             )
         )
         assert isinstance(assets, list)
-        return assets
+        return [  # type: ignore
+            a.symbol if only_ticker else a
+            for a in assets
+            if a.tradable == tradable
+            and a.marginable == marginable
+            and a.fractionable == fractionable
+        ]

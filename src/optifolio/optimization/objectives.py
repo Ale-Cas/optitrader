@@ -16,11 +16,27 @@ class ObjectiveName(str, Enum):
     MEAN_ABSOLUTE_DEVIATION = "Mean Absolute Deviation"
 
 
-class ObjectiveValue(BaseModel):
-    """Model to represent the mapping of an objective to its optimal value."""
+class _BaseObjectiveModel(BaseModel):
+    """Base objective model to avoid duplication."""
 
     name: ObjectiveName
+
+
+class ObjectiveValue(_BaseObjectiveModel):
+    """Model to represent the mapping of an objective to its optimal value."""
+
     value: float
+
+
+class OptimizationVariables(_BaseObjectiveModel):
+    """Objective optimization variables."""
+
+    minimize: cp.Minimize
+
+    class Config:
+        """Configuration."""
+
+        arbitrary_types_allowed = True
 
 
 class PortfolioObjective(metaclass=ABCMeta):
@@ -39,7 +55,7 @@ class PortfolioObjective(metaclass=ABCMeta):
         self,
         returns: pd.DataFrame,
         weights_variable: cp.Variable,
-    ) -> tuple[dict[ObjectiveName, cp.Minimize], list[cp.Constraint]]:
+    ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
         """Get optimization matrices."""
 
 
@@ -58,7 +74,7 @@ class CVaRObjectiveFunction(PortfolioObjective):
         self,
         returns: pd.DataFrame,
         weights_variable: cp.Variable,
-    ) -> tuple[dict[ObjectiveName, cp.Minimize], list[cp.Constraint]]:
+    ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
         """Get CVaR optimization matrices."""
         rets_vals = returns.values
         n_obs = rets_vals.shape[0]
@@ -67,9 +83,12 @@ class CVaRObjectiveFunction(PortfolioObjective):
         objective_function = value_at_risk + 1 / ((1 - self.confidence_level) * n_obs) * cp.sum(
             losses_minus_var
         )
-        return {self.name: cp.Minimize(self.weight * objective_function)}, [
-            -rets_vals @ weights_variable - value_at_risk - losses_minus_var <= 0
-        ]
+        return (
+            OptimizationVariables(
+                name=self.name, minimize=cp.Minimize(self.weight * objective_function)
+            ),
+            [-rets_vals @ weights_variable - value_at_risk - losses_minus_var <= 0],
+        )
 
 
 class CovarianceObjectiveFunction(PortfolioObjective):
@@ -85,12 +104,17 @@ class CovarianceObjectiveFunction(PortfolioObjective):
         self,
         returns: pd.DataFrame,
         weights_variable: cp.Variable,
-    ) -> tuple[dict[ObjectiveName, cp.Minimize], list[cp.Constraint]]:
+    ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
         """Get Variance optimization matrices."""
         # Annualize the cov mat
         sigma = 252 * returns.cov().values
         objective_function = weights_variable @ sigma @ weights_variable
-        return {self.name: cp.Minimize(self.weight * objective_function)}, []
+        return (
+            OptimizationVariables(
+                name=self.name, minimize=cp.Minimize(self.weight * objective_function)
+            ),
+            [],
+        )
 
 
 class ExpectedReturnsObjectiveFunction(PortfolioObjective):
@@ -106,12 +130,17 @@ class ExpectedReturnsObjectiveFunction(PortfolioObjective):
         self,
         returns: pd.DataFrame,
         weights_variable: cp.Variable,
-    ) -> tuple[dict[ObjectiveName, cp.Minimize], list[cp.Constraint]]:
+    ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
         """Get Expected Returns optimization matrices."""
         # Annualize expected returns and put minus in front to maximize
         exp_rets = -252 * returns.mean().values
         objective_function = weights_variable @ exp_rets
-        return {self.name: cp.Minimize(self.weight * objective_function)}, []
+        return (
+            OptimizationVariables(
+                name=self.name, minimize=cp.Minimize(self.weight * objective_function)
+            ),
+            [],
+        )
 
 
 class MADObjectiveFunction(PortfolioObjective):
@@ -127,14 +156,16 @@ class MADObjectiveFunction(PortfolioObjective):
         self,
         returns: pd.DataFrame,
         weights_variable: cp.Variable,
-    ) -> tuple[dict[ObjectiveName, cp.Minimize], list[cp.Constraint]]:
+    ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
         """Get Mean Absolute Deviation optimization matrices."""
         rets_vals = returns.values
         n_obs = rets_vals.shape[0]
         abs_devs = cp.Variable(n_obs, nonneg=True)
         rets_minus_mu = rets_vals - returns.mean().values
         objective_function = cp.sum(abs_devs) / n_obs
-        return {self.name: cp.Minimize(self.weight * objective_function)}, [
+        return OptimizationVariables(
+            name=self.name, minimize=cp.Minimize(self.weight * objective_function)
+        ), [
             rets_minus_mu @ weights_variable - abs_devs <= 0,
             -rets_minus_mu @ weights_variable - abs_devs <= 0,
         ]

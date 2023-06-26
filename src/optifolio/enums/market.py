@@ -17,3 +17,12 @@ class BarsField(str, Enum):
     LOW = "low"
     CLOSE = "close"
     VOLUME = "volume"
+
+
+class UniverseName(str, Enum):
+    """Supported universe names."""
+
+    FAANG = "FAANG Stocks (Facebook, Apple, Amazon, Google & Netflix)"
+    POPULAR_STOCKS = "Most Popular Stocks"
+    NASDAQ = "NASDAQ 100"
+    SP500 = "Standard & Poor 500"

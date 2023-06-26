@@ -52,9 +52,13 @@ class Portfolio:
 
     def get_holdings_df(self) -> pd.DataFrame:
         """Return holdings info df."""
-        return pd.DataFrame(
-            [asset.dict() for asset in self.get_assets_in_portfolio()],
-        ).set_index("symbol")
+        return (
+            pd.DataFrame(
+                [asset.dict() for asset in self.get_assets_in_portfolio()],
+            )
+            .set_index("symbol")
+            .sort_values(by="weight_in_ptf", ascending=False)
+        )
 
     def get_history(
         self,
