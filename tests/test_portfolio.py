@@ -26,9 +26,9 @@ def test_portfolio_from_solver(
         objectives=[MADObjectiveFunction()],
         constraints=[SumToOneConstraint(), NoShortSellConstraint()],
     ).solve(weights_tolerance=_tollerance)
-    weights = ptf.get_non_zero_weights()
-    assert all(weights.values > _tollerance)
-    assert 1 - sum(weights) <= _tollerance
+    weights = ptf.get_non_zero_weights().values
+    assert all(weights > _tollerance)
+    assert 1 - weights.sum() <= _tollerance
     ptf.set_market_data(market_data)
     history = ptf.get_history(start_date=test_start_date, end_date=test_end_date)
     assert not history.empty

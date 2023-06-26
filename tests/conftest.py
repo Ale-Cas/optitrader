@@ -3,6 +3,9 @@ import pandas as pd
 import pytest
 
 from optifolio.market import MarketData
+from optifolio.market.investment_universe import InvestmentUniverse, UniverseName
+from optifolio.models import ObjectiveModel, OptimizationRequest
+from optifolio.optimization.objectives import ObjectiveName
 
 
 @pytest.fixture(scope="package")
@@ -53,3 +56,12 @@ def test_start_date() -> pd.Timestamp:
 def test_end_date() -> pd.Timestamp:
     """Start date for testing."""
     return pd.Timestamp("2023-06-01").normalize()
+
+
+@pytest.fixture()
+def optimization_request() -> OptimizationRequest:
+    """Mock optimization_request."""
+    return OptimizationRequest(
+        tickers=InvestmentUniverse(name=UniverseName.POPULAR_STOCKS).tickers,
+        objectives=[ObjectiveModel(name=ObjectiveName.CVAR, weight=1)],
+    )

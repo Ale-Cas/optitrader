@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-from optifolio.investment_universe import TEST_TICKERS
+from optifolio.market.investment_universe import InvestmentUniverse, UniverseName
 from optifolio.market.market_data import MarketData
 from optifolio.optimization.constraints import NoShortSellConstraint, SumToOneConstraint
 from optifolio.optimization.objectives import ObjectiveName, objective_mapping
@@ -26,7 +26,7 @@ if objective_names:
     market_data = MarketData()
     solver = Solver(
         returns=market_data.get_total_returns(
-            tickers=TEST_TICKERS,
+            tickers=InvestmentUniverse(name=UniverseName.POPULAR_STOCKS).tickers,
             start_date=start_date,
             end_date=pd.Timestamp.today().utcnow() - pd.Timedelta(value=1, unit="day"),
         ),

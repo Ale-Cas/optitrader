@@ -4,7 +4,6 @@
 from collections import OrderedDict
 from datetime import date, datetime, timedelta
 
-from optifolio.investment_universe import TEST_TICKERS
 from optifolio.models.base import CustomBaseModel as BaseModel
 from optifolio.optimization.constraints import (
     ConstraintName,
@@ -43,7 +42,7 @@ class ConstraintModel(BaseModel):
 class OptimizationRequest(BaseModel):
     """Optimization request body."""
 
-    tickers: tuple[str, ...] = TEST_TICKERS
+    tickers: tuple[str, ...]
     start_date: date = datetime.utcnow().date() - timedelta(days=365 * 2)
     end_date: date = datetime.utcnow().date() - timedelta(days=1)
     objectives: list[ObjectiveModel]
