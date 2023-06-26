@@ -14,7 +14,9 @@ _Python package_: to add and install this package as a dependency of your projec
 
 _Python CLI_: to view this app's CLI commands once it's installed, run `optifolio --help`.
 
-_Python application_: to serve this REST API, run `docker compose up app` and open [localhost:8000](http://localhost:8000) in your browser. Within the Dev Container, this is equivalent to running `poe api`.
+_Rest API_: to serve this application as a REST API, run `docker compose up app` and open [localhost:8080](http://localhost:8080) in your browser. Within the Dev Container, this is equivalent to running `poe api`.
+
+_Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `poe app` and open [localhost:8000](http://localhost:8000) in your browser
 
 ## Contributing
 
