@@ -5,9 +5,10 @@ from collections import OrderedDict
 
 import coloredlogs
 import pandas as pd
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, status
 from fastapi.responses import RedirectResponse
 
+from optifolio.market.investment_universe import InvestmentUniverse
 from optifolio.market.market_data import MarketData
 from optifolio.models import OptimizationRequest, OptimizationResponse
 from optifolio.optimization.solver import Solver
@@ -37,9 +38,18 @@ def compute_optimal_portfolio(
 ) -> OptimizationResponse:
     """Compute the optimal portfolio."""
     market = MarketData()
+    if not (request_body.tickers or request_body.universe_name):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="You must provide either tickers or universe name",
+        )
     opt_ptf = Solver(
         returns=market.get_total_returns(
-            tickers=request_body.tickers,
+            tickers=InvestmentUniverse(name=request_body.universe_name).tickers
+            if request_body.universe_name
+            else request_body.tickers
+            if request_body.tickers  # for mypy
+            else (),
             start_date=pd.Timestamp(request_body.start_date),
             end_date=pd.Timestamp(request_body.end_date),
         ),

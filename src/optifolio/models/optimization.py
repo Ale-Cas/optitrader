@@ -44,7 +44,7 @@ class OptimizationRequest(BaseModel):
     """Optimization request body."""
 
     tickers: tuple[str, ...] | None
-    universe_name: UniverseName | None = UniverseName.POPULAR_STOCKS
+    universe_name: UniverseName | None
     start_date: date = datetime.utcnow().date() - timedelta(days=365 * 2)
     end_date: date = datetime.utcnow().date() - timedelta(days=1)
     objectives: list[ObjectiveModel]
