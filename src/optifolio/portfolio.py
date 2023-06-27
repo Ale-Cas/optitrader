@@ -20,9 +20,15 @@ class Portfolio:
         self.objective_values = objective_values
         self.market_data = market_data
 
-    def get_non_zero_weights(self) -> pd.Series:
+    def __repr__(self) -> str:
+        """Object representation."""
+        objectives_dict = {o.name.value: o.value for o in self.objective_values}
+        return f"{self.__class__.__name__}(weights={self.get_non_zero_weights().to_dict()}, objective_values={objectives_dict})"
+
+    def get_non_zero_weights(self, round_to_decimal: int | None = 5) -> pd.Series:
         """Non zero weights."""
-        return self.weights[self.weights != 0]
+        non_zero = self.weights[self.weights != 0]
+        return non_zero.round(round_to_decimal) if round_to_decimal else non_zero
 
     def get_tickers(self, only_non_zero: bool = True) -> tuple[str, ...]:
         """Get the tickers in portfolio."""

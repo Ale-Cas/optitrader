@@ -4,8 +4,32 @@ import pytest
 
 from optifolio.market.market_data import MarketData
 from optifolio.optimization.constraints import NoShortSellConstraint, SumToOneConstraint
-from optifolio.optimization.objectives import CVaRObjectiveFunction, MADObjectiveFunction
+from optifolio.optimization.objectives import (
+    CVaRObjectiveFunction,
+    MADObjectiveFunction,
+    ObjectiveName,
+    ObjectiveValue,
+)
 from optifolio.optimization.solver import Solver
+from optifolio.portfolio import Portfolio
+
+
+def test_portfolio_repr() -> None:
+    """Test portfolio representation."""
+    test_w = {
+        "MSFT": 0.3,
+        "TSLA": 0.2,
+        "AAPL": 0.5,
+    }
+    ptf = Portfolio(
+        weights=pd.Series(test_w),
+        objective_values=[ObjectiveValue(name=ObjectiveName.CVAR, value=0.1)],
+    )
+    _rep = repr(ptf)
+    assert isinstance(_rep, str)
+    assert ptf.__class__.__name__ in _rep
+    assert list(test_w.keys())[0] in _rep
+    assert ObjectiveName.CVAR.value in _rep
 
 
 @pytest.mark.vcr()

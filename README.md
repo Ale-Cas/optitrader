@@ -18,6 +18,38 @@ _Rest API_: to serve this application as a REST API, run `docker compose up app`
 
 _Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `poe app` and open [localhost:8000](http://localhost:8000) in your browser.
 
+## Example
+
+Once the package has been installed you can use it as follows:
+```python
+from optifolio import Optifolio
+from optifolio.optimization.objectives import CVaRObjectiveFunction
+from optifolio.enums import UniverseName
+
+optimal_ptf = Optifolio(
+        objectives=[CVaRObjectiveFunction()], universe_name=UniverseName.POPULAR_STOCKS,
+    ).solve()
+
+# Optimal Portfolio:
+Portfolio(
+    weights={
+        'AAPL': 0.18168,
+        'BABA': 0.00369,
+        'BRK.B': 0.15119,
+        'META': 0.04067,
+        'MSFT': 0.01936,
+        'ORCL': 0.16028,
+        'PFE': 0.00207,
+        'TSLA': 0.01057,
+        'V': 0.02516,
+        'WMT': 0.40532
+        }, 
+    objective_values={
+        'Conditional Value at Risk': 0.007560866163075728
+        }
+)
+```
+
 ## Contributing
 
 <details>
