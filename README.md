@@ -52,6 +52,8 @@ Portfolio(
 
 ## Contributing
 
+This project has been boostrapped using [this cookiecutter template](https://github.com/radix-ai/poetry-cookiecutter).
+
 <details>
 <summary>Prerequisites</summary>
 
