@@ -27,7 +27,8 @@ from optifolio.optimization.objectives import CVaRObjectiveFunction
 from optifolio.enums import UniverseName
 
 optimal_ptf = Optifolio(
-        objectives=[CVaRObjectiveFunction()], universe_name=UniverseName.POPULAR_STOCKS,
+        objectives=[CVaRObjectiveFunction()],
+        universe_name=UniverseName.POPULAR_STOCKS,
     ).solve()
 
 # Optimal Portfolio:
