@@ -80,6 +80,7 @@ class Optifolio:
         min_num_assets: int | None = None,
         max_num_assets: int | None = None,
         max_weight_pct: int | None = None,
+        min_weight_pct: int | None = None,
     ) -> Portfolio:
         """
         Solve the optimization problem and return the optimal portfolio.
@@ -99,7 +100,9 @@ class Optifolio:
         `max_num_assets`: int
             The maximum number of assets you want in the optimal portfolio.
         `max_weight_pct`: int
-            The maximum number of assets you want in the optimal portfolio.
+            The maximum weight for assets you want in the optimal portfolio.
+        `min_weight_pct`: int
+            The minimum weight for assets you want in the optimal portfolio.
 
         Returns
         -------
@@ -131,11 +134,13 @@ class Optifolio:
             self.add_constraint(
                 NumberOfAssetsConstraint(lower_bound=min_num_assets, upper_bound=max_num_assets)
             )
-        elif max_weight_pct:
-            assert isinstance(
-                max_weight_pct, int
-            ), "Max weight percentage must be a positive integer."
-            self.add_constraint(WeightsConstraint(upper_bound=max_weight_pct))
+        elif min_weight_pct or max_weight_pct:
+            self.add_constraint(
+                WeightsConstraint(
+                    lower_bound=min_weight_pct,
+                    upper_bound=max_weight_pct,
+                )
+            )
         opt_ptf = Solver(
             returns=self.market_data.get_total_returns(
                 tickers=self.investment_universe.tickers,
@@ -146,6 +151,7 @@ class Optifolio:
             objectives=self.objectives,
         ).solve(
             weights_tolerance=weights_tolerance,
+            created_at=end_date,
         )
         opt_ptf.set_market_data(self.market_data)
         return opt_ptf

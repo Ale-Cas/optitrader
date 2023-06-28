@@ -50,7 +50,12 @@ class Solver:
             )
         return cvxpy_objectives, cvxpy_constraints
 
-    def solve(self, weights_tolerance: float | None = 1e-6, **kwargs: Any) -> Portfolio:
+    def solve(
+        self,
+        created_at: pd.Timestamp | None = None,
+        weights_tolerance: float | None = 1e-6,
+        **kwargs: Any,
+    ) -> Portfolio:
         """Solve a portfolio optimization problem.
 
         Parameters
@@ -86,4 +91,5 @@ class Solver:
                 ObjectiveValue(name=cvxpy_obj.name, value=cvxpy_obj.minimize.value)
                 for cvxpy_obj in cvxpy_objectives
             ],
+            created_at=created_at,
         )

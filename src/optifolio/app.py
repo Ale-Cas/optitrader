@@ -7,13 +7,14 @@ import plotly.express as px
 import streamlit as st
 
 from optifolio import Optifolio
+from optifolio.backtester import Backtester, Portfolios, RebalanceFrequency
 from optifolio.market.investment_universe import InvestmentUniverse, UniverseName
 from optifolio.optimization.objectives import ObjectiveName, objective_mapping
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-
+st.set_page_config(page_title="Optifolio", page_icon="🛠️")
 st.title("Optifolio Dashboard")
 
 universe_name = st.selectbox(
@@ -31,6 +32,11 @@ start_date = pd.Timestamp(
         value=pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day"),
     )
 )
+rebal_freq = st.selectbox(
+    label="Choose the rebalance frequency.",
+    options=[freq.name.title() for freq in list(RebalanceFrequency)],
+    index=2,
+)
 
 
 with st.sidebar:
@@ -39,6 +45,8 @@ with st.sidebar:
     num_assets = None
     min_num_assets = None
     max_num_assets = None
+    min_weight = None
+    max_weight = None
     _num = st.checkbox("Choose exact number of assets you want in your portfolio.")
     _min_num = st.checkbox("Choose minimum number of assets you want in your portfolio.")
     _max_num = st.checkbox("Choose maximum number of assets you want in your portfolio.")
@@ -70,7 +78,19 @@ with st.sidebar:
             )
     elif _min_max and _num:
         st.error("You can only provide the exact number of assets or the bounds!")
-    if st.checkbox("Choose maximum weight percentage you want in your portfolio."):
+    if st.checkbox(
+        "Choose minimum weight in percentage for each asset in the investment universe."
+    ):
+        min_weight = st.number_input(
+            label="Minimum weight percentage.",
+            value=1,
+            min_value=1,
+            step=1,
+            max_value=int(100 / len(InvestmentUniverse(name=universe_name).tickers)),
+        )
+    if st.checkbox(
+        "Choose the maximum weight in percentage that you want an asset in your portfolio to have."
+    ):
         max_weight = st.number_input(
             label="Maximum weight percentage.",
             value=40,
@@ -84,7 +104,12 @@ if objective_names and universe_name:
         objectives=[objective_mapping[ObjectiveName(o)] for o in objective_names],
         universe_name=UniverseName(universe_name),
     )
-    if st.button(label="COMPUTE OPTIMAL PORTFOLIO"):
+    col1, col2 = st.columns(2)
+    with col1:
+        solve_button = st.button(label="COMPUTE OPTIMAL PORTFOLIO")
+    with col2:
+        backtest_button = st.button(label="BACKTEST STRATEGY")
+    if solve_button:
         with st.spinner("Optimization in progress"):
             try:
                 opt_ptf = opt.solve(
@@ -93,6 +118,7 @@ if objective_names and universe_name:
                     num_assets=int(num_assets) if num_assets else None,
                     min_num_assets=int(min_num_assets) if min_num_assets else None,
                     max_num_assets=int(max_num_assets) if max_num_assets else None,
+                    min_weight_pct=int(min_weight) if min_weight else None,
                     max_weight_pct=int(max_weight) if max_weight else None,
                 )
             except AssertionError as er:
@@ -128,3 +154,25 @@ if objective_names and universe_name:
                 ),
                 use_container_width=True,
             )
+    if backtest_button:
+        with st.spinner("Backtest in progress"):
+            backtester = Backtester(
+                opt=opt,
+                start=start_date,
+                rebal_freq=RebalanceFrequency[rebal_freq.upper()]
+                if rebal_freq
+                else RebalanceFrequency.MONTHLY,
+            )
+            ptfs = backtester.compute_portfolios()
+            backtest_history = backtester.compute_history_values()
+            st.plotly_chart(
+                figure_or_data=px.line(
+                    data_frame=backtest_history,
+                    x=backtest_history.index,
+                    y=backtest_history.values,
+                    labels={"timestamp": "", "y": ""},
+                    title="Portfolio value from start date to today",
+                ),
+                use_container_width=True,
+            )
+            st.dataframe(Portfolios(ptfs).to_df().sort_index(ascending=False))

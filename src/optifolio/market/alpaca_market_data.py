@@ -117,8 +117,8 @@ class AlpacaMarketData(BaseDataProvider):
         bars.reset_index(inplace=True)
         _index_name = "timestamp"
         prices = bars.pivot(index=_index_name, columns="symbol", values=bars_field)
-        prices.index = pd.to_datetime(prices.index, format="%Y-%m-%d")
-        return prices
+        prices.index = prices.index.strftime("%Y-%m-%d")
+        return prices.ffill().bfill()
 
     def get_alpaca_asset(self, ticker: str) -> Asset:
         """Get alpaca asset by ticker."""

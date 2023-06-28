@@ -15,10 +15,12 @@ class Portfolio:
         weights: pd.Series,
         objective_values: list[ObjectiveValue],
         market_data: MarketData | None = None,
+        created_at: pd.Timestamp | None = None,
     ) -> None:
         self.weights = weights
         self.objective_values = objective_values
         self.market_data = market_data
+        self.created_at = created_at
 
     def __repr__(self) -> str:
         """Object representation."""
