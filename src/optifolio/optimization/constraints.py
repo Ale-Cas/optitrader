@@ -11,6 +11,7 @@ class ConstraintName(str, Enum):
     SUM_TO_ONE = "SUM_TO_ONE"
     LONG_ONLY = "LONG_ONLY"
     NUMER_OF_ASSETS = "NUMER_OF_ASSETS"
+    WEIGHTS_PCT = "WEIGHTS_PCT"
 
 
 class PortfolioConstraint(metaclass=ABCMeta):
@@ -69,8 +70,39 @@ class NumberOfAssetsConstraint(PortfolioConstraint):
         return constraints
 
 
+class WeightsConstraint(PortfolioConstraint):
+    """Weights percentage constraint."""
+
+    def __init__(
+        self,
+        lower_bound: int | None = None,
+        upper_bound: int | None = None,
+    ) -> None:
+        super().__init__(name=ConstraintName.NUMER_OF_ASSETS)
+        self.lower_bound = lower_bound
+        self.upper_bound = upper_bound
+
+    def get_constraints_list(self, weights_variable: cp.Variable) -> list[cp.Constraint]:
+        """Get weights constraints list."""
+        _tot = 100
+        constraints = []
+        if self.lower_bound is not None:
+            assert self.lower_bound >= 0, "The lower bound percentage cannot be less than 0."
+            assert (
+                self.lower_bound <= _tot
+            ), f"The lower bound percentage cannot be more than {_tot}."
+            constraints.append(weights_variable >= self.lower_bound / _tot)
+        if self.upper_bound is not None:
+            assert (
+                self.upper_bound <= _tot
+            ), f"The upper bound percentage cannot be more than {_tot}."
+            constraints.append(weights_variable <= self.upper_bound / _tot)
+        return constraints
+
+
 constraint_mapping: dict[ConstraintName, PortfolioConstraint] = {
     ConstraintName.SUM_TO_ONE: SumToOneConstraint(),
     ConstraintName.LONG_ONLY: NoShortSellConstraint(),
     ConstraintName.NUMER_OF_ASSETS: NumberOfAssetsConstraint(),
+    ConstraintName.WEIGHTS_PCT: WeightsConstraint(),
 }

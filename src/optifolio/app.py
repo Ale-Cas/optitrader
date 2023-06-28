@@ -1,47 +1,103 @@
 """Streamlit app."""
 
+import logging
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from optifolio import Optifolio
 from optifolio.market.investment_universe import InvestmentUniverse, UniverseName
-from optifolio.market.market_data import MarketData
-from optifolio.optimization.constraints import NoShortSellConstraint, SumToOneConstraint
 from optifolio.optimization.objectives import ObjectiveName, objective_mapping
-from optifolio.optimization.solver import Solver
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
+
 
 st.title("Optifolio Dashboard")
 
 universe_name = st.selectbox(
-    label="Choose the investment universe",
+    label="Choose the investment universe.",
     options=[name.value for name in list(UniverseName)],
 )
 objective_names = st.multiselect(
-    label="Choose objectives",
+    label="Choose one or more objective functions for your optimal portfolio.",
     options=[obj_name.value for obj_name in list(ObjectiveName)],
     default=[ObjectiveName.CVAR],
 )
 start_date = pd.Timestamp(
     st.date_input(
-        label="Choose the start date.",
+        label="Choose the first date used to retrieve prices for the optimization.",
         value=pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day"),
     )
 )
 
+
+with st.sidebar:
+    st.header("Optimal portfolio settings:")
+    universe_name = UniverseName(universe_name) if universe_name else UniverseName.FAANG
+    num_assets = None
+    min_num_assets = None
+    max_num_assets = None
+    _num = st.checkbox("Choose exact number of assets you want in your portfolio.")
+    _min_num = st.checkbox("Choose minimum number of assets you want in your portfolio.")
+    _max_num = st.checkbox("Choose maximum number of assets you want in your portfolio.")
+    _min_max = _min_num or _max_num
+    if _num and not _min_max:
+        num_assets = st.number_input(
+            label="Exact number of assets.",
+            value=3,
+            min_value=1,
+            step=1,
+            max_value=len(InvestmentUniverse(name=universe_name).tickers),
+        )
+    elif _min_max and not _num:
+        if _min_num:
+            min_num_assets = st.number_input(
+                label="Minimum number of assets.",
+                value=2,
+                min_value=1,
+                step=1,
+                max_value=len(InvestmentUniverse(name=universe_name).tickers),
+            )
+        if _max_num:
+            max_num_assets = st.number_input(
+                label="Maximum number of assets.",
+                value=4,
+                min_value=2,
+                step=1,
+                max_value=len(InvestmentUniverse(name=universe_name).tickers),
+            )
+    elif _min_max and _num:
+        st.error("You can only provide the exact number of assets or the bounds!")
+    if st.checkbox("Choose maximum weight percentage you want in your portfolio."):
+        max_weight = st.number_input(
+            label="Maximum weight percentage.",
+            value=40,
+            min_value=10,
+            step=1,
+            max_value=100,
+        )
+
 if objective_names and universe_name:
-    market_data = MarketData()
-    solver = Solver(
-        returns=market_data.get_total_returns(
-            tickers=InvestmentUniverse(name=UniverseName(universe_name)).tickers,
-            start_date=start_date,
-            end_date=pd.Timestamp.today().utcnow() - pd.Timedelta(value=1, unit="day"),
-        ),
-        objectives=[objective_mapping[ObjectiveName(obj_name)] for obj_name in objective_names],
-        constraints=[SumToOneConstraint(), NoShortSellConstraint()],
+    opt = Optifolio(
+        objectives=[objective_mapping[ObjectiveName(o)] for o in objective_names],
+        universe_name=UniverseName(universe_name),
     )
-    if st.button(label="Solve optimization problem."):
+    if st.button(label="COMPUTE OPTIMAL PORTFOLIO"):
         with st.spinner("Optimization in progress"):
-            opt_ptf = solver.solve(weights_tolerance=1e-2)
+            try:
+                opt_ptf = opt.solve(
+                    start_date=start_date,
+                    weights_tolerance=1e-3,
+                    num_assets=int(num_assets) if num_assets else None,
+                    min_num_assets=int(min_num_assets) if min_num_assets else None,
+                    max_num_assets=int(max_num_assets) if max_num_assets else None,
+                    max_weight_pct=int(max_weight) if max_weight else None,
+                )
+            except AssertionError as er:
+                log.warning(er)
+                st.error("Couldn't find a solution!")
         with st.spinner("Elaborating solution"):
             weights = opt_ptf.get_non_zero_weights()
 
@@ -54,7 +110,7 @@ if objective_names and universe_name:
                 ),
                 use_container_width=True,
             )
-            opt_ptf.set_market_data(market_data)
+            opt_ptf.set_market_data(opt.market_data)
             _cols = ["name", "weight_in_ptf"]
             holdings_df = opt_ptf.get_holdings_df()
             st.dataframe(
@@ -67,9 +123,8 @@ if objective_names and universe_name:
                     data_frame=history,
                     x=history.index,
                     y=history.values,
-                    # labels={"timestamp": "Days", "y": "Portfolio Value"},
                     labels={"timestamp": "", "y": ""},
-                    title="Portfolio Value",
+                    title="Portfolio value from start date to today",
                 ),
                 use_container_width=True,
             )
