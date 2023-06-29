@@ -1,4 +1,6 @@
 """Portfolio optimization problem module."""
+import logging
+from enum import Enum
 from typing import Any
 
 import cvxpy as cp
@@ -11,6 +13,17 @@ from optifolio.optimization.objectives import (
     PortfolioObjective,
 )
 from optifolio.portfolio import Portfolio
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
+
+
+class _CVXPYSolver(str, Enum):
+    """CVXPY supported solvers."""
+
+    ECOS = "ECOS"
+    SCS = "SCS"
+    OSQP = "OSQP"
 
 
 class Solver:
@@ -54,6 +67,7 @@ class Solver:
         self,
         created_at: pd.Timestamp | None = None,
         weights_tolerance: float | None = 1e-6,
+        cvxpy_solver: _CVXPYSolver = _CVXPYSolver.ECOS,
         **kwargs: Any,
     ) -> Portfolio:
         """Solve a portfolio optimization problem.
@@ -75,7 +89,12 @@ class Solver:
             objective=cp.sum([obj.minimize for obj in cvxpy_objectives]),
             constraints=cvxpy_constraints,
         )
-        problem.solve(**kwargs)
+        try:
+            problem.solve(solver=cvxpy_solver.value, **kwargs)
+        except cp.SolverError as se:
+            log.warning(se)
+            # try with default solver configuration
+            problem.solve()
         if problem.status != "optimal":
             raise AssertionError(f"Problem status is not optimal but: {problem.status}")
         weights_series = pd.Series(dict(zip(self._universe, weights_var.value, strict=True)))

@@ -14,7 +14,11 @@ from optifolio.optimization.objectives import ObjectiveName, objective_mapping
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
-st.set_page_config(page_title="Optifolio", page_icon="🛠️")
+st.set_page_config(
+    page_title="Optifolio",
+    page_icon="🛠️",
+    layout="wide",
+)
 st.title("Optifolio Dashboard")
 
 universe_name = st.selectbox(
@@ -26,6 +30,15 @@ objective_names = st.multiselect(
     options=[obj_name.value for obj_name in list(ObjectiveName)],
     default=[ObjectiveName.CVAR],
 )
+with st.expander("Objectives configuration."):
+    for obj in objective_names:
+        st.number_input(
+            f"Enter {obj} weight",
+            min_value=0.1,
+            max_value=1.0,
+            step=0.1,
+            value=0.5,
+        )
 start_date = pd.Timestamp(
     st.date_input(
         label="Choose the first date used to retrieve prices for the optimization.",
