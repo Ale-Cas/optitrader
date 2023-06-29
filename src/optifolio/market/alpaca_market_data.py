@@ -53,7 +53,7 @@ class AlpacaMarketData(BaseDataProvider):
     def get_bars(
         self,
         tickers: tuple[str, ...],
-        start_date: pd.Timestamp,
+        start_date: pd.Timestamp | None = None,
         end_date: pd.Timestamp | None = None,
     ) -> pd.DataFrame:
         """
@@ -74,13 +74,23 @@ class AlpacaMarketData(BaseDataProvider):
             a pd.DataFrame with the bars for the tickers.
         """
         _last_available_date = pd.Timestamp.utcnow() - pd.Timedelta(15, unit="min")
+        _first_available_date = pd.Timestamp("2015-12-12").tz_localize(tz="utc")
+        # handle first and last available date from Alpaca
+        end_date = (
+            end_date
+            if end_date and end_date.tz_localize(tz="utc") <= _last_available_date
+            else _last_available_date
+        )
+        start_date = (
+            start_date
+            if start_date and start_date.tz_localize(tz="utc") >= _first_available_date
+            else _first_available_date
+        )
         bars = self.__data_client.get_stock_bars(
             StockBarsRequest(
                 symbol_or_symbols=sorted(tickers),
                 start=start_date,
-                end=end_date
-                if end_date and end_date.tz_localize(tz="utc") <= _last_available_date
-                else _last_available_date,
+                end=end_date,
                 adjustment=Adjustment.ALL,
                 timeframe=TimeFrame.Day,
             )

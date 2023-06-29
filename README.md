@@ -16,7 +16,7 @@ _Python CLI_: to view this app's CLI commands once it's installed, run `optifoli
 
 _Rest API_: to serve this application as a REST API, run `docker compose up app` and open [localhost:8080](http://localhost:8080) in your browser to see the documentation. Within the Dev Container, this is equivalent to running `poe api`.
 
-_Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `poe app` and open [localhost:8000](http://localhost:8000) in your browser.
+_Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `optifolio dashboard`. This is equivalent to running `poe app` and open [localhost:8000](http://localhost:8000) in your browser.
 
 ## Example
 
