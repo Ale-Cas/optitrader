@@ -3,7 +3,6 @@
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optifolio)
 
 # Optifolio
-![Optimal Portfolio](https://github.com/Ale-Cas/optifolio/assets/64859146/cccaf95c-4bb8-460c-81d9-a2f4fbc621fa)
 
 ## Description 
 
@@ -52,6 +51,9 @@ Portfolio(
         }
 )
 ```
+and you can use the available methods of the [Portfolio class](src/optifolio/portfolio.py), such as `pie_plot`:
+![Screenshot 2023-06-29 at 19 32 42](https://github.com/Ale-Cas/optifolio/assets/64859146/404475d3-7e20-4a5a-a24a-73c9b42f70ae)
+
 
 ## Contributing
 
