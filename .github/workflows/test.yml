@@ -59,3 +59,5 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: reports/coverage.xml
+          flags: pytest
+
