@@ -3,6 +3,7 @@
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optifolio)
 
 # Optifolio
+![Optimal Portfolio](https://github.com/Ale-Cas/optifolio/assets/64859146/cccaf95c-4bb8-460c-81d9-a2f4fbc621fa)
 
 ## Description 
 
