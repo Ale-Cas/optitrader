@@ -1,4 +1,5 @@
 """Configurations and mocks for testing."""
+
 import pandas as pd
 import pytest
 

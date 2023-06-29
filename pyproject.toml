@@ -51,6 +51,7 @@ pytest-mock = ">=3.10.0"
 pytest-xdist = ">=3.2.1"
 ruff = ">=0.0.270"
 pytest-vcr = "^1.0.2"
+pytest-timeout = "^2.1.0"
 
 [tool.poetry.group.dev.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
 cruft = ">=2.14.0"

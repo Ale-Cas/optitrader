@@ -1,10 +1,13 @@
 """Test the example code in the documentation."""
 
+import pytest
+
 from optifolio import Optifolio
 from optifolio.enums import UniverseName
 from optifolio.optimization.objectives import CVaRObjectiveFunction, ObjectiveName
 
 
+@pytest.mark.timeout(10)
 def test_optifolio_example() -> None:
     """Test 1 example."""
     _tollerance = 1e-4

@@ -10,6 +10,7 @@ from optifolio.enums import UniverseName
 from optifolio.optimization.objectives import CVaRObjectiveFunction
 
 
+@pytest.mark.timeout(0.1)
 def test_rebalance_dates(
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,

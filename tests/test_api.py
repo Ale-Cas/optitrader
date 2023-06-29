@@ -3,6 +3,7 @@
 import json
 
 import httpx
+import pytest
 from fastapi.testclient import TestClient
 
 from optifolio.api import app
@@ -11,12 +12,14 @@ from optifolio.models import OptimizationRequest, OptimizationResponse
 client = TestClient(app)
 
 
+@pytest.mark.timeout(10)
 def test_read_root() -> None:
     """Test that reading the root is successful."""
     response = client.get("/")
     assert httpx.codes.is_success(response.status_code)
 
 
+@pytest.mark.timeout(10)
 def test_post_optimization(optimization_request: OptimizationRequest) -> None:
     """Test the post optimization endpoint."""
     response = client.post("/optimization", json=json.loads(optimization_request.json()))

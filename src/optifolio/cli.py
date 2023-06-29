@@ -14,7 +14,8 @@ def say(message: str = "") -> None:
 
 
 @app.command()
-def dashboard(port: int = 8000) -> None:
+def dashboard(port: int = 8000, launch: bool = True, timeout: float | None = None) -> None:
     """Open the streamlit dashboard."""
-    subprocess.run(["poe", "app", "--port", str(port)])
-    typer.launch(url="http://localhost:8000/")
+    subprocess.run(["poe", "app", "--port", str(port)], timeout=timeout)
+    if launch:
+        typer.launch(url="http://localhost:8000/")
