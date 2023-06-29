@@ -3,6 +3,7 @@ import pandas as pd
 import pytest
 import vcr
 
+from optifolio.config import SETTINGS
 from optifolio.enums.market import UniverseName
 from optifolio.market.investment_universe import InvestmentUniverse
 from optifolio.market.market_data import MarketData
@@ -15,6 +16,8 @@ from optifolio.optimization.constraints import (
 from optifolio.optimization.objectives import CVaRObjectiveFunction, MADObjectiveFunction
 from optifolio.optimization.solver import Solver
 
+_tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
+
 
 @vcr.use_cassette("tests/data/cassettes/test_load_prices.yaml")
 def test_solver_cvar(
@@ -24,7 +27,6 @@ def test_solver_cvar(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimization solver."""
-    _tollerance = 1e-4
     sol = Solver(
         returns=market_data.get_total_returns(
             tickers=test_tickers,
@@ -46,7 +48,6 @@ def test_solver_mad(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimization solver."""
-    _tollerance = 1e-2
     weights = (
         Solver(
             returns=market_data.get_total_returns(
@@ -71,7 +72,6 @@ def test_solver_min_num_assets(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimization solver."""
-    _tollerance = 1e-2
     _min = 7
     weights = (
         Solver(
@@ -104,7 +104,6 @@ def test_solver_max_num_assets(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimization solver."""
-    _tollerance = 1e-2
     _max = 7
     weights = (
         Solver(
@@ -137,7 +136,6 @@ def test_solver_exact_num_assets(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimization solver."""
-    _tollerance = 1e-2
     _num = 7
     weights = (
         Solver(
@@ -171,7 +169,6 @@ def test_solver_min_weight(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimization solver."""
-    _tollerance = 1e-2
     tickers = InvestmentUniverse(name=UniverseName.POPULAR_STOCKS).tickers
     _num = int(100 / len(tickers))
     weights = (

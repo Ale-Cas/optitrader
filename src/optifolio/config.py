@@ -18,6 +18,10 @@ class Settings(BaseSettings):
     ALPACA_BROKER_API_KEY: str | None = None
     ALPACA_BROKER_API_SECRET: str | None = None
 
+    # OPTIMIZATION SETTINGS
+    # this means that if the portfolio's weights sum to 0.99 instead of 1 is accepted
+    SUM_WEIGHTS_TOLERANCE: float = 1e-3
+
     class Config:
         """Configuration."""
 

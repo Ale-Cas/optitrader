@@ -5,12 +5,15 @@ import vcr
 from alpaca.common import APIError
 
 from optifolio import Optifolio
+from optifolio.config import SETTINGS
 from optifolio.enums import UniverseName
 from optifolio.market import MarketData
 from optifolio.optimization.objectives import (
     CVaRObjectiveFunction,
     ExpectedReturnsObjectiveFunction,
 )
+
+_tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
 
 
 @vcr.use_cassette("tests/optimiization/cassettes/test_solver_min_num_assets.yaml")
@@ -19,7 +22,6 @@ def test_optifolio_cvar_universe(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    _tollerance = 1e-3
     opt_ptf = Optifolio(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
@@ -39,7 +41,6 @@ def test_optifolio_cvar_tickers(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    _tollerance = 1e-3
     opt_ptf = Optifolio(objectives=[CVaRObjectiveFunction()], tickers=test_tickers).solve(
         start_date=test_start_date,
         end_date=test_end_date,
@@ -57,7 +58,6 @@ def test_optifolio_custom_market_data(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    _tollerance = 1e-3
     opt_ptf = Optifolio(
         objectives=[ExpectedReturnsObjectiveFunction()],
         tickers=test_tickers,
@@ -95,7 +95,6 @@ def test_optifolio_exact_num_assets(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    _tollerance = 1e-3
     _num = 3
     opt = Optifolio(
         objectives=[CVaRObjectiveFunction()],
@@ -116,7 +115,6 @@ def test_optifolio_max_weight(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    _tollerance = 1e-3
     _max_w = 30
     opt = Optifolio(
         objectives=[CVaRObjectiveFunction()],

@@ -6,7 +6,8 @@ import pytest
 from optifolio.market import MarketData
 from optifolio.market.investment_universe import InvestmentUniverse, UniverseName
 from optifolio.models import ObjectiveModel, OptimizationRequest
-from optifolio.optimization.objectives import ObjectiveName
+from optifolio.optimization.objectives import ObjectiveName, ObjectiveValue
+from optifolio.portfolio import Portfolio
 
 
 @pytest.fixture(scope="package")
@@ -65,4 +66,19 @@ def optimization_request() -> OptimizationRequest:
     return OptimizationRequest(
         tickers=InvestmentUniverse(name=UniverseName.POPULAR_STOCKS).tickers,
         objectives=[ObjectiveModel(name=ObjectiveName.CVAR, weight=1)],
+    )
+
+
+@pytest.fixture()
+def mock_ptf() -> Portfolio:
+    """Mock portfolio."""
+    return Portfolio(
+        weights=pd.Series(
+            {
+                "MSFT": 0.3,
+                "TSLA": 0.2,
+                "AAPL": 0.5,
+            }
+        ),
+        objective_values=[ObjectiveValue(name=ObjectiveName.CVAR, value=0.1)],
     )

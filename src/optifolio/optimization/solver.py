@@ -6,6 +6,7 @@ from typing import Any
 import cvxpy as cp
 import pandas as pd
 
+from optifolio.config import SETTINGS
 from optifolio.optimization.constraints import ConstraintName, PortfolioConstraint
 from optifolio.optimization.objectives import (
     ObjectiveValue,
@@ -66,7 +67,7 @@ class Solver:
     def solve(
         self,
         created_at: pd.Timestamp | None = None,
-        weights_tolerance: float | None = 1e-6,
+        weights_tolerance: float | None = SETTINGS.SUM_WEIGHTS_TOLERANCE,
         cvxpy_solver: _CVXPYSolver = _CVXPYSolver.ECOS,
         **kwargs: Any,
     ) -> Portfolio:

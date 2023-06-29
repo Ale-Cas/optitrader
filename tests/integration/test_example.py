@@ -3,14 +3,16 @@
 import pytest
 
 from optifolio import Optifolio
+from optifolio.config import SETTINGS
 from optifolio.enums import UniverseName
 from optifolio.optimization.objectives import CVaRObjectiveFunction, ObjectiveName
+
+_tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
 
 
 @pytest.mark.timeout(10)
 def test_optifolio_example() -> None:
     """Test 1 example."""
-    _tollerance = 1e-4
     optimal_ptf = Optifolio(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,

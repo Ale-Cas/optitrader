@@ -27,7 +27,7 @@ gunicorn = ">=20.1.0"
 poethepoet = ">=0.20.0"
 pydantic = ">=1.10.7"
 python = ">=3.10,<4.0"
-streamlit = ">=1.19.0"
+streamlit = "^1.24.0"
 typer = { extras = ["all"], version = ">=0.9.0" }
 uvicorn = { extras = ["standard"], version = ">=0.20.0" }
 pandas = "1.5.3"

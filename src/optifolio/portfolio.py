@@ -1,7 +1,11 @@
 """Portfolio module."""
+
 import pandas as pd
+import plotly.express as px
+import plotly.graph_objs as go
 from typeguard import typechecked
 
+from optifolio.config import SETTINGS
 from optifolio.market import MarketData
 from optifolio.models import AssetModel
 from optifolio.optimization.objectives import ObjectiveValue
@@ -10,13 +14,19 @@ from optifolio.optimization.objectives import ObjectiveValue
 class Portfolio:
     """Portfolio class."""
 
+    @typechecked
     def __init__(
         self,
-        weights: pd.Series,
+        weights: pd.Series | dict[str, float],
         objective_values: list[ObjectiveValue],
         market_data: MarketData | None = None,
         created_at: pd.Timestamp | None = None,
     ) -> None:
+        weights = weights if isinstance(weights, pd.Series) else pd.Series(weights)
+        _wsum = weights.values.sum()
+        assert (
+            1 - _wsum <= SETTINGS.SUM_WEIGHTS_TOLERANCE
+        ), f"The sum of weights has to be 1 not {_wsum}."
         self.weights = weights
         self.objective_values = objective_values
         self.market_data = market_data
@@ -73,7 +83,21 @@ class Portfolio:
         start_date: pd.Timestamp,
         end_date: pd.Timestamp | None = None,
     ) -> pd.Series:
-        """Get the portfolio wealth history."""
+        """
+        Get the portfolio wealth history.
+
+        Parameters
+        ----------
+        `start_date`: pd.Timestamp
+            The starting date.
+        `end_date`: pd.Timestamp
+            The ending date. Defaults today.
+
+        Returns
+        -------
+        `history`: pd.Series
+            A timeseries with the portfolio value at each date.
+        """
         assert isinstance(
             self.market_data, MarketData
         ), "You must set the market data to get the assets info."
@@ -83,3 +107,48 @@ class Portfolio:
             end_date=end_date,
         )
         return 1 + (rets * self.get_non_zero_weights()).sum(axis=1, skipna=True).cumsum()
+
+    def pie_plot(self, title: str = "Portfolio Allocation") -> go.Figure:
+        """
+        Display a pie plot of the weights.
+
+        Parameters
+        ----------
+        `title`: str
+            The title of the plot.
+        """
+        return px.pie(
+            data_frame=self.weights,
+            names=self.weights.keys(),
+            values=self.weights.values,
+            title=title,
+        )
+
+    def history_plot(
+        self,
+        start_date: pd.Timestamp | None = None,
+        end_date: pd.Timestamp | None = None,
+        title: str = "Portfolio value from start date to today",
+    ) -> go.Figure:
+        """
+        Display a line plot of the portfolio historical values.
+
+        Parameters
+        ----------
+        `start_date`: pd.Timestamp
+            The starting date. Defaults to a year ago from today.
+        `end_date`: pd.Timestamp
+            The ending date. Defaults to today.
+        `title`: str
+            The title of the plot.
+        """
+        end_date = end_date or pd.Timestamp.today()
+        start_date = start_date or end_date - pd.Timedelta(days=365)
+        history = self.get_history(start_date=start_date, end_date=end_date)
+        return px.line(
+            data_frame=history,
+            x=history.index,
+            y=history.values,
+            labels={"timestamp": "", "y": ""},
+            title=title,
+        )

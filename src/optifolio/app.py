@@ -141,12 +141,7 @@ if objective_names and universe_name:
             weights = opt_ptf.get_non_zero_weights()
 
             st.plotly_chart(
-                figure_or_data=px.pie(
-                    data_frame=weights,
-                    names=weights.keys(),
-                    values=weights.values,
-                    title="Portfolio Allocation",
-                ),
+                figure_or_data=opt_ptf.pie_plot(),
                 use_container_width=True,
             )
             opt_ptf.set_market_data(opt.market_data)
@@ -156,15 +151,8 @@ if objective_names and universe_name:
                 holdings_df,
                 column_order=[*_cols, *(c for c in holdings_df.columns if c not in _cols)],
             )
-            history = opt_ptf.get_history(start_date=start_date)
             st.plotly_chart(
-                figure_or_data=px.line(
-                    data_frame=history,
-                    x=history.index,
-                    y=history.values,
-                    labels={"timestamp": "", "y": ""},
-                    title="Portfolio value from start date to today",
-                ),
+                figure_or_data=opt_ptf.history_plot(start_date=start_date),
                 use_container_width=True,
             )
     if backtest_button:
