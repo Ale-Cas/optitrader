@@ -1,18 +1,39 @@
 """Streamlit base page component."""
 import streamlit as st
 
-from optifolio.app.session_manager import SessionManager
-
 
 class Page:
     """Page class."""
 
-    def __init__(self, name: str, session: SessionManager) -> None:
+    def __init__(
+        self,
+        name: str,
+    ) -> None:
         self.name = name
-        self.session = session
+        st.set_page_config(
+            page_title="Optifolio",
+            page_icon="🛠️",
+            layout="wide",
+        )
+
+    def display_title(self) -> None:
+        """Display title."""
+        st.title(self.name.title())
 
     def display_title_and_description(self, description: str) -> None:
         """Display title and description."""
-        st.title(self.name.title())
+        self.display_title()
         with st.expander("Description", expanded=True):
             st.markdown(description)
+
+    @staticmethod
+    def display_code_sidebar(with_divider: bool = True) -> None:
+        """Display github link to code in sidebar."""
+        with st.sidebar:
+            if with_divider:
+                st.divider()
+            st.header("💻 Code")
+            st.code("pip install optifolio")
+            st.markdown(
+                "[![Repo](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/AvratanuBiswas/PubLit)"
+            )

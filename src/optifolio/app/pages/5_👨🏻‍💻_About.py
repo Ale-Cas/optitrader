@@ -2,7 +2,7 @@
 
 import logging
 
-from optifolio.app import Page, session
+from optifolio.app import Page
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -10,14 +10,13 @@ log = logging.getLogger(__name__)
 
 def main() -> None:
     """Run dashboard."""
-    page = Page(name="Alpaca account dashboard")
+    page = Page(name="About optifolio")
     page.display_title_and_description(
         description="""
-        Boost the portfolio analytics for your Alpaca account.
+        Optifolio is an open-source Python repository for portfolio optimization and quantitative finance.
         """
     )
-    session.display_alpaca_account_sidebar()
-    page.display_code_sidebar()
+    page.display_code_sidebar(with_divider=False)
 
 
 if __name__ == "__main__":

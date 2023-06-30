@@ -1,23 +1,10 @@
 """Backtester implementation."""
 
-
-from enum import Enum
-
 import pandas as pd
 import streamlit as st
 
-from optifolio import Optifolio
-from optifolio.portfolio import Portfolio
-
-
-class RebalanceFrequency(str, Enum):
-    """Supported rebalance frequencies."""
-
-    DAILY = "D"
-    WEEKLY = "W"
-    MONTHLY = "M"
-    QUARTERLY = "3M"
-    YEARLY = "12M"
+from optifolio import Optifolio, Portfolio
+from optifolio.enums import RebalanceFrequency
 
 
 class Portfolios:

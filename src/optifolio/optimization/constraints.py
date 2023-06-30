@@ -9,7 +9,7 @@ from optifolio.enums import ConstraintName
 class PortfolioConstraint(metaclass=ABCMeta):
     """Objective function abstract class."""
 
-    def __init__(self, name) -> None:
+    def __init__(self, name: ConstraintName) -> None:
         self.name = name
 
     @abstractmethod

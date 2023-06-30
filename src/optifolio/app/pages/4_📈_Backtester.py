@@ -1,8 +1,8 @@
-"""Streamlit about page."""
+"""Streamlit about page."""  # noqa: N999
 
 import logging
 
-import streamlit as st
+from optifolio.app import Page, session
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -10,15 +10,17 @@ log = logging.getLogger(__name__)
 
 def main() -> None:
     """Run dashboard."""
-    st.title("Backtest your strategy")
-    with st.expander("Backtester description", expanded=True):
-        st.markdown(
-            """
-        With the backtester you can see how your strategy would've performed historically.
-        You just need to confirm the _start_ and _end_ dates and the backtester is going to rebalance
-        your optimal portfolio based on your _rebalance frequency_ to and evaluate the performance on unseen data.
+    page = Page(name="Backtest your strategy")
+    page.display_title_and_description(
+        description="""
+        With the backtester you can see how your strategy would've performed historically.\n
+        👈 You can see the optimization problem in the _sidebar_ and the backtester is going to rebalance
+        your optimal portfolio based on your _rebalance frequency_ to and evaluate the performance on unseen data. \n
         """
-        )
+    )
+    session.set_rebalance_frquency()
+    session.run_backtest()
+    session.display_optifolio_problem()
 
 
 if __name__ == "__main__":

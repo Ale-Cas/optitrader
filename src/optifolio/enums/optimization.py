@@ -6,10 +6,10 @@ from optifolio.enums.iterable import IterEnum
 class ConstraintName(IterEnum):
     """Support constraints."""
 
-    SUM_TO_ONE = "SUM_TO_ONE"
-    LONG_ONLY = "LONG_ONLY"
-    NUMER_OF_ASSETS = "NUMER_OF_ASSETS"
-    WEIGHTS_PCT = "WEIGHTS_PCT"
+    SUM_TO_ONE = "Weights must sum to one"
+    LONG_ONLY = "No shortselling allowed"
+    NUMER_OF_ASSETS = "Number of assets in portfolio"
+    WEIGHTS_PCT = "Weights (%) in portfolio"
 
 
 class ObjectiveName(IterEnum):
