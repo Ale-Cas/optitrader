@@ -8,11 +8,11 @@ def main() -> None:
     page = Page(name="Optifolio dashboard")
     page.display_title_and_description(
         description="""
-        In this dashboard you can configure your optimal portfolio using several parameters.
+        In this dashboard you can configure your optimal portfolio using several parameters.\n
         You can select the stocks that the solver should take into consideration when choosing the _investment universe_,
-        then you can add and configure _objectives_ and _constraints_ for the optimization problem.
+        then you can add and configure _objectives_ and _constraints_ for the optimization problem.\n
         Once you compute the optimal portfolio, analyze the solution obtained and
-        head to the _backtester_ page to see how your strategy would've performed historically.
+        head to the _backtester_ page to see how your strategy would've performed historically.\n
         """
     )
     session.set_universe_name()

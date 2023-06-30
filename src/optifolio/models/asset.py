@@ -14,7 +14,7 @@ class YahooAssetModel(BaseModel):
     industry: str
     sector: str
     website: str
-    total_number_of_shares: int
+    number_of_shares: int
     business_summary: str
 
 
@@ -38,7 +38,7 @@ class AssetModel(YahooAssetModel):
                 clean_string(k).title(): clean_string(str(v))
                 if not isinstance(v, Enum)
                 else clean_string(v.value).title()
-                for k, v in self.dict().items()
+                for k, v in self.dict(exclude={"weight_in_ptf", "business_summary"}).items()
             },
             name="",
         )

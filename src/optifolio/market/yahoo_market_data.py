@@ -95,7 +95,7 @@ class YahooMarketData(BaseDataProvider):
         return YahooAssetModel(
             **_profile,
             business_summary=_profile["longBusinessSummary"],
-            total_number_of_shares=_ticker.key_stats[ticker]["sharesOutstanding"],
+            number_of_shares=_ticker.key_stats[ticker]["sharesOutstanding"],
         )
 
     def get_number_of_shares(self, ticker: str) -> int:
