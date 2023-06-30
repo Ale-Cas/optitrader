@@ -10,3 +10,12 @@ class ConstraintName(IterEnum):
     LONG_ONLY = "LONG_ONLY"
     NUMER_OF_ASSETS = "NUMER_OF_ASSETS"
     WEIGHTS_PCT = "WEIGHTS_PCT"
+
+
+class ObjectiveName(IterEnum):
+    """Supported objectives names."""
+
+    CVAR = "Conditional Value at Risk"
+    COVARIANCE = "Covariance"
+    EXPECTED_RETURNS = "Expected Return"
+    MEAN_ABSOLUTE_DEVIATION = "Mean Absolute Deviation"

@@ -1,19 +1,11 @@
 """Objective function module."""
 from abc import ABCMeta, abstractmethod
-from enum import Enum
 
 import cvxpy as cp
 import pandas as pd
 from pydantic import BaseModel
 
-
-class ObjectiveName(str, Enum):
-    """Supported objectives names."""
-
-    CVAR = "Conditional Value at Risk"
-    COVARIANCE = "Covariance"
-    EXPECTED_RETURNS = "Expected Return"
-    MEAN_ABSOLUTE_DEVIATION = "Mean Absolute Deviation"
+from optifolio.enums import ObjectiveName
 
 
 class _BaseObjectiveModel(BaseModel):

@@ -3,10 +3,11 @@
 import pandas as pd
 import pytest
 
+from optifolio.enums import ObjectiveName
 from optifolio.market import MarketData
 from optifolio.market.investment_universe import UniverseName
 from optifolio.models import ObjectiveModel, OptimizationRequest
-from optifolio.optimization.objectives import ObjectiveName, ObjectiveValue
+from optifolio.optimization.objectives import ObjectiveValue
 from optifolio.portfolio import Portfolio
 
 

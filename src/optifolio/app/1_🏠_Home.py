@@ -1,5 +1,4 @@
-"""Streamlit app."""
-
+"""Streamlit homepage."""  # noqa: N999
 import logging
 
 import pandas as pd
@@ -7,31 +6,43 @@ import plotly.express as px
 import streamlit as st
 
 from optifolio import Optifolio
+from optifolio.app.page import Page
+from optifolio.app.session_manager import session
 from optifolio.backtester import Backtester, Portfolios, RebalanceFrequency
-from optifolio.market.investment_universe import InvestmentUniverse, UniverseName
-from optifolio.optimization.objectives import ObjectiveName, objective_mapping
+from optifolio.enums import ObjectiveName
+from optifolio.market.investment_universe import UniverseName
+from optifolio.market.market_data import MarketData
+from optifolio.optimization.objectives import objective_mapping
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 
-def main() -> None:  # noqa: C901, PLR0915
+def main() -> None:  # noqa: PLR0915
     """Run dashboard."""
     st.set_page_config(
         page_title="Optifolio",
         page_icon="🛠️",
         layout="wide",
     )
-    st.title("Optifolio Dashboard")
-
-    universe_name = st.selectbox(
-        label="Choose the investment universe.",
-        options=[name.value for name in list(UniverseName)],
+    page = Page(name="Optifolio dashboard", session=session)
+    page.display_title_and_description(
+        description="""
+        In this dashboard you can configure your optimal portfolio using several parameters.
+        You can select the stocks that the solver should take into consideration when choosing the _investment universe_,
+        then you can add and configure _objectives_ and _constraints_ for the optimization problem.
+        Once you compute the optimal portfolio, analyze the solution obtained and
+        head to the _backtester_ page to see how your strategy would've performed historically.
+        """
     )
-    objective_names = st.multiselect(
+
+    universe_name = session.write_from_selectbox(
+        label="Choose the investment universe.",
+        options=UniverseName,
+    )
+    objective_names = session.write_from_multiselect(
         label="Choose one or more objective functions for your optimal portfolio.",
-        options=[obj_name.value for obj_name in list(ObjectiveName)],
-        default=[ObjectiveName.CVAR],
+        options=ObjectiveName,
     )
     with st.expander("Objectives configuration."):
         for obj in objective_names:
@@ -55,69 +66,36 @@ def main() -> None:  # noqa: C901, PLR0915
     )
 
     with st.sidebar:
-        st.header("Optimal portfolio settings:")
-        universe_name = UniverseName(universe_name) if universe_name else UniverseName.FAANG
-        num_assets = None
-        min_num_assets = None
-        max_num_assets = None
-        min_weight = None
-        max_weight = None
-        _num = st.checkbox("Choose exact number of assets you want in your portfolio.")
-        _min_num = st.checkbox("Choose minimum number of assets you want in your portfolio.")
-        _max_num = st.checkbox("Choose maximum number of assets you want in your portfolio.")
-        _min_max = _min_num or _max_num
-        if _num and not _min_max:
-            num_assets = st.number_input(
-                label="Exact number of assets.",
-                value=3,
-                min_value=1,
-                step=1,
-                max_value=len(InvestmentUniverse(name=universe_name).tickers),
+        st.header("🦙 Alpaca Account")
+        st.write("The default data come from my personal Alpaca trading sandbox API keys.")
+        st.markdown(
+            """
+            [You can find your api keys here](https://alpaca.markets/docs/trading/getting_started/#creating-an-alpaca-account-and-finding-your-api-keys)
+            and enter them below to use your account 👇"""
+        )
+        with st.form(key="api-keys"):
+            api_key = session.write_string(st.text_input("Enter your Alpaca Trading API key"))
+            secret_key = session.write_string(st.text_input("Enter your Alpaca Trading API secret"))
+            keys_submitted = st.form_submit_button("Login")
+        st.divider()
+        st.header(" Code")
+        st.code("pip install optifolio")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(
+                "[![Repo](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/AvratanuBiswas/PubLit)"
             )
-        elif _min_max and not _num:
-            if _min_num:
-                min_num_assets = st.number_input(
-                    label="Minimum number of assets.",
-                    value=2,
-                    min_value=1,
-                    step=1,
-                    max_value=len(InvestmentUniverse(name=universe_name).tickers),
-                )
-            if _max_num:
-                max_num_assets = st.number_input(
-                    label="Maximum number of assets.",
-                    value=4,
-                    min_value=2,
-                    step=1,
-                    max_value=len(InvestmentUniverse(name=universe_name).tickers),
-                )
-        elif _min_max and _num:
-            st.error("You can only provide the exact number of assets or the bounds!")
-        if st.checkbox(
-            "Choose minimum weight in percentage for each asset in the investment universe."
-        ):
-            min_weight = st.number_input(
-                label="Minimum weight percentage.",
-                value=1,
-                min_value=1,
-                step=1,
-                max_value=int(100 / len(InvestmentUniverse(name=universe_name).tickers)),
-            )
-        if st.checkbox(
-            "Choose the maximum weight in percentage that you want an asset in your portfolio to have."
-        ):
-            max_weight = st.number_input(
-                label="Maximum weight percentage.",
-                value=40,
-                min_value=10,
-                step=1,
-                max_value=100,
-            )
+        with col2:
+            st.markdown("👨🏻‍💻 _Alessio Castrica_")
 
     if objective_names and universe_name:
+        market_data = None
+        if keys_submitted and secret_key and api_key:
+            market_data = MarketData(trading_key=api_key, trading_secret=secret_key)
         opt = Optifolio(
             objectives=[objective_mapping[ObjectiveName(o)] for o in objective_names],
             universe_name=UniverseName(universe_name),
+            market_data=market_data,
         )
         col1, col2 = st.columns(2)
         with col1:
@@ -130,11 +108,6 @@ def main() -> None:  # noqa: C901, PLR0915
                     opt_ptf = opt.solve(
                         start_date=start_date,
                         weights_tolerance=1e-3,
-                        num_assets=int(num_assets) if num_assets else None,
-                        min_num_assets=int(min_num_assets) if min_num_assets else None,
-                        max_num_assets=int(max_num_assets) if max_num_assets else None,
-                        min_weight_pct=int(min_weight) if min_weight else None,
-                        max_weight_pct=int(max_weight) if max_weight else None,
                     )
                 except AssertionError as er:
                     log.warning(er)
