@@ -95,7 +95,6 @@ def test_get_optifolio(
     assert optifolio.market_data == session_manager.market_data
 
 
-@pytest.mark.vcr()
 def test_run_optimization(
     session_manager: SessionManager,
 ) -> None:
