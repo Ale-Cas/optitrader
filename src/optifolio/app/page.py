@@ -35,5 +35,5 @@ class Page:
             st.header("💻 Code")
             st.code("pip install optifolio")
             st.markdown(
-                "[![Repo](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/AvratanuBiswas/PubLit)"
+                "[![Repo](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/Ale-Cas/optifolio)"
             )

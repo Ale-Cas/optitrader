@@ -6,6 +6,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from optifolio import MarketData, Optifolio, Portfolio
 from optifolio.backtester import Backtester, Portfolios
 from optifolio.enums import (
     ConstraintName,
@@ -14,8 +15,6 @@ from optifolio.enums import (
     RebalanceFrequency,
     UniverseName,
 )
-from optifolio.main import Optifolio
-from optifolio.market import MarketData
 from optifolio.optimization.objectives import objective_mapping
 
 logging.basicConfig(level=logging.INFO)
@@ -32,6 +31,7 @@ class SessionManager:
         self.constraint_names = [ConstraintName.SUM_TO_ONE, ConstraintName.LONG_ONLY]
         self.start_date = pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day")
         self.rebalance_frequency = RebalanceFrequency.MONTHLY
+        self._opt_ptf: Portfolio | None = None
 
     def _from_selectbox(self, label: str, options: type[IterEnum], is_value: bool = True) -> str:
         """Return the selected value from the selectbox."""
@@ -111,7 +111,7 @@ class SessionManager:
                     value=0.5,
                 )
 
-    def set_rebalance_frquency(self) -> None:
+    def set_rebalance_frequency(self) -> None:
         """Set the objectives name."""
         self.rebalance_frequency = RebalanceFrequency[
             self._from_selectbox(
@@ -148,6 +148,7 @@ class SessionManager:
                     use_container_width=True,
                 )
                 opt_ptf.set_market_data(opt.market_data)
+                self._opt_ptf = opt_ptf
                 _cols = ["name", "weight_in_ptf"]
                 holdings_df = opt_ptf.get_holdings_df()
                 st.dataframe(

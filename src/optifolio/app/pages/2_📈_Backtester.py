@@ -20,7 +20,7 @@ def main() -> None:
         your optimal portfolio based on your _rebalance frequency_ to and evaluate the performance on unseen data. \n
         """
     )
-    session.set_rebalance_frquency()
+    session.set_rebalance_frequency()
     session.run_backtest()
     session.display_optifolio_problem()
 
