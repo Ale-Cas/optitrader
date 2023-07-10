@@ -90,11 +90,6 @@ class SessionManager:
                     with col:
                         st.code(tickers[idx])
 
-    def _change_universe(self, universe_name: str) -> None:
-        """Clean the optimal portfolio cache and reset the."""
-        self._opt_ptf = None
-        self.set_tickers(universe_name)
-
     def _clean_opt_ptf(self) -> None:
         """Clean the optimal portfolio cache."""
         self._opt_ptf = None
@@ -103,6 +98,12 @@ class SessionManager:
         """Clean the optimal portfolio cache."""
         self._ptfs = None
         self._backtest_history = None
+
+    def _change_universe(self, universe_name: str) -> None:
+        """Clean the optimal portfolio cache and reset the."""
+        self._clean_opt_ptf()
+        self._clean_backtest_results()
+        self.set_tickers(universe_name)
 
     def _from_selectbox(
         self,
