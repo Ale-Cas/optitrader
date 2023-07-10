@@ -1,6 +1,7 @@
 """Streamlit session manager."""
 
 import logging
+from functools import partial
 
 import pandas as pd
 import plotly.express as px
@@ -15,6 +16,7 @@ from optifolio.enums import (
     RebalanceFrequency,
     UniverseName,
 )
+from optifolio.market.investment_universe import InvestmentUniverse
 from optifolio.optimization.objectives import objective_mapping
 
 logging.basicConfig(level=logging.INFO)
@@ -22,9 +24,25 @@ log = logging.getLogger(__name__)
 
 
 class SessionManager:
-    """Streamlit session manager."""
+    """
+    Streamlit session manager.
+
+    Attributes
+    ----------
+    `ticker`: str =
+    `market_data`: MarketData | None = None
+    `universe_name` = UniverseName.FAANG
+    `objective_names` = [ObjectiveName.CVAR]
+    `constraint_names` = [ConstraintName.SUM_TO_ONE, ConstraintName.LONG_ONLY]
+    `start_date` = pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day")
+    `rebalance_frequency` = RebalanceFrequency.MONTHLY
+    `_opt_ptf`: Portfolio | None = None
+    `_ptfs`: list[Portfolio] | None = None
+    `_backtest_history`: pd.Series | None = None
+    """
 
     def __init__(self) -> None:
+        """Initialize a Streamlit session object."""
         self.market_data: MarketData | None = None
         self.universe_name = UniverseName.FAANG
         self.objective_names = [ObjectiveName.CVAR]
@@ -32,22 +50,93 @@ class SessionManager:
         self.start_date = pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day")
         self.rebalance_frequency = RebalanceFrequency.MONTHLY
         self._opt_ptf: Portfolio | None = None
+        self._ptfs: list[Portfolio] | None = None
+        self._backtest_history: pd.Series | None = None
+        self._ticker: str = "AAPL"
+        self.tickers = InvestmentUniverse(name=self.universe_name).tickers
 
-    def _from_selectbox(self, label: str, options: type[IterEnum], is_value: bool = True) -> str:
+    @property
+    def ticker(self) -> str:
+        """Explore page ticker."""
+        return self._ticker.upper()
+
+    def set_ticker(self, ticker: str) -> None:
+        """Set the ticker."""
+        self._ticker = ticker
+
+    def set_tickers(self, universe_name: str) -> None:
+        """Get the universe tickers."""
+        self.tickers = InvestmentUniverse(name=UniverseName(universe_name)).tickers
+
+    def display_tickers(self) -> None:
+        """Display the tickers in the universe."""
+        tickers = sorted(self.tickers)
+        tickers_per_row = 10
+        len_tickers = len(tickers)
+        with st.expander(
+            f"{self.universe_name} universe tickers", expanded=len_tickers < tickers_per_row
+        ):
+            if len_tickers > tickers_per_row:
+                for i in range(0, len_tickers, tickers_per_row):
+                    row = tickers[i : i + tickers_per_row]
+                    cols = st.columns(tickers_per_row)
+                    for idx, col in enumerate(cols):
+                        with col:
+                            if idx < len(row):
+                                st.code(row[idx])
+            else:
+                cols = st.columns(len(tickers))
+                for idx, col in enumerate(cols):
+                    with col:
+                        st.code(tickers[idx])
+
+    def _change_universe(self, universe_name: str) -> None:
+        """Clean the optimal portfolio cache and reset the."""
+        self._opt_ptf = None
+        self.set_tickers(universe_name)
+
+    def _clean_opt_ptf(self) -> None:
+        """Clean the optimal portfolio cache."""
+        self._opt_ptf = None
+
+    def _clean_backtest_results(self) -> None:
+        """Clean the optimal portfolio cache."""
+        self._ptfs = None
+        self._backtest_history = None
+
+    def _from_selectbox(
+        self,
+        label: str,
+        options: type[IterEnum],
+        value: str,
+        is_value: bool = True,
+    ) -> str:
         """Return the selected value from the selectbox."""
+        if options == RebalanceFrequency:
+            on_change = self._clean_backtest_results
+        elif options == UniverseName:
+            on_change = partial(self._change_universe, value)
+        else:
+            on_change = self._clean_opt_ptf
         sel = st.selectbox(
             label=label,
             options=options.get_values_list() if is_value else options.get_names_list(),
-            index=0,
+            index=options.get_index_of_value(value),
+            on_change=on_change,
         )
         return sel or ""
 
     def _from_multiselect(
-        self, label: str, options: type[IterEnum], default: bool = True
+        self, label: str, options: type[IterEnum], default: list | None = None
     ) -> list[str]:
         """Return a list from the multiselect."""
         _opts = options.get_values_list()
-        return st.multiselect(label=label, options=_opts, default=[_opts[0]] if default else None)
+        return st.multiselect(
+            label=label,
+            options=_opts,
+            default=default,
+            on_change=self._clean_opt_ptf,
+        )
 
     def set_api_keys(self) -> None:
         """Set the API keys."""
@@ -67,6 +156,7 @@ class SessionManager:
             self._from_selectbox(
                 label="Choose the investment universe.",
                 options=UniverseName,
+                value=self.universe_name.value,
             )
         )
 
@@ -86,6 +176,7 @@ class SessionManager:
             for o in self._from_multiselect(
                 label="Choose one or more objective functions for your optimal portfolio.",
                 options=ObjectiveName,
+                default=self.objective_names,
             )
         ]
 
@@ -94,22 +185,51 @@ class SessionManager:
         self.constraint_names = [
             ConstraintName(o)
             for o in self._from_multiselect(
-                label="Choose one or more constraint functions for your optimal portfolio.",
+                label="Choose one or more constraints for your optimal portfolio.",
                 options=ConstraintName,
+                default=self.constraint_names,
             )
         ]
 
     def set_objectives(self) -> None:
         """Set the objectives from the obejctives name."""
-        with st.expander("Objectives configuration."):
-            for obj in self.objective_names:
+        st.sidebar.subheader("🎯 Objectives")
+        for obj in self.objective_names:
+            with st.expander(obj, expanded=False):
+                st.write(objective_mapping[ObjectiveName(obj)].__doc__)
                 st.number_input(
-                    f"Enter {obj} weight",
+                    f"Enter `{obj}` weight",
                     min_value=0.1,
                     max_value=1.0,
                     step=0.1,
                     value=0.5,
+                    key=obj,
                 )
+
+    def set_constraints(self) -> None:
+        """Set the constraints from the obejctives name."""
+        st.sidebar.subheader("🎛️ Constraints")
+        for con in self.constraint_names:
+            if con in [ConstraintName.NUMER_OF_ASSETS, ConstraintName.WEIGHTS_PCT]:
+                with st.expander(con):
+                    st.write(f"{con} docs")
+                    st.number_input(
+                        f"`{con.title()}` minimum",
+                        min_value=0.1,
+                        max_value=1.0,
+                        step=0.1,
+                        value=0.5,
+                    )
+                    st.number_input(
+                        f"`{con.title()}` maximum",
+                        min_value=0.1,
+                        max_value=1.0,
+                        step=0.1,
+                        value=0.5,
+                    )
+            else:
+                with st.expander(con):
+                    st.write(f"{con} documentation.")
 
     def set_rebalance_frequency(self) -> None:
         """Set the objectives name."""
@@ -118,6 +238,7 @@ class SessionManager:
                 label="Choose the rebalance frequency for the backtest.",
                 options=RebalanceFrequency,
                 is_value=False,
+                value=self.rebalance_frequency,
             )
         ]
 
@@ -129,36 +250,52 @@ class SessionManager:
             market_data=self.market_data or MarketData(),
         )
 
-    def run_optimization(self) -> None:
-        """Run the optifolio solve."""
-        if st.button(label="COMPUTE OPTIMAL PORTFOLIO"):
-            opt = self.get_optifolio()
-            with st.spinner("Optimization in progress"):
-                try:
-                    opt_ptf = opt.solve(
-                        start_date=self.start_date,
-                        weights_tolerance=1e-3,
-                    )
-                except AssertionError as er:
-                    log.warning(er)
-                    st.error("Couldn't find a solution!")
+    def display_solution(self) -> None:
+        """Display the solution."""
+        if self._opt_ptf:
             with st.spinner("Elaborating solution"):
                 st.plotly_chart(
-                    figure_or_data=opt_ptf.pie_plot(),
+                    figure_or_data=self._opt_ptf.pie_plot(),
                     use_container_width=True,
                 )
-                opt_ptf.set_market_data(opt.market_data)
-                self._opt_ptf = opt_ptf
                 _cols = ["name", "weight_in_ptf"]
-                holdings_df = opt_ptf.get_holdings_df()
+                holdings_df = self._opt_ptf.get_holdings_df()
                 st.dataframe(
                     holdings_df,
                     column_order=[*_cols, *(c for c in holdings_df.columns if c not in _cols)],
                 )
                 st.plotly_chart(
-                    figure_or_data=opt_ptf.history_plot(start_date=self.start_date),
+                    figure_or_data=self._opt_ptf.history_plot(start_date=self.start_date),
                     use_container_width=True,
                 )
+
+    def _run_optimization(self) -> None:
+        """Run the optifolio solve."""
+        opt = self.get_optifolio()
+        with st.spinner("Optimization in progress"):
+            try:
+                opt_ptf = opt.solve(
+                    start_date=self.start_date,
+                    weights_tolerance=1e-3,
+                )
+                opt_ptf.set_market_data(opt.market_data)
+                self._opt_ptf = opt_ptf
+                self.set_ticker(
+                    opt_ptf.get_non_zero_weights().sort_values(ascending=False).index[0]
+                )
+            except AssertionError as er:
+                log.warning(er)
+                st.error("Couldn't find a solution!")
+
+    def run_optimization(self) -> None:
+        """Run the optifolio solve."""
+        if st.button(label="COMPUTE OPTIMAL PORTFOLIO"):
+            if self._opt_ptf:
+                st.info(
+                    "You already computed an optimal portfolio, change the parameters above to discard the solution and compute a new one."
+                )
+            else:
+                self._run_optimization()
 
     def run_backtest(self) -> None:
         """Run the backtester."""
@@ -170,19 +307,25 @@ class SessionManager:
                     start=self.start_date,
                     rebal_freq=self.rebalance_frequency,
                 )
-                ptfs = backtester.compute_portfolios()
-                backtest_history = backtester.compute_history_values()
-                st.plotly_chart(
-                    figure_or_data=px.line(
-                        data_frame=backtest_history,
-                        x=backtest_history.index,
-                        y=backtest_history.values,
-                        labels={"timestamp": "", "y": ""},
-                        title="Portfolio value from start date to today",
-                    ),
-                    use_container_width=True,
-                )
-                st.dataframe(Portfolios(ptfs).to_df().sort_index(ascending=False))
+                self._ptfs = backtester.compute_portfolios()
+                self._backtest_history = backtester.compute_history_values()
+
+    def display_backtest(self) -> None:
+        """Display the backtester result."""
+        if self._backtest_history is not None and not self._backtest_history.empty:
+            st.plotly_chart(
+                figure_or_data=px.line(
+                    data_frame=self._backtest_history,
+                    x=self._backtest_history.index,
+                    y=self._backtest_history.values,
+                    labels={"timestamp": "", "y": ""},
+                    title="Portfolio value from start date to today",
+                ),
+                use_container_width=True,
+            )
+        if self._ptfs:
+            st.write("Portfolios allocation over time")
+            st.dataframe(Portfolios(self._ptfs).to_df().sort_index(ascending=False))
 
     @staticmethod
     def _display_value_in_container(description: str, value: str | list) -> None:

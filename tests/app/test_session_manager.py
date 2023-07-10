@@ -101,24 +101,16 @@ def test_run_optimization(
     """Test for the run_optimization method of SessionManager class."""
     st.button = Mock(return_value=True)
     st.spinner = MagicMock()
-    st.plotly_chart = Mock()
     st.dataframe = MagicMock()
 
+    session_manager._opt_ptf = None  # manually make sure the cache is not there
     session_manager.run_optimization()
 
     st.button.assert_called_once_with(label="COMPUTE OPTIMAL PORTFOLIO")
-    assert len(st.spinner.mock_calls) == 6  # noqa: PLR2004 # 2 enter, 2 exit and 2 descriptions
-    assert len(st.plotly_chart.mock_calls) == 2  # noqa: PLR2004 # 2 plots
+    assert len(st.spinner.mock_calls) == 3  # noqa: PLR2004 # enter, exit and description
     _opt_ptf = session_manager._opt_ptf
-    assert isinstance(_opt_ptf, Portfolio)
-    assert st.plotly_chart.mock_calls[0][2]["figure_or_data"] == _opt_ptf.pie_plot()
-    _df = _opt_ptf.get_holdings_df()
-    _cols = ["name", "weight_in_ptf"]
-    assert all(st.dataframe.mock_calls[0][1][0] == _df)
-    assert st.dataframe.mock_calls[0][2]["column_order"] == [
-        *_cols,
-        *(c for c in _df.columns if c not in _cols),
-    ]
+    assert _opt_ptf is not None
+    assert isinstance(_opt_ptf, Portfolio)  # type: ignore
 
 
 def test_display_optifolio_problem(session_manager: SessionManager) -> None:

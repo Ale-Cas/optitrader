@@ -27,7 +27,7 @@ class Portfolio:
         assert (
             1 - _wsum <= SETTINGS.SUM_WEIGHTS_TOLERANCE
         ), f"The sum of weights has to be 1 not {_wsum}."
-        self.weights = weights
+        self.weights = pd.Series(weights)
         self.objective_values = objective_values
         self.market_data = market_data
         self.created_at = created_at

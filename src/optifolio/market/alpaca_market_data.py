@@ -142,14 +142,13 @@ class AlpacaMarketData(BaseDataProvider):
     @lru_cache(maxsize=256)  # noqa: B019
     def get_alpaca_assets(
         self,
-        only_ticker: bool = True,
         status: AssetStatus = AssetStatus.ACTIVE,
         asset_class: AssetClass = AssetClass.US_EQUITY,
         tradable: bool = True,
         marginable: bool = True,
         fractionable: bool = True,
-    ) -> list[str] | list[Asset]:
-        """Get alpaca asset by ticker."""
+    ) -> list[Asset]:
+        """Get alpaca assets."""
         assets = self.__asset_client.get_all_assets(
             GetAssetsRequest(
                 status=status,
@@ -157,10 +156,61 @@ class AlpacaMarketData(BaseDataProvider):
             )
         )
         assert isinstance(assets, list)
-        return [  # type: ignore
-            a.symbol if only_ticker else a
+        return [
+            a
             for a in assets
             if a.tradable == tradable
             and a.marginable == marginable
             and a.fractionable == fractionable
         ]
+
+    @lru_cache(maxsize=256)  # noqa: B019
+    def get_alpaca_tickers(
+        self,
+        status: AssetStatus = AssetStatus.ACTIVE,
+        asset_class: AssetClass = AssetClass.US_EQUITY,
+        tradable: bool = True,
+        marginable: bool = True,
+        fractionable: bool = True,
+    ) -> list[str]:
+        """Get alpaca asset tickers."""
+        return [
+            a.symbol
+            for a in self.get_alpaca_assets(
+                status=status,
+                asset_class=asset_class,
+                tradable=tradable,
+                marginable=marginable,
+                fractionable=fractionable,
+            )
+        ]
+
+    def get_assets_df(
+        self,
+        status: AssetStatus = AssetStatus.ACTIVE,
+        asset_class: AssetClass = AssetClass.US_EQUITY,
+        tradable: bool = True,
+        marginable: bool = True,
+        fractionable: bool = True,
+    ) -> pd.DataFrame:
+        """Get alpaca assets dataframe."""
+        return pd.DataFrame(
+            [
+                a.dict()
+                for a in self.get_alpaca_assets(
+                    status=status,
+                    asset_class=asset_class,
+                    tradable=tradable,
+                    marginable=marginable,
+                    fractionable=fractionable,
+                )
+            ]
+        )
+
+    @lru_cache  # noqa: B019
+    def get_asset_by_name(self, name: str) -> Asset:
+        """Get an asset by its name."""
+        assets = self.get_alpaca_assets()
+        search_result = [a for a in assets if name in str(a.name)][0]
+        assert isinstance(search_result, Asset), f"{name} not found."
+        return search_result

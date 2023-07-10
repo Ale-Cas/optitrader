@@ -38,7 +38,7 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Mon, 26 Jun 2023 14:54:23 GMT
+      - Mon, 10 Jul 2023 15:15:03 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
       Vary:
@@ -48,9 +48,9 @@ interactions:
       X-Ratelimit-Remaining:
       - '199'
       X-Ratelimit-Reset:
-      - '1687791264'
+      - '1689002103'
       X-Request-Id:
-      - de5a4c7ad2c6c27ada33550827aa3bbe
+      - 855d8885a8aaee8ce9b1c74277c09b77
     status:
       code: 200
       message: OK
@@ -60,8 +60,8 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
-        Chrome/81.0.4044.138 Safari/537.36
+      - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
       accept:
       - '*/*'
       accept-encoding:
@@ -115,10 +115,10 @@ interactions:
         James  Wilson","title":"Chief Technology Officer","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
         Mary  Demby","title":"Chief Information Officer","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
         Nancy  Paxton","title":"Sr. Director of Investor Relations & Treasury","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
-        Greg  Joswiak","title":"Sr. VP of Worldwide Marketing","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}}],"auditRisk":4,"boardRisk":1,"compensationRisk":5,"shareHolderRightsRisk":1,"overallRisk":1,"governanceEpochDate":1685577600,"compensationAsOfEpochDate":1672444800,"maxAge":86400}}],"error":null}}'
+        Greg  Joswiak","title":"Sr. VP of Worldwide Marketing","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}}],"auditRisk":4,"boardRisk":1,"compensationRisk":5,"shareHolderRightsRisk":1,"overallRisk":1,"governanceEpochDate":1688169600,"compensationAsOfEpochDate":1672444800,"maxAge":86400}}],"error":null}}'
     headers:
       Age:
-      - '1'
+      - '0'
       Connection:
       - keep-alive
       Expect-CT:
@@ -144,7 +144,7 @@ interactions:
       content-type:
       - application/json;charset=utf-8
       date:
-      - Mon, 26 Jun 2023 14:54:23 GMT
+      - Mon, 10 Jul 2023 15:15:03 GMT
       server:
       - ATS
       vary:
@@ -152,13 +152,13 @@ interactions:
       x-envoy-decorator-operation:
       - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
       x-envoy-upstream-service-time:
-      - '1'
+      - '2'
       x-request-id:
-      - b4c23057-da64-4cd1-a9b6-63b9384e1f91
+      - 6c263f51-5a3d-4a15-906a-1511e948fc50
       x-yahoo-request-id:
-      - 287ocepi9j9l0
+      - 49vsi75iao83n
       y-rid:
-      - 287ocepi9j9l0
+      - 49vsi75iao83n
     status:
       code: 200
       message: OK
@@ -168,8 +168,8 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
-        Chrome/81.0.4044.138 Safari/537.36
+      - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
       accept:
       - '*/*'
       accept-encoding:
@@ -190,10 +190,10 @@ interactions:
     uri: https://query2.finance.yahoo.com/v10/finance/quoteSummary/AAPL?modules=defaultKeyStatistics&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
   response:
     body:
-      string: '{"quoteSummary":{"result":[{"defaultKeyStatistics":{"maxAge":1,"priceHint":2,"enterpriseValue":2989976977408,"forwardPE":28.576864,"profitMargins":0.24493,"floatShares":15712029576,"sharesOutstanding":15728700416,"sharesShort":117654782,"sharesShortPriorMonth":124657645,"sharesShortPreviousMonthDate":1682640000,"dateShortInterest":1685491200,"sharesPercentSharesOut":0.0075,"heldPercentInsiders":7.1000005E-4,"heldPercentInstitutions":0.61232,"shortRatio":2.03,"shortPercentOfFloat":0.0075,"beta":1.289436,"impliedSharesOutstanding":15728700416,"category":null,"bookValue":3.953,"priceToBook":47.49557,"fundFamily":null,"legalType":null,"lastFiscalYearEnd":1663977600,"nextFiscalYearEnd":1695513600,"mostRecentQuarter":1680307200,"earningsQuarterlyGrowth":-0.034,"netIncomeToCommon":94321000448,"trailingEps":5.9,"forwardEps":6.57,"pegRatio":3.92,"lastSplitFactor":"4:1","lastSplitDate":1598832000,"enterpriseToRevenue":7.764,"enterpriseToEbitda":24.154,"52WeekChange":0.31780314,"SandP52WeekChange":0.11492491,"lastDividendValue":0.24,"lastDividendDate":1683849600}}],"error":null}}'
+      string: '{"quoteSummary":{"result":[{"defaultKeyStatistics":{"maxAge":1,"priceHint":2,"enterpriseValue":3052891799552,"forwardPE":28.602585,"profitMargins":0.24493,"floatShares":15711872289,"sharesOutstanding":15728700416,"sharesShort":121254451,"sharesShortPriorMonth":109878751,"sharesShortPreviousMonthDate":1684108800,"dateShortInterest":1686787200,"sharesPercentSharesOut":0.0077,"heldPercentInsiders":7.1000005E-4,"heldPercentInstitutions":0.61232,"shortRatio":2.03,"shortPercentOfFloat":0.0077,"beta":1.292349,"impliedSharesOutstanding":15728700416,"category":null,"bookValue":3.953,"priceToBook":47.610676,"fundFamily":null,"legalType":null,"lastFiscalYearEnd":1663977600,"nextFiscalYearEnd":1695513600,"mostRecentQuarter":1680307200,"earningsQuarterlyGrowth":-0.034,"netIncomeToCommon":94321000448,"trailingEps":5.89,"forwardEps":6.58,"pegRatio":4.01,"lastSplitFactor":"4:1","lastSplitDate":1598832000,"enterpriseToRevenue":7.928,"enterpriseToEbitda":24.662,"52WeekChange":31.621456,"SandP52WeekChange":14.127123,"lastDividendValue":0.24,"lastDividendDate":1683849600}}],"error":null}}'
     headers:
       Age:
-      - '0'
+      - '1'
       Connection:
       - keep-alive
       Expect-CT:
@@ -217,7 +217,7 @@ interactions:
       content-type:
       - application/json;charset=utf-8
       date:
-      - Mon, 26 Jun 2023 14:54:24 GMT
+      - Mon, 10 Jul 2023 15:15:02 GMT
       server:
       - ATS
       vary:
@@ -227,11 +227,11 @@ interactions:
       x-envoy-upstream-service-time:
       - '5'
       x-request-id:
-      - f50e37d1-7693-4256-aa8e-eec7998acf0b
+      - a91fedd8-45b7-475b-ac27-e138aad1fce6
       x-yahoo-request-id:
-      - 5k53s0hi9j9l0
+      - 6385ultiao83m
       y-rid:
-      - 5k53s0hi9j9l0
+      - 6385ultiao83m
     status:
       code: 200
       message: OK
