@@ -13,21 +13,22 @@ from optifolio.optimization.constraints import (
 )
 from optifolio.optimization.objectives import (
     ObjectiveName,
+    ObjectivesMap,
     ObjectiveValue,
     PortfolioObjective,
-    objective_mapping,
 )
 
 
 class ObjectiveModel(BaseModel):
     """Objective model for the opt request."""
 
+    _obj_map: ObjectivesMap = ObjectivesMap()
     name: ObjectiveName
     weight: float
 
     def to_ptf_objective(self) -> PortfolioObjective:
         """Parse to objective."""
-        return objective_mapping[self.name]
+        return self._obj_map.to_objective(name=self.name, weight=self.weight)
 
 
 class ConstraintModel(BaseModel):

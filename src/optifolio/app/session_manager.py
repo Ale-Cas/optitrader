@@ -17,7 +17,7 @@ from optifolio.enums import (
     UniverseName,
 )
 from optifolio.market.investment_universe import InvestmentUniverse
-from optifolio.optimization.objectives import objective_mapping
+from optifolio.optimization.objectives import ObjectivesMap
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -46,6 +46,7 @@ class SessionManager:
         self.market_data: MarketData | None = None
         self.universe_name = UniverseName.FAANG
         self.objective_names = [ObjectiveName.CVAR]
+        self.obj_map = ObjectivesMap()
         self.constraint_names = [ConstraintName.SUM_TO_ONE, ConstraintName.LONG_ONLY]
         self.start_date = pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day")
         self.rebalance_frequency = RebalanceFrequency.MONTHLY
@@ -197,14 +198,17 @@ class SessionManager:
         st.sidebar.subheader("🎯 Objectives")
         for obj in self.objective_names:
             with st.expander(obj, expanded=False):
-                st.write(objective_mapping[ObjectiveName(obj)].__doc__)
-                st.number_input(
-                    f"Enter `{obj}` weight",
-                    min_value=0.1,
-                    max_value=1.0,
-                    step=0.1,
-                    value=0.5,
-                    key=obj,
+                st.write(self.obj_map.get_obj_doc(ObjectiveName(obj)))
+                self.obj_map.add_objective(
+                    name=obj,
+                    weight=st.number_input(
+                        f"Enter `{obj}` weight",
+                        min_value=0.1,
+                        max_value=1.0,
+                        step=0.1,
+                        value=0.5,
+                        key=obj,
+                    ),
                 )
 
     def set_constraints(self) -> None:
@@ -246,7 +250,7 @@ class SessionManager:
     def get_optifolio(self) -> Optifolio:
         """Get the optifolio instance."""
         return Optifolio(
-            objectives=[objective_mapping[ObjectiveName(o)] for o in self.objective_names],
+            objectives=self.obj_map.objectives,
             universe_name=self.universe_name,
             market_data=self.market_data or MarketData(),
         )
@@ -269,6 +273,15 @@ class SessionManager:
                     figure_or_data=self._opt_ptf.history_plot(start_date=self.start_date),
                     use_container_width=True,
                 )
+                st.markdown("##### Optimal objectives details")
+                col1, col2, col3 = st.columns(3)
+                for o in self._opt_ptf.objective_values:
+                    with col1:
+                        st.markdown(f"Name: `{o.name}`")
+                    with col2:
+                        st.markdown(f"Weight: `{round(o.weight, 1)}`")
+                    with col3:
+                        st.markdown(f"Optimal value: `{round(o.value, 9)}`")
 
     def _run_optimization(self) -> None:
         """Run the optifolio solve."""
