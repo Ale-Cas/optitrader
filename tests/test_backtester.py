@@ -5,8 +5,8 @@ import pandas as pd
 import pytest
 
 from optifolio import Optifolio
-from optifolio.backtester import Backtester, RebalanceFrequency
-from optifolio.enums import UniverseName
+from optifolio.backtester import Backtester
+from optifolio.enums import RebalanceFrequency, UniverseName
 from optifolio.optimization.objectives import CVaRObjectiveFunction
 
 

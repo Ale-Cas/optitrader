@@ -160,7 +160,7 @@ convention = "numpy"
       --server.address $host
       --server.port $port
       --theme.base dark
-      src/optifolio/app.py
+      src/optifolio/app/1_🏠_Home.py
     """
   use_exec = true
 

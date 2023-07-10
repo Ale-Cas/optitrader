@@ -22,6 +22,14 @@ def test_say() -> None:
 @pytest.mark.timeout(2)
 def test_dashboard() -> None:
     """Test that the dashboard command works as expected."""
+    result = runner.invoke(app, ["dashboard", "--launch", "--timeout=1"])
+    assert result.exit_code == 1
+    assert isinstance(result.exception, TimeoutExpired)
+
+
+@pytest.mark.timeout(2)
+def test_dashboard_no_launch() -> None:
+    """Test that the dashboard command works as expected."""
     result = runner.invoke(app, ["dashboard", "--no-launch", "--timeout=1"])
     assert result.exit_code == 1
     assert isinstance(result.exception, TimeoutExpired)

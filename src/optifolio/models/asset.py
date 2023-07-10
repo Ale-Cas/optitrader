@@ -1,6 +1,11 @@
 """AssetModel base model."""
+from enum import Enum
+
+import pandas as pd
 from alpaca.trading import AssetClass, AssetExchange, AssetStatus
 from pydantic import BaseModel
+
+from optifolio.utils import clean_string
 
 
 class YahooAssetModel(BaseModel):
@@ -9,7 +14,7 @@ class YahooAssetModel(BaseModel):
     industry: str
     sector: str
     website: str
-    total_number_of_shares: int
+    number_of_shares: int
     business_summary: str
 
 
@@ -25,3 +30,15 @@ class AssetModel(YahooAssetModel):
     tradable: bool
     marginable: bool
     fractionable: bool
+
+    def to_series(self) -> pd.Series:
+        """Cast to series."""
+        return pd.Series(
+            {
+                clean_string(k).title(): clean_string(str(v))
+                if not isinstance(v, Enum)
+                else clean_string(v.value).title()
+                for k, v in self.dict(exclude={"weight_in_ptf", "business_summary"}).items()
+            },
+            name="",
+        )

@@ -7,7 +7,8 @@ import cvxpy as cp
 import pandas as pd
 
 from optifolio.config import SETTINGS
-from optifolio.optimization.constraints import ConstraintName, PortfolioConstraint
+from optifolio.enums import ConstraintName
+from optifolio.optimization.constraints import PortfolioConstraint
 from optifolio.optimization.objectives import (
     ObjectiveValue,
     OptimizationVariables,

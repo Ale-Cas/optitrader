@@ -3,10 +3,11 @@
 import pandas as pd
 import pytest
 
+from optifolio.enums import ObjectiveName
 from optifolio.market import MarketData
-from optifolio.market.investment_universe import InvestmentUniverse, UniverseName
+from optifolio.market.investment_universe import UniverseName
 from optifolio.models import ObjectiveModel, OptimizationRequest
-from optifolio.optimization.objectives import ObjectiveName, ObjectiveValue
+from optifolio.optimization.objectives import ObjectiveValue
 from optifolio.portfolio import Portfolio
 
 
@@ -64,8 +65,22 @@ def test_end_date() -> pd.Timestamp:
 def optimization_request() -> OptimizationRequest:
     """Mock optimization_request."""
     return OptimizationRequest(
-        tickers=InvestmentUniverse(name=UniverseName.POPULAR_STOCKS).tickers,
+        universe_name=UniverseName.POPULAR_STOCKS,
         objectives=[ObjectiveModel(name=ObjectiveName.CVAR, weight=1)],
+    )
+
+
+@pytest.fixture()
+def optimization_request_w_dates(
+    test_start_date: pd.Timestamp,
+    test_end_date: pd.Timestamp,
+) -> OptimizationRequest:
+    """Mock optimization_request."""
+    return OptimizationRequest(
+        universe_name=UniverseName.POPULAR_STOCKS,
+        objectives=[ObjectiveModel(name=ObjectiveName.CVAR, weight=1)],
+        start_date=test_start_date,
+        end_date=test_end_date,
     )
 
 

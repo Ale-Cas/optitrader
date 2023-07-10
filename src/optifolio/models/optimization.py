@@ -4,10 +4,10 @@
 from collections import OrderedDict
 from datetime import date, datetime, timedelta
 
+from optifolio.enums import ConstraintName
 from optifolio.market.investment_universe import UniverseName
 from optifolio.models.base import CustomBaseModel as BaseModel
 from optifolio.optimization.constraints import (
-    ConstraintName,
     PortfolioConstraint,
     constraint_mapping,
 )

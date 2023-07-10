@@ -1,23 +1,15 @@
 """Objectives."""
 from abc import ABCMeta, abstractmethod
-from enum import Enum
 
 import cvxpy as cp
 
-
-class ConstraintName(str, Enum):
-    """Support constraints."""
-
-    SUM_TO_ONE = "SUM_TO_ONE"
-    LONG_ONLY = "LONG_ONLY"
-    NUMER_OF_ASSETS = "NUMER_OF_ASSETS"
-    WEIGHTS_PCT = "WEIGHTS_PCT"
+from optifolio.enums import ConstraintName
 
 
 class PortfolioConstraint(metaclass=ABCMeta):
     """Objective function abstract class."""
 
-    def __init__(self, name) -> None:
+    def __init__(self, name: ConstraintName) -> None:
         self.name = name
 
     @abstractmethod

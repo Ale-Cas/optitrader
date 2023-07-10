@@ -21,6 +21,10 @@ class MarketData:
         broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
         broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
     ) -> None:
+        self._trading_key = trading_key
+        self._trading_secret = trading_secret
+        self._broker_key = broker_key
+        self._broker_secret = broker_secret
         self.__alpaca_client = AlpacaMarketData(
             trading_key=trading_key,
             trading_secret=trading_secret,

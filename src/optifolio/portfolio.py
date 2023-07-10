@@ -117,10 +117,11 @@ class Portfolio:
         `title`: str
             The title of the plot.
         """
+        weights = self.get_non_zero_weights()
         return px.pie(
-            data_frame=self.weights,
-            names=self.weights.keys(),
-            values=self.weights.values,
+            data_frame=weights,
+            names=weights.keys(),
+            values=weights.values,
             title=title,
         )
 

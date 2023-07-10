@@ -1,15 +1,15 @@
 """All market data related Enums."""
-from enum import Enum
+from optifolio.enums import IterEnum
 
 
-class DataProvider(str, Enum):
+class DataProvider(IterEnum):
     """Supported data providers for market data."""
 
     ALPACA = "ALPACA"
     YAHOO = "YAHOO"
 
 
-class BarsField(str, Enum):
+class BarsField(IterEnum):
     """Possile fields in the bars from the data provider."""
 
     OPEN = "open"
@@ -19,7 +19,7 @@ class BarsField(str, Enum):
     VOLUME = "volume"
 
 
-class UniverseName(str, Enum):
+class UniverseName(IterEnum):
     """Supported universe names."""
 
     FAANG = "FAANG Stocks (Facebook, Apple, Amazon, Google & Netflix)"
