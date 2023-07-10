@@ -1,4 +1,5 @@
 """Streamlit homepage."""
+import streamlit as st
 
 from optifolio.app import Page, session
 
@@ -15,10 +16,18 @@ def main() -> None:
         head to the _backtester_ page to see how your strategy would've performed historically.\n
         """
     )
-    session.set_universe_name()
-    session.set_objective_names()
-    session.set_objectives()
-    session.set_start_date()
+    col1, col2 = st.columns(2)
+    with col1:
+        session.set_universe_name()
+        session.set_objective_names()
+    with col2:
+        session.set_start_date()
+        session.set_constraint_names()
     session.run_optimization()
-    session.display_alpaca_account_sidebar()
+    session.display_solution()
+    with st.sidebar:
+        st.subheader("⚙️ Configure Optimization")
+        session.set_objectives()
+        session.set_constraints()
+
     page.display_code_sidebar()

@@ -1,10 +1,12 @@
 """Module to handle market data."""
 
+from functools import lru_cache
+
 import pandas as pd
 
 from optifolio.config import SETTINGS
 from optifolio.enums import BarsField, DataProvider
-from optifolio.market.alpaca_market_data import AlpacaMarketData
+from optifolio.market.alpaca_market_data import AlpacaMarketData, Asset
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.market.yahoo_market_data import YahooMarketData
 from optifolio.models.asset import AssetModel
@@ -38,6 +40,7 @@ class MarketData:
         }
         self.__provider_client = provider_mapping[data_provider]
 
+    @lru_cache  # noqa: B019
     def load_prices(
         self,
         tickers: tuple[str, ...],
@@ -113,6 +116,7 @@ class MarketData:
         # remove tickers that do not have enough observations
         return returns.dropna(axis=1, thresh=int(returns.shape[0] * required_pct_obs))
 
+    @lru_cache  # noqa: B019
     def get_asset_from_ticker(self, ticker: str) -> AssetModel:
         """
         Return asset info from ticker.
@@ -136,7 +140,11 @@ class MarketData:
 
     def get_tradable_tickers(self) -> tuple[str, ...]:
         """Get all tradable tickers from Alpaca."""
-        return tuple(self.__alpaca_client.get_alpaca_assets())  # type: ignore
+        return tuple(self.__alpaca_client.get_alpaca_tickers())
+
+    def get_asset_by_name(self, name: str) -> Asset:
+        """Get asset by name from Alpaca."""
+        return self.__alpaca_client.get_asset_by_name(name)
 
     def get_total_number_of_shares(
         self,

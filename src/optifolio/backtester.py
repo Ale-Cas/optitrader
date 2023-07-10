@@ -5,6 +5,7 @@ import streamlit as st
 
 from optifolio import Optifolio, Portfolio
 from optifolio.enums import RebalanceFrequency
+from optifolio.utils import rearrange_columns_by_zeros
 
 
 class Portfolios:
@@ -18,7 +19,7 @@ class Portfolios:
         """To dataframe of weights at each date."""
         _df = pd.DataFrame({p.created_at: p.weights for p in self.ptfs}).T
         _df.index = _df.index.strftime("%Y-%m-%d")
-        return _df
+        return rearrange_columns_by_zeros(_df)
 
 
 class Backtester:

@@ -17,39 +17,27 @@ def main() -> None:
     """Run dashboard."""
     page = Page(name="Explore financial data & news")
     page.display_title()
-    default_ticker = "AAPL"
-    opt = session.get_optifolio()
+    market_data = MarketData()
+    asset = market_data.get_asset_from_ticker(ticker=session.ticker)
+    submitted = False
     with st.form(key="search"):
         col1, col2 = st.columns(2)
         with col1:
-            _ = st.text_input("Search for a stock by name", placeholder="Apple")
+            name = st.text_input("Search for a stock by name", placeholder=asset.name)
+            if name:
+                session.set_ticker(market_data.get_asset_by_name(name).symbol)
         with col2:
-            ticker = st.text_input("Search by ticker", placeholder="AAPL") or default_ticker
-            ticker = ticker.upper()
+            ticker = st.text_input("Search by ticker", placeholder=session.ticker)
+            if ticker:
+                session.set_ticker(ticker)
 
-        tickers = sorted(opt.investment_universe.tickers)
-        tickers_per_row = 10
-        len_tickers = len(tickers)
-        with st.expander(
-            f"{session.universe_name} universe tickers", expanded=len_tickers < tickers_per_row
-        ):
-            if len_tickers > tickers_per_row:
-                for i in range(0, len_tickers, tickers_per_row):
-                    row = tickers[i : i + tickers_per_row]
-                    cols = st.columns(tickers_per_row)
-                    for idx, col in enumerate(cols):
-                        with col:
-                            if idx < len(row):
-                                st.code(row[idx])
-            else:
-                cols = st.columns(len(tickers))
-                for idx, col in enumerate(cols):
-                    with col:
-                        st.code(tickers[idx])
-        st.form_submit_button("SEARCH")
-    market_data = MarketData()
-    asset = market_data.get_asset_from_ticker(ticker=ticker)
-    prices = market_data.load_prices(tickers=(ticker,), start_date=session.start_date)[ticker]
+        session.display_tickers()
+        submitted = st.form_submit_button("SEARCH")
+    if submitted:
+        asset = market_data.get_asset_from_ticker(ticker=session.ticker)
+    prices = market_data.load_prices(tickers=(session.ticker,), start_date=session.start_date)[
+        session.ticker
+    ]
     st.header(asset.name.title())
     with st.expander("Business summary"):
         st.write(asset.business_summary)

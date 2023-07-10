@@ -22,4 +22,5 @@ def main() -> None:
     )
     session.set_rebalance_frequency()
     session.run_backtest()
+    session.display_backtest()
     session.display_optifolio_problem()

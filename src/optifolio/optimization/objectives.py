@@ -52,7 +52,17 @@ class PortfolioObjective(metaclass=ABCMeta):
 
 
 class CVaRObjectiveFunction(PortfolioObjective):
-    """CVaR objective function."""
+    """
+    Conditional value at Risk objective function.
+
+    Conditional Value at Risk (CVaR), also known as Expected Shortfall (ES),
+    is a risk measure used in financial analysis and portfolio management
+    to assess the potential losses beyond a specified confidence level.
+    Unlike traditional risk measures such as Value at Risk (VaR)
+    that focus solely on the magnitude of potential losses,
+    CVaR provides additional insights by considering the severity of losses
+    that occur beyond the VaR threshold.
+    """
 
     def __init__(
         self,
