@@ -95,5 +95,5 @@ def mock_ptf() -> Portfolio:
                 "AAPL": 0.5,
             }
         ),
-        objective_values=[ObjectiveValue(name=ObjectiveName.CVAR, value=0.1)],
+        objective_values=[ObjectiveValue(name=ObjectiveName.CVAR, value=0.1, weight=1.0)],
     )

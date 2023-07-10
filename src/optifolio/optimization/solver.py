@@ -10,6 +10,7 @@ from optifolio.config import SETTINGS
 from optifolio.enums import ConstraintName
 from optifolio.optimization.constraints import PortfolioConstraint
 from optifolio.optimization.objectives import (
+    ObjectivesMap,
     ObjectiveValue,
     OptimizationVariables,
     PortfolioObjective,
@@ -43,6 +44,7 @@ class Solver:
         self.objectives = objectives
         self.constraints = constraints
         self._universe = list(self.returns.columns)
+        self._objectives_map = ObjectivesMap(objectives)
 
     def _get_cvxpy_objectives_and_constraints(
         self, weights_variable: cp.Variable
@@ -109,7 +111,11 @@ class Solver:
         return Portfolio(
             weights=weights_series,
             objective_values=[
-                ObjectiveValue(name=cvxpy_obj.name, value=cvxpy_obj.minimize.value)
+                ObjectiveValue(
+                    name=cvxpy_obj.name,
+                    value=cvxpy_obj.minimize.value,
+                    weight=self._objectives_map.get_objective_by_name(cvxpy_obj.name).weight,
+                )
                 for cvxpy_obj in cvxpy_objectives
             ],
             created_at=created_at,

@@ -27,7 +27,7 @@ def test_portfolio_repr() -> None:
     }
     ptf = Portfolio(
         weights=pd.Series(test_w),
-        objective_values=[ObjectiveValue(name=ObjectiveName.CVAR, value=0.1)],
+        objective_values=[ObjectiveValue(name=ObjectiveName.CVAR, value=0.1, weight=1.0)],
     )
     _rep = repr(ptf)
     assert isinstance(_rep, str)

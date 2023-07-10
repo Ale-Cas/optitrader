@@ -18,6 +18,7 @@ class ObjectiveValue(_BaseObjectiveModel):
     """Model to represent the mapping of an objective to its optimal value."""
 
     value: float
+    weight: float
 
 
 class OptimizationVariables(_BaseObjectiveModel):
@@ -173,9 +174,59 @@ class MADObjectiveFunction(PortfolioObjective):
         ]
 
 
-objective_mapping: dict[ObjectiveName, PortfolioObjective] = {
-    ObjectiveName.CVAR: CVaRObjectiveFunction(),
-    ObjectiveName.EXPECTED_RETURNS: ExpectedReturnsObjectiveFunction(),
-    ObjectiveName.MEAN_ABSOLUTE_DEVIATION: MADObjectiveFunction(),
-    ObjectiveName.COVARIANCE: CovarianceObjectiveFunction(),
-}
+class ObjectivesMap:
+    """Objectives map."""
+
+    def __init__(self, objectives: list[PortfolioObjective] | None = None) -> None:
+        self.objective_mapping: dict[ObjectiveName, type[PortfolioObjective]] = {
+            ObjectiveName.CVAR: CVaRObjectiveFunction,
+            ObjectiveName.EXPECTED_RETURNS: ExpectedReturnsObjectiveFunction,
+            ObjectiveName.MEAN_ABSOLUTE_DEVIATION: MADObjectiveFunction,
+            ObjectiveName.COVARIANCE: CovarianceObjectiveFunction,
+        }
+        self.objectives: list[PortfolioObjective] = objectives or []
+
+    @property
+    def objectives_names(self) -> list[str]:
+        """Return the obejctives names."""
+        return [o.name for o in self.objectives]
+
+    def to_objective(
+        self,
+        name: ObjectiveName,
+        weight: float = 1.0,
+    ) -> PortfolioObjective:
+        """Get an objective."""
+        return self.objective_mapping[name](weight=weight)  # type: ignore
+
+    def get_objective_by_name(
+        self,
+        name: ObjectiveName,
+    ) -> PortfolioObjective:
+        """Get an objective."""
+        _objs = [o for o in self.objectives if o.name == name]
+        assert len(_objs) > 0, f"Objective {name} not in the objectives list {self.objectives}."
+        return _objs[0]
+
+    def add_objective(
+        self,
+        name: ObjectiveName,
+        weight: float = 1.0,
+    ) -> None:
+        """Add an objective to the map."""
+        if name not in self.objectives_names:
+            self.objectives.append(self.to_objective(name=name, weight=weight))
+        else:
+            obj = self.get_objective_by_name(name)
+            if obj.weight != weight:
+                obj.weight = weight
+
+    def get_obj_doc(
+        self,
+        name: ObjectiveName,
+    ) -> str:
+        """Return the objective docstring."""
+        return (
+            self.objective_mapping[name].__doc__
+            or f"{self.objective_mapping[name].__name__} documentation."
+        )

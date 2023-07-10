@@ -60,6 +60,21 @@ def test_set_objective_names(
     assert session_manager.objective_names == [ObjectiveName.CVAR]
 
 
+def test_set_objectives(
+    session_manager: SessionManager,
+) -> None:
+    """Test for the set_objective_names method of SessionManager class."""
+    name = ObjectiveName.CVAR.value
+    st.multiselect = Mock(return_value=[name])
+    st.number_input = Mock(return_value=1)
+
+    session_manager.set_objectives()
+
+    objs = session_manager.obj_map.objectives
+    assert len(objs) == 1
+    assert objs[0].name == name
+
+
 def test_set_constraint_names(
     session_manager: SessionManager,
 ) -> None:
@@ -102,6 +117,16 @@ def test_run_optimization(
     st.button = Mock(return_value=True)
     st.spinner = MagicMock()
     st.dataframe = MagicMock()
+
+    # Setup the objectives:
+    name = ObjectiveName.CVAR.value
+    st.multiselect = Mock(return_value=[name])
+    st.number_input = Mock(return_value=1)
+    session_manager.set_objectives()
+    objs = session_manager.obj_map.objectives
+    assert len(objs) == 1
+    assert objs[0].name == name
+    # (might need refactor with hipothesis)
 
     session_manager._opt_ptf = None  # manually make sure the cache is not there
     session_manager.run_optimization()
