@@ -4,6 +4,8 @@ from time import sleep
 
 import pytest
 
+from optifolio.app import about, account, backtester, explore, home
+
 
 @pytest.mark.timeout(2)
 def test_run_streamlit() -> None:
@@ -15,3 +17,13 @@ def test_run_streamlit() -> None:
     finally:
         assert not p.stderr
         p.kill()
+
+
+@pytest.mark.timeout(5)
+def test_run_pages_main() -> None:
+    """Run pages main function."""
+    about.main()
+    account.main()
+    backtester.main()
+    explore.main()
+    home.main()
