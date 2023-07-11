@@ -69,6 +69,16 @@ def test_get_asset(
     assert isinstance(asset, AssetModel)
 
 
+def test_get_financials(
+    market_data: MarketData,
+) -> None:
+    """Test get_total_returns method."""
+    fin_df = market_data.get_financials(
+        ticker="AAPL",
+    )
+    assert isinstance(fin_df, pd.DataFrame)
+
+
 def test_investment_universe_with_top_market_cap(
     market_data: MarketData,
 ) -> None:

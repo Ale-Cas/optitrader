@@ -1,9 +1,11 @@
 """Implementation of Alpaca as DataProvider."""
 
+from functools import lru_cache
+
 import pandas as pd
 from yahooquery import Ticker
 
-from optifolio.enums import BarsField
+from optifolio.enums.market import BalanceSheetItem, BarsField, CashFlowItem, IncomeStatementItem
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.models.asset import YahooAssetModel
 
@@ -13,6 +15,11 @@ class YahooMarketData(BaseDataProvider):
 
     def __init__(self) -> None:
         super().__init__()
+        self.financials = [
+            *IncomeStatementItem.get_values_list(),
+            *CashFlowItem.get_values_list(),
+            *BalanceSheetItem.get_values_list(),
+        ]
 
     def parse_ticker_for_yahoo(self, ticker: str) -> str:
         """Replace a dot with a hyphen for yahoo in ticker."""
@@ -100,7 +107,9 @@ class YahooMarketData(BaseDataProvider):
 
     def get_number_of_shares(self, ticker: str) -> int:
         """Get the sharesOutstanding field from yahoo query."""
-        return int(Ticker(ticker).key_stats[ticker]["sharesOutstanding"])
+        return int(
+            Ticker(self.parse_ticker_for_yahoo(ticker)).key_stats[ticker]["sharesOutstanding"]
+        )
 
     def get_multi_number_of_shares(self, tickers: tuple[str, ...]) -> pd.Series:
         """Get the sharesOutstanding field from yahoo query."""
@@ -114,3 +123,16 @@ class YahooMarketData(BaseDataProvider):
                 for ticker in tickers
             }
         )
+
+    @lru_cache  # noqa: B019
+    def get_financials(self, ticker: str) -> pd.DataFrame:
+        """Get financials from yahoo finance."""
+        ticker = self.parse_ticker_for_yahoo(ticker)
+        fin_df = Ticker(ticker).get_financial_data(
+            types=self.financials,
+            frequency="q",
+            trailing=False,
+        )
+        assert isinstance(fin_df, pd.DataFrame)
+        fin_df = fin_df.reset_index().set_index("asOfDate")
+        return fin_df[self.financials]
