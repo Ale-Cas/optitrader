@@ -186,3 +186,14 @@ def test_display_alpaca_account_sidebar(session_manager: SessionManager) -> None
         "The default data come from my personal Alpaca trading sandbox API keys."
     )
     assert len(st.markdown.mock_calls) == 1
+
+
+def test_display_financials(session_manager: SessionManager) -> None:
+    """Test for the display_financials method of SessionManager class."""
+    st.plotly_chart = MagicMock()
+    st.markdown = Mock()
+
+    session_manager.display_financials()
+
+    assert len(st.markdown.mock_calls) == 1
+    assert len(st.plotly_chart.mock_calls) == 3  # noqa: PLR2004 # 3 statements

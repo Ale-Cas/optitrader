@@ -16,6 +16,7 @@ from optifolio.enums import (
     RebalanceFrequency,
     UniverseName,
 )
+from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.investment_universe import InvestmentUniverse
 from optifolio.optimization.objectives import ObjectivesMap
 
@@ -43,7 +44,7 @@ class SessionManager:
 
     def __init__(self) -> None:
         """Initialize a Streamlit session object."""
-        self.market_data: MarketData | None = None
+        self.market_data: MarketData = MarketData()
         self.universe_name = UniverseName.FAANG
         self.objective_names = [ObjectiveName.CVAR]
         self.obj_map = ObjectivesMap()
@@ -55,6 +56,10 @@ class SessionManager:
         self._backtest_history: pd.Series | None = None
         self._ticker: str = "AAPL"
         self.tickers = InvestmentUniverse(name=self.universe_name).tickers
+
+    def set_market_data(self, market_data: MarketData) -> None:
+        """Set the market_data connection."""
+        self.market_data = market_data
 
     @property
     def ticker(self) -> str:
@@ -340,6 +345,33 @@ class SessionManager:
         if self._ptfs:
             st.write("Portfolios allocation over time")
             st.dataframe(Portfolios(self._ptfs).to_df().sort_index(ascending=False))
+
+    def display_financials(self) -> None:
+        """Display the backtester result."""
+        st.markdown("#### Financial statements over time")
+        fin_df = self.market_data.get_financials(self.ticker)
+        statements: dict[str, list[IterEnum]] = {
+            "Income Statement": [
+                IncomeStatementItem.REVENUE,
+                IncomeStatementItem.NET_INCOME,
+            ],
+            "Balance Sheet": [BalanceSheetItem.ASSETS, BalanceSheetItem.LIABILITIES],
+            "Cash Flow": [CashFlowItem.FREE, CashFlowItem.OPERATING],
+        }
+        tabs = st.tabs(list(statements.keys()))
+        for _idx, tab in enumerate(tabs):
+            statement = list(statements.keys())[_idx]
+            fin_df_tab = fin_df[statements[statement]]
+            with tab:
+                st.plotly_chart(
+                    figure_or_data=px.bar(
+                        data_frame=fin_df_tab,
+                        barmode="group",
+                        labels={"asOfDate": "Date", "value": "💵   U.S. Dollars"},
+                        title=statement,
+                    ),
+                    use_container_width=True,
+                )
 
     @staticmethod
     def _display_value_in_container(description: str, value: str | list) -> None:

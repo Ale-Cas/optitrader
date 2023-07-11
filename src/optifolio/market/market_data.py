@@ -138,6 +138,23 @@ class MarketData:
             **yahoo_asset.dict(),
         )
 
+    @lru_cache  # noqa: B019
+    def get_financials(self, ticker: str) -> pd.DataFrame:
+        """
+        Return asset info from ticker.
+
+        Parameters
+        ----------
+        `ticker`: str
+            A str representing the ticker.
+
+        Returns
+        -------
+        `fin_df`
+            pd.DataFrame of financials.
+        """
+        return self.__yahoo_client.get_financials(ticker)
+
     def get_tradable_tickers(self) -> tuple[str, ...]:
         """Get all tradable tickers from Alpaca."""
         return tuple(self.__alpaca_client.get_alpaca_tickers())
