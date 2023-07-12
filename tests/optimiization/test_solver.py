@@ -14,6 +14,7 @@ from optifolio.optimization.constraints import (
     WeightsConstraint,
 )
 from optifolio.optimization.objectives import (
+    CovarianceObjectiveFunction,
     CVaRObjectiveFunction,
     FinancialsObjectiveFunction,
     MADObjectiveFunction,
@@ -38,6 +39,27 @@ def test_solver_cvar(
             end_date=test_end_date,
         ),
         objectives=[CVaRObjectiveFunction()],
+        constraints=[SumToOneConstraint(), NoShortSellConstraint()],
+    ).solve()
+    assert all(sol.weights.values >= 0)
+    assert 1 - sum(sol.weights) <= _tollerance
+
+
+@vcr.use_cassette("tests/data/cassettes/test_load_prices.yaml")
+def test_solver_covariance(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+    test_start_date: pd.Timestamp,
+    test_end_date: pd.Timestamp,
+) -> None:
+    """Test optimization solver."""
+    sol = Solver(
+        returns=market_data.get_total_returns(
+            tickers=test_tickers,
+            start_date=test_start_date,
+            end_date=test_end_date,
+        ),
+        objectives=[CovarianceObjectiveFunction()],
         constraints=[SumToOneConstraint(), NoShortSellConstraint()],
     ).solve()
     assert all(sol.weights.values >= 0)

@@ -1,6 +1,6 @@
 """Test yahoo query integration."""
 
-from pandas import DataFrame, Series
+from pandas import DataFrame, Series, Timestamp
 
 from optifolio.market.yahoo_market_data import YahooMarketData
 from optifolio.models.asset import YahooAssetModel
@@ -12,6 +12,24 @@ def test_get_yahoo_asset() -> None:
     """Test get_yahoo_asset method."""
     asset = client.get_yahoo_asset(ticker="AAPL")
     assert isinstance(asset, YahooAssetModel)
+
+
+def test_get_yahoo_invalid_asset() -> None:
+    """Test get_yahoo_asset method."""
+    asset = client.get_yahoo_asset(ticker="INVALIDTICKER")
+    assert isinstance(asset, YahooAssetModel)
+
+
+def test_get_bars(test_start_date: Timestamp) -> None:
+    """Test get_bars method."""
+    bars = client.get_bars(tickers=("AAPL",), start_date=test_start_date)
+    assert isinstance(bars, DataFrame)
+
+
+def test_get_prices(test_start_date: Timestamp) -> None:
+    """Test get_prices method."""
+    prices = client.get_prices(tickers=("AAPL", "TSLA", "BRK.B"), start_date=test_start_date)
+    assert isinstance(prices, DataFrame)
 
 
 def test_get_yahoo_number_of_shares() -> None:

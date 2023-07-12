@@ -33,6 +33,7 @@ class YahooMarketData(BaseDataProvider):
         """Replace a dot with a hyphen for yahoo in tickers."""
         return tuple(self.parse_ticker_for_yahoo(t) for t in tickers)
 
+    @lru_cache  # noqa: B019
     def get_bars(
         self,
         tickers: tuple[str, ...],
