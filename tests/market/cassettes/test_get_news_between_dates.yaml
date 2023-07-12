@@ -1,0 +1,326 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic Q0tUV01ONE9RUFpTMDdONVpCMVY6ZW5rYXZKc05GUFU1U3JwWFVLM1QwRWdOaU5Ta0xYR1dqbmRuZUVXZw==
+      Connection:
+      - keep-alive
+      User-Agent:
+      - APCA-PY/0.8.2
+    method: GET
+    uri: https://data.sandbox.alpaca.markets/v1beta1/news?symbols=AAPL%2CTSLA%2CMSFT%2CV%2CJPM&start=2023-01-01T00%3A00%3A00Z&end=2023-06-01T00%3A00%3A00Z&limit=5&include_content=True&exclude_contentless=True
+  response:
+    body:
+      string: "{\"news\":[{\"author\":\"Ryan Glosier\",\"content\":\"\\u003cp\\u003eThe
+        son of legendary value investor \\u003cstrong\\u003eBill Miller\\u003c/strong\\u003e
+        appeared on CNBC\\u0026rsquo;s \\u0026quot;Closing Bell\\u0026quot; Wednesday
+        to discuss the transition in ownership at \\u003cstrong\\u003eMiller Value
+        Partners\\u003c/strong\\u003e and some \\u003ca href=\\\"https://www.benzinga.com/trading-ideas\\\"\\u003estock
+        views and ideas\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eBill
+        Miller IV \\u003c/strong\\u003eis now 80% owner of Miller Value Partners.
+        His father, who is famous for beating the S\\u0026amp;P 500 for 15 years in
+        a row from 1991 through 2005 at \\u003cstrong\\u003eLegg Mason\\u003c/strong\\u003e,
+        will maintain a 20% stake in the money management firm.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat\\u0026#39;s
+        New At Miller Value Partners?\\u0026nbsp;\\u003c/strong\\u003eMiller IV said
+        the overall investment philosophy at the firm will not be changing dramatically,
+        but he is hoping to increase transparency and ensure the firm and its outside
+        investors are aligned in the most optimal way possible.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        elder Miller will continue to be an investment advisor to his son, who said
+        he wants his dad to be as active in the business as he \\u0026ldquo;wants
+        to be.\\u0026rdquo;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
+        Miller Isn\\u0026#39;t Chasing Nvidia: \\u003c/strong\\u003eMiller IV next
+        spoke about individual stocks and noted the entirety of the market\\u0026rsquo;s
+        gains in 2023 have been concentrated in a handful of big-cap tech stocks.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        entire stock market is incredibly concentrated at the top, with 25% of the
+        market being comprised by the largest market-capitalization companies, he
+        said: \\u003cstrong\\u003eApple Inc\\u0026nbsp;\\u003c/strong\\u003e(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e),
+        \\u003cstrong\\u003eAmazon.com, Inc.\\u003c/strong\\u003e (NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AMZN#NASDAQ\\\"\\u003eAMZN\\u003c/a\\u003e),
+        \\u003cstrong\\u003eAlphabet Inc\\u003c/strong\\u003e (NASDAQ:\\u003ca class=\\\"ticker\\\"
+        href=\\\"https://www.benzinga.com/stock/GOOG#NASDAQ\\\"\\u003eGOOG\\u003c/a\\u003e),
+        \\u003cstrong\\u003eNVIDIA Corporation\\u003c/strong\\u003e\\u0026nbsp;(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/NVDA#NASDAQ\\\"\\u003eNVDA\\u003c/a\\u003e)
+        and the other usual suspects.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eWhile
+        other investors have been riding these names in 2023, Miller IV said he remains
+        skeptical \\u0026mdash; and would absolutely not be chasing a name like Nvidia
+        higher at a \\u003ca href=\\\"https://www.benzinga.com/news/23/05/32630114/nvidia-becomes-ninth-company-to-hit-1-trillion-market-cap-who-could-be-next-to-join-elusive-club\\\"\\u003e$1-trillion
+        valuation\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eFund
+        managers who\\u0026nbsp;are looking to outperform the indices will need to
+        be patient and probably look to put capital to work in the out-of-favor, beaten-down
+        sectors where values still exist, he said.\\u0026nbsp;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eFed
+        tightening measures are removing capital from the system, and this is benefiting
+        the less capital-intensive businesses, Miller IV said, giving the examples
+        of Alphabet and \\u003cstrong\\u003eMeta Platforms Inc\\u003c/strong\\u003e
+        (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/META#NASDAQ\\\"\\u003eMETA\\u003c/a\\u003e),
+        which he said do not require significant capital investment to run their core
+        businesses.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eBig tech has already
+        had another big run, he said, adding that he doubts outperformance in the
+        coming years will be driven by piling on big-cap tech at present valuations.\\u0026nbsp;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eMiller
+        On Stellantis, Verizon:\\u0026nbsp;\\u003c/strong\\u003e\\u003cstrong\\u003eStellantis
+        NV\\u003c/strong\\u003e (NYSE:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/STLA#NYSE\\\"\\u003eSTLA\\u003c/a\\u003e)
+        is cheap, Miller IV said, adding that\\u0026nbsp;shares trade at 1x operating
+        income and upon further inspection, Stellantis has an EBITDA/market cap yield
+        of above 55%. The automaker\\u0026#39;s revenue growth trends over the last
+        few years have been very attractive, he said, and he called its 9.42% \\u003ca
+        href=\\\"https://www.benzinga.com/yield-investments\\\"\\u003edividend yield\\u003c/a\\u003e
+        \\u0026quot;safe.\\u0026quot;\\u0026nbsp;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        second name that he mentioned was \\u003cstrong\\u003eVerizon Communications
+        Inc\\u003c/strong\\u003e (NYSE:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/VZ#NYSE\\\"\\u003eVZ\\u003c/a\\u003e),
+        which he called undervalued on a historical basis.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        telecom is a safe bet if the economy is going into a recession, he said.\\u0026nbsp;\\u0026nbsp;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThis
+        is not a stock that is going to make anyone wealthy, but it is a very strong
+        name for investors to park money in the equity market, Miller IV told CNBC:
+        it\\u0026rsquo;s big, stable, cheap and is\\u0026nbsp;yielding above 7%.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003ePhoto
+        via Pixabay.\\u0026nbsp;\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n \",\"created_at\":\"2023-05-31T23:12:20Z\",\"headline\":\"Bill
+        Miller IV Isn't Chasing Nvidia In Its $1-Trillion Days: 2 Stock Ideas From
+        The Money Manager\",\"id\":32661344,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/05/31/dices-over-newspaper-2656028_1920.jpg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/05/31/dices-over-newspaper-2656028_1920.jpg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/05/31/dices-over-newspaper-2656028_1920.jpg\"}],\"source\":\"benzinga\",\"summary\":\"The
+        son of legendary value investor Bill Miller appeared on CNBC\u2019s \\u0026#34;Closing
+        Bell\\u0026#34; Wednesday to discuss the transition in ownership at Miller
+        Value Partners and some stock views and ideas.\",\"symbols\":[\"AAPL\",\"AMZN\",\"GOOG\",\"META\",\"NVDA\",\"STLA\",\"VZ\"],\"updated_at\":\"2023-05-31T23:13:36Z\",\"url\":\"https://www.benzinga.com/top-stories/23/05/32661344/bill-miller-iv-isnt-chasing-nvidia-in-its-1-trillion-days-2-stock-ideas-from-the-money-manager\"},{\"author\":\"Chris
+        Katje\",\"content\":\"\\u003cp\\u003eOne of the most well-known figures in
+        the world and the most followed person on Twitter has regained the title of
+        world\\u0026rsquo;s richest person. Here\\u0026rsquo;s a look at how the wealth
+        of \\u003cstrong\\u003eElon Musk\\u003c/strong\\u003e breaks down \\u003ca
+        href=\\\"https://www.benzinga.com/topic/billionaires\\\"\\u003eand compares
+        to second place.\\u003c/a\\u003e\\u0026nbsp;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened: \\u003c/strong\\u003eMusk lost the title of the world\\u0026rsquo;s
+        richest person to \\u003cstrong\\u003eLVMH \\u003c/strong\\u003e(OTC:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/LVMUY#OTC\\\"\\u003eLVMUY\\u003c/a\\u003e)(OTC:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/LVMHF#OTC\\\"\\u003eLVMHF\\u003c/a\\u003e)
+        CEO \\u003ca href=\\\"https://www.benzinga.com/news/22/12/30052840/tesla-ceo-elon-musk-loses-worlds-richest-crown-to-european-luxury-goods-tycoon\\\"\\u003e\\u003cstrong\\u003eBernard
+        Arnault\\u003c/strong\\u003e in 2022.\\u003c/a\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eAfter
+        \\u003ca href=\\\"https://www.benzinga.com/news/23/02/31078069/elon-musk-is-once-again-the-richest-person-in-the-world\\\"\\u003ebriefly
+        regaining the title\\u003c/a\\u003e in February 2023, Musk has been the second-richest
+        person in the \\u003ca href=\\\"https://www.benzinga.com/news/23/03/31187894/elon-musk-loses-worlds-richest-tag-again-how-things-changed-so-quickly\\\"\\u003eworld
+        since March\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eAs
+        the month of May comes to a close, Musk is back on top and now has a narrow
+        lead over Arnault, according to \\u003ca href=\\\"https://www.bloomberg.com/news/articles/2023-05-31/elon-musk-again-world-s-richest-person-as-arnault-s-lvmh-sinks?sref=TBDibEcD\\\"\\u003eBloomberg\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eShares
+        of LVMH were down 3% on Wednesday, which provided the lift needed for Musk
+        to jump back atop the leaderboard. LVMH shares are down 9% in the last month,
+        with slowing economic growth contributing to the\\u0026nbsp;impact on the
+        sale of luxury goods.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eMusk \\u003ca
+        href=\\\"https://www.benzinga.com/news/23/01/30362822/elon-musk-wins-a-guinness-world-record-but-he-likely-wont-be-celebrating\\\"\\u003eset
+        a Guinness World Record \\u003c/a\\u003efor the largest drop in wealth in
+        2022 as the price of \\u003cstrong\\u003eTesla Inc\\u003c/strong\\u003e (NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/TSLA#NASDAQ\\\"\\u003eTSLA\\u003c/a\\u003e)
+        shares saw their worst annual drop since going public.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eIn
+        2023, Musk has seen his wealth soar by $55.3 billion as the price of Tesla
+        rebounded. Tesla represents 71% of Musk\\u0026rsquo;s wealth, according to
+        the Bloomberg Billionaires Index. Musk is also the owner of Twitter and holds
+        an ownership stake in SpaceX.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eAs
+        of Wednesday, Musk had a wealth of $192.3 billion. Ranking closely behind
+        Musk was Arnault at $186.6 billion.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003eRelated
+        Link: \\u003ca href=\\\"https://www.benzinga.com/markets/cryptocurrency/22/06/27881697/happy-birthday-elon-musk-51-facts-and-figures-about-tesla-and-spacex-ceo-on-his-51st-birth\\\"\\u003e51
+        Facts And Figures About Elon Musk\\u0026nbsp;\\u003c/a\\u003e\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
+        It\\u0026rsquo;s Important:\\u003c/strong\\u003e After posting a loss of 69%
+        in 2022, shares of Tesla have rebounded in 2023. Shares are up 89% year-to-date.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        surge in the price of Tesla shares is seen as the key contributor to Musk\\u0026rsquo;s
+        increased wealth. The valuation on Twitter could be worth less than 2022 with
+        Fidelity recently lowering their valuation on the stake they hold.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eTesla
+        could have a huge catalyst in 2023 with the launch of the highly anticipated
+        Cybertruck electric pickup truck. Strong demand and initial positive reactions
+        could help provide a further boost to Tesla shares and \\u003ca href=\\\"https://www.benzinga.com/analyst-ratings/analyst-color/23/05/32612096/cathie-woods-ark-sees-tesla-cybertruck-being-as-mainstream-as-model-y-low-expectati\\\"\\u003ethe
+        wealth of Musk.\\u003c/a\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next:\\u003ca href=\\\"https://www.benzinga.com/news/23/04/31810229/elon-musk-bought-twitter-1-year-ago-a-look-back-at-whats-happened-since-and-what-could-be-next\\\"\\u003e
+        Elon Musk Bought Twitter 1 Year Ago, A Look Back At What\\u0026#39;s Happened
+        Since And What Could Be Next\\u0026nbsp;\\u003c/a\\u003e\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003ePhoto:
+        Shutterstock\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\",\"created_at\":\"2023-05-31T22:06:27Z\",\"headline\":\"Musk
+        Back On Top: Tesla And Twitter CEO Overtakes Arnault As World's Richest Person
+        \u2014 But Just Barely\",\"id\":32660098,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/05/31/musk_rich_shutter.jpg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/05/31/musk_rich_shutter.jpg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/05/31/musk_rich_shutter.jpg\"}],\"source\":\"benzinga\",\"summary\":\"One
+        of the most well-known figures in the world and the most followed person on
+        Twitter has regained the title of world\u2019s richest person. Here\u2019s
+        a look at how the wealth of Elon Musk breaks down and compares to second place.\_\",\"symbols\":[\"LVMHF\",\"LVMUY\",\"TSLA\"],\"updated_at\":\"2023-05-31T22:07:15Z\",\"url\":\"https://www.benzinga.com/news/23/05/32660098/musk-back-on-top-tesla-and-twitter-ceo-overtakes-arnault-as-worlds-richest-person-but-just-barely\"},{\"author\":\"Benzinga
+        Insights\",\"content\":\"\\u003cp\\u003eVisa (NYSE:\\u003ca class=\\\"ticker\\\"
+        href=\\\"https://www.benzinga.com/stock/V#NYSE\\\"\\u003eV\\u003c/a\\u003e)
+        has observed the following analyst ratings within the last quarter: \\u003c/p\\u003e\\n\\u003ctable\\u003e\\n\\u003cthead\\u003e\\n\\u003ctr\\u003e\\n\\u003cth\\u003e\\u003c/th\\u003e\\n\\u003cth
+        align=\\\"right\\\"\\u003e\\u003cstrong\\u003eBullish\\u003c/strong\\u003e\\u003c/th\\u003e\\n\\u003cth
+        align=\\\"right\\\"\\u003e\\u003cstrong\\u003eSomewhat Bullish\\u003c/strong\\u003e\\u003c/th\\u003e\\n\\u003cth
+        align=\\\"right\\\"\\u003e\\u003cstrong\\u003eIndifferent\\u003c/strong\\u003e\\u003c/th\\u003e\\n\\u003cth
+        align=\\\"right\\\"\\u003e\\u003cstrong\\u003eSomewhat Bearish\\u003c/strong\\u003e\\u003c/th\\u003e\\n\\u003cth
+        align=\\\"right\\\"\\u003e\\u003cstrong\\u003eBearish\\u003c/strong\\u003e\\u003c/th\\u003e\\n\\u003c/tr\\u003e\\n\\u003c/thead\\u003e\\n\\u003ctbody\\u003e\\n\\u003ctr\\u003e\\n\\u003ctd\\u003e\\u003cstrong\\u003eTotal
+        Ratings\\u003c/strong\\u003e\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e3\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e9\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003c/tr\\u003e\\n\\u003ctr\\u003e\\n\\u003ctd\\u003e\\u003cstrong\\u003eLast
+        30D\\u003c/strong\\u003e\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e1\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003c/tr\\u003e\\n\\u003ctr\\u003e\\n\\u003ctd\\u003e\\u003cstrong\\u003e1M
+        Ago\\u003c/strong\\u003e\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003c/tr\\u003e\\n\\u003ctr\\u003e\\n\\u003ctd\\u003e\\u003cstrong\\u003e2M
+        Ago\\u003c/strong\\u003e\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e3\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e8\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003c/tr\\u003e\\n\\u003ctr\\u003e\\n\\u003ctd\\u003e\\u003cstrong\\u003e3M
+        Ago\\u003c/strong\\u003e\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd
+        align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003ctd align=\\\"right\\\"\\u003e0\\u003c/td\\u003e\\n\\u003c/tr\\u003e\\n\\u003c/tbody\\u003e\\n\\u003c/table\\u003e\\n\\n\\u003cp\\u003eIn
+        the last 3 months, 12 analysts have offered 12-month price targets for Visa.
+        The company has an average price target of $270.42 with a high of $290.00
+        and a low of $248.00. \\u003c/p\\u003e\\n\\u003cp\\u003eBelow is a summary
+        of how these 12 analysts rated Visa over the past 3 months. The greater the
+        number of bullish ratings, the more positive analysts are on the stock and
+        the greater the number of bearish ratings, the more negative analysts are
+        on the stock\\u003c/p\\u003e\\n\\u003cp\\u003e\\u003cimg src=\\\"https://www.benzinga.com/files/images/story/2023/1685566825_0.png\\\"
+        alt=\\\"price target chart\\\" /\\u003e\\u003c/p\\u003e\\n\\n\\u003cp\\u003eThis
+        average price target has increased by 2.51% over the past month.\\u003c/p\\u003e\\n\\u003cp\\u003e\\u003ca
+        href=\\\"https://www.benzinga.com/quote/V/analyst-ratings?utm_source=Benzinga
+        Insights\\\"\\u003e\\u003cstrong\\u003eStay up to date on Visa analyst ratings.\\u003c/strong\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\u003ch1\\u003eAnalyst
+        Ratings: What Are They?\\u003c/h1\\u003e\\n\\u003cp\\u003eRatings come from
+        analysts, or specialists within banking and financial systems that report
+        for specific stocks or defined sectors (typically once per quarter for each
+        stock). Analysts usually derive their information from company conference
+        calls and meetings, financial statements, and conversations with important
+        insiders to reach their decisions.\\u003c/p\\u003e\\n\\u003cp\\u003eSome analysts
+        publish their predictions for metrics such as growth estimates, earnings,
+        and revenue to provide additional guidance with their ratings. When using
+        analyst ratings, it is important to keep in mind that stock and sector analysts
+        are also human and are only offering their opinions to investors.\\u003c/p\\u003e\\n\\u003cp\\u003eThis
+        article was generated by Benzinga's automated content engine and reviewed
+        by an editor.\\u003c/p\\u003e\",\"created_at\":\"2023-05-31T21:00:29Z\",\"headline\":\"The
+        Latest Analyst Ratings for Visa\",\"id\":32659195,\"images\":[],\"source\":\"benzinga\",\"summary\":\"
+        \",\"symbols\":[\"V\"],\"updated_at\":\"2023-05-31T21:00:30Z\",\"url\":\"https://www.benzinga.com/analyst-ratings/23/05/32659195/the-latest-analyst-ratings-for-visa\"},{\"author\":\"AJ
+        Fabino\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eJamie Dimon\\u003c/strong\\u003e,
+        CEO of \\u003cstrong\\u003eJPMorgan Chase \\u0026amp; Co\\u003c/strong\\u003e
+        (NYSE:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/JPM#NYSE\\\"\\u003eJPM\\u003c/a\\u003e),
+        the largest bank in the U.S. and the third largest in the world, has typically
+        dismissed \\u003ca href=\\\"https://www.benzinga.com/topic/2024-presidential-election\\\"\\u003especulation\\u0026nbsp;about
+        running for office.\\u003c/a\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eHowever,
+        in a Wednesday interview with Bloomberg Television, the CEO seemed to hint
+        at the possibility of a future in public service, leading hedge funder \\u003cstrong\\u003eBill
+        Ackman\\u003c/strong\\u003e to speculate (and support) Dimon\\u0026#39;s potential
+        presidential bid.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened:\\u003c/strong\\u003e Speaking with Bloomberg at JPMorgan\\u0026#39;s
+        annual Global China Summit in Shanghai, \\u003ca href=\\\"https://www.bloomberg.com/news/articles/2023-05-31/jpmorgan-s-jamie-dimon-says-maybe-one-day-i-ll-serve-my-country?utm_source=twitter\\u0026amp;utm_campaign=socialflow-organic\\u0026amp;utm_content=markets\\u0026amp;utm_medium=social\\u0026amp;cmpid%3D=socialflow-twitter-markets\\u0026amp;leadSource=uverify%20wall\\\"\\u003eDimon
+        said\\u003c/a\\u003e, \\u0026quot;I love my country and maybe one day I\\u0026#39;ll
+        serve my country in one capacity or another.\\u0026rdquo; Though, he quickly
+        pivoted back to his current role, expressing his satisfaction with leading
+        the largest U.S. bank, a position he\\u0026rsquo;s held since 2005.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eNoteworthy
+        support for Dimon\\u0026rsquo;s possible foray into politics comes from Ackman,
+        Founder and CEO of Pershing Square.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eAckman
+        took to Twitter to commend Dimon, describing him as one of the world\\u0026rsquo;s
+        most respected business leaders. According to Ackman, Dimon is a centrist,
+        pro-business, and pro-free enterprise, but also a supporter of \\u003ca href=\\\"https://twitter.com/BillAckman/status/1663959113703751720\\\"\\u003ewell-designed
+        social programs and rational tax policies\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        Pershing Square CEO outlined Dimon\\u0026rsquo;s leadership qualities, including
+        his pragmatism, problem-solving abilities, and charisma. He applauded Dimon\\u0026rsquo;s
+        management of JPMorgan, emphasizing his reputation among his employees, the
+        military, and global leaders alike.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003ePointing
+        to the nation\\u0026rsquo;s current debt situation and political uncertainty,
+        Ackman argued that the U.S. needs a leader with business, financial, and global
+        expertise. In his view, Dimon fits the bill perfectly. This comes after Ackman
+        retracted his support for \\u003cstrong\\u003eVivek Ramaswamy\\u003c/strong\\u003e
+        in April, saying that Ramaswamy\\u0026#39;s policies \\u003ca href=\\\"https://twitter.com/BillAckman/status/1647580235431378945\\\"\\u003ewouldn\\u0026#39;t
+        bring the country together\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eAnd,
+        the hedge funder\\u0026#39;s endorsement comes in light of past comments made
+        by Dimon about his political leanings.\\u003cbr /\\u003e\\r\\n\\u003cbr /\\u003e\\r\\n\\u003cem\\u003eRead
+        also: \\u003ca href=\\\"https://www.benzinga.com/general/entertainment/23/05/32651791/if-you-invested-1-000-in-disney-stock-when-desantis-became-governor-youd-have-this-much-now\\\"\\u003eIf
+        You Invested $1,000 In Disney Stock When DeSantis Became Governor, You\\u0026rsquo;d
+        Have This Much Now\\u003c/a\\u003e\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eIn
+        2016, Dimon confessed his interest in the presidency but felt it was \\u0026quot;too
+        hard and too late\\u0026quot; for him, \\u003ca href=\\\"https://www.cnn.com/2023/05/31/economy/jamie-dimon-politics/index.html\\\"\\u003eaccording\\u003c/a\\u003e
+        to CNN. In 2018, he suggested he could beat then-President \\u003cstrong\\u003eDonald
+        Trump\\u003c/strong\\u003e, saying, \\u0026quot;I\\u0026#39;m as tough as
+        he is, I\\u0026#39;m smarter than he is.\\u0026rdquo;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cstrong\\u003eLet\\u0026#39;s
+        consider the pressing question:\\u003c/strong\\u003e If he were to run for
+        president, would he run as a Democrat or a Republican?\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eWell,
+        Dimon has previously described himself as \\u0026quot;barely a Democrat,\\u0026quot;
+        saying in 2019 to CNBC, \\u0026ldquo;my heart is Democratic, my brain is kind
+        of Republican.\\u0026rdquo;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        CEO believes in the power of regulated free-market capitalism to alleviate
+        poverty and insists on prudent spending when it comes to social programs.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eJPMorgan
+        donated $1.59 million to Democrats, and $757,000 to the Republican Party during
+        the 2020 presidential election, according to \\u003ca href=\\\"https://www.opensecrets.org/orgs/jpmorgan-chase-co/recipients?toprecipscycle=2022\\u0026amp;id=d000000103\\u0026amp;candscycle=2020\\\"\\u003eOpen
+        Secrets\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe bank
+        donated $852,000 to Democrats, and $576,000 to Republicans during the \\u003ca
+        href=\\\"https://www.opensecrets.org/orgs/jpmorgan-chase-co/recipients?toprecipscycle=2022\\u0026amp;id=d000000103\\u0026amp;candscycle=2022\\\"\\u003e2022
+        midterms\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003ePersonally,
+        Dimon has donated to Republicans just twice, both times to Senate Minority
+        Leader \\u003cstrong\\u003eMitch McConnell\\u003c/strong\\u003e, while he\\u0026#39;s
+        donated to Democrats on five occasions, according to \\u003ca href=\\\"https://www.opensecrets.org/search?q=jamie+dimon\\u0026amp;type=donors\\\"\\u003eOpen
+        Secrets\\u003c/a\\u003e.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        next: \\u003ca href=\\\"https://www.benzinga.com/news/23/05/32649433/desantis-not-the-only-one-another-trump-ally-turned-adversary-could-be-joining-2024-election\\\"\\u003eDeSantis
+        Not The Only One: Another Trump Ally-Turned-Adversary Could Be Joining 2024
+        GOP Primary\\u003c/a\\u003e\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003ePhoto:\\u0026nbsp;\\u003ca
+        href=\\\"https://www.flickr.com/photos/fortunelivemedia/\\\" id=\\\"yui_3_16_0_1_1683820812209_26276\\\"
+        rel=\\\"author\\\" target=\\\"_blank\\\" title=\\\"Go to Fortune Live Media's
+        photostream\\\"\\u003eFortune Live Media\\u003c/a\\u003e\\u0026nbsp;from Flickr.\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\",\"created_at\":\"2023-05-31T19:28:28Z\",\"headline\":\"Will
+        JPMorgan CEO Jamie Dimon Run For President? Hedge Funder Bill Ackman Gives
+        His Nod\",\"id\":32656430,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/Jamie_Dimon_Fortune_Live_Media_flickr.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/Jamie_Dimon_Fortune_Live_Media_flickr.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/Jamie_Dimon_Fortune_Live_Media_flickr.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"Jamie
+        Dimon, CEO of JPMorgan Chase \\u0026amp; Co (NYSE:JPM), the largest bank in
+        the U.S. and the third largest in the world, has typically dismissed speculation\_about
+        running for office.\",\"symbols\":[\"JPM\"],\"updated_at\":\"2023-05-31T19:31:50Z\",\"url\":\"https://www.benzinga.com/government/23/05/32656430/would-jpmorgan-ceo-jamie-dimon-run-for-president-hedge-funder-bill-ackman-gives-his-nod\"},{\"author\":\"Franca
+        Quarneti\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eMicrosoft Corporation\\u003c/strong\\u003e\\u0026nbsp;(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/MSFT#NASDAQ\\\"\\u003eMSFT\\u003c/a\\u003e)\\u0026#39;s
+        appeal of the U.K. Competition and Market Authority\\u0026#39;s decision to
+        block the tech giant\\u0026#39;s\\u0026nbsp;\\u003ca href=\\\"https://www.benzinga.com/general/gaming/23/04/32017048/activision-blizzard-acquisition-blocked-by-uk-regulator-microsoft-says-it-will-appeal-gaming-exper\\\"\\u003ebid
+        to acquire \\u003cstrong\\u003eActivision Blizzard Inc \\u003c/strong\\u003e\\u003c/a\\u003e(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/ATVI#NASDAQ\\\"\\u003eATVI\\u003c/a\\u003e)
+        is scheduled to be heard in July, as announced during a case management conference
+        held Tuesday.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eAs reported by Insider
+        Gaming, Judge \\u003cstrong\\u003eMarcus Smith \\u003c/strong\\u003erevealed
+        that the hearing on the substance of the application will commence in the
+        fortnight starting July 24.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003eSee
+        Also:\\u0026nbsp;\\u003ca href=\\\"https://www.benzinga.com/general/gaming/23/05/32425916/uks-cma-on-the-european-commission-approval-of-microsoft-and-activision-deal-we-stand-by-our-decis\\\"\\u003eUK\\u0026#39;s
+        CMA On The European Commission Approval Of Microsoft And Activision Deal:
+        \\u0026#39;We Stand By Our Decision\\u0026#39;\\u003c/a\\u003e\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u0026quot;I\\u0026rsquo;m
+        not expecting it to take the whole of those 10 days but I would like the parties
+        to err on the side of longer rather than shorter oral submissions. It seems
+        to me that that is an excess that we can afford,\\u0026quot; Smith said.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eThe
+        judge added: \\u0026quot;There is a tendency \\u0026mdash; and it\\u0026rsquo;s
+        very much driven by the Tribunal rather than the parties \\u0026mdash; to
+        cut submissions to shorter than they perhaps ought to be. I want to do the
+        reverse in this case. I want to have the parties understand that we will want
+        to give them every opportunity to unpack the difficulties of this case in
+        oral submissions and for us to have the time to do that.\\u0026quot;\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003eIn
+        its appeal, Microsoft asserts the CMA has erred on five grounds, including
+        making critical mistakes in its evaluation of the company\\u0026#39;s standing
+        in cloud gaming services.\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next:\\u0026nbsp;\\u003ca href=\\\"https://www.benzinga.com/general/gaming/23/05/32321126/activision-blizzard-in-pannick-mode-taps-queen-elizabeth-iis-former-lawyer-for-cma-appeal\\\"\\u003eActivision
+        Blizzard In \\u0026#39;Pannick\\u0026#39; Mode, Taps Queen Elizabeth II\\u0026#39;s
+        Former Lawyer For CMA Appeal\\u003c/a\\u003e\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\\r\\n\\u003cp\\u003e\\u003cem\\u003eImage
+        credits: Anton Vierietin and FellowNeko on Shutterstock.\\u003c/em\\u003e\\u003c/p\\u003e\\r\\n\",\"created_at\":\"2023-05-31T19:26:05Z\",\"headline\":\"Microsoft's
+        Appeal Of UK Regulator's Block Of Activision Blizzard Acquisition Set For
+        July\",\"id\":32655177,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/05/31/microsoft_activision_deal_anton_vierietin_and_fellowneko_on_shutterstock.jpg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/05/31/microsoft_activision_deal_anton_vierietin_and_fellowneko_on_shutterstock.jpg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/05/31/microsoft_activision_deal_anton_vierietin_and_fellowneko_on_shutterstock.jpg\"}],\"source\":\"benzinga\",\"summary\":\"Microsoft
+        Corporation\_(NASDAQ: MSFT)\\u0026#39;s appeal of the U.K.\",\"symbols\":[\"ATVI\",\"MSFT\"],\"updated_at\":\"2023-05-31T19:26:06Z\",\"url\":\"https://www.benzinga.com/general/gaming/23/05/32655177/microsofts-appeal-of-uk-regulators-block-of-activision-blizzard-acquisition-set-for-july\"}],\"next_page_token\":\"MTY4NTU2MTE2NjAwMDAwMDAwMHwzMjY1NTE3Nw==\"}"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Apca-Api-Key-Id, Apca-Api-Secret-Key, Authorization
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Wed, 12 Jul 2023 15:35:37 GMT
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Ratelimit-Limit:
+      - '200'
+      X-Ratelimit-Remaining:
+      - '199'
+      X-Ratelimit-Reset:
+      - '1689176137'
+      X-Request-ID:
+      - 32c5edfeec77b82b0df86aae68cfe6a3
+    status:
+      code: 200
+      message: OK
+version: 1

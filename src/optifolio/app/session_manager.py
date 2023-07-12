@@ -19,6 +19,7 @@ from optifolio.enums import (
 from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.investment_universe import InvestmentUniverse
 from optifolio.optimization.objectives import ObjectivesMap
+from optifolio.utils.utils import remove_punctuation
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -349,7 +350,7 @@ class SessionManager:
             st.dataframe(Portfolios(self._ptfs).to_df().sort_index(ascending=False))
 
     def display_financials(self) -> None:
-        """Display the backtester result."""
+        """Display the financials."""
         st.markdown("#### Financial statements over time")
         fin_df = self.market_data.get_financials(self.ticker)
         statements: dict[str, list[IterEnum]] = {
@@ -374,6 +375,33 @@ class SessionManager:
                     ),
                     use_container_width=True,
                 )
+
+    def display_news(self) -> None:
+        """Display the news."""
+        st.markdown(
+            f"## Latest {remove_punctuation(self.market_data.get_asset_from_ticker(self.ticker).name.split()[0].title())} News"
+        )
+
+        num_res = int(
+            st.sidebar.number_input(
+                "Number of news articles",
+                min_value=1,
+                max_value=10,
+                value=3,
+                step=1,
+            )
+        )
+        news = self.market_data.get_news((self.ticker,), limit=num_res)
+        for n in news:
+            if self.ticker in n.symbols:
+                st.markdown(f"#### {n.headline}")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.markdown(f"_{n.author}_")
+                with col2:
+                    st.write(n.created_at)
+                with st.expander("🗞️📰 Full article 👇🏻"):
+                    st.write(n.content, unsafe_allow_html=True)
 
     @staticmethod
     def _display_value_in_container(description: str, value: str | list) -> None:

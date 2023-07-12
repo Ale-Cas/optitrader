@@ -197,3 +197,14 @@ def test_display_financials(session_manager: SessionManager) -> None:
 
     assert len(st.markdown.mock_calls) == 1
     assert len(st.plotly_chart.mock_calls) == 3  # noqa: PLR2004 # 3 statements
+
+
+def test_display_news(session_manager: SessionManager) -> None:
+    """Test for the display_news method of SessionManager class."""
+    st.write = Mock()
+    st.markdown = Mock()
+
+    session_manager.display_news()
+
+    assert len(st.markdown.mock_calls) > 1
+    assert len(st.write.mock_calls) > 1

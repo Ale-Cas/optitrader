@@ -29,5 +29,6 @@ def main() -> None:
         st.subheader("⚙️ Configure Optimization")
         session.set_objectives()
         session.set_constraints()
-
+    if session._opt_ptf:
+        session.display_news()
     page.display_code_sidebar()

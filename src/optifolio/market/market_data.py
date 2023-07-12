@@ -9,6 +9,7 @@ from optifolio.enums import BarsField, DataProvider
 from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.alpaca_market_data import AlpacaMarketData, Asset
 from optifolio.market.base_data_provider import BaseDataProvider
+from optifolio.market.news import NewsArticle
 from optifolio.market.yahoo_market_data import YahooMarketData
 from optifolio.models.asset import AssetModel
 
@@ -251,3 +252,41 @@ class MarketData:
     ) -> tuple[str, ...]:
         """Get the tickers with the top market cap."""
         return tuple(self.get_top_market_caps(tickers=tickers, top=top).index)
+
+    def get_news(
+        self,
+        tickers: tuple[str, ...],
+        start: pd.Timestamp | None = None,
+        end: pd.Timestamp | None = None,
+        limit: int = 5,
+        include_content: bool = True,
+        exclude_contentless: bool = True,
+    ) -> list[NewsArticle]:
+        """Get news articles."""
+        return self.__alpaca_client.get_news(
+            tickers=tickers,
+            start=start,
+            end=end,
+            limit=limit,
+            include_content=include_content,
+            exclude_contentless=exclude_contentless,
+        )
+
+    def get_news_df(
+        self,
+        tickers: tuple[str, ...],
+        start: pd.Timestamp | None = None,
+        end: pd.Timestamp | None = None,
+        limit: int = 5,
+        include_content: bool = True,
+        exclude_contentless: bool = True,
+    ) -> pd.DataFrame:
+        """Get news articles in a df."""
+        return self.__alpaca_client.get_news_df(
+            tickers=tickers,
+            start=start,
+            end=end,
+            limit=limit,
+            include_content=include_content,
+            exclude_contentless=exclude_contentless,
+        )

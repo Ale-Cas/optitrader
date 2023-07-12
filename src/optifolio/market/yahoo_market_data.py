@@ -1,4 +1,4 @@
-"""Implementation of Alpaca as DataProvider."""
+"""Implementation of Yahoo as DataProvider."""
 
 from functools import lru_cache
 
@@ -11,7 +11,7 @@ from optifolio.models.asset import YahooAssetModel
 
 
 class YahooMarketData(BaseDataProvider):
-    """Class to get market data from Alpaca."""
+    """Class to get market data from Yahoo."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -116,9 +116,8 @@ class YahooMarketData(BaseDataProvider):
 
     def get_number_of_shares(self, ticker: str) -> int:
         """Get the sharesOutstanding field from yahoo query."""
-        return int(
-            Ticker(self.parse_ticker_for_yahoo(ticker)).key_stats[ticker]["sharesOutstanding"]
-        )
+        _shares = Ticker(self.parse_ticker_for_yahoo(ticker)).key_stats[ticker]
+        return int(_shares["sharesOutstanding"]) if isinstance(_shares, dict) else 0
 
     def get_multi_number_of_shares(self, tickers: tuple[str, ...]) -> pd.Series:
         """Get the sharesOutstanding field from yahoo query."""
@@ -129,6 +128,8 @@ class YahooMarketData(BaseDataProvider):
                 self.parse_ticker_from_yahoo(ticker): int(
                     y_tickers.key_stats[ticker]["sharesOutstanding"]
                 )
+                if isinstance(y_tickers.key_stats[ticker], dict)
+                else 0
                 for ticker in tickers
             }
         )
