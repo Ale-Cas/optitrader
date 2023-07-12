@@ -10,6 +10,7 @@ from alpaca.trading import Asset, AssetClass, AssetStatus, GetAssetsRequest, Tra
 from optifolio.config import SETTINGS
 from optifolio.enums import BarsField
 from optifolio.market.base_data_provider import BaseDataProvider
+from optifolio.market.news import AlpacaNewsAPI, NewsArticle
 
 
 class AlpacaMarketData(BaseDataProvider):
@@ -49,6 +50,7 @@ class AlpacaMarketData(BaseDataProvider):
                 secret_key=broker_secret,
             )
         )
+        self.__news_client: AlpacaNewsAPI = AlpacaNewsAPI()
 
     def get_bars(
         self,
@@ -214,3 +216,41 @@ class AlpacaMarketData(BaseDataProvider):
         search_result = [a for a in assets if name in str(a.name)][0]
         assert isinstance(search_result, Asset), f"{name} not found."
         return search_result
+
+    def get_news(
+        self,
+        tickers: tuple[str, ...],
+        start: pd.Timestamp | None = None,
+        end: pd.Timestamp | None = None,
+        limit: int = 5,
+        include_content: bool = True,
+        exclude_contentless: bool = True,
+    ) -> list[NewsArticle]:
+        """Get news articles."""
+        return self.__news_client.get_news(
+            tickers=tickers,
+            start=start,
+            end=end,
+            limit=limit,
+            include_content=include_content,
+            exclude_contentless=exclude_contentless,
+        )
+
+    def get_news_df(
+        self,
+        tickers: tuple[str, ...],
+        start: pd.Timestamp | None = None,
+        end: pd.Timestamp | None = None,
+        limit: int = 5,
+        include_content: bool = True,
+        exclude_contentless: bool = True,
+    ) -> pd.DataFrame:
+        """Get news articles in a df."""
+        return self.__news_client.get_news_df(
+            tickers=tickers,
+            start=start,
+            end=end,
+            limit=limit,
+            include_content=include_content,
+            exclude_contentless=exclude_contentless,
+        )
