@@ -19,3 +19,4 @@ class ObjectiveName(IterEnum):
     COVARIANCE = "Covariance"
     EXPECTED_RETURNS = "Expected Return"
     MEAN_ABSOLUTE_DEVIATION = "Mean Absolute Deviation"
+    FINANCIALS = "Financial Statements"

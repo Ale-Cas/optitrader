@@ -30,7 +30,7 @@ def main() -> None:
                 session.set_ticker(ticker)
 
         session.display_tickers()
-        submitted = st.form_submit_button("SEARCH")
+        submitted = st.form_submit_button("SEARCH 🔍", help="Search for a stock by ticker or name.")
     if submitted:
         asset = session.market_data.get_asset_from_ticker(ticker=session.ticker)
     prices = session.market_data.load_prices(

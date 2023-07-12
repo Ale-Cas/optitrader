@@ -6,6 +6,7 @@ import pandas as pd
 
 from optifolio.config import SETTINGS
 from optifolio.enums import BarsField, DataProvider
+from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.alpaca_market_data import AlpacaMarketData, Asset
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.market.yahoo_market_data import YahooMarketData
@@ -154,6 +155,34 @@ class MarketData:
             pd.DataFrame of financials.
         """
         return self.__yahoo_client.get_financials(ticker)
+
+    @lru_cache  # noqa: B019
+    def get_multi_financials_by_item(
+        self,
+        tickers: tuple[str, ...],
+        financial_item: IncomeStatementItem
+        | CashFlowItem
+        | BalanceSheetItem = IncomeStatementItem.NET_INCOME,
+    ) -> pd.DataFrame:
+        """
+        Return asset info from tickers.
+
+        Parameters
+        ----------
+        `tickers`: str
+            A str representing the tickers.
+        `financial_item`: IncomeStatementItem
+        | CashFlowItem
+        | BalanceSheetItem = IncomeStatementItem.NET_INCOME
+
+        Returns
+        -------
+        `fin_df`
+            pd.DataFrame of financials.
+        """
+        return self.__yahoo_client.get_multi_financials_by_item(
+            tickers, financial_item=financial_item
+        )
 
     def get_tradable_tickers(self) -> tuple[str, ...]:
         """Get all tradable tickers from Alpaca."""

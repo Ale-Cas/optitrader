@@ -201,6 +201,7 @@ class SessionManager:
     def set_objectives(self) -> None:
         """Set the objectives from the obejctives name."""
         st.sidebar.subheader("🎯 Objectives")
+        _min = 0.1
         for obj in self.objective_names:
             with st.expander(obj, expanded=False):
                 st.write(self.obj_map.get_obj_doc(ObjectiveName(obj)))
@@ -208,11 +209,12 @@ class SessionManager:
                     name=obj,
                     weight=st.number_input(
                         f"Enter `{obj}` weight",
-                        min_value=0.1,
-                        max_value=1.0,
-                        step=0.1,
-                        value=0.5,
+                        min_value=_min,
+                        max_value=_min * 1e2,
+                        step=_min,
+                        value=_min,
                         key=obj,
+                        on_change=self._clean_opt_ptf,
                     ),
                 )
 

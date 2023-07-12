@@ -33,3 +33,10 @@ def test_get_financials() -> None:
     fin_df = client.get_financials(ticker="AAPL")
     assert isinstance(fin_df, DataFrame)
     assert all(fin_df.columns == client.financials)
+
+
+def test_get_multi_financials_by_item(test_tickers: tuple[str, ...]) -> None:
+    """Test get_multi_financials_by_item method."""
+    fin_df = client.get_multi_financials_by_item(tickers=test_tickers)
+    assert isinstance(fin_df, DataFrame)
+    assert sorted(fin_df.columns) == sorted(test_tickers)

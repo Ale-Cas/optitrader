@@ -98,6 +98,14 @@ class YahooMarketData(BaseDataProvider):
         ticker = self.parse_ticker_for_yahoo(ticker)
         _ticker = Ticker(ticker)
         _profile = _ticker.asset_profile[ticker]
+        if _profile == "Invalid Cookie" or isinstance(_profile, str):
+            return YahooAssetModel(
+                industry=_profile,
+                sector=_profile,
+                website=_profile,
+                number_of_shares=1,
+                business_summary=_profile,
+            )
         assert isinstance(_profile, dict), _profile
         return YahooAssetModel(
             **_profile,
@@ -136,3 +144,21 @@ class YahooMarketData(BaseDataProvider):
         assert isinstance(fin_df, pd.DataFrame)
         fin_df = fin_df.reset_index().set_index("asOfDate")
         return fin_df[self.financials]
+
+    @lru_cache  # noqa: B019
+    def get_multi_financials_by_item(
+        self,
+        tickers: tuple[str, ...],
+        financial_item: IncomeStatementItem
+        | CashFlowItem
+        | BalanceSheetItem = IncomeStatementItem.NET_INCOME,
+    ) -> pd.DataFrame:
+        """Get financials from yahoo finance."""
+        tickers = self.parse_tickers_for_yahoo(tickers)
+        fin_df = Ticker(tickers).get_financial_data(
+            types=[financial_item],
+            frequency="q",
+            trailing=False,
+        )
+        assert isinstance(fin_df, pd.DataFrame)
+        return fin_df.pivot_table(values=financial_item.value, index="asOfDate", columns="symbol")
