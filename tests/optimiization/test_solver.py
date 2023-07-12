@@ -13,7 +13,12 @@ from optifolio.optimization.constraints import (
     SumToOneConstraint,
     WeightsConstraint,
 )
-from optifolio.optimization.objectives import CVaRObjectiveFunction, MADObjectiveFunction
+from optifolio.optimization.objectives import (
+    CovarianceObjectiveFunction,
+    CVaRObjectiveFunction,
+    FinancialsObjectiveFunction,
+    MADObjectiveFunction,
+)
 from optifolio.optimization.solver import Solver
 
 _tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
@@ -34,6 +39,27 @@ def test_solver_cvar(
             end_date=test_end_date,
         ),
         objectives=[CVaRObjectiveFunction()],
+        constraints=[SumToOneConstraint(), NoShortSellConstraint()],
+    ).solve()
+    assert all(sol.weights.values >= 0)
+    assert 1 - sum(sol.weights) <= _tollerance
+
+
+@vcr.use_cassette("tests/data/cassettes/test_load_prices.yaml")
+def test_solver_covariance(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+    test_start_date: pd.Timestamp,
+    test_end_date: pd.Timestamp,
+) -> None:
+    """Test optimization solver."""
+    sol = Solver(
+        returns=market_data.get_total_returns(
+            tickers=test_tickers,
+            start_date=test_start_date,
+            end_date=test_end_date,
+        ),
+        objectives=[CovarianceObjectiveFunction()],
         constraints=[SumToOneConstraint(), NoShortSellConstraint()],
     ).solve()
     assert all(sol.weights.values >= 0)
@@ -63,6 +89,73 @@ def test_solver_mad(
     )
     assert all(weights.values > _tollerance)
     assert 1 - sum(weights) <= _tollerance
+
+
+def test_solver_financials(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+    test_start_date: pd.Timestamp,
+    test_end_date: pd.Timestamp,
+) -> None:
+    """Test optimization solver."""
+    financials_df = market_data.get_multi_financials_by_item(
+        tickers=test_tickers,
+    )
+    solver = Solver(
+        returns=market_data.get_total_returns(
+            tickers=test_tickers,
+            start_date=test_start_date,
+            end_date=test_end_date,
+        ),
+        objectives=[
+            FinancialsObjectiveFunction(
+                weight=0.3,
+            ),
+        ],
+        financials_df=financials_df,
+        constraints=[SumToOneConstraint(), NoShortSellConstraint()],
+    )
+    assert len(solver.returns.index)
+    weights = solver.solve(weights_tolerance=_tollerance).get_non_zero_weights()
+    assert all(weights.values > _tollerance)
+    assert 1 - sum(weights) <= _tollerance
+    assert len(weights.values) > 0
+    assert isinstance(solver.financials_df, pd.DataFrame)
+    assert solver.financials_df.sum(axis=1).idxmax() == sorted(weights.keys())[0]
+
+
+def test_solver_financials_and_cvar(
+    market_data: MarketData,
+    test_start_date: pd.Timestamp,
+    test_end_date: pd.Timestamp,
+) -> None:
+    """Test optimization solver."""
+    test_tickers = InvestmentUniverse(name=UniverseName.NASDAQ).tickers
+    weights_tolerance = 1e-4
+    weights = (
+        Solver(
+            returns=market_data.get_total_returns(
+                tickers=test_tickers,
+                start_date=test_start_date,
+                end_date=test_end_date,
+            ),
+            objectives=[
+                CVaRObjectiveFunction(),
+                FinancialsObjectiveFunction(
+                    weight=0.1,
+                ),
+            ],
+            financials_df=market_data.get_multi_financials_by_item(
+                tickers=test_tickers,
+            ),
+            constraints=[SumToOneConstraint(), NoShortSellConstraint()],
+        )
+        .solve(weights_tolerance=weights_tolerance)
+        .get_non_zero_weights()
+    )
+    assert all(weights.values > weights_tolerance)
+    assert 1 - sum(weights) <= _tollerance
+    assert len(weights.values) > 1
 
 
 @pytest.mark.vcr()

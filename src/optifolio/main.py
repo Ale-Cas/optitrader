@@ -3,6 +3,8 @@
 import pandas as pd
 
 from optifolio.enums import UniverseName
+from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
+from optifolio.enums.optimization import ObjectiveName
 from optifolio.market import InvestmentUniverse, MarketData
 from optifolio.optimization.constraints import (
     NoShortSellConstraint,
@@ -81,6 +83,9 @@ class Optifolio:
         max_num_assets: int | None = None,
         max_weight_pct: int | None = None,
         min_weight_pct: int | None = None,
+        financial_item: IncomeStatementItem
+        | CashFlowItem
+        | BalanceSheetItem = IncomeStatementItem.NET_INCOME,
     ) -> Portfolio:
         """
         Solve the optimization problem and return the optimal portfolio.
@@ -149,6 +154,12 @@ class Optifolio:
             ),
             constraints=self.constraints,
             objectives=self.objectives,
+            financials_df=self.market_data.get_multi_financials_by_item(
+                tickers=self.investment_universe.tickers,
+                financial_item=financial_item,
+            )
+            if ObjectiveName.FINANCIALS in [o.name for o in self.objectives]
+            else None,
         ).solve(
             weights_tolerance=weights_tolerance,
             created_at=end_date,

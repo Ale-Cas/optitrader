@@ -174,15 +174,54 @@ class MADObjectiveFunction(PortfolioObjective):
         ]
 
 
+class FinancialsObjectiveFunction(PortfolioObjective):
+    """
+    Financials objective function.
+
+    This objective lets you maximize one item on the financial statements, such as the net profit.
+    """
+
+    def __init__(
+        self,
+        weight: float = 0.25,
+    ) -> None:
+        super().__init__(weight=weight, name=ObjectiveName.FINANCIALS)
+
+    def get_objective_and_auxiliary_constraints(
+        self,
+        returns: pd.DataFrame,
+        weights_variable: cp.Variable,
+    ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
+        """
+        Get Financials optimization matrices.
+
+        Note that the returns are actually the financials.
+        """
+        # Boost the financials growth and put minus in front to maximize
+        objective_function = cp.sum(
+            weights_variable @ -returns * 1e-4
+        )  # 1e-4 is the scaling factor to compare with other objectives
+        return (
+            OptimizationVariables(
+                name=self.name, minimize=cp.Minimize(self.weight * objective_function)
+            ),
+            [],
+        )
+
+
 class ObjectivesMap:
     """Objectives map."""
 
-    def __init__(self, objectives: list[PortfolioObjective] | None = None) -> None:
+    def __init__(
+        self,
+        objectives: list[PortfolioObjective] | None = None,
+    ) -> None:
         self.objective_mapping: dict[ObjectiveName, type[PortfolioObjective]] = {
             ObjectiveName.CVAR: CVaRObjectiveFunction,
             ObjectiveName.EXPECTED_RETURNS: ExpectedReturnsObjectiveFunction,
             ObjectiveName.MEAN_ABSOLUTE_DEVIATION: MADObjectiveFunction,
             ObjectiveName.COVARIANCE: CovarianceObjectiveFunction,
+            ObjectiveName.FINANCIALS: FinancialsObjectiveFunction,
         }
         self.objectives: list[PortfolioObjective] = objectives or []
 
@@ -215,7 +254,15 @@ class ObjectivesMap:
     ) -> None:
         """Add an objective to the map."""
         if name not in self.objectives_names:
-            self.objectives.append(self.to_objective(name=name, weight=weight))
+            if name == ObjectiveName.FINANCIALS:
+                self.objectives.append(
+                    self.to_objective(
+                        name=name,
+                        weight=weight,
+                    )
+                )
+            else:
+                self.objectives.append(self.to_objective(name=name, weight=weight))
         else:
             obj = self.get_objective_by_name(name)
             if obj.weight != weight:

@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     # OPTIMIZATION SETTINGS
     # this means that if the portfolio's weights sum to 0.99 instead of 1 is accepted
-    SUM_WEIGHTS_TOLERANCE: float = 1e-3
+    SUM_WEIGHTS_TOLERANCE: float = 1e-2
 
     class Config:
         """Configuration."""

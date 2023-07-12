@@ -8,8 +8,10 @@ import pandas as pd
 
 from optifolio.config import SETTINGS
 from optifolio.enums import ConstraintName
+from optifolio.enums.optimization import ObjectiveName
 from optifolio.optimization.constraints import PortfolioConstraint
 from optifolio.optimization.objectives import (
+    FinancialsObjectiveFunction,
     ObjectivesMap,
     ObjectiveValue,
     OptimizationVariables,
@@ -37,10 +39,38 @@ class Solver:
         returns: pd.DataFrame,
         objectives: list[PortfolioObjective],
         constraints: list[PortfolioConstraint],
+        financials_df: pd.DataFrame | None = None,
     ) -> None:
         if returns.isna().sum().sum():
             raise AssertionError("Passed `returns` contains NaN.")
         self.returns = returns
+        if any(isinstance(o, FinancialsObjectiveFunction) for o in objectives):
+            assert isinstance(
+                financials_df, pd.DataFrame
+            ), "You must pass the `financials_df` parameter."
+            if financials_df.isna().sum().sum():
+                values_per_column = 4
+                selected_values = {}
+                try:
+                    for column in financials_df.columns:
+                        non_null_values = (
+                            financials_df[column].dropna().iloc[:values_per_column].tolist()
+                        )
+                        if len(non_null_values) == values_per_column:
+                            selected_values[column] = non_null_values
+                        else:
+                            log.warning(
+                                f"{column} with {len(non_null_values)} instead of {values_per_column} dates of financial statements data. Replacing with 0s."
+                            )
+                            selected_values[column] = [
+                                -1e12 for _ in range(values_per_column)
+                            ]  # penalize missing data
+                    financials_df = pd.DataFrame(selected_values)
+                except Exception as e:
+                    raise AssertionError("Passed `financials_df` contains NaN.") from e
+            financials_df = financials_df.pct_change().iloc[1:].fillna(0).T
+            assert not financials_df.empty
+        self.financials_df = financials_df
         self.objectives = objectives
         self.constraints = constraints
         self._universe = list(self.returns.columns)
@@ -57,7 +87,13 @@ class Solver:
         cvxpy_constraints: list[cp.Constraint] = []
         for obj_fun in self.objectives:
             objective, constr_list = obj_fun.get_objective_and_auxiliary_constraints(
-                returns=self.returns, weights_variable=weights_variable
+                returns=self.financials_df
+                if (
+                    isinstance(obj_fun, FinancialsObjectiveFunction)
+                    or obj_fun.name == ObjectiveName.FINANCIALS
+                )
+                else self.returns,
+                weights_variable=weights_variable,
             )
             cvxpy_objectives.append(objective)
             cvxpy_constraints.extend(constr_list)
@@ -103,7 +139,7 @@ class Solver:
             raise AssertionError(f"Problem status is not optimal but: {problem.status}")
         weights_series = pd.Series(dict(zip(self._universe, weights_var.value, strict=True)))
         if ConstraintName.SUM_TO_ONE in [c.name for c in self.constraints]:
-            assert 1 - weights_series.sum() <= weights_tolerance
+            assert 1 - weights_series.sum() <= SETTINGS.SUM_WEIGHTS_TOLERANCE
         elif ConstraintName.LONG_ONLY in [c.name for c in self.constraints]:
             assert all(weights_series >= 0)
         if weights_tolerance is not None:

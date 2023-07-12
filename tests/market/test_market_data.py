@@ -5,7 +5,14 @@ import vcr
 
 from optifolio.enums import UniverseName
 from optifolio.market import InvestmentUniverse, MarketData
+from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.models import AssetModel
+
+
+def test_base_provider() -> None:
+    """Test BaseDataProvider."""
+    with pytest.raises(TypeError, match="Protocols cannot be instantiated"):
+        BaseDataProvider()  # type: ignore
 
 
 @pytest.mark.vcr()

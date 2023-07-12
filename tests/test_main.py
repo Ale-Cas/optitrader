@@ -28,6 +28,7 @@ def test_optifolio_cvar_universe(
     ).solve(
         start_date=test_start_date,
         end_date=test_end_date,
+        weights_tolerance=_tollerance,
     )
     weights = opt_ptf.get_non_zero_weights().values
     assert all(weights > _tollerance)
@@ -121,7 +122,12 @@ def test_optifolio_max_weight(
         universe_name=UniverseName.POPULAR_STOCKS,
         market_data=market_data,
     )
-    opt_ptf = opt.solve(start_date=test_start_date, end_date=test_end_date, max_weight_pct=_max_w)
+    opt_ptf = opt.solve(
+        start_date=test_start_date,
+        end_date=test_end_date,
+        max_weight_pct=_max_w,
+        weights_tolerance=_tollerance,
+    )
     weights = opt_ptf.get_non_zero_weights().values
     assert weights.max() <= _max_w / 100
     assert all(weights > _tollerance)
