@@ -4,6 +4,7 @@
 from collections import OrderedDict
 from datetime import date, datetime, timedelta
 
+from optifolio.config import SETTINGS
 from optifolio.enums import ConstraintName
 from optifolio.market.investment_universe import UniverseName
 from optifolio.models.base import CustomBaseModel as BaseModel
@@ -53,7 +54,7 @@ class OptimizationRequest(BaseModel):
         ConstraintModel(name=ConstraintName.SUM_TO_ONE),
         ConstraintModel(name=ConstraintName.LONG_ONLY),
     ]
-    weights_tolerance: float | None = 0.0001
+    weights_tolerance: float | None = SETTINGS.SUM_WEIGHTS_TOLERANCE
 
 
 class OptimizationResponse(BaseModel):

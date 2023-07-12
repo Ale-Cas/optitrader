@@ -139,7 +139,7 @@ class Solver:
             raise AssertionError(f"Problem status is not optimal but: {problem.status}")
         weights_series = pd.Series(dict(zip(self._universe, weights_var.value, strict=True)))
         if ConstraintName.SUM_TO_ONE in [c.name for c in self.constraints]:
-            assert 1 - weights_series.sum() <= weights_tolerance
+            assert 1 - weights_series.sum() <= SETTINGS.SUM_WEIGHTS_TOLERANCE
         elif ConstraintName.LONG_ONLY in [c.name for c in self.constraints]:
             assert all(weights_series >= 0)
         if weights_tolerance is not None:

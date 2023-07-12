@@ -109,6 +109,7 @@ def test_solver_financials_and_cvar(
 ) -> None:
     """Test optimization solver."""
     test_tickers = InvestmentUniverse(name=UniverseName.NASDAQ).tickers
+    weights_tolerance = 1e-4
     weights = (
         Solver(
             returns=market_data.get_total_returns(
@@ -119,7 +120,7 @@ def test_solver_financials_and_cvar(
             objectives=[
                 CVaRObjectiveFunction(),
                 FinancialsObjectiveFunction(
-                    weight=1e-3,
+                    weight=0.1,
                 ),
             ],
             financials_df=market_data.get_multi_financials_by_item(
@@ -127,10 +128,10 @@ def test_solver_financials_and_cvar(
             ),
             constraints=[SumToOneConstraint(), NoShortSellConstraint()],
         )
-        .solve(weights_tolerance=_tollerance)
+        .solve(weights_tolerance=weights_tolerance)
         .get_non_zero_weights()
     )
-    assert all(weights.values > _tollerance)
+    assert all(weights.values > weights_tolerance)
     assert 1 - sum(weights) <= _tollerance
     assert len(weights.values) > 1
 
