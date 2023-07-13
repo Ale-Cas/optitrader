@@ -6,7 +6,7 @@ import pandas as pd
 
 def remove_punctuation(string: str) -> str:
     """Remove punctuation marks in a string."""
-    return re.sub(r"[^\w\s]", "", string)
+    return re.sub(r"[^\w\s]", "", string.replace(".", " "))
 
 
 def clean_string(string: str) -> str:

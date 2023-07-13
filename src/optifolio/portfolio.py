@@ -58,21 +58,18 @@ class Portfolio:
             self.market_data, MarketData
         ), "You must set the market data to get the assets info."
         weights = self.get_non_zero_weights() if only_non_zero else self.weights
-        return [
-            AssetModel(
-                **self.market_data.get_asset_from_ticker(ticker=ticker).dict(
-                    exclude={"weight_in_ptf"}
-                ),
-                weight_in_ptf=weight,
-            )
-            for ticker, weight in weights.items()
-        ]
+        assets = []
+        for ticker, weight in weights.items():
+            asset = self.market_data.get_asset_from_ticker(ticker=ticker)
+            asset.weight_in_ptf = weight
+            assets.append(asset)
+        return assets
 
     def get_holdings_df(self) -> pd.DataFrame:
         """Return holdings info df."""
         return (
             pd.DataFrame(
-                [asset.dict() for asset in self.get_assets_in_portfolio()],
+                [asset.dict(exclude_none=True) for asset in self.get_assets_in_portfolio()],
             )
             .set_index("symbol")
             .sort_values(by="weight_in_ptf", ascending=False)

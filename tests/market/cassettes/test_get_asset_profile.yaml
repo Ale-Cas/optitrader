@@ -1,0 +1,50 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=AAPL
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
+        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1980-12-12","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg","marketCapitalization":2984835.8357676417,"name":"Apple
+        Inc","phone":"14089961010.0","shareOutstanding":15728.7,"ticker":"AAPL","weburl":"https://www.apple.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '397'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 12 Jul 2023 23:43:52 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Ratelimit-Reset:
+      - '1689205492'
+    status:
+      code: 200
+      message: OK
+version: 1
