@@ -1156,6 +1156,21 @@ docs = ["furo (>=2023.5.20)", "sphinx (>=7.0.1)", "sphinx-autodoc-typehints (>=1
 testing = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "diff-cover (>=7.5)", "pytest (>=7.3.1)", "pytest-cov (>=4.1)", "pytest-mock (>=3.10)", "pytest-timeout (>=2.1)"]
 
 [[package]]
+name = "finnhub-python"
+version = "2.4.18"
+description = "Finnhub API"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "finnhub-python-2.4.18.tar.gz", hash = "sha256:46d932508f4753be207de73cce81c43070504fc68a2e2f6cb2a25c9cafa7cef4"},
+    {file = "finnhub_python-2.4.18-py3-none-any.whl", hash = "sha256:93e4ad04a63318d9495fbfc9680caef58f1c152cc35c629e94df5431dfb8d7a6"},
+]
+
+[package.dependencies]
+requests = ">=2.22.0"
+
+[[package]]
 name = "fonttools"
 version = "4.40.0"
 description = "Tools to manipulate font files"
@@ -5158,4 +5173,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4.0"
-content-hash = "5c95fcb78f3e1d9556c300488e9816f9d5677401db865ecfa9aa819b1bd325e0"
+content-hash = "08dceb02908580211a2f9a221aa114b779a307f299db821100a3d3367a739010"

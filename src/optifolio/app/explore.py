@@ -36,7 +36,8 @@ def main() -> None:
     prices = session.market_data.load_prices(
         tickers=(session.ticker,), start_date=session.start_date
     )[session.ticker]
-    st.header(asset.name.title())
+
+    st.title(f"![Logo]({asset.logo}) {asset.name.title()}")
     with st.expander("Business summary"):
         st.write(asset.business_summary)
     last_price = prices[-1]
@@ -74,7 +75,7 @@ def main() -> None:
     )
     session.display_financials()
     with st.sidebar:
-        st.subheader(f"{remove_punctuation(asset.name.split()[0]).title()} key facts")
+        st.header(remove_punctuation(asset.name.split()[0]).split()[0].title())
         st.dataframe(
             asset.to_series(),
             use_container_width=True,

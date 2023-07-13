@@ -1,0 +1,242 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=AAPL
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
+        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1980-12-12","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg","marketCapitalization":2984835.8357676417,"name":"Apple
+        Inc","phone":"14089961010.0","shareOutstanding":15728.7,"ticker":"AAPL","weburl":"https://www.apple.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '397'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 12 Jul 2023 23:51:06 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Ratelimit-Reset:
+      - '1689205926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=TSLA
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
+        NMS - GLOBAL MARKET","finnhubIndustry":"Automobiles","ipo":"2010-06-09","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TSLA.svg","marketCapitalization":862073.4611687084,"name":"Tesla
+        Inc","phone":"15125168177.0","shareOutstanding":3169.5,"ticker":"TSLA","weburl":"https://www.tesla.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '396'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 12 Jul 2023 23:51:07 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '58'
+      X-Ratelimit-Reset:
+      - '1689205926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=MSFT
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
+        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1986-03-13","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/MSFT.svg","marketCapitalization":2507246.3283463023,"name":"Microsoft
+        Corp","phone":"14258828080.0","shareOutstanding":7435.49,"ticker":"MSFT","weburl":"https://www.microsoft.com/en-us"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '411'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 12 Jul 2023 23:51:09 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '57'
+      X-Ratelimit-Reset:
+      - '1689205926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=V
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NEW
+        YORK STOCK EXCHANGE, INC.","finnhubIndustry":"Financial Services","ipo":"2008-03-25","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/V.svg","marketCapitalization":496531.2059643669,"name":"Visa
+        Inc","phone":"16504323200.0","shareOutstanding":2049.9995,"ticker":"V","weburl":"https://usa.visa.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '401'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 12 Jul 2023 23:51:09 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '56'
+      X-Ratelimit-Reset:
+      - '1689205926'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=JPM
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NEW
+        YORK STOCK EXCHANGE, INC.","finnhubIndustry":"Banking","ipo":"1969-03-05","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/JPM.svg","marketCapitalization":432937.0468926808,"name":"JPMorgan
+        Chase \u0026 Co","phone":"12122706000.0","shareOutstanding":2922.29,"ticker":"JPM","weburl":"https://www.jpmorganchase.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '417'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 12 Jul 2023 23:51:10 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '55'
+      X-Ratelimit-Reset:
+      - '1689205926'
+    status:
+      code: 200
+      message: OK
+version: 1

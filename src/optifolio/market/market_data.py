@@ -9,6 +9,7 @@ from optifolio.enums import BarsField, DataProvider
 from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.alpaca_market_data import AlpacaMarketData, Asset
 from optifolio.market.base_data_provider import BaseDataProvider
+from optifolio.market.finnhub_market_data import FinnhubClient
 from optifolio.market.news import NewsArticle
 from optifolio.market.yahoo_market_data import YahooMarketData
 from optifolio.models.asset import AssetModel
@@ -36,6 +37,7 @@ class MarketData:
             broker_secret=broker_secret,
         )
         self.__yahoo_client = YahooMarketData()
+        self.__finnhub = FinnhubClient()
         provider_mapping: dict[DataProvider, BaseDataProvider] = {
             DataProvider.ALPACA: self.__alpaca_client,
             DataProvider.YAHOO: self.__yahoo_client,
@@ -134,10 +136,12 @@ class MarketData:
             AssetModel data model.
         """
         apca_asset = self.__alpaca_client.get_alpaca_asset(ticker)
+        finnhub_asset = self.__finnhub.get_asset_profile(ticker)
         yahoo_asset = self.__yahoo_client.get_yahoo_asset(ticker)
         return AssetModel(
             **apca_asset.dict(),
-            **yahoo_asset.dict(),
+            **yahoo_asset.dict(exclude_none=True),
+            **finnhub_asset.dict(by_alias=True),
         )
 
     @lru_cache  # noqa: B019

@@ -271,11 +271,19 @@ class SessionManager:
                     figure_or_data=self._opt_ptf.pie_plot(),
                     use_container_width=True,
                 )
-                _cols = ["name", "weight_in_ptf"]
+                _cols = [
+                    "logo",
+                    "name",
+                    "weight_in_ptf",
+                ]
                 holdings_df = self._opt_ptf.get_holdings_df()
                 st.dataframe(
                     holdings_df,
                     column_order=[*_cols, *(c for c in holdings_df.columns if c not in _cols)],
+                    column_config={
+                        _cols[0]: st.column_config.ImageColumn(_cols[0], help="Company Logo")
+                    },
+                    hide_index=True,
                 )
                 st.plotly_chart(
                     figure_or_data=self._opt_ptf.history_plot(start_date=self.start_date),
@@ -341,13 +349,18 @@ class SessionManager:
                     x=self._backtest_history.index,
                     y=self._backtest_history.values,
                     labels={"timestamp": "", "y": ""},
-                    title="Portfolio value from start date to today",
+                    title="Out of sample strategy wealth from start date to today",
                 ),
                 use_container_width=True,
             )
         if self._ptfs:
             st.write("Portfolios allocation over time")
-            st.dataframe(Portfolios(self._ptfs).to_df().sort_index(ascending=False))
+            st.dataframe(
+                Portfolios(self._ptfs)
+                .to_df()
+                .sort_index(ascending=False)
+                .style.background_gradient(cmap="Blues", axis=1)
+            )
 
     def display_financials(self) -> None:
         """Display the financials."""

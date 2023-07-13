@@ -1,11 +1,6 @@
 """Streamlit about page."""
 
-import logging
-
 from optifolio.app import Page
-
-logging.basicConfig(level=logging.INFO)
-log = logging.getLogger(__name__)
 
 
 def main() -> None:

@@ -38,6 +38,7 @@ matplotlib = "^3.7.1"
 typeguard = "^4.0.0"
 plotly = "^5.15.0"
 html5lib = "^1.1"
+finnhub-python = "^2.4.18"
 
 [tool.poetry.group.test.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
 black = { extras = ["jupyter"], version = ">=23.3.0" }

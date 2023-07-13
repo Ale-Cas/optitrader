@@ -94,20 +94,16 @@ class YahooMarketData(BaseDataProvider):
         _index_name = "date"
         return bars.pivot(index=_index_name, columns="symbol", values=bars_field)
 
-    def get_yahoo_asset(self, ticker: str) -> YahooAssetModel:
+    def get_yahoo_asset(self, ticker: str, fail_on_yf_error: bool = False) -> YahooAssetModel:
         """Get asset info from yahoo."""
         ticker = self.parse_ticker_for_yahoo(ticker)
         _ticker = Ticker(ticker)
         _profile = _ticker.asset_profile[ticker]
-        if _profile == "Invalid Cookie" or isinstance(_profile, str):
-            return YahooAssetModel(
-                industry=_profile,
-                sector=_profile,
-                website=_profile,
-                number_of_shares=1,
-                business_summary=_profile,
-            )
-        assert isinstance(_profile, dict), _profile
+        if fail_on_yf_error:
+            assert isinstance(_profile, dict), f"Yahoo query returned {_profile}"
+        elif isinstance(_profile, str):
+            # create empty model with None
+            return YahooAssetModel()
         return YahooAssetModel(
             **_profile,
             business_summary=_profile["longBusinessSummary"],
