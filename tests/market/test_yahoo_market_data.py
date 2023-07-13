@@ -18,7 +18,7 @@ def test_get_yahoo_asset() -> None:
 def test_get_yahoo_asset_failure() -> None:
     """Test get_yahoo_asset method."""
     with pytest.raises(AssertionError, match="Yahoo query"):
-        client.get_yahoo_asset(ticker="AAPL", fail_on_yf_error=True)
+        client.get_yahoo_asset(ticker="INVLIDTICKER", fail_on_yf_error=True)
 
 
 def test_get_yahoo_invalid_asset() -> None:
