@@ -1,5 +1,6 @@
 """Test yahoo query integration."""
 
+import pytest
 from pandas import DataFrame, Series, Timestamp
 
 from optifolio.market.yahoo_market_data import YahooMarketData
@@ -12,6 +13,12 @@ def test_get_yahoo_asset() -> None:
     """Test get_yahoo_asset method."""
     asset = client.get_yahoo_asset(ticker="AAPL")
     assert isinstance(asset, YahooAssetModel)
+
+
+def test_get_yahoo_asset_failure() -> None:
+    """Test get_yahoo_asset method."""
+    with pytest.raises(AssertionError, match="Yahoo query"):
+        client.get_yahoo_asset(ticker="AAPL", fail_on_yf_error=True)
 
 
 def test_get_yahoo_invalid_asset() -> None:

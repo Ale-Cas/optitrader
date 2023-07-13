@@ -1,9 +1,15 @@
 """Test finnhub_market_data module."""
+import time
+from unittest.mock import Mock
+
+import finnhub
 import pandas as pd
 import pytest
 import vcr
 
+from optifolio.enums.market import UniverseName
 from optifolio.market.finnhub_market_data import FinnhubClient
+from optifolio.market.investment_universe import InvestmentUniverse
 from optifolio.models.asset import FinnhubAssetModel
 
 alpaca_market_data = FinnhubClient()
@@ -38,3 +44,15 @@ def test_get_companies_df(
         tickers=test_tickers,
     )
     assert isinstance(assets, pd.DataFrame)
+
+
+@pytest.mark.vcr()
+def test_get_companies_with_sleep() -> None:
+    """Test get_companies_with_sleep method with Nasdaq tickers."""
+    test_tickers = InvestmentUniverse(name=UniverseName.NASDAQ).tickers[:60]
+    time.sleep = Mock()
+    with pytest.raises(finnhub.FinnhubAPIException, match="API limit reached"):
+        alpaca_market_data.get_companies_profiles(
+            tickers=test_tickers,
+        )
+    time.sleep.assert_called()
