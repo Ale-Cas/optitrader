@@ -23,19 +23,25 @@ class FinnhubClient(finnhub.Client):
     @lru_cache  # noqa: B019
     def get_asset_profile(self, ticker: str) -> FinnhubAssetModel:
         """Get the company profile for each ticker."""
-        profile = self.company_profile2(symbol=ticker)
+        try:
+            profile = self.company_profile2(symbol=ticker)
+        except finnhub.FinnhubAPIException as api_error:
+            log.warning(f"Request for ticker {ticker}")
+            log.warning(api_error)
+            time.sleep(1)  # wait time limit reset
+            profile = self.company_profile2(symbol=ticker)
         return FinnhubAssetModel(**profile, finnhub_name=profile["name"])
 
     @lru_cache  # noqa: B019
     def get_companies_profiles(self, tickers: tuple[str, ...]) -> list[FinnhubAssetModel]:
         """Get the company profile for each ticker."""
         profiles = []
-        for i, t in enumerate(tickers):
+        for i, t in enumerate(sorted(tickers)):
             try:
                 profiles.append(self.get_asset_profile(ticker=t))
-                # On top of all plan's limit, there is a 30 API calls/ second limit.
+            # On top of all plan's limit, there is a 30 API calls/ second limit.
             except finnhub.FinnhubAPIException as api_error:
-                log.warning(f"Requests number {i+1} for ticker {t}")
+                log.warning(f"Request number {i+1} for ticker {t}")
                 log.warning(api_error)
                 time.sleep(1)  # wait time limit reset
                 try:

@@ -208,3 +208,23 @@ def test_display_news(session_manager: SessionManager) -> None:
 
     assert len(st.markdown.mock_calls) > 1
     assert len(st.write.mock_calls) > 1
+
+
+def test_display_trader_portfolio(session_manager: SessionManager) -> None:
+    """Test for the display_trader_portfolio method of SessionManager class."""
+    st.metric = Mock()
+    st.dataframe = Mock()
+
+    session_manager.display_trader_portfolio()
+
+    assert len(st.dataframe.mock_calls) > 1
+    assert len(st.metric.mock_calls) > 1
+
+
+def test_invest_in_optimal_portfolio(session_manager: SessionManager) -> None:
+    """Test for the invest_in_optimal_portfolio method of SessionManager class."""
+    st.button = Mock()
+
+    session_manager.invest_in_optimal_portfolio()
+
+    assert len(st.button.mock_calls) > 0

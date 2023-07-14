@@ -3,6 +3,7 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
+from alpaca.trading import OrderRequest, OrderSide, OrderType, TimeInForce
 from typeguard import typechecked
 
 from optifolio.config import SETTINGS
@@ -18,24 +19,28 @@ class Portfolio:
     def __init__(
         self,
         weights: pd.Series | dict[str, float],
-        objective_values: list[ObjectiveValue],
+        objective_values: list[ObjectiveValue] | None = None,
         market_data: MarketData | None = None,
         created_at: pd.Timestamp | None = None,
     ) -> None:
         weights = weights if isinstance(weights, pd.Series) else pd.Series(weights)
-        _wsum = weights.values.sum()
-        assert (
-            1 - _wsum <= SETTINGS.SUM_WEIGHTS_TOLERANCE
-        ), f"The sum of weights has to be 1 not {_wsum}."
+        if not weights.empty:
+            _wsum = weights.values.sum()
+            if _wsum:
+                assert (
+                    1 - _wsum <= SETTINGS.SUM_WEIGHTS_TOLERANCE
+                ), f"The sum of weights has to be 1 not {_wsum}."
         self.weights = pd.Series(weights)
-        self.objective_values = objective_values
+        self.objective_values = objective_values or []
         self.market_data = market_data
-        self.created_at = created_at
+        self.created_at = created_at or pd.Timestamp.utcnow()
 
     def __repr__(self) -> str:
         """Object representation."""
-        objectives_dict = {o.name.value: o.value for o in self.objective_values}
-        return f"{self.__class__.__name__}(weights={self.get_non_zero_weights().to_dict()}, objective_values={objectives_dict})"
+        if self.objective_values:
+            objectives_dict = {o.name.value: o.value for o in self.objective_values}
+            return f"{self.__class__.__name__}(weights={self.get_non_zero_weights().to_dict()}, objective_values={objectives_dict})"
+        return f"{self.__class__.__name__}(weights={self.get_non_zero_weights().to_dict()}"
 
     def get_non_zero_weights(self, round_to_decimal: int | None = 5) -> pd.Series:
         """Non zero weights."""
@@ -67,13 +72,12 @@ class Portfolio:
 
     def get_holdings_df(self) -> pd.DataFrame:
         """Return holdings info df."""
-        return (
-            pd.DataFrame(
-                [asset.dict(exclude_none=True) for asset in self.get_assets_in_portfolio()],
-            )
-            .set_index("symbol")
-            .sort_values(by="weight_in_ptf", ascending=False)
+        df = pd.DataFrame(
+            [asset.dict(exclude_none=True) for asset in self.get_assets_in_portfolio()]
         )
+        if not df.empty:
+            return df.set_index("symbol").sort_values(by="weight_in_ptf", ascending=False)
+        return df
 
     def get_history(
         self,
@@ -150,3 +154,17 @@ class Portfolio:
             labels={"timestamp": "", "y": ""},
             title=title,
         )
+
+    def to_orders_list(self, amount: float) -> list[OrderRequest]:
+        """Make a list of order requests from the portfolio weights."""
+        return [
+            OrderRequest(
+                symbol=ticker,
+                notional=round(weight * amount, 2),
+                side=OrderSide.BUY,
+                type=OrderType.MARKET,
+                time_in_force=TimeInForce.DAY,
+            )
+            for ticker, weight in self.get_non_zero_weights().sort_values(ascending=False).items()
+            if round(weight * amount, 2) >= 1
+        ]

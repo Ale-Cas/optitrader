@@ -24,6 +24,7 @@ def main() -> None:
         session.set_start_date()
         session.set_constraint_names()
     session.run_optimization()
+    session.invest_in_optimal_portfolio()
     session.display_solution()
     with st.sidebar:
         st.subheader("⚙️ Configure Optimization")
