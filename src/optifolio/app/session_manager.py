@@ -6,6 +6,7 @@ from functools import partial
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from alpaca.trading import TradeAccount
 
 from optifolio import MarketData, Optifolio, Portfolio
 from optifolio.backtester import Backtester, Portfolios
@@ -18,6 +19,7 @@ from optifolio.enums import (
 )
 from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.investment_universe import InvestmentUniverse
+from optifolio.market.trading import AlpacaTrading
 from optifolio.optimization.objectives import ObjectivesMap
 from optifolio.utils.utils import remove_punctuation
 
@@ -46,6 +48,7 @@ class SessionManager:
     def __init__(self) -> None:
         """Initialize a Streamlit session object."""
         self.market_data: MarketData = MarketData()
+        self.trader: AlpacaTrading = AlpacaTrading()
         self.universe_name = UniverseName.FAANG
         self.objective_names = [ObjectiveName.CVAR]
         self.obj_map = ObjectivesMap()
@@ -157,6 +160,121 @@ class SessionManager:
                 trading_key=api_key,
                 trading_secret=secret_key,
             )
+            # self.trader = AlpacaTrading(
+            #     api_key=api_key,
+            #     secret_key=secret_key,
+            #     paper=True,  # TODO: make the user choose
+            # )
+
+    def _holdings_to_st(self, holdings_df: pd.DataFrame) -> None:
+        """Display holdings df in streamlit."""
+        _cols = [
+            "logo",
+            "ticker",
+            "name",
+            "weight_in_ptf",
+        ]
+        st.dataframe(
+            holdings_df,
+            column_order=[*_cols, *(c for c in holdings_df.columns if c not in _cols)],
+            column_config={"logo": st.column_config.ImageColumn("logo", help="Company Logo")},
+            hide_index=True,
+            use_container_width=True,
+        )
+
+    def _orders_to_st(self, orders_df: pd.DataFrame) -> None:
+        """Display orders df in streamlit."""
+        st.dataframe(
+            orders_df,
+            column_order=[
+                "created_at",
+                "side",
+                "notional",
+                "qty",
+                "status",
+                "type",
+                "time_in_force",
+                "filled_at",
+                "filled_qty",
+            ],
+            column_config={
+                "notional": st.column_config.NumberColumn(
+                    "notional ($)",
+                    help="The notional value of the order in USD",
+                    min_value=0,
+                    max_value=1e9,
+                    step=0.01,
+                    format="$%d",
+                ),
+                "created_at": st.column_config.DatetimeColumn(
+                    "created",
+                    format="D MMM YYYY, h:mm a",
+                    step=1,
+                ),
+                "filled_at": st.column_config.DatetimeColumn(
+                    "filled",
+                    format="D MMM YYYY, h:mm a",
+                    step=1,
+                ),
+            },
+            use_container_width=True,
+        )
+
+    def display_trader_portfolio(self) -> None:
+        """Display the user portfolio using Alpaca trading API positions."""
+        _max_expanded_len = 20
+        _monetary_precision = 2
+        acct = self.trader.get_account()
+        assert isinstance(acct, TradeAccount)
+        bp = acct.buying_power
+        assert bp
+        st.subheader("Current Portfolio")
+        st.text(f"Connected to account # {acct.account_number}")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("💵 Buying power", value=round(float(bp), _monetary_precision))
+        with col2:
+            assert acct.equity is not None
+            assert acct.last_equity is not None
+            ac_equity = round(float(acct.equity), _monetary_precision)
+            equity_change = round(
+                ac_equity - round(float(acct.last_equity), _monetary_precision), _monetary_precision
+            )
+            st.metric("💵 Equity", value=ac_equity, delta=equity_change or None)
+        ptf = self.trader.get_portfolio()
+        holdings_df = ptf.get_holdings_df()
+        if not holdings_df.empty:
+            with col1:
+                tab1, tab2 = st.tabs(
+                    [
+                        f"This portfolio past performance since {self.start_date.date()}",
+                        "Your account performance so far",
+                    ]
+                )
+                with tab1:
+                    st.plotly_chart(
+                        figure_or_data=ptf.history_plot(
+                            start_date=self.start_date,
+                            title="",
+                        ),
+                        use_container_width=True,
+                    )
+                with tab2:
+                    st.plotly_chart(
+                        self.trader.get_account_portfolio_history_plot(),
+                        use_container_width=True,
+                    )
+            with col2:
+                st.plotly_chart(
+                    figure_or_data=ptf.pie_plot(title=""),
+                    use_container_width=True,
+                )
+            with st.expander("Positions", expanded=len(holdings_df) < _max_expanded_len):
+                self._holdings_to_st(holdings_df)
+        orders_df = self.trader.get_orders_df()
+        if not orders_df.empty:
+            with st.expander("Orders", expanded=len(orders_df) < _max_expanded_len):
+                self._orders_to_st(orders_df)
 
     def set_universe_name(self) -> None:
         """Set the universe name."""
@@ -271,20 +389,8 @@ class SessionManager:
                     figure_or_data=self._opt_ptf.pie_plot(),
                     use_container_width=True,
                 )
-                _cols = [
-                    "logo",
-                    "name",
-                    "weight_in_ptf",
-                ]
                 holdings_df = self._opt_ptf.get_holdings_df()
-                st.dataframe(
-                    holdings_df,
-                    column_order=[*_cols, *(c for c in holdings_df.columns if c not in _cols)],
-                    column_config={
-                        _cols[0]: st.column_config.ImageColumn(_cols[0], help="Company Logo")
-                    },
-                    hide_index=True,
-                )
+                self._holdings_to_st(holdings_df)
                 st.plotly_chart(
                     figure_or_data=self._opt_ptf.history_plot(start_date=self.start_date),
                     use_container_width=True,
@@ -461,14 +567,25 @@ class SessionManager:
             )
             self.set_api_keys()
 
-    @staticmethod
-    def display_in_columns(
-        description: str,
-        value: str,
-    ) -> None:
-        """Display a description next to a value."""
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write(description)
-        with col2:
-            st.write(value)
+    def invest_in_optimal_portfolio(self) -> None:
+        """Handle how to invest in the optimal portfolio."""
+        if self._opt_ptf:
+            bp = self.trader.account.non_marginable_buying_power
+            if bp:
+                amount = round(
+                    st.sidebar.number_input(
+                        "Investment amount in USD $",
+                        min_value=10.0,
+                        max_value=round(number=float(bp), ndigits=2),
+                        value=round(number=float(bp) / 5.0, ndigits=1),
+                        step=0.1,
+                    ),
+                    2,
+                )
+        orders = None
+        if st.button(label="INVEST IN PORTFOLIO", disabled=self._opt_ptf is None) and self._opt_ptf:
+            with st.spinner("Sending orders..."):
+                orders = self.trader.invest_in_portfolio(portfolio=self._opt_ptf, amount=amount)
+                st.success("Orders submitted successfully!", icon="✅")
+        if self._opt_ptf and orders:
+            self._orders_to_st(pd.DataFrame([o.dict() for o in orders]).set_index("symbol"))

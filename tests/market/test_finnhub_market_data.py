@@ -49,7 +49,7 @@ def test_get_companies_df(
 @pytest.mark.vcr()
 def test_get_companies_with_sleep() -> None:
     """Test get_companies_with_sleep method with Nasdaq tickers."""
-    test_tickers = InvestmentUniverse(name=UniverseName.NASDAQ).tickers[:60]
+    test_tickers = InvestmentUniverse(name=UniverseName.NASDAQ).tickers
     time.sleep = Mock()
     with pytest.raises(finnhub.FinnhubAPIException, match="API limit reached"):
         alpaca_market_data.get_companies_profiles(

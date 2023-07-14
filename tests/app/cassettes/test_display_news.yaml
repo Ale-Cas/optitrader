@@ -1,0 +1,382 @@
+interactions:
+- request:
+    body: null
+    headers:
+      APCA-API-KEY-ID:
+      - SECRET
+      APCA-API-SECRET-KEY:
+      - SECRET
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - APCA-PY/0.8.2
+    method: GET
+    uri: https://paper-api.alpaca.markets/v2/assets/AAPL
+  response:
+    body:
+      string: '{"id":"b0b6dd9d-8b9b-48a9-ba46-b9d54906e415","class":"us_equity","exchange":"NASDAQ","symbol":"AAPL","name":"Apple
+        Inc. Common Stock","status":"active","tradable":true,"marginable":true,"maintenance_margin_requirement":30,"shortable":true,"easy_to_borrow":true,"fractionable":true,"attributes":[]}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Apca-Api-Key-Id, Apca-Api-Secret-Key, Authorization
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS, PUT, DELETE, POST, PATCH
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '297'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 14 Jul 2023 15:01:43 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Vary:
+      - Origin
+      X-Ratelimit-Limit:
+      - '200'
+      X-Ratelimit-Remaining:
+      - '199'
+      X-Ratelimit-Reset:
+      - '1689346904'
+      X-Request-Id:
+      - b9f377d8cfb12e763dd2429d79d1df9a
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=AAPL
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
+        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1980-12-12","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg","marketCapitalization":2998676.9589383644,"name":"Apple
+        Inc","phone":"14089961010.0","shareOutstanding":15728.7,"ticker":"AAPL","weburl":"https://www.apple.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '397'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 14 Jul 2023 15:01:44 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '45'
+      X-Ratelimit-Reset:
+      - '1689346949'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
+        Chrome/81.0.4044.138 Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v10/finance/quoteSummary/AAPL?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"finance":{"result":null,"error":{"code":"Unauthorized","description":"Invalid
+        Cookie"}}}'
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - max-age=0, private
+      Connection:
+      - keep-alive
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Expires:
+      - '-1'
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      content-length:
+      - '90'
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Fri, 14 Jul 2023 15:01:44 GMT
+      server:
+      - ATS
+      vary:
+      - Origin
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '1'
+      x-request-id:
+      - 31c85837-211c-475d-b0d5-263936753698
+      x-yahoo-request-id:
+      - 01vf62tib2oqo
+      y-rid:
+      - 01vf62tib2oqo
+    status:
+      code: 401
+      message: Unauthorized
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Authorization:
+      - Basic Q0tUV01ONE9RUFpTMDdONVpCMVY6ZW5rYXZKc05GUFU1U3JwWFVLM1QwRWdOaU5Ta0xYR1dqbmRuZUVXZw==
+      Connection:
+      - keep-alive
+      User-Agent:
+      - APCA-PY/0.8.2
+    method: GET
+    uri: https://data.sandbox.alpaca.markets/v1beta1/news?symbols=AAPL&limit=3&include_content=True&exclude_contentless=True
+  response:
+    body:
+      string: "{\"news\":[{\"author\":\"Rounak Jain\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eApple
+        Inc. (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)\\u003c/strong\\u003e
+        has so far resisted the temptation of jumping into the foldable phones segment
+        but it looks like we could one day see rollable iPhones from the company.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened:\\u003c/strong\\u003e Apple has filed a \\u003ca href=\\\"https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/20230221766\\\"\\u003epatent\\u003c/a\\u003e
+        for a rollable iPhone with the US Patent and Trademark Office (USPTO). The
+        patent filing shows that the iPhone could be rolled up \u2013 quite literally
+        like an ancient scroll and manuscript.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
+        Also: \\u003c/em\\u003e\\u003ca href=\\\"https://www.benzinga.com/news/23/07/33128925/googles-pixel-fold-fails-jerryrigeverythings-durability-test-with-a-heartbreaking-crack\\\"\\u003e\\u003cem\\u003eGoogle\\u0026#8217;s
+        Pixel Fold Fails JerryRigEverything\\u0026#8217;s Durability Test With A Heartbreaking
+        Crack\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eWhile
+        foldable phones are a reality and Apple's rivals \u2013 including \\u003cstrong\\u003eAlphabet
+        Inc.'s (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/GOOGL#NASDAQ\\\"\\u003eGOOGL\\u003c/a\\u003e)\\u003c/strong\\u003e
+        \\u003cstrong\\u003eGoogle\\u003c/strong\\u003e and \\u003cstrong\\u003eSamsung\\u003c/strong\\u003e
+        \u2013 have foldable phones that consumers can buy right now, Apple has stayed
+        away from this segment. There are no credible leaks or rumors either about
+        a foldable iPhone launching anytime soon.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eA
+        rollable iPhone would also require Apple to solve challenges associated with
+        the durability of displays \u2013 a problem that Google, Samsung, and other
+        companies with foldable phones have come to realize. Google's first attempt
+        at this, the Pixel Fold, \\u003ca href=\\\"https://www.benzinga.com/news/23/06/33021975/google-pixel-fold-dies-in-four-days-reviewer-suspects-oled-death-zone-could-be-the-reason\\\"\\u003ebroke\\u003c/a\\u003e\\u003ca
+        href=\\\"https://www.benzinga.com/news/23/06/33054416/dead-displays-peeling-screen-protectors-and-pink-line-after-two-hours-of-use-google-pixel-fold-is-of\\\"\\u003e
+        within a few hours\\u003c/a\\u003e of its launch, with users reporting dead
+        displays with very little use.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eFuturistic,
+        But Distant:\\u003c/strong\\u003e This rollable iPhone patent could just be
+        a way for Apple to protect its idea and technology in some way, in case the
+        company ends up making one in the future.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eModern
+        smartphones are complex computers with a myriad of components. Before we see
+        a rollable smartphone, companies will first have to come up with components
+        that are similarly flexible, too.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eWith
+        that said, rollable displays are not fictional \u2013 \\u003cstrong\\u003eLG\\u003c/strong\\u003e
+        already has a \\u003ca href=\\\"https://www.lg.com/global/lg-signature/rollable-oled-tv-r\\\"\\u003erollable
+        TV\\u003c/a\\u003e out there. However, smartphones are a lot more complex
+        than TVs, given that they pack in components like the chipset, storage, camera
+        modules, and battery, in a far smaller package than a TV.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck
+        out more of Benzinga\\u0026#8217;s Consumer Tech coverage by\\u003c/em\\u003e
+        \\u003ca href=\\\"https://www.benzinga.com/topic/consumer-tech\\\"\\u003e\\u003cem\\u003efollowing
+        this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next: \\u003c/em\\u003e\\u003ca href=\\\"https://www.benzinga.com/news/23/07/33228449/hollywood-wants-to-use-ai-replicas-of-actors-for-eternity-and-give-them-just-one-days-pay\\\"\\u003e\\u003cem\\u003eHollywood
+        Wants To Use AI Replicas Of Actors For Eternity And Give Them Just One Day\\u0026#8217;s
+        Pay\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-14T12:04:39Z\",\"headline\":\"Forget
+        Foldable iPhone, Apple Has Filed A Patent For A Rollable iPhone\",\"id\":33229839,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/Apple_India_0.png\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/Apple_India_0.png\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/Apple_India_0.png\"}],\"source\":\"benzinga\",\"summary\":\"Apple
+        has filed a patent for a rollable iPhone with the USPTO, which shows that
+        the iPhone could be rolled up like an ancient scroll.\",\"symbols\":[\"AAPL\",\"GOOGL\"],\"updated_at\":\"2023-07-14T12:04:40Z\",\"url\":\"https://www.benzinga.com/news/23/07/33229839/forget-foldable-iphone-apple-has-filed-a-patent-for-a-rollable-iphone\"},{\"author\":\"Ananya
+        Gairola\",\"content\":\"\\u003cp\\u003eThe upcoming\_\\u003cstrong\\u003eEmoji
+        15.1\\u003c/strong\\u003e\_in 2024 could bring a fresh wave of expressive
+        characters, including head-shaking gestures and more, to make engaging even
+        more fun.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened:\\u0026nbsp;\\u003c/strong\\u003eThe\\u0026nbsp;\\u003cstrong\\u003eUnicode
+        Consortium\\u003c/strong\\u003e\\u0026nbsp;has been considering a new set
+        of emojis as part of Emoji 15.1, set to be released in 2024.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eOne
+        of the notable additions in Emoji 15.1 includes head-shaking gestures, enabling
+        users to express agreement, disagreement, or amusement in a better way.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
+        Also:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/02/30852815/love-emojis-viral-tiktok-explains-how-to-create-a-customized-one-on-your-iphone\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eLove Emojis? Viral TikTok
+        Explains How To Create A Customized One On Your iPhone\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThese
+        gestures will be available in both vertical and horizontal movements, adding
+        a new level of expressiveness to digital conversations,\\u0026nbsp;\\u003ca
+        target=\\\"_blank\\\" href=\\\"https://blog.emojipedia.org/new-emojis-in-2023/\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003eaccording\\u003c/a\\u003e\\u0026nbsp;to
+        Emojipedia.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIn addition to the head-shaking
+        emojis, Emoji 15.1 could also introduce directional people emojis with multiple
+        skin tones. This update aims to enhance inclusivity and representation, expanding
+        the existing range of person-based emojis.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIn
+        anticipation of World Emoji Day 2023, which will be celebrated on July 17,
+        Emojipedia has unveiled sample designs for the new candidate emojis, offering
+        a much-needed sneak peek.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cfigure class=\\\"wp-block-image\\\"\\u003e\\u003cimg
+        decoding=\\\"async\\\" src=\\\"https://editorial.benzinga.com/be496aa0-d4bc-4f50-85f5-ddcff6b4c0e2\\\"
+        alt=\\\"\\\" /\\u003e\\u003c/figure\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
+        It's Important:\\u0026nbsp;\\u003c/strong\\u003eWhile the final designs for
+        Emoji 15.1 are yet to be determined, major tech companies like\\u0026nbsp;\\u003cstrong\\u003eApple
+        Inc.\\u003c/strong\\u003e\\u0026nbsp;(NASDAQ:\\u003ca class=\\\"ticker\\\"
+        href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)
+        and\\u0026nbsp;\\u003cstrong\\u003eAlphabet Inc.'s\\u003c/strong\\u003e\\u0026nbsp;(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/GOOG#NASDAQ\\\"\\u003eGOOG\\u003c/a\\u003e)
+        (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/GOOGL#NASDAQ\\\"\\u003eGOOGL\\u003c/a\\u003e)\\u0026nbsp;\\u003cstrong\\u003eGoogle\\u003c/strong\\u003e\\u0026nbsp;are
+        expected to adopt these emojis through future software updates.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThis
+        means that users of Apple devices, for example, would likely see the new emojis
+        on their iPhones, iPads, and Macs after these updates are rolled out, the
+        report noted.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck
+        out more of Benzinga's Consumer Tech coverage by\\u0026nbsp;\\u003c/em\\u003e\\u003ca
+        target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/topic/consumer-tech\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003efollowing this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u0026nbsp;\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/markets/cryptocurrency/23/02/31050588/emojis-are-now-financial-advice-is-fun-dead-in-finance\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eEmojis As Financial
+        Advice? Court Kills Rocket, Bag Of Cash In Blow To Fun In Finance\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-14T09:17:26Z\",\"headline\":\"Nods
+        And Shakes: Next Year's Emoji 15.1 Pack Will Let You Express In Ways You Haven't
+        Imagined\",\"id\":33227762,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/iPhone_emojis_Photo_by_A._Aleksandravicius_on_Shutterstock_0.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/iPhone_emojis_Photo_by_A._Aleksandravicius_on_Shutterstock_0.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/iPhone_emojis_Photo_by_A._Aleksandravicius_on_Shutterstock_0.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"The
+        upcoming release of Emoji 15.1 in 2024 could bring new expressive emojis,
+        including head-shaking gestures and directional people. \",\"symbols\":[\"AAPL\",\"GOOG\",\"GOOGL\"],\"updated_at\":\"2023-07-14T09:17:27Z\",\"url\":\"https://www.benzinga.com/news/23/07/33227762/nods-and-shakes-next-years-emoji-15-1-pack-will-let-you-express-in-ways-you-havent-imagined\"},{\"author\":\"Ananya
+        Gairola\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eTesla Inc.\_\\u003c/strong\\u003e(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/TSLA#NASDAQ\\\"\\u003eTSLA\\u003c/a\\u003e)
+        owners yearning for\_\\u003cstrong\\u003eApple Inc.\\u0026#8217;s\_\\u003c/strong\\u003e(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)\_\\u003cstrong\\u003eCarPlay\\u003c/strong\\u003e\_integration
+        may soon find solace as the EV maker appears to be gearing up to introduce\_\\u003cstrong\\u003eAirPlay\\u003c/strong\\u003e\_for
+        a superior entertainment experience.\_\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened:\\u0026nbsp;\\u003c/strong\\u003eLast year, the possibility of AirPlay
+        support in Tesla vehicles\\u0026nbsp;\\u003ca href=\\\"https://www.benzinga.com/news/22/05/27479312/could-tesla-bring-apple-airplay-to-cars-heres-what-elon-musk-said\\\"
+        target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\"\\u003ewas first hinted\\u003c/a\\u003e\\u0026nbsp;at
+        when\\u0026nbsp;\\u003cstrong\\u003eElon Musk\\u003c/strong\\u003e\\u0026nbsp;responded
+        to a tweet stating that he would discuss the idea with the company\\u0026#8217;s
+        audio engineering team.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eRecent developments
+        suggest that Musk\\u0026#8217;s interest in wireless audio technology has
+        translated into action.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
+        Also:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/06/32806540/elon-musk-believes-teslas-market-cap-could-surpass-apple-and-saudi-aramco-combined-it-is-possible\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eElon Musk Believes Tesla\\u0026#8217;s
+        Market Cap Could Surpass Apple And Saudi Aramco Combined: \\u0026#8216;It
+        Is Possible\\u0026#8217;\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eTesla
+        influencer and investor \\u003cstrong\\u003eSawyer Merritt\\u003c/strong\\u003e
+        shared the news on Twitter, providing a link to the Not A Tesla App site.
+        The site discovered references to this development in the code of the latest
+        Tesla \\u003cstrong\\u003eiPhone\\u003c/strong\\u003e app. The upcoming feature
+        is anticipated to be available worldwide and applicable to Tesla Models S,
+        3, X, and Y.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cfigure class=\\\"wp-block-embed
+        is-type-rich is-provider-twitter wp-block-embed-twitter\\\"\\u003e\\u003cdiv
+        class=\\\"wp-block-embed__wrapper\\\"\\u003e\\n\\u003cblockquote class=\\\"twitter-tweet\\\"
+        data-width=\\\"500\\\" data-dnt=\\\"true\\\"\\u003e\\u003cp lang=\\\"en\\\"
+        dir=\\\"ltr\\\"\\u003eNEWS: It appears Tesla is starting to implement AirPlay
+        to allow higher quality streaming of audio and potentially video content to
+        your vehicle. \\u003ca href=\\\"https://t.co/PUMVBfwd8B\\\"\\u003ehttps://t.co/PUMVBfwd8B\\u003c/a\\u003e\\u003c/p\\u003e\\u0026mdash;
+        Sawyer Merritt (@SawyerMerritt) \\u003ca href=\\\"https://twitter.com/SawyerMerritt/status/1679519329644158976?ref_src=twsrc%5Etfw\\\"\\u003eJuly
+        13, 2023\\u003c/a\\u003e\\u003c/blockquote\\u003e\\u003cscript async src=\\\"https://platform.twitter.com/widgets.js\\\"
+        charset=\\\"utf-8\\\"\\u003e\\u003c/script\\u003e\\n\\u003c/div\\u003e\\u003c/figure\\u003e\\n\\n\\n\\n\\u003cp\\u003eAlthough
+        AirPlay support from iPhone to Tesla vehicles is not yet operational, the
+        reference found in the app\\u0026#8217;s code suggests that progress is being
+        made toward this goal.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
+        It\\u0026#8217;s Important:\\u003c/strong\\u003e\\u0026nbsp;While\\u0026nbsp;\\u003ca
+        target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/tech/22/05/27074735/tesla-refuses-to-integrate-apples-carplay-you-can-do-it-anyway\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003eApple CarPlay may not be\\u003c/a\\u003e\\u0026nbsp;on
+        the horizon for Tesla EVs, AirPlay could offer a comparable alternative for
+        streaming high-quality content to the vehicle\\u0026#8217;s sound system.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eApple
+        significantly overhauled its AirPlay feature a few years ago. It now allows
+        for high-quality audio playback up to 24-bit/48kHz over Wi-Fi.\_\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIf
+        successfully implemented in Tesla vehicles, AirPlay would enable drivers and
+        passengers to wirelessly stream music, podcasts, and more from their iPhones
+        directly to the car\\u0026#8217;s sound system without the need for Bluetooth
+        pairing.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck out
+        more of Benzinga\\u0026#8217;s Consumer Tech coverage by\\u0026nbsp;\\u003c/em\\u003e\\u003ca
+        target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/topic/consumer-tech\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003efollowing this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u0026nbsp;\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/analyst-ratings/analyst-color/23/05/32180470/can-tesla-beat-apple-in-market-value-analyst-points-to-huge-missed-opportunity\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eCan Tesla Beat Apple
+        In Market Value? Analyst Points To \\u0026#8216;Huge Missed Opportunity\\u0026#8217;\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003ePhoto
+        by Hadrian on Shutterstock\\u003c/em\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-14T05:53:46Z\",\"headline\":\"No
+        Apple CarPlay? No Problem! Tesla May Soon Welcome AirPlay For Premium In-Car
+        Entertainment\",\"id\":33226847,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/Apple_CarPlay_1.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/Apple_CarPlay_1.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/Apple_CarPlay_1.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"Tesla
+        might be working on integrating Apple\\u0026#39;s AirPlay, allowing users
+        to wirelessly stream high-quality audio content from their iPhones. \",\"symbols\":[\"AAPL\",\"TSLA\"],\"updated_at\":\"2023-07-14T05:53:47Z\",\"url\":\"https://www.benzinga.com/news/23/07/33226847/no-apple-carplay-no-problem-tesla-may-soon-welcome-airplay-for-premium-in-car-entertainment\"}],\"next_page_token\":\"MTY4OTMxNDAyNzAwMDAwMDAwMHwzMzIyNjg0Nw==\"}"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Apca-Api-Key-Id, Apca-Api-Secret-Key, Authorization
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 14 Jul 2023 15:01:45 GMT
+      Strict-Transport-Security:
+      - max-age=15724800; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Ratelimit-Limit:
+      - '200'
+      X-Ratelimit-Remaining:
+      - '199'
+      X-Ratelimit-Reset:
+      - '1689346905'
+      X-Request-ID:
+      - f81bf1d34b8609174a6dfccc9ae80563
+    status:
+      code: 200
+      message: OK
+version: 1

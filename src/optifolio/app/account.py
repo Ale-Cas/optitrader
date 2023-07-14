@@ -16,5 +16,6 @@ def main() -> None:
         Boost the portfolio analytics for your Alpaca account.
         """
     )
+    session.display_trader_portfolio()
     session.display_alpaca_account_sidebar()
     page.display_code_sidebar()

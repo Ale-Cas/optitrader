@@ -110,6 +110,7 @@ def test_get_optifolio(
     assert optifolio.market_data == session_manager.market_data
 
 
+@pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
 def test_run_optimization(
     session_manager: SessionManager,
 ) -> None:
@@ -188,6 +189,9 @@ def test_display_alpaca_account_sidebar(session_manager: SessionManager) -> None
     assert len(st.markdown.mock_calls) == 1
 
 
+# every cassette related to yahooquery calls won't match on query
+# because yahoo keeps changing the query params
+@pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
 def test_display_financials(session_manager: SessionManager) -> None:
     """Test for the display_financials method of SessionManager class."""
     st.plotly_chart = MagicMock()
@@ -199,6 +203,7 @@ def test_display_financials(session_manager: SessionManager) -> None:
     assert len(st.plotly_chart.mock_calls) == 3  # noqa: PLR2004 # 3 statements
 
 
+@pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
 def test_display_news(session_manager: SessionManager) -> None:
     """Test for the display_news method of SessionManager class."""
     st.write = Mock()
@@ -208,3 +213,24 @@ def test_display_news(session_manager: SessionManager) -> None:
 
     assert len(st.markdown.mock_calls) > 1
     assert len(st.write.mock_calls) > 1
+
+
+@pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
+def test_display_trader_portfolio(session_manager: SessionManager) -> None:
+    """Test for the display_trader_portfolio method of SessionManager class."""
+    st.metric = Mock()
+    st.dataframe = Mock()
+
+    session_manager.display_trader_portfolio()
+
+    assert len(st.dataframe.mock_calls) > 1
+    assert len(st.metric.mock_calls) > 1
+
+
+def test_invest_in_optimal_portfolio(session_manager: SessionManager) -> None:
+    """Test for the invest_in_optimal_portfolio method of SessionManager class."""
+    st.button = Mock()
+
+    session_manager.invest_in_optimal_portfolio()
+
+    assert len(st.button.mock_calls) > 0
