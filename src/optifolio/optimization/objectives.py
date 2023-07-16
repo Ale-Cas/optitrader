@@ -2,6 +2,7 @@
 from abc import ABCMeta, abstractmethod
 
 import cvxpy as cp
+import numpy as np
 import pandas as pd
 from pydantic import BaseModel
 
@@ -51,6 +52,10 @@ class PortfolioObjective(metaclass=ABCMeta):
     ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
         """Get optimization matrices."""
 
+    @abstractmethod
+    def get_obj_latex(self) -> str:
+        """Get objective formulation as latex."""
+
 
 class CVaRObjectiveFunction(PortfolioObjective):
     """
@@ -93,6 +98,10 @@ class CVaRObjectiveFunction(PortfolioObjective):
             [-rets_vals @ weights_variable - value_at_risk - losses_minus_var <= 0],
         )
 
+    def get_obj_latex(self) -> str:
+        """Get objective formulation as latex."""
+        return r""
+
 
 class CovarianceObjectiveFunction(PortfolioObjective):
     """Variance objective function."""
@@ -119,6 +128,10 @@ class CovarianceObjectiveFunction(PortfolioObjective):
             [],
         )
 
+    def get_obj_latex(self) -> str:
+        """Get objective formulation as latex."""
+        return r""
+
 
 class ExpectedReturnsObjectiveFunction(PortfolioObjective):
     """Expected Returns objective function."""
@@ -144,6 +157,10 @@ class ExpectedReturnsObjectiveFunction(PortfolioObjective):
             ),
             [],
         )
+
+    def get_obj_latex(self) -> str:
+        """Get objective formulation as latex."""
+        return r""
 
 
 class MADObjectiveFunction(PortfolioObjective):
@@ -172,6 +189,10 @@ class MADObjectiveFunction(PortfolioObjective):
             rets_minus_mu @ weights_variable - abs_devs <= 0,
             -rets_minus_mu @ weights_variable - abs_devs <= 0,
         ]
+
+    def get_obj_latex(self) -> str:
+        """Get objective formulation as latex."""
+        return r""
 
 
 class FinancialsObjectiveFunction(PortfolioObjective):
@@ -208,6 +229,64 @@ class FinancialsObjectiveFunction(PortfolioObjective):
             [],
         )
 
+    def get_obj_latex(self) -> str:
+        """Get objective formulation as latex."""
+        return r""
+
+
+class MostDiversifiedObjectiveFunction(PortfolioObjective):
+    """
+    ### Most diversified portfolio (MDP) objective function.
+
+    This objective lets you maximize the diversification ratio, that is
+    the ratio of the weighted average of volatilities divided by the portfolio volatility.
+
+    #### Mathematical Formulation:
+
+    Let `n` be the number of assets in the portfolio.
+    Let `returns` be a 2D numpy array of shape (T, n), where `T` is the number of time periods
+    and `n` is the number of assets.`C` is the covariance matrix of asset returns with shape (n, n).
+    `w` is a vector of portfolio weights with lenght `n`.
+    `sigma` is the portfolio volatility.
+    'vol' is a vector of asset volatilities with shape (n,), obtained from the diagonal elements of 'C'.
+    'sum' represents the sum of elements in a vector.
+
+    The diversification ratio (`DR`) can be formulated as follows:
+    """
+
+    def __init__(
+        self,
+        weight: float = 1.0,
+    ) -> None:
+        super().__init__(weight=weight, name=ObjectiveName.MOST_DIVERSIFIED)
+
+    def get_objective_and_auxiliary_constraints(
+        self,
+        returns: pd.DataFrame,
+        weights_variable: cp.Variable,
+    ) -> tuple[OptimizationVariables, list[cp.Constraint]]:
+        """
+        Get Financials optimization matrices.
+
+        Note that the returns are actually the financials.
+        """
+        # copy the weights to not modify the other weights variable
+        _weights = cp.Variable(weights_variable.shape[0], nonneg=True)
+        cov_matrix = returns.cov().values
+        return (
+            OptimizationVariables(
+                name=self.name,
+                minimize=cp.Minimize(_weights @ cov_matrix @ _weights),
+            ),
+            [_weights @ np.sqrt(cov_matrix.diagonal()) == 1],
+        )
+
+    def get_obj_latex(self) -> str:
+        """Get objective formulation as latex."""
+        return r"""
+        DR = \frac{\sum{w * vol}}{\sqrt{w^T * C * w}}
+        """
+
 
 class ObjectivesMap:
     """Objectives map."""
@@ -222,6 +301,7 @@ class ObjectivesMap:
             ObjectiveName.MEAN_ABSOLUTE_DEVIATION: MADObjectiveFunction,
             ObjectiveName.COVARIANCE: CovarianceObjectiveFunction,
             ObjectiveName.FINANCIALS: FinancialsObjectiveFunction,
+            ObjectiveName.MOST_DIVERSIFIED: MostDiversifiedObjectiveFunction,
         }
         self.objectives: list[PortfolioObjective] = objectives or []
 
@@ -237,6 +317,10 @@ class ObjectivesMap:
     ) -> PortfolioObjective:
         """Get an objective."""
         return self.objective_mapping[name](weight=weight)  # type: ignore
+
+    def reset_objectives_names(self, objectives_names: list[ObjectiveName]) -> None:
+        """Reset the objective names."""
+        self.objectives = [self.to_objective(name) for name in objectives_names]
 
     def get_objective_by_name(
         self,
@@ -277,3 +361,10 @@ class ObjectivesMap:
             self.objective_mapping[name].__doc__
             or f"{self.objective_mapping[name].__name__} documentation."
         )
+
+    def get_obj_latex(
+        self,
+        name: ObjectiveName,
+    ) -> str:
+        """Return the objective docstring."""
+        return self.objective_mapping[name]().get_obj_latex()  # type: ignore

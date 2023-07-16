@@ -26,7 +26,7 @@ class UnboundedConstraint(PortfolioConstraint):
 
 
 class BoundedConstraint(PortfolioConstraint):
-    """NumberOfAssets constraint."""
+    """Bounded constraint."""
 
     def __init__(
         self,
@@ -71,7 +71,11 @@ class SumToOneConstraint(UnboundedConstraint):
 
 
 class NumberOfAssetsConstraint(BoundedConstraint):
-    """NumberOfAssets constraint."""
+    """
+    NumberOfAssets constraint.
+
+    TODO: See other implementation https://groups.google.com/g/cvxpy/c/l9NetwWXQ-k
+    """
 
     def __init__(
         self,

@@ -11,3 +11,9 @@ def test_objectives_map() -> None:
     obj_map.add_objective(name=ObjectiveName.FINANCIALS)
     assert len(obj_map.objectives) == 1
     assert isinstance(obj_map.objectives[0], FinancialsObjectiveFunction)
+
+
+def test_objective_latex() -> None:
+    """Test the ObjectivesMap initialization without objectives and add financials."""
+    obj_map = ObjectivesMap()
+    assert obj_map.get_obj_latex(name=ObjectiveName.MOST_DIVERSIFIED)
