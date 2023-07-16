@@ -60,7 +60,11 @@ Portfolio(
 )
 ```
 and you can use the available methods of the [Portfolio class](src/optifolio/portfolio.py), such as `pie_plot`:
-![Screenshot 2023-06-29 at 19 32 42](https://github.com/Ale-Cas/optifolio/assets/64859146/404475d3-7e20-4a5a-a24a-73c9b42f70ae)
+```python
+optimal_ptf.pie_plot()
+```
+![pie plot result](https://github.com/Ale-Cas/optifolio/assets/64859146/d369bdbf-f4dd-44b5-b8d8-8156604caec6)
+
 
 
 ## Contributing
