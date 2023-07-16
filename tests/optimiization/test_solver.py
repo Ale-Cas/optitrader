@@ -18,6 +18,7 @@ from optifolio.optimization.objectives import (
     CVaRObjectiveFunction,
     FinancialsObjectiveFunction,
     MADObjectiveFunction,
+    MostDiversifiedObjectiveFunction,
 )
 from optifolio.optimization.solver import Solver
 
@@ -82,6 +83,31 @@ def test_solver_mad(
                 end_date=test_end_date,
             ),
             objectives=[MADObjectiveFunction()],
+            constraints=[SumToOneConstraint(), NoShortSellConstraint()],
+        )
+        .solve(weights_tolerance=_tollerance)
+        .get_non_zero_weights()
+    )
+    assert all(weights.values > _tollerance)
+    assert 1 - sum(weights) <= _tollerance
+
+
+@vcr.use_cassette("tests/data/cassettes/test_load_prices.yaml")
+def test_solver_mdp(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+    test_start_date: pd.Timestamp,
+    test_end_date: pd.Timestamp,
+) -> None:
+    """Test optimization solver."""
+    weights = (
+        Solver(
+            returns=market_data.get_total_returns(
+                tickers=test_tickers,
+                start_date=test_start_date,
+                end_date=test_end_date,
+            ),
+            objectives=[MostDiversifiedObjectiveFunction()],
             constraints=[SumToOneConstraint(), NoShortSellConstraint()],
         )
         .solve(weights_tolerance=_tollerance)

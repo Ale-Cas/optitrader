@@ -312,6 +312,7 @@ class SessionManager:
                 default=self.objective_names,
             )
         ]
+        self.obj_map.reset_objectives_names(self.objective_names)
 
     def set_constraint_names(self) -> None:
         """Set the constraints name."""
@@ -332,6 +333,9 @@ class SessionManager:
         for obj in self.objective_names:
             with st.expander(obj, expanded=False):
                 st.write(self.obj_map.get_obj_doc(ObjectiveName(obj)))
+                latex = self.obj_map.get_obj_latex(ObjectiveName(obj))
+                if latex:
+                    st.latex(latex)
                 self.obj_map.add_objective(
                     name=obj,
                     weight=st.number_input(

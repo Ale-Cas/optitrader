@@ -20,6 +20,7 @@ class ConstraintName(IterEnum):
 class ObjectiveName(IterEnum):
     """Supported objectives names."""
 
+    MOST_DIVERSIFIED = "Maximize Diversification Ratio"
     CVAR = "Conditional Value at Risk"
     COVARIANCE = "Covariance"
     EXPECTED_RETURNS = "Expected Return"
