@@ -16,4 +16,5 @@ def test_objectives_map() -> None:
 def test_objective_latex() -> None:
     """Test the ObjectivesMap initialization without objectives and add financials."""
     obj_map = ObjectivesMap()
-    assert obj_map.get_obj_latex(name=ObjectiveName.MOST_DIVERSIFIED)
+    for name in list(ObjectiveName):
+        assert obj_map.get_obj_latex(name)

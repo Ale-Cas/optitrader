@@ -100,7 +100,9 @@ class CVaRObjectiveFunction(PortfolioObjective):
 
     def get_obj_latex(self) -> str:
         """Get objective formulation as latex."""
-        return r""
+        return r"""
+        \text{CVaR}_{\alpha}(X) = \frac{1}{1 - \alpha} \int_{\alpha}^{1} \text{VaR}_{\beta}(X) \, d\beta
+        """
 
 
 class CovarianceObjectiveFunction(PortfolioObjective):
@@ -130,7 +132,9 @@ class CovarianceObjectiveFunction(PortfolioObjective):
 
     def get_obj_latex(self) -> str:
         """Get objective formulation as latex."""
-        return r""
+        return r"""
+        \text{Var}(X) = \frac{1}{n} \sum_{i=1}^{n} (X_i - \bar{X})^2
+        """
 
 
 class ExpectedReturnsObjectiveFunction(PortfolioObjective):
@@ -160,11 +164,19 @@ class ExpectedReturnsObjectiveFunction(PortfolioObjective):
 
     def get_obj_latex(self) -> str:
         """Get objective formulation as latex."""
-        return r""
+        return r"""
+        \text{E}(R_p) = \sum_{i=1}^{n} w_i \times \text{E}(R_i)
+        """
 
 
 class MADObjectiveFunction(PortfolioObjective):
-    """Mean Absolute Deviation objective function."""
+    """
+    ### Mean Absolute Deviation objective function.
+
+    Mean Absolute Deviation measures the average deviation of data points from the mean. It is a risk measure that focuses on the dispersion of the data.
+
+    The formula for Mean Absolute Deviation (MAD) is given by:
+    """
 
     def __init__(
         self,
@@ -192,7 +204,9 @@ class MADObjectiveFunction(PortfolioObjective):
 
     def get_obj_latex(self) -> str:
         """Get objective formulation as latex."""
-        return r""
+        return r"""
+        \text{MAD}(X) = \frac{1}{n} \sum_{i=1}^{n} |X_i - \bar{X}|
+        """
 
 
 class FinancialsObjectiveFunction(PortfolioObjective):
@@ -231,7 +245,9 @@ class FinancialsObjectiveFunction(PortfolioObjective):
 
     def get_obj_latex(self) -> str:
         """Get objective formulation as latex."""
-        return r""
+        return r"""
+        \text{E}(R_p) = \sum_{i=1}^{n} w_i \times R_{i,scaled}
+        """
 
 
 class MostDiversifiedObjectiveFunction(PortfolioObjective):
