@@ -20,6 +20,7 @@ from optifolio.enums import (
 from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.investment_universe import InvestmentUniverse
 from optifolio.market.trading import AlpacaTrading
+from optifolio.optimization.constraints import ConstraintsMap
 from optifolio.optimization.objectives import ObjectivesMap
 from optifolio.utils.utils import remove_punctuation
 
@@ -53,6 +54,7 @@ class SessionManager:
         self.objective_names = [ObjectiveName.CVAR]
         self.obj_map = ObjectivesMap()
         self.constraint_names = [ConstraintName.SUM_TO_ONE, ConstraintName.LONG_ONLY]
+        self.constr_map = ConstraintsMap(constraint_names=self.constraint_names)
         self.start_date = pd.Timestamp.today() - pd.Timedelta(value=365 * 2, unit="day")
         self.rebalance_frequency = RebalanceFrequency.MONTHLY
         self._opt_ptf: Portfolio | None = None
@@ -100,7 +102,9 @@ class SessionManager:
                     with col:
                         st.code(tickers[idx])
 
-    def _clean_opt_ptf(self) -> None:
+    def _clean_opt_ptf(
+        self,
+    ) -> None:
         """Clean the optimal portfolio cache."""
         self._opt_ptf = None
 
@@ -138,7 +142,10 @@ class SessionManager:
         return sel or ""
 
     def _from_multiselect(
-        self, label: str, options: type[IterEnum], default: list | None = None
+        self,
+        label: str,
+        options: type[IterEnum],
+        default: list | None = None,
     ) -> list[str]:
         """Return a list from the multiselect."""
         _opts = options.get_values_list()
@@ -316,6 +323,7 @@ class SessionManager:
                 default=self.constraint_names,
             )
         ]
+        self.constr_map.reset_constraint_names(self.constraint_names)
 
     def set_objectives(self) -> None:
         """Set the objectives from the obejctives name."""
@@ -341,22 +349,33 @@ class SessionManager:
         """Set the constraints from the obejctives name."""
         st.sidebar.subheader("🎛️ Constraints")
         for con in self.constraint_names:
-            if con in [ConstraintName.NUMER_OF_ASSETS, ConstraintName.WEIGHTS_PCT]:
+            if con.is_bounded:
                 with st.expander(con):
                     st.write(f"{con} docs")
-                    st.number_input(
-                        f"`{con.title()}` minimum",
-                        min_value=0.1,
-                        max_value=1.0,
-                        step=0.1,
-                        value=0.5,
+                    lower_bound = int(
+                        st.number_input(
+                            f"`{con.title()}` minimum",
+                            min_value=1,
+                            max_value=10,
+                            step=1,
+                            value=2,
+                            on_change=self._clean_opt_ptf,
+                        )
                     )
-                    st.number_input(
-                        f"`{con.title()}` maximum",
-                        min_value=0.1,
-                        max_value=1.0,
-                        step=0.1,
-                        value=0.5,
+                    upper_bound = int(
+                        st.number_input(
+                            f"`{con.title()}` maximum",
+                            min_value=1,
+                            max_value=100,
+                            step=1,
+                            value=50,
+                            on_change=self._clean_opt_ptf,
+                        )
+                    )
+                    self.constr_map.set_constraint_bounds(
+                        name=con,
+                        lower_bound=lower_bound,
+                        upper_bound=upper_bound,
                     )
             else:
                 with st.expander(con):
@@ -377,6 +396,7 @@ class SessionManager:
         """Get the optifolio instance."""
         return Optifolio(
             objectives=self.obj_map.objectives,
+            constraints=self.constr_map.constraints,
             universe_name=self.universe_name,
             market_data=self.market_data or MarketData(),
         )

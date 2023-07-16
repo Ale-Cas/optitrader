@@ -86,6 +86,22 @@ def test_set_constraint_names(
     assert session_manager.constraint_names == [ConstraintName.SUM_TO_ONE]
 
 
+def test_set_constraints(
+    session_manager: SessionManager,
+) -> None:
+    """Test for the set_constraints method of SessionManager class."""
+    name = ConstraintName.WEIGHTS_PCT.value
+    st.multiselect = Mock(return_value=[ConstraintName.SUM_TO_ONE.value, name])
+    st.number_input = Mock(return_value=1)
+
+    session_manager.set_constraint_names()
+    session_manager.set_constraints()
+
+    constrs = session_manager.constr_map.constraints
+    assert len(constrs) == 2  # noqa: PLR2004
+    assert constrs[1].name == name
+
+
 def test_set_rebalance_frequency(
     session_manager: SessionManager,
 ) -> None:

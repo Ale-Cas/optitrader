@@ -1,11 +1,13 @@
 """Test optifolio CLI."""
 
-from subprocess import TimeoutExpired
+import subprocess
+from unittest.mock import MagicMock, Mock
 
 import pytest
+import typer
 from typer.testing import CliRunner
 
-from optifolio.cli import app
+from optifolio.cli import app, dashboard
 
 runner = CliRunner()
 
@@ -24,7 +26,7 @@ def test_dashboard() -> None:
     """Test that the dashboard command works as expected."""
     result = runner.invoke(app, ["dashboard", "--launch", "--timeout=1"])
     assert result.exit_code == 1
-    assert isinstance(result.exception, TimeoutExpired)
+    assert isinstance(result.exception, subprocess.TimeoutExpired)
 
 
 @pytest.mark.timeout(2)
@@ -32,4 +34,16 @@ def test_dashboard_no_launch() -> None:
     """Test that the dashboard command works as expected."""
     result = runner.invoke(app, ["dashboard", "--no-launch", "--timeout=1"])
     assert result.exit_code == 1
-    assert isinstance(result.exception, TimeoutExpired)
+    assert isinstance(result.exception, subprocess.TimeoutExpired)
+
+
+@pytest.mark.timeout(3)
+def test_dashboard_launch() -> None:
+    """Test that the dashboard command works as expected."""
+    app.command = MagicMock()  # type: ignore
+    subprocess.run = Mock()
+    typer.launch = Mock()
+    dashboard(launch=True, port=1234)
+    subprocess.run.assert_called_once()
+    typer.launch.assert_called_once()
+    typer.launch.assert_called_once_with(url="http://localhost:1234/")

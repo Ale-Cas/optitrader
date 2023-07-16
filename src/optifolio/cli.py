@@ -18,4 +18,4 @@ def dashboard(port: int = 8000, launch: bool = True, timeout: float | None = Non
     """Open the streamlit dashboard."""
     subprocess.run(["poe", "app", "--port", str(port)], timeout=timeout)
     if launch:
-        typer.launch(url="http://localhost:8000/")
+        typer.launch(url=f"http://localhost:{port}/")

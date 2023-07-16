@@ -13,6 +13,8 @@ def test_base_provider() -> None:
     """Test BaseDataProvider."""
     with pytest.raises(TypeError, match="Protocols cannot be instantiated"):
         BaseDataProvider()  # type: ignore
+    with pytest.raises(TypeError, match="Protocols cannot be instantiated"):
+        super(BaseDataProvider, BaseDataProvider()).__init__()  # type: ignore
 
 
 @pytest.mark.vcr()

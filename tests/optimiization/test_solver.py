@@ -91,6 +91,7 @@ def test_solver_mad(
     assert 1 - sum(weights) <= _tollerance
 
 
+@pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
 def test_solver_financials(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -124,6 +125,7 @@ def test_solver_financials(
     assert solver.financials_df.sum(axis=1).idxmax() == sorted(weights.keys())[0]
 
 
+@pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
 def test_solver_financials_and_cvar(
     market_data: MarketData,
     test_start_date: pd.Timestamp,
