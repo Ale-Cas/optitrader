@@ -9,8 +9,8 @@ from optifolio.enums import ConstraintName
 from optifolio.market.investment_universe import UniverseName
 from optifolio.models.base import CustomBaseModel as BaseModel
 from optifolio.optimization.constraints import (
+    ConstraintsMap,
     PortfolioConstraint,
-    constraint_mapping,
 )
 from optifolio.optimization.objectives import (
     ObjectiveName,
@@ -35,11 +35,12 @@ class ObjectiveModel(BaseModel):
 class ConstraintModel(BaseModel):
     """Constraint model for the opt request."""
 
+    _constr_map: ConstraintsMap = ConstraintsMap()
     name: ConstraintName
 
     def to_ptf_constraint(self) -> PortfolioConstraint:
         """Parse to constraint."""
-        return constraint_mapping[self.name]
+        return self._constr_map.to_constraint(self.name)
 
 
 class OptimizationRequest(BaseModel):

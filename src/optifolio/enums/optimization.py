@@ -11,6 +11,11 @@ class ConstraintName(IterEnum):
     NUMER_OF_ASSETS = "Number of assets in portfolio"
     WEIGHTS_PCT = "Weights (%) in portfolio"
 
+    @property
+    def is_bounded(self) -> bool:
+        """Return true if this objective name is for a bounded constraint."""
+        return self.name in ["NUMER_OF_ASSETS", "WEIGHTS_PCT"]
+
 
 class ObjectiveName(IterEnum):
     """Supported objectives names."""
