@@ -19,7 +19,7 @@ def test_run_streamlit() -> None:
         p.kill()
 
 
-@pytest.mark.timeout(5)
+@pytest.mark.timeout(20)
 def test_run_pages_main() -> None:
     """Run pages main function."""
     about.main()

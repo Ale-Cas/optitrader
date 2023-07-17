@@ -9,7 +9,7 @@ interactions:
       Accept:
       - '*/*'
       Accept-Encoding:
-      - gzip, deflate
+      - gzip, deflate, br
       Connection:
       - keep-alive
       User-Agent:
@@ -38,7 +38,7 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Fri, 14 Jul 2023 15:01:43 GMT
+      - Mon, 17 Jul 2023 11:42:06 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains
       Vary:
@@ -48,9 +48,9 @@ interactions:
       X-Ratelimit-Remaining:
       - '199'
       X-Ratelimit-Reset:
-      - '1689346904'
+      - '1689594126'
       X-Request-Id:
-      - b9f377d8cfb12e763dd2429d79d1df9a
+      - e3df9489d21031074b810a16d7a0f027
     status:
       code: 200
       message: OK
@@ -60,7 +60,7 @@ interactions:
       Accept:
       - application/json
       Accept-Encoding:
-      - gzip, deflate
+      - gzip, deflate, br
       Connection:
       - keep-alive
       User-Agent:
@@ -70,7 +70,7 @@ interactions:
   response:
     body:
       string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
-        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1980-12-12","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg","marketCapitalization":2998676.9589383644,"name":"Apple
+        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1980-12-12","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg","marketCapitalization":2999306.251086,"name":"Apple
         Inc","phone":"14089961010.0","shareOutstanding":15728.7,"ticker":"AAPL","weburl":"https://www.apple.com/"}'
     headers:
       Access-Control-Allow-Credentials:
@@ -86,19 +86,19 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '397'
+      - '393'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 14 Jul 2023 15:01:44 GMT
+      - Mon, 17 Jul 2023 11:42:08 GMT
       Server:
       - nginx/1.18.0
       X-Ratelimit-Limit:
       - '60'
       X-Ratelimit-Remaining:
-      - '45'
+      - '59'
       X-Ratelimit-Reset:
-      - '1689346949'
+      - '1689594188'
     status:
       code: 200
       message: OK
@@ -108,8 +108,8 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
-        Chrome/81.0.4044.138 Safari/537.36
+      - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
       accept:
       - '*/*'
       accept-encoding:
@@ -127,22 +127,50 @@ interactions:
       sec-fetch-site:
       - same-site
     method: GET
-    uri: https://query2.finance.yahoo.com/v10/finance/quoteSummary/AAPL?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/AAPL?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
   response:
     body:
-      string: '{"finance":{"result":null,"error":{"code":"Unauthorized","description":"Invalid
-        Cookie"}}}'
+      string: '{"quoteSummary":{"result":[{"assetProfile":{"address1":"One Apple Park
+        Way","city":"Cupertino","state":"CA","zip":"95014","country":"United States","phone":"408
+        996 1010","website":"https://www.apple.com","industry":"Consumer Electronics","industryDisp":"Consumer
+        Electronics","sector":"Technology","longBusinessSummary":"Apple Inc. designs,
+        manufactures, and markets smartphones, personal computers, tablets, wearables,
+        and accessories worldwide. The company offers iPhone, a line of smartphones;
+        Mac, a line of personal computers; iPad, a line of multi-purpose tablets;
+        and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch,
+        Beats products, and HomePod. It also provides AppleCare support and cloud
+        services; and operates various platforms, including the App Store that allow
+        customers to discover and download applications and digital content, such
+        as books, music, video, games, and podcasts. In addition, the company offers
+        various services, such as Apple Arcade, a game subscription service; Apple
+        Fitness+, a personalized fitness service; Apple Music, which offers users
+        a curated listening experience with on-demand radio stations; Apple News+,
+        a subscription news and magazine service; Apple TV+, which offers exclusive
+        original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless
+        payment service, as well as licenses its intellectual property. The company
+        serves consumers, and small and mid-sized businesses; and the education, enterprise,
+        and government markets. It distributes third-party applications for its products
+        through the App Store. The company also sells its products through its retail
+        and online stores, and direct sales force; and third-party cellular network
+        carriers, wholesalers, retailers, and resellers. Apple Inc. was incorporated
+        in 1977 and is headquartered in Cupertino, California.","fullTimeEmployees":164000,"companyOfficers":[{"maxAge":1,"name":"Mr.
+        Timothy D. Cook","age":61,"title":"CEO & Director","yearBorn":1961,"fiscalYear":2022,"totalPay":{"raw":16425933,"fmt":"16.43M","longFmt":"16,425,933"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Luca  Maestri","age":59,"title":"CFO & Sr. VP","yearBorn":1963,"fiscalYear":2022,"totalPay":{"raw":5019783,"fmt":"5.02M","longFmt":"5,019,783"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Jeffrey E. Williams","age":58,"title":"Chief Operating Officer","yearBorn":1964,"fiscalYear":2022,"totalPay":{"raw":5018337,"fmt":"5.02M","longFmt":"5,018,337"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Katherine L. Adams","age":58,"title":"Sr. VP, Gen. Counsel & Sec.","yearBorn":1964,"fiscalYear":2022,"totalPay":{"raw":5015208,"fmt":"5.02M","longFmt":"5,015,208"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Deirdre  O''Brien","age":55,"title":"Sr. VP of Retail","yearBorn":1967,"fiscalYear":2022,"totalPay":{"raw":5019783,"fmt":"5.02M","longFmt":"5,019,783"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Chris  Kondo","title":"Sr. Director of Corp. Accounting","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        James  Wilson","title":"Chief Technology Officer","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Mary  Demby","title":"Chief Information Officer","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Nancy  Paxton","title":"Sr. Director of Investor Relations & Treasury","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Greg  Joswiak","title":"Sr. VP of Worldwide Marketing","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}}],"auditRisk":4,"boardRisk":1,"compensationRisk":5,"shareHolderRightsRisk":1,"overallRisk":1,"governanceEpochDate":1688169600,"compensationAsOfEpochDate":1672444800,"maxAge":86400}}],"error":null}}'
     headers:
       Age:
       - '0'
-      Cache-Control:
-      - max-age=0, private
       Connection:
       - keep-alive
       Expect-CT:
       - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
-      Expires:
-      - '-1'
       Referrer-Policy:
       - no-referrer-when-downgrade
       Strict-Transport-Security:
@@ -155,36 +183,115 @@ interactions:
       - 'true'
       access-control-allow-origin:
       - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=1, stale-while-revalidate=9
+      content-encoding:
+      - gzip
       content-length:
-      - '90'
+      - '1547'
       content-type:
       - application/json;charset=utf-8
       date:
-      - Fri, 14 Jul 2023 15:01:44 GMT
+      - Mon, 17 Jul 2023 11:42:08 GMT
       server:
       - ATS
       vary:
-      - Origin
+      - Origin,Accept-Encoding
       x-envoy-decorator-operation:
       - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
       x-envoy-upstream-service-time:
       - '1'
       x-request-id:
-      - 31c85837-211c-475d-b0d5-263936753698
+      - 8f5e559b-6122-4bd7-9681-6c74080d240c
       x-yahoo-request-id:
-      - 01vf62tib2oqo
+      - 69mvu61ibaa8g
       y-rid:
-      - 01vf62tib2oqo
+      - 69mvu61ibaa8g
     status:
-      code: 401
-      message: Unauthorized
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/AAPL?modules=defaultKeyStatistics&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"quoteSummary":{"result":[{"defaultKeyStatistics":{"maxAge":1,"priceHint":{"raw":2,"fmt":"2","longFmt":"2"},"enterpriseValue":{"raw":3053049085952,"fmt":"3.05T","longFmt":"3,053,049,085,952"},"forwardPE":{"raw":28.980244,"fmt":"28.98"},"profitMargins":{"raw":0.24493,"fmt":"24.49%"},"floatShares":{"raw":15711872289,"fmt":"15.71B","longFmt":"15,711,872,289"},"sharesOutstanding":{"raw":15728700416,"fmt":"15.73B","longFmt":"15,728,700,416"},"sharesShort":{"raw":117870227,"fmt":"117.87M","longFmt":"117,870,227"},"sharesShortPriorMonth":{"raw":117654782,"fmt":"117.65M","longFmt":"117,654,782"},"sharesShortPreviousMonthDate":{"raw":1685491200,"fmt":"2023-05-31"},"dateShortInterest":{"raw":1688083200,"fmt":"2023-06-30"},"sharesPercentSharesOut":{"raw":0.0075,"fmt":"0.75%"},"heldPercentInsiders":{"raw":7.1000005E-4,"fmt":"0.07%"},"heldPercentInstitutions":{"raw":0.61232,"fmt":"61.23%"},"shortRatio":{"raw":1.87,"fmt":"1.87"},"shortPercentOfFloat":{"raw":0.0075,"fmt":"0.75%"},"beta":{"raw":1.292349,"fmt":"1.29"},"impliedSharesOutstanding":{"raw":15728700416,"fmt":"15.73B","longFmt":"15,728,700,416"},"morningStarOverallRating":{},"morningStarRiskRating":{},"category":null,"bookValue":{"raw":3.953,"fmt":"3.95"},"priceToBook":{"raw":48.23931,"fmt":"48.24"},"annualReportExpenseRatio":{},"ytdReturn":{},"beta3Year":{},"totalAssets":{},"yield":{},"fundFamily":null,"fundInceptionDate":{},"legalType":null,"threeYearAverageReturn":{},"fiveYearAverageReturn":{},"priceToSalesTrailing12Months":{},"lastFiscalYearEnd":{"raw":1663977600,"fmt":"2022-09-24"},"nextFiscalYearEnd":{"raw":1695513600,"fmt":"2023-09-24"},"mostRecentQuarter":{"raw":1680307200,"fmt":"2023-04-01"},"earningsQuarterlyGrowth":{"raw":-0.034,"fmt":"-3.40%"},"revenueQuarterlyGrowth":{},"netIncomeToCommon":{"raw":94321000448,"fmt":"94.32B","longFmt":"94,321,000,448"},"trailingEps":{"raw":5.89,"fmt":"5.89"},"forwardEps":{"raw":6.58,"fmt":"6.58"},"pegRatio":{"raw":4.0,"fmt":"4.00"},"lastSplitFactor":"4:1","lastSplitDate":{"raw":1598832000,"fmt":"2020-08-31"},"enterpriseToRevenue":{"raw":7.928,"fmt":"7.93"},"enterpriseToEbitda":{"raw":24.664,"fmt":"24.66"},"52WeekChange":{"raw":29.659344,"fmt":"2,965.93%"},"SandP52WeekChange":{"raw":17.608881,"fmt":"1,760.89%"},"lastDividendValue":{"raw":0.24,"fmt":"0.24"},"lastDividendDate":{"raw":1683849600,"fmt":"2023-05-12"},"lastCapGain":{},"annualHoldingsTurnover":{}}}],"error":null}}'
+    headers:
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=1, stale-while-revalidate=9
+      content-encoding:
+      - gzip
+      content-length:
+      - '1019'
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Mon, 17 Jul 2023 11:42:09 GMT
+      server:
+      - ATS
+      vary:
+      - Origin,Accept-Encoding
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-baseline-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '5'
+      x-request-id:
+      - 48b56522-aefe-4aec-af27-cab5e86b3da5
+      x-yahoo-request-id:
+      - 7pf8d29ibaa8h
+      y-rid:
+      - 7pf8d29ibaa8h
+    status:
+      code: 200
+      message: OK
 - request:
     body: null
     headers:
       Accept:
       - '*/*'
       Accept-Encoding:
-      - gzip, deflate
+      - gzip, deflate, br
       Authorization:
       - Basic Q0tUV01ONE9RUFpTMDdONVpCMVY6ZW5rYXZKc05GUFU1U3JwWFVLM1QwRWdOaU5Ta0xYR1dqbmRuZUVXZw==
       Connection:
@@ -195,154 +302,168 @@ interactions:
     uri: https://data.sandbox.alpaca.markets/v1beta1/news?symbols=AAPL&limit=3&include_content=True&exclude_contentless=True
   response:
     body:
-      string: "{\"news\":[{\"author\":\"Rounak Jain\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eApple
-        Inc. (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)\\u003c/strong\\u003e
-        has so far resisted the temptation of jumping into the foldable phones segment
-        but it looks like we could one day see rollable iPhones from the company.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
-        Happened:\\u003c/strong\\u003e Apple has filed a \\u003ca href=\\\"https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/20230221766\\\"\\u003epatent\\u003c/a\\u003e
-        for a rollable iPhone with the US Patent and Trademark Office (USPTO). The
-        patent filing shows that the iPhone could be rolled up \u2013 quite literally
-        like an ancient scroll and manuscript.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
-        Also: \\u003c/em\\u003e\\u003ca href=\\\"https://www.benzinga.com/news/23/07/33128925/googles-pixel-fold-fails-jerryrigeverythings-durability-test-with-a-heartbreaking-crack\\\"\\u003e\\u003cem\\u003eGoogle\\u0026#8217;s
-        Pixel Fold Fails JerryRigEverything\\u0026#8217;s Durability Test With A Heartbreaking
-        Crack\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eWhile
-        foldable phones are a reality and Apple's rivals \u2013 including \\u003cstrong\\u003eAlphabet
-        Inc.'s (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/GOOGL#NASDAQ\\\"\\u003eGOOGL\\u003c/a\\u003e)\\u003c/strong\\u003e
-        \\u003cstrong\\u003eGoogle\\u003c/strong\\u003e and \\u003cstrong\\u003eSamsung\\u003c/strong\\u003e
-        \u2013 have foldable phones that consumers can buy right now, Apple has stayed
-        away from this segment. There are no credible leaks or rumors either about
-        a foldable iPhone launching anytime soon.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eA
-        rollable iPhone would also require Apple to solve challenges associated with
-        the durability of displays \u2013 a problem that Google, Samsung, and other
-        companies with foldable phones have come to realize. Google's first attempt
-        at this, the Pixel Fold, \\u003ca href=\\\"https://www.benzinga.com/news/23/06/33021975/google-pixel-fold-dies-in-four-days-reviewer-suspects-oled-death-zone-could-be-the-reason\\\"\\u003ebroke\\u003c/a\\u003e\\u003ca
-        href=\\\"https://www.benzinga.com/news/23/06/33054416/dead-displays-peeling-screen-protectors-and-pink-line-after-two-hours-of-use-google-pixel-fold-is-of\\\"\\u003e
-        within a few hours\\u003c/a\\u003e of its launch, with users reporting dead
-        displays with very little use.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eFuturistic,
-        But Distant:\\u003c/strong\\u003e This rollable iPhone patent could just be
-        a way for Apple to protect its idea and technology in some way, in case the
-        company ends up making one in the future.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eModern
-        smartphones are complex computers with a myriad of components. Before we see
-        a rollable smartphone, companies will first have to come up with components
-        that are similarly flexible, too.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eWith
-        that said, rollable displays are not fictional \u2013 \\u003cstrong\\u003eLG\\u003c/strong\\u003e
-        already has a \\u003ca href=\\\"https://www.lg.com/global/lg-signature/rollable-oled-tv-r\\\"\\u003erollable
-        TV\\u003c/a\\u003e out there. However, smartphones are a lot more complex
-        than TVs, given that they pack in components like the chipset, storage, camera
-        modules, and battery, in a far smaller package than a TV.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck
-        out more of Benzinga\\u0026#8217;s Consumer Tech coverage by\\u003c/em\\u003e
-        \\u003ca href=\\\"https://www.benzinga.com/topic/consumer-tech\\\"\\u003e\\u003cem\\u003efollowing
-        this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
-        Next: \\u003c/em\\u003e\\u003ca href=\\\"https://www.benzinga.com/news/23/07/33228449/hollywood-wants-to-use-ai-replicas-of-actors-for-eternity-and-give-them-just-one-days-pay\\\"\\u003e\\u003cem\\u003eHollywood
-        Wants To Use AI Replicas Of Actors For Eternity And Give Them Just One Day\\u0026#8217;s
-        Pay\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-14T12:04:39Z\",\"headline\":\"Forget
-        Foldable iPhone, Apple Has Filed A Patent For A Rollable iPhone\",\"id\":33229839,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/Apple_India_0.png\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/Apple_India_0.png\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/Apple_India_0.png\"}],\"source\":\"benzinga\",\"summary\":\"Apple
-        has filed a patent for a rollable iPhone with the USPTO, which shows that
-        the iPhone could be rolled up like an ancient scroll.\",\"symbols\":[\"AAPL\",\"GOOGL\"],\"updated_at\":\"2023-07-14T12:04:40Z\",\"url\":\"https://www.benzinga.com/news/23/07/33229839/forget-foldable-iphone-apple-has-filed-a-patent-for-a-rollable-iphone\"},{\"author\":\"Ananya
-        Gairola\",\"content\":\"\\u003cp\\u003eThe upcoming\_\\u003cstrong\\u003eEmoji
-        15.1\\u003c/strong\\u003e\_in 2024 could bring a fresh wave of expressive
-        characters, including head-shaking gestures and more, to make engaging even
-        more fun.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
-        Happened:\\u0026nbsp;\\u003c/strong\\u003eThe\\u0026nbsp;\\u003cstrong\\u003eUnicode
-        Consortium\\u003c/strong\\u003e\\u0026nbsp;has been considering a new set
-        of emojis as part of Emoji 15.1, set to be released in 2024.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eOne
-        of the notable additions in Emoji 15.1 includes head-shaking gestures, enabling
-        users to express agreement, disagreement, or amusement in a better way.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
-        Also:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/02/30852815/love-emojis-viral-tiktok-explains-how-to-create-a-customized-one-on-your-iphone\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eLove Emojis? Viral TikTok
-        Explains How To Create A Customized One On Your iPhone\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThese
-        gestures will be available in both vertical and horizontal movements, adding
-        a new level of expressiveness to digital conversations,\\u0026nbsp;\\u003ca
-        target=\\\"_blank\\\" href=\\\"https://blog.emojipedia.org/new-emojis-in-2023/\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003eaccording\\u003c/a\\u003e\\u0026nbsp;to
-        Emojipedia.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIn addition to the head-shaking
-        emojis, Emoji 15.1 could also introduce directional people emojis with multiple
-        skin tones. This update aims to enhance inclusivity and representation, expanding
-        the existing range of person-based emojis.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIn
-        anticipation of World Emoji Day 2023, which will be celebrated on July 17,
-        Emojipedia has unveiled sample designs for the new candidate emojis, offering
-        a much-needed sneak peek.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cfigure class=\\\"wp-block-image\\\"\\u003e\\u003cimg
-        decoding=\\\"async\\\" src=\\\"https://editorial.benzinga.com/be496aa0-d4bc-4f50-85f5-ddcff6b4c0e2\\\"
-        alt=\\\"\\\" /\\u003e\\u003c/figure\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
-        It's Important:\\u0026nbsp;\\u003c/strong\\u003eWhile the final designs for
-        Emoji 15.1 are yet to be determined, major tech companies like\\u0026nbsp;\\u003cstrong\\u003eApple
-        Inc.\\u003c/strong\\u003e\\u0026nbsp;(NASDAQ:\\u003ca class=\\\"ticker\\\"
+      string: "{\"news\":[{\"author\":\"Ananya Gairola\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eApple
+        Inc.\\u0026#8217;s\_\\u003c/strong\\u003e(NASDAQ:\\u003ca class=\\\"ticker\\\"
         href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)
-        and\\u0026nbsp;\\u003cstrong\\u003eAlphabet Inc.'s\\u003c/strong\\u003e\\u0026nbsp;(NASDAQ:\\u003ca
-        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/GOOG#NASDAQ\\\"\\u003eGOOG\\u003c/a\\u003e)
-        (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/GOOGL#NASDAQ\\\"\\u003eGOOGL\\u003c/a\\u003e)\\u0026nbsp;\\u003cstrong\\u003eGoogle\\u003c/strong\\u003e\\u0026nbsp;are
-        expected to adopt these emojis through future software updates.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThis
-        means that users of Apple devices, for example, would likely see the new emojis
-        on their iPhones, iPads, and Macs after these updates are rolled out, the
-        report noted.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck
-        out more of Benzinga's Consumer Tech coverage by\\u0026nbsp;\\u003c/em\\u003e\\u003ca
+        enthusiasts, good news for you.\_October launch could introduce powerful M3-powered
+        iMac, MacBook Air, and MacBook Pro devices.\_\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened:\\u003c/strong\\u003e\\u0026nbsp;In his\\u0026nbsp;\\u003ca target=\\\"_blank\\\"
+        href=\\\"https://www.benzinga.com/news/23/04/31821609/apples-mr-headset-will-have-slow-start-but-could-eventually-replace-iphone-as-flagship-product-gurma\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003elatest \\u0026#8220;Power On\\u0026#8221;
+        newsletter\\u003c/a\\u003e, Bloomberg columnist\\u0026nbsp;\\u003cstrong\\u003eMark
+        Gurman\\u003c/strong\\u003e\\u0026nbsp;stated that the Cupertino, California-based
+        tech has plans to introduce a new line of Mac devices powered by the much-rumored
+        M3 chipset.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eGurman\\u0026#8217;s
+        insights suggest that this significant upgrade will encompass a revamped iMac,
+        a 13-inch MacBook Air, and a MacBook Pro.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIt
+        is pertinent to note that during the Worldwide Developers Conference or WWDC
+        2023 earlier this year, Apple unveiled the\\u0026nbsp;\\u003ca target=\\\"_blank\\\"
+        href=\\\"https://www.benzinga.com/tech/23/06/32721354/macbook-air-transformed-apple-introduces-thinnest-15-inch-laptop-powered-by-m2-chip-at-wwdc-2023\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003elatest iteration of the MacBook Air\\u003c/a\\u003e,
+        equipped\\u0026nbsp;\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/analyst-ratings/analyst-color/22/06/27621624/qualcomm-readying-a-chip-to-take-on-apples-newly-unveiled-m2-processor-analyst-says\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003ewith the powerful M2 chip.\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
+        Also:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/general/entertainment/23/07/33242301/how-apples-vision-pro-team-signals-a-bold-departure-from-steve-jobs-playbook\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eHow Apple\\u0026#8217;s
+        Vision Pro Team Signals A Bold Departure From Steve Jobs\\u0026#8217; Playbook\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eBeyond
+        just the Mac lineup, Apple\\u0026#8217;s ambitious plans include a potential
+        M3-powered iPad Pro boasting an OLED display, but customers may need to wait
+        until 2024 for that particular innovation. Nevertheless, Gurman noted that
+        an iPad Air model is in development.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eFor
+        the unversed, the M3 chipset is said to bring about a remarkable leap in performance
+        for Apple\\u0026#8217;s upcoming Mac devices. This major advancement is attributed
+        to Apple\\u0026#8217;s shift from a 5-nanometer silicon fabrication process
+        to an even more\\u0026nbsp;\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/05/32385565/apple-goes-aggressive-on-mac-comeback-to-switch-to-3-nm-manufacturing\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003esophisticated 3-nanometer process\\u003c/a\\u003e.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eNotably,
+        the tech giant is\\u0026nbsp;\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/01/30348888/apple-supplier-tsmcs-q4-revenue-growth-slows-amid-demand-softness-but-comes-roughly-in-line-with-est\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003eexpected to collaborate\\u003c/a\\u003e\\u0026nbsp;with\\u0026nbsp;\\u003cstrong\\u003eTaiwan
+        Semiconductor Manufacturing Company Limited\\u003c/strong\\u003e, leveraging
+        their cutting-edge N3E 3-nanometer process to develop the M3 chipset.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eBesides
+        the promised improvement in performance and the introduction of new AI features,
+        the M3 chipset would also maintain the same cores found in its predecessor,
+        the M2 chipset,\\u0026nbsp;\\u003ca target=\\\"_blank\\\" href=\\\"https://www.businessinsider.in/tech/news/apple-may-launch-the-m3-powered-macbook-air-macbook-pro-and-imac-in-october/articleshow/101814955.cms#:~:text=According%20to%20a%20report%20by,will%20likely%20launch%20next%20year.\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003ereported\\u003c/a\\u003e\\u0026nbsp;Business
+        Insider.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
+        It\\u0026#8217;s Important:\\u0026nbsp;\\u003c/strong\\u003eBefore the M3-powered
+        Macs debut in October, Apple is expected to launch its new iPhone 15 series
+        and an updated Apple Watch lineup.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThe
+        iPhone 15 series is \\u003ca href=\\\"https://www.benzinga.com/news/23/05/32420291/should-i-buy-iphone-14-or-wait-for-iphone-15\\\"\\u003eexpected
+        to bring exciting upgrades\\u003c/a\\u003e, including a periscope lens with
+        6X optical zoom exclusive to the Pro Max model and the adoption of a USB-C
+        port for faster charging and transfer speeds. Additionally, the Dynamic Island
+        feature could expand to non-Pro models this September.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck
+        out more of Benzinga\\u0026#8217;s Consumer Tech coverage by\\u0026nbsp;\\u003c/em\\u003e\\u003ca
         target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/topic/consumer-tech\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003efollowing this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u0026nbsp;\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
-        Next:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/markets/cryptocurrency/23/02/31050588/emojis-are-now-financial-advice-is-fun-dead-in-finance\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eEmojis As Financial
-        Advice? Court Kills Rocket, Bag Of Cash In Blow To Fun In Finance\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-14T09:17:26Z\",\"headline\":\"Nods
-        And Shakes: Next Year's Emoji 15.1 Pack Will Let You Express In Ways You Haven't
-        Imagined\",\"id\":33227762,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/iPhone_emojis_Photo_by_A._Aleksandravicius_on_Shutterstock_0.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/iPhone_emojis_Photo_by_A._Aleksandravicius_on_Shutterstock_0.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/iPhone_emojis_Photo_by_A._Aleksandravicius_on_Shutterstock_0.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"The
-        upcoming release of Emoji 15.1 in 2024 could bring new expressive emojis,
-        including head-shaking gestures and directional people. \",\"symbols\":[\"AAPL\",\"GOOG\",\"GOOGL\"],\"updated_at\":\"2023-07-14T09:17:27Z\",\"url\":\"https://www.benzinga.com/news/23/07/33227762/nods-and-shakes-next-years-emoji-15-1-pack-will-let-you-express-in-ways-you-havent-imagined\"},{\"author\":\"Ananya
-        Gairola\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eTesla Inc.\_\\u003c/strong\\u003e(NASDAQ:\\u003ca
-        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/TSLA#NASDAQ\\\"\\u003eTSLA\\u003c/a\\u003e)
-        owners yearning for\_\\u003cstrong\\u003eApple Inc.\\u0026#8217;s\_\\u003c/strong\\u003e(NASDAQ:\\u003ca
-        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)\_\\u003cstrong\\u003eCarPlay\\u003c/strong\\u003e\_integration
-        may soon find solace as the EV maker appears to be gearing up to introduce\_\\u003cstrong\\u003eAirPlay\\u003c/strong\\u003e\_for
-        a superior entertainment experience.\_\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
-        Happened:\\u0026nbsp;\\u003c/strong\\u003eLast year, the possibility of AirPlay
-        support in Tesla vehicles\\u0026nbsp;\\u003ca href=\\\"https://www.benzinga.com/news/22/05/27479312/could-tesla-bring-apple-airplay-to-cars-heres-what-elon-musk-said\\\"
-        target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\"\\u003ewas first hinted\\u003c/a\\u003e\\u0026nbsp;at
-        when\\u0026nbsp;\\u003cstrong\\u003eElon Musk\\u003c/strong\\u003e\\u0026nbsp;responded
-        to a tweet stating that he would discuss the idea with the company\\u0026#8217;s
-        audio engineering team.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eRecent developments
-        suggest that Musk\\u0026#8217;s interest in wireless audio technology has
-        translated into action.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
-        Also:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/06/32806540/elon-musk-believes-teslas-market-cap-could-surpass-apple-and-saudi-aramco-combined-it-is-possible\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eElon Musk Believes Tesla\\u0026#8217;s
-        Market Cap Could Surpass Apple And Saudi Aramco Combined: \\u0026#8216;It
-        Is Possible\\u0026#8217;\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eTesla
-        influencer and investor \\u003cstrong\\u003eSawyer Merritt\\u003c/strong\\u003e
-        shared the news on Twitter, providing a link to the Not A Tesla App site.
-        The site discovered references to this development in the code of the latest
-        Tesla \\u003cstrong\\u003eiPhone\\u003c/strong\\u003e app. The upcoming feature
-        is anticipated to be available worldwide and applicable to Tesla Models S,
-        3, X, and Y.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cfigure class=\\\"wp-block-embed
-        is-type-rich is-provider-twitter wp-block-embed-twitter\\\"\\u003e\\u003cdiv
-        class=\\\"wp-block-embed__wrapper\\\"\\u003e\\n\\u003cblockquote class=\\\"twitter-tweet\\\"
-        data-width=\\\"500\\\" data-dnt=\\\"true\\\"\\u003e\\u003cp lang=\\\"en\\\"
-        dir=\\\"ltr\\\"\\u003eNEWS: It appears Tesla is starting to implement AirPlay
-        to allow higher quality streaming of audio and potentially video content to
-        your vehicle. \\u003ca href=\\\"https://t.co/PUMVBfwd8B\\\"\\u003ehttps://t.co/PUMVBfwd8B\\u003c/a\\u003e\\u003c/p\\u003e\\u0026mdash;
-        Sawyer Merritt (@SawyerMerritt) \\u003ca href=\\\"https://twitter.com/SawyerMerritt/status/1679519329644158976?ref_src=twsrc%5Etfw\\\"\\u003eJuly
-        13, 2023\\u003c/a\\u003e\\u003c/blockquote\\u003e\\u003cscript async src=\\\"https://platform.twitter.com/widgets.js\\\"
-        charset=\\\"utf-8\\\"\\u003e\\u003c/script\\u003e\\n\\u003c/div\\u003e\\u003c/figure\\u003e\\n\\n\\n\\n\\u003cp\\u003eAlthough
-        AirPlay support from iPhone to Tesla vehicles is not yet operational, the
-        reference found in the app\\u0026#8217;s code suggests that progress is being
-        made toward this goal.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
-        It\\u0026#8217;s Important:\\u003c/strong\\u003e\\u0026nbsp;While\\u0026nbsp;\\u003ca
-        target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/tech/22/05/27074735/tesla-refuses-to-integrate-apples-carplay-you-can-do-it-anyway\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003eApple CarPlay may not be\\u003c/a\\u003e\\u0026nbsp;on
-        the horizon for Tesla EVs, AirPlay could offer a comparable alternative for
-        streaming high-quality content to the vehicle\\u0026#8217;s sound system.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eApple
-        significantly overhauled its AirPlay feature a few years ago. It now allows
-        for high-quality audio playback up to 24-bit/48kHz over Wi-Fi.\_\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIf
-        successfully implemented in Tesla vehicles, AirPlay would enable drivers and
-        passengers to wirelessly stream music, podcasts, and more from their iPhones
-        directly to the car\\u0026#8217;s sound system without the need for Bluetooth
-        pairing.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck out
-        more of Benzinga\\u0026#8217;s Consumer Tech coverage by\\u0026nbsp;\\u003c/em\\u003e\\u003ca
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003efollowing this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/07/33229839/forget-foldable-iphone-apple-has-filed-a-patent-for-a-rollable-iphone\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eForget Foldable iPhone,
+        Apple Has Filed A Patent For A Rollable iPhone\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-17T09:38:55Z\",\"headline\":\"iMac,
+        MacBook Air, And MacBook Pro: October Launch Could Bring M3 Powered Devices\",\"id\":33243799,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/iPad_Photo_by_DenPhotos_on_Shutterstock_5.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/iPad_Photo_by_DenPhotos_on_Shutterstock_5.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/iPad_Photo_by_DenPhotos_on_Shutterstock_5.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"Apple
+        reportedly plans to launch a new line of Mac devices, including the iMac,
+        MacBook Air, and MacBook Pro, powered by the highly anticipated M3 chipset.
+        \",\"symbols\":[\"AAPL\"],\"updated_at\":\"2023-07-17T09:38:56Z\",\"url\":\"https://www.benzinga.com/news/23/07/33243799/imac-macbook-air-and-macbook-pro-october-launch-could-bring-m3-powered-devices\"},{\"author\":\"Rounak
+        Jain\",\"content\":\"\\u003cp\\u003eA rare sealed box of the \\u003cstrong\\u003eoriginal
+        iPhone\\u003c/strong\\u003e has fetched a whopping $190,373 at an auction.
+        While original iPhones have often found a place in auctions, this one is a
+        4GB version that was manufactured for only the first two months of the iPhone's
+        debut in 2007.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened:\\u003c/strong\\u003e An auction of the original iPhone has \\u003ca
+        href=\\\"https://auction.lcgauctions.com/bids/bidplace?itemid=1102\\\"\\u003efetched\\u003c/a\\u003e
+        its owner a record $190,373. The iPhone is in sealed condition and the winning
+        bid is three times more than the previous record of $63,000 set in February
+        this year.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee Also:
+        \\u003c/em\\u003e\\u003ca href=\\\"https://www.benzinga.com/news/23/07/33230845/you-can-get-the-top-end-14-inch-macbook-pro-m1-at-a-huge-700-discount\\\"\\u003e\\u003cem\\u003eYou
+        Can Get The Top-End 14-inch MacBook Pro M1 At A Huge $700 Discount\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eApple
+        Inc. (NASDAQ:\\u003ca class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)\\u003c/strong\\u003e
+        memorabilia fetching record amounts in auctions are common \u2013 earlier,
+        a 1983 letter from Steve Jobs with his signature \\u003ca href=\\\"https://www.benzinga.com/news/23/06/32874907/a-declined-autograph-letter-with-steve-jobs-signature-fetches-its-owner-480-000\\\"\\u003efetched\\u003c/a\\u003e
+        its owner a record $480,000.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThe
+        auctioneer LCG Auctions had set an estimate of $50,000-$100,000 for the original
+        iPhone, but the winning bid beat expectations by a huge margin. Adding to
+        the lure is likely the fact that this is a 4GB version, which is very rare
+        \u2013 it had extremely limited production runs since Apple launched an 8GB
+        version for $100 more, which ate into the demand for the 4GB version.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eApple
+        Collectibles Are Highly Valuable:\\u003c/strong\\u003e Apple collectibles
+        \u2013 everything from sealed iPhones to signed letters and products, are
+        usually in high demand and fetch a lot of money in auctions.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eFor
+        instance, the original Apple founding contract\\u003ca href=\\\"https://www.reuters.com/article/us-auction-apple-idUKTRE7BC2HC20111214\\\"\\u003e
+        fetched\\u003c/a\\u003e $1.59 million in 2011 \u2013 the contract established
+        Apple as a corporate entity in 1976. This was more than ten times the initial
+        estimates of $150,000.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eIf you have
+        an Apple product, you might just want to consider keeping it in pristine condition
+        \u2013 it could one day make you rich!\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eImage
+        Credits \\u0026#8211; Shutterstock\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck
+        out more of Benzinga\\u0026#8217;s Consumer Tech coverage by \\u003c/em\\u003e\\u003ca
+        href=\\\"https://www.benzinga.com/topic/consumer-tech\\\"\\u003e\\u003cem\\u003efollowing
+        this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next: \\u003c/em\\u003e\\u003ca href=\\\"https://www.benzinga.com/news/23/07/33230220/booted-out-of-netflix-by-your-friend-heres-how-you-can-transfer-your-watch-history-to-your-own-accou\\\"\\u003e\\u003cem\\u003eBooted
+        Out Of Netflix By Your Friend? Here's How You Can Transfer Your Watch History
+        To Your Own Account\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-17T08:07:15Z\",\"headline\":\"Rare
+        Sealed Original iPhone Fetches A Whopping $190,000 At Auction\",\"id\":33243130,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/Original_iPhone.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/Original_iPhone.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/Original_iPhone.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"An
+        auction of a sealed original iPhone has fetched its owner a record $190,373,
+        which is three times higher than previous record.\",\"symbols\":[\"AAPL\"],\"updated_at\":\"2023-07-17T08:07:16Z\",\"url\":\"https://www.benzinga.com/news/23/07/33243130/rare-sealed-original-iphone-fetches-a-whopping-190-000-at-auction\"},{\"author\":\"Ananya
+        Gairola\",\"content\":\"\\u003cp\\u003e\\u003cstrong\\u003eApple Inc.\\u0026#8217;s\\u003c/strong\\u003e\\u0026nbsp;(NASDAQ:\\u003ca
+        class=\\\"ticker\\\" href=\\\"https://www.benzinga.com/stock/AAPL#NASDAQ\\\"\\u003eAAPL\\u003c/a\\u003e)\\u0026nbsp;\\u003cstrong\\u003eVision
+        Pro\\u003c/strong\\u003e\\u0026nbsp;team has reportedly challenged\\u0026nbsp;\\u003cstrong\\u003eSteve
+        Jobs\\u0026#8217;\\u0026nbsp;\\u003c/strong\\u003emanagement approach.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhat
+        Happened:\\u0026nbsp;\\u003c/strong\\u003eIn his\\u0026nbsp;\\u003ca target=\\\"_blank\\\"
+        href=\\\"https://www.benzinga.com/news/23/04/31821609/apples-mr-headset-will-have-slow-start-but-could-eventually-replace-iphone-as-flagship-product-gurma\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003elatest \\u0026#8220;Power On\\u0026#8221;
+        newsletter\\u003c/a\\u003e, Bloomberg columnist\\u0026nbsp;\\u003cstrong\\u003eMark
+        Gurman\\u0026nbsp;\\u003c/strong\\u003ehighlighted the Apple Vision Pro team\\u0026#8217;s
+        departure from the company\\u0026#8217;s co-founder and probably the most
+        famous CEO\\u0026#8217;s management approach.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eSee
+        Also:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/markets/equities/23/06/32942277/apple-bites-into-trademark-battle-over-the-humble-fruit-itself\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eApple Bites Into Trademark
+        Battle \\u0026#8230; Over The Humble Fruit Itself\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eGurman
+        said that previously, Apple operated with a \\u0026#8220;functional\\u0026#8221;
+        structure \u2014 established by Jobs \u2014 organizing departments like software
+        engineering, hardware development, design, and services to collaborate on
+        new features and products.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eHowever,
+        with the\_\\u003ca href=\\\"https://www.benzinga.com/news/large-cap/23/06/32746359/d-j-vu-moment-alert-vision-pro-launch-triggers-concerns-over-apple-stock-dip-similar-to-original-i\\\"
+        target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\"\\u003eintroduction of
+        the Vision Pro headset\\u003c/a\\u003e, everything has changed, according
+        to Gurman.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThe Vision Pro Team,
+        internally known as the Vision Products Group or VPG, reportedly has been
+        an independent division within Apple since 2015 (although it was earlier named
+        Technology Development Group, or TDG), reporting to\\u0026nbsp;\\u003cstrong\\u003eMike
+        Rockwell\\u003c/strong\\u003e.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eThe
+        group boasts its own teams for software engineering, hardware development,
+        strategy, computer vision, content, app development, and project management,
+        bypassing Cupertino\\u0026#8217;s main departments.\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eNevertheless,
+        despite its autonomy, the VPG does collaborate with other parts of Apple.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eAccording
+        to\\u0026nbsp;\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/topic/mark-gurman\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003eGurman\\u003c/a\\u003e, the name change
+        from TDG to VPG and using a plural in \\u0026#8220;products\\u0026#8221; implies
+        a more permanent structure, reinforcing the notion that the Vision Pro headset
+        was the\\u0026nbsp;\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/news/23/06/32808223/why-mark-zuckerberg-believes-apples-vision-pro-headset-validates-future-of-arvr\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003efirst of many products\\u003c/a\\u003e\\u0026nbsp;in
+        the pipeline.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cstrong\\u003eWhy
+        It\\u0026#8217;s Important:\\u003c/strong\\u003e\_Apple\\u0026#8217;s willingness
+        to deviate from its traditional approach under \\u003cstrong\\u003eTim Cook\\u003c/strong\\u003e
+        is not entirely unprecedented, as seen previously with the Apple Watch\\u0026#8217;s
+        development and the Special Projects Group or SPG working on\_\\u003ca href=\\\"https://www.benzinga.com/news/22/07/28182664/new-apple-car-rumor-cupertino-brisk-with-its-patent-filings-for-self-driving-car\\\"
+        target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\"\\u003eself-driving cars\\u003c/a\\u003e,
+        the newsletter noted.\_\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003eApple\\u0026#8217;s
+        Vision Pro launch didn\\u0026#8217;t seem to get the expected reception from
+        investors and netizens alike, largely because of its\\u0026nbsp;\\u003ca target=\\\"_blank\\\"
+        href=\\\"https://www.benzinga.com/news/23/06/32736149/is-apples-vision-pro-headset-worth-it-top-tech-reviewer-gives-honest-review\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003ehigher price point\\u003c/a\\u003e.
+        However, there may be hope for a turnaround, as it was reported that the tech
+        giant has been\\u0026nbsp;\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/analyst-ratings/analyst-color/23/06/32809179/apple-developing-budget-friendly-vision-pro-sibling-gurman-weighs-in-on-how-cuperti\\\"
+        rel=\\\"noreferrer noopener\\\"\\u003edeveloping a more budget-friendly\\u003c/a\\u003e\\u0026nbsp;version
+        of the headset that might bear the names\\u0026nbsp;\\u003cstrong\\u003eApple
+        Vision\\u003c/strong\\u003e\\u0026nbsp;or\\u0026nbsp;\\u003cstrong\\u003eApple
+        Vision One\\u003c/strong\\u003e.\\u0026nbsp;\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eCheck
+        out more of Benzinga\\u0026#8217;s Consumer Tech coverage by\\u0026nbsp;\\u003c/em\\u003e\\u003ca
         target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/topic/consumer-tech\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003efollowing this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u0026nbsp;\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
-        Next:\\u0026nbsp;\\u003c/em\\u003e\\u003ca target=\\\"_blank\\\" href=\\\"https://www.benzinga.com/analyst-ratings/analyst-color/23/05/32180470/can-tesla-beat-apple-in-market-value-analyst-points-to-huge-missed-opportunity\\\"
-        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eCan Tesla Beat Apple
-        In Market Value? Analyst Points To \\u0026#8216;Huge Missed Opportunity\\u0026#8217;\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003ePhoto
-        by Hadrian on Shutterstock\\u003c/em\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-14T05:53:46Z\",\"headline\":\"No
-        Apple CarPlay? No Problem! Tesla May Soon Welcome AirPlay For Premium In-Car
-        Entertainment\",\"id\":33226847,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/Apple_CarPlay_1.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/Apple_CarPlay_1.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/Apple_CarPlay_1.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"Tesla
-        might be working on integrating Apple\\u0026#39;s AirPlay, allowing users
-        to wirelessly stream high-quality audio content from their iPhones. \",\"symbols\":[\"AAPL\",\"TSLA\"],\"updated_at\":\"2023-07-14T05:53:47Z\",\"url\":\"https://www.benzinga.com/news/23/07/33226847/no-apple-carplay-no-problem-tesla-may-soon-welcome-airplay-for-premium-in-car-entertainment\"}],\"next_page_token\":\"MTY4OTMxNDAyNzAwMDAwMDAwMHwzMzIyNjg0Nw==\"}"
+        rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003efollowing this link\\u003c/em\\u003e\\u003c/a\\u003e\\u003cem\\u003e.\\u003c/em\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003eRead
+        Next:\_\\u003c/em\\u003e\\u003ca href=\\\"https://www.benzinga.com/news/23/07/33229839/forget-foldable-iphone-apple-has-filed-a-patent-for-a-rollable-iphone\\\"
+        target=\\\"_blank\\\" rel=\\\"noreferrer noopener\\\"\\u003e\\u003cem\\u003eForget
+        Foldable iPhone, Apple Has Filed A Patent For A Rollable iPhone\\u003c/em\\u003e\\u003c/a\\u003e\\u003c/p\\u003e\\n\\n\\n\\n\\u003cp\\u003e\\u003cem\\u003ePhoto
+        courtesy: Apple\\u003c/em\\u003e\\u003c/p\\u003e\",\"created_at\":\"2023-07-17T04:15:01Z\",\"headline\":\"How
+        Apple's Vision Pro Team Signals A Bold Departure From Steve Jobs' Playbook\",\"id\":33242301,\"images\":[{\"size\":\"large\",\"url\":\"https://cdn.benzinga.com/files/imagecache/2048x1536xUP/images/story/2023/Apple_Vision_Pro_3.jpeg\"},{\"size\":\"small\",\"url\":\"https://cdn.benzinga.com/files/imagecache/1024x768xUP/images/story/2023/Apple_Vision_Pro_3.jpeg\"},{\"size\":\"thumb\",\"url\":\"https://cdn.benzinga.com/files/imagecache/250x187xUP/images/story/2023/Apple_Vision_Pro_3.jpeg\"}],\"source\":\"benzinga\",\"summary\":\"Apple\\u0026#39;s
+        Vision Pro team reportedly operates independently within the company. It signals
+        a departure from Steve Jobs\\u0026#39; management approach. \",\"symbols\":[\"AAPL\"],\"updated_at\":\"2023-07-17T04:15:02Z\",\"url\":\"https://www.benzinga.com/general/entertainment/23/07/33242301/how-apples-vision-pro-team-signals-a-bold-departure-from-steve-jobs-playbook\"}],\"next_page_token\":\"MTY4OTU2NzMwMjAwMDAwMDAwMHwzMzI0MjMwMQ==\"}"
     headers:
       Access-Control-Allow-Credentials:
       - 'true'
@@ -361,7 +482,7 @@ interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Date:
-      - Fri, 14 Jul 2023 15:01:45 GMT
+      - Mon, 17 Jul 2023 11:42:10 GMT
       Strict-Transport-Security:
       - max-age=15724800; includeSubDomains
       Transfer-Encoding:
@@ -373,9 +494,9 @@ interactions:
       X-Ratelimit-Remaining:
       - '199'
       X-Ratelimit-Reset:
-      - '1689346905'
+      - '1689594130'
       X-Request-ID:
-      - f81bf1d34b8609174a6dfccc9ae80563
+      - 9114f49902cc8b489d6b690bbe2752f2
     status:
       code: 200
       message: OK
