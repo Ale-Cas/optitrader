@@ -1,7 +1,11 @@
 """Module to handle market data."""
 
+import asyncio
+import logging
+import time
 from functools import lru_cache
 
+import finnhub
 import pandas as pd
 
 from optifolio.config import SETTINGS
@@ -13,6 +17,9 @@ from optifolio.market.finnhub_market_data import FinnhubClient
 from optifolio.market.news import NewsArticle
 from optifolio.market.yahoo_market_data import YahooMarketData
 from optifolio.models.asset import AssetModel
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 
 class MarketData:
@@ -143,6 +150,53 @@ class MarketData:
             **yahoo_asset.dict(exclude_none=True),
             **finnhub_asset.dict(by_alias=True),
         )
+
+    async def _async_get_assets(self, tickers: tuple[str, ...]) -> list[AssetModel]:
+        """
+        Return assets info from ticker.
+
+        Parameters
+        ----------
+        `tickers`: tuple(str)
+            A tuple of str representing the tickers.
+
+        Returns
+        -------
+        `assets`
+            A list of AssetModel data model.
+        """
+        _threads = [asyncio.to_thread(self.get_asset_from_ticker, ticker) for ticker in tickers]
+        return await asyncio.gather(*_threads)
+
+    @lru_cache  # noqa: B019
+    def get_assets(self, tickers: tuple[str, ...]) -> list[AssetModel]:
+        """
+        Return assets info from ticker.
+
+        Parameters
+        ----------
+        `tickers`: tuple(str)
+            A tuple of str representing the tickers.
+
+        Returns
+        -------
+        `assets`
+            A list of AssetModel data model.
+        """
+        tickers_bucket_size = 30
+        assets = []
+        start = time.time()
+        for i in range(0, len(tickers), tickers_bucket_size):
+            tickers_bucket = tickers[i : i + tickers_bucket_size]
+            try:
+                _new_assets = asyncio.run(self._async_get_assets(tickers=tickers_bucket))
+            except finnhub.FinnhubAPIException as api_error:
+                log.warning(f"Request for tickers {tickers_bucket}")
+                log.warning(api_error)
+                time.sleep(60 - (time.time() - start))  # wait time limit reset
+                _new_assets = asyncio.run(self._async_get_assets(tickers=tickers_bucket))
+            assets.extend(_new_assets)
+        return assets
 
     @lru_cache  # noqa: B019
     def get_financials(self, ticker: str) -> pd.DataFrame:

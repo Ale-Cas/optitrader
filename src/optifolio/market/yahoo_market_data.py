@@ -98,12 +98,14 @@ class YahooMarketData(BaseDataProvider):
         """Get asset info from yahoo."""
         ticker = self.parse_ticker_for_yahoo(ticker)
         _ticker = Ticker(ticker)
-        _profile = _ticker.asset_profile[ticker]
+        _profile = _ticker.asset_profile
         if fail_on_yf_error:
             assert isinstance(_profile, dict), f"Yahoo query returned {_profile}"
-        elif isinstance(_profile, str):
+        elif _profile is None or isinstance(_profile, str):
             # create empty model with None
             return YahooAssetModel()
+        elif isinstance(_profile, dict):
+            _profile = _ticker.asset_profile[ticker]
         return YahooAssetModel(
             **_profile,
             business_summary=_profile["longBusinessSummary"],

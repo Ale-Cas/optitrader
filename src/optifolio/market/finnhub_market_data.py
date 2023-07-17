@@ -26,7 +26,7 @@ class FinnhubClient(finnhub.Client):
         try:
             profile = self.company_profile2(symbol=ticker)
         except finnhub.FinnhubAPIException as api_error:
-            log.warning(f"Request for ticker {ticker}")
+            log.warning(f"Request for ticker {ticker} sleeping 1 second")
             log.warning(api_error)
             time.sleep(1)  # wait time limit reset
             profile = self.company_profile2(symbol=ticker)
@@ -47,7 +47,7 @@ class FinnhubClient(finnhub.Client):
                 try:
                     profiles.append(self.get_asset_profile(ticker=t))
                 except finnhub.FinnhubAPIException as api_error:
-                    log.warning(f"Requests number {i+1} for ticker {t}")
+                    log.warning(f"Requests number {i+1} for ticker {t} sleeping 60 seconds")
                     log.warning(api_error)
                     # get company profile v2 with 60 rpm
                     time.sleep(60)  # wait time 1 minute for limit reset

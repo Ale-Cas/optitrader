@@ -1,10 +1,11 @@
 """AssetModel base model."""
 from datetime import date
 from enum import Enum
+from typing import Any
 
 import pandas as pd
 from alpaca.trading import AssetClass, AssetExchange, AssetStatus
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, root_validator
 
 from optifolio.utils import clean_string
 
@@ -51,6 +52,20 @@ class AssetModel(FinnhubAssetModel, YahooAssetModel):
     tradable: bool
     marginable: bool
     fractionable: bool
+
+    @root_validator()
+    def validate_ticker_symbol(cls, values: dict[str, Any]) -> dict[str, Any]:  # noqa: N805
+        """Validate ticker vs symbol conflict."""
+        ticker = values.get("ticker", None)
+        symbol = values.get("symbol", None)
+        if (ticker and symbol) and ticker != symbol:
+            values["symbol"] = ticker
+        return values
+
+    class Config:
+        """Configuration."""
+
+        orm_mode = True
 
     def to_series(self) -> pd.Series:
         """Cast to series."""
