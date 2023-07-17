@@ -1,6 +1,7 @@
 """Test yahoo query integration."""
 
 import pytest
+import vcr
 from pandas import DataFrame, Series, Timestamp
 
 from optifolio.market.yahoo_market_data import YahooMarketData
@@ -8,43 +9,58 @@ from optifolio.models.asset import YahooAssetModel
 
 client = YahooMarketData()
 
+my_vcr = vcr.VCR(
+    serializer="json",
+    cassette_library_dir="fixtures/cassettes",
+    record_mode="once",
+    match_on=["method", "scheme", "host", "port", "path"],
+)
 
+
+@pytest.mark.my_vcr()
 def test_get_yahoo_asset() -> None:
     """Test get_yahoo_asset method."""
     asset = client.get_yahoo_asset(ticker="AAPL")
     assert isinstance(asset, YahooAssetModel)
+    assert any(asset.dict().values())
 
 
+@pytest.mark.my_vcr()
 def test_get_yahoo_asset_failure() -> None:
     """Test get_yahoo_asset method."""
     with pytest.raises(AssertionError, match="Yahoo query"):
         client.get_yahoo_asset(ticker="INVLIDTICKER", fail_on_yf_error=True)
 
 
+@my_vcr.use_cassette("tests/market/cassettes/test_get_yahoo_asset_failure.yaml")
 def test_get_yahoo_invalid_asset() -> None:
     """Test get_yahoo_asset method."""
     asset = client.get_yahoo_asset(ticker="INVALIDTICKER")
     assert isinstance(asset, YahooAssetModel)
 
 
+@pytest.mark.my_vcr()
 def test_get_bars(test_start_date: Timestamp) -> None:
     """Test get_bars method."""
     bars = client.get_bars(tickers=("AAPL",), start_date=test_start_date)
     assert isinstance(bars, DataFrame)
 
 
+@pytest.mark.my_vcr()
 def test_get_prices(test_start_date: Timestamp) -> None:
     """Test get_prices method."""
     prices = client.get_prices(tickers=("AAPL", "TSLA", "BRK.B"), start_date=test_start_date)
     assert isinstance(prices, DataFrame)
 
 
+@pytest.mark.my_vcr()
 def test_get_yahoo_number_of_shares() -> None:
     """Test get_yahoo_asset method."""
     shares = client.get_number_of_shares(ticker="AAPL")
     assert isinstance(shares, int)
 
 
+@pytest.mark.my_vcr()
 def test_get_multi_number_of_shares() -> None:
     """Test get_yahoo_asset method."""
     test_tickers = ("AAPL", "MSFT", "BRK.B")
@@ -53,6 +69,7 @@ def test_get_multi_number_of_shares() -> None:
     assert sorted(shares.index) == sorted(test_tickers)
 
 
+@pytest.mark.my_vcr()
 def test_get_financials() -> None:
     """Test get_financials method."""
     fin_df = client.get_financials(ticker="AAPL")
@@ -60,6 +77,7 @@ def test_get_financials() -> None:
     assert all(fin_df.columns == client.financials)
 
 
+@pytest.mark.my_vcr()
 def test_get_multi_financials_by_item(test_tickers: tuple[str, ...]) -> None:
     """Test get_multi_financials_by_item method."""
     fin_df = client.get_multi_financials_by_item(tickers=test_tickers)
