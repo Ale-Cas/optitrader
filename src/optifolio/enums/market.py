@@ -26,7 +26,6 @@ class UniverseName(IterEnum):
     POPULAR_STOCKS = "Most Popular Stocks"
     NASDAQ = "NASDAQ 100"
     SP500 = "Standard & Poor 500"
-    RUSSELL = "^RUI"  # 1000
 
 
 class IncomeStatementItem(IterEnum):

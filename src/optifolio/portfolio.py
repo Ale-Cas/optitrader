@@ -64,9 +64,9 @@ class Portfolio:
         ), "You must set the market data to get the assets info."
         weights = self.get_non_zero_weights() if only_non_zero else self.weights
         assets = []
-        for ticker, weight in weights.items():
-            asset = self.market_data.get_asset_from_ticker(ticker=ticker)
-            asset.weight_in_ptf = weight
+        assets = self.market_data.get_assets(tickers=tuple(weights.keys()))
+        for asset in assets:
+            asset.weight_in_ptf = weights.get(asset.ticker)
             assets.append(asset)
         return assets
 

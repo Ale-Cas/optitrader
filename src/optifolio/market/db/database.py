@@ -40,21 +40,48 @@ class MarketDB:
         """Get all the assets in the table."""
         return list(self.session.execute(select(Asset)).scalars().fetchall())
 
+    def get_asset_models(
+        self,
+        tickers: tuple[str, ...] | None = None,
+    ) -> list[AssetModel]:
+        """Get all the assets in the table."""
+        if tickers:
+            return list(
+                self.session.execute(select(Asset).filter(Asset.ticker.in_(tickers)))
+                .scalars()
+                .fetchall()
+            )
+        return [AssetModel(**a.to_dict()) for a in self.get_assets()]
+
     def get_tickers(self) -> list[str]:
         """Get all the tickers in the assets table."""
         return list(self.session.execute(select(Asset.ticker)).scalars().fetchall())
 
-    def get_assets_df(self) -> pd.DataFrame:
+    def get_assets_df(
+        self,
+        tickers: tuple[str, ...] | None = None,
+    ) -> pd.DataFrame:
         """Get all the tickers in the assets table."""
+        query = (
+            f"SELECT * FROM {self.TABLE_NAME} WHERE ticker IN :tickers;"
+            if tickers
+            else f"SELECT * FROM {self.TABLE_NAME};"
+        )
         with self.engine.begin() as conn:
-            return pd.read_sql_query(sql=f"SELECT * FROM {self.TABLE_NAME};", con=conn)
+            return pd.read_sql_query(sql=query, con=conn, params={"tickers": tickers})
 
-    def get_number_of_shares(self) -> pd.DataFrame:
+    def get_number_of_shares(
+        self,
+        tickers: tuple[str, ...] | None = None,
+    ) -> pd.DataFrame:
         """Get all the tickers in the assets table."""
+        query = (
+            f"SELECT ticker, number_of_shares FROM {self.TABLE_NAME} WHERE ticker IN :tickers;"
+            if tickers
+            else f"SELECT ticker, number_of_shares FROM {self.TABLE_NAME};"
+        )
         with self.engine.begin() as conn:
-            return pd.read_sql_query(
-                sql=f"SELECT ticker, number_of_shares FROM {self.TABLE_NAME};", con=conn
-            )
+            return pd.read_sql_query(sql=query, con=conn, params={"tickers": tickers})
 
     def write_assets(
         self,

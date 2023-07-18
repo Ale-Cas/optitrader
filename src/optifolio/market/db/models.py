@@ -1,5 +1,6 @@
 """Database models."""
 from datetime import datetime
+from typing import Any
 
 from alpaca.trading import AssetClass, AssetExchange, AssetStatus
 from sqlalchemy import Boolean, Column, Date, DateTime, Enum, Integer, String
@@ -44,3 +45,7 @@ class Asset(Base):  # type: ignore
             f"{attr}='{value}'" for attr, value in vars(self).items() if attr[0] != "_"
         )
         return f"<Asset({attributes})>"
+
+    def to_dict(self) -> dict[str, Any]:
+        """To dictionary."""
+        return dict(vars(self))

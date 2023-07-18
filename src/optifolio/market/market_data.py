@@ -13,6 +13,7 @@ from optifolio.enums import BarsField, DataProvider
 from optifolio.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optifolio.market.alpaca_market_data import AlpacaMarketData, Asset
 from optifolio.market.base_data_provider import BaseDataProvider
+from optifolio.market.db.database import MarketDB
 from optifolio.market.finnhub_market_data import FinnhubClient
 from optifolio.market.news import NewsArticle
 from optifolio.market.yahoo_market_data import YahooMarketData
@@ -32,6 +33,7 @@ class MarketData:
         trading_secret: str | None = SETTINGS.ALPACA_TRADING_API_SECRET,
         broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
         broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
+        use_db: bool = True,
     ) -> None:
         self._trading_key = trading_key
         self._trading_secret = trading_secret
@@ -50,6 +52,9 @@ class MarketData:
             DataProvider.YAHOO: self.__yahoo_client,
         }
         self.__provider_client = provider_mapping[data_provider]
+        self.use_db = use_db
+        if self.use_db:
+            self._db = MarketDB()
 
     @lru_cache  # noqa: B019
     def load_prices(
@@ -190,7 +195,7 @@ class MarketData:
         return await asyncio.gather(*_threads)
 
     @lru_cache  # noqa: B019
-    def get_assets(self, tickers: tuple[str, ...]) -> list[AssetModel]:
+    def get_assets_from_provider(self, tickers: tuple[str, ...]) -> list[AssetModel]:
         """
         Return assets info from ticker.
 
@@ -220,6 +225,49 @@ class MarketData:
                 _new_assets = asyncio.run(self._async_get_assets(tickers=tickers_bucket))
             assets.extend([a for a in _new_assets if a is not None])
         return assets
+
+    def get_assets(self, tickers: tuple[str, ...] | None = None) -> list[AssetModel]:
+        """
+        Return assets info from tickers.
+
+        If self.use_db it returns from the database,
+        otherwise from the data provider.
+
+        Parameters
+        ----------
+        `tickers`: tuple(str)
+            A tuple of str representing the tickers.
+
+        Returns
+        -------
+        `assets`
+            A list of AssetModel data model.
+        """
+        if self.use_db:
+            return self._db.get_asset_models(tickers)
+        assert tickers, "Use the tickers or set use_db = True"
+        return self.get_assets_from_provider(tickers)
+
+    def get_assets_df(
+        self,
+        tickers: tuple[str, ...] | None = None,
+    ) -> pd.DataFrame:
+        """
+        Return assets info from ticker.
+
+        Parameters
+        ----------
+        `tickers`: tuple(str)
+            A tuple of str representing the tickers.
+
+        Returns
+        -------
+        `assets`
+            A list of AssetModel data model.
+        """
+        if self.use_db:
+            return self._db.get_assets_df(tickers)
+        return pd.DataFrame([a.dict() for a in self.get_assets(tickers)])
 
     @lru_cache  # noqa: B019
     def get_financials(self, ticker: str) -> pd.DataFrame:
@@ -279,6 +327,8 @@ class MarketData:
         tickers: tuple[str, ...],
     ) -> pd.Series:
         """Get the number of shares for each ticket in tickets."""
+        if self.use_db:
+            return self._db.get_number_of_shares(tickers)
         return self.__yahoo_client.get_multi_number_of_shares(tickers)
 
     def get_market_caps(

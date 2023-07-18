@@ -11,7 +11,7 @@ def main() -> None:
     """Run script function."""
     file_path = os.path.relpath(__file__)
     db = MarketDB()
-    md = MarketData()
+    md = MarketData(use_db=False)
     univ_tickers = md.get_tradable_tickers()
     db.create_tables()
     tickers_in_table = db.get_tickers()
