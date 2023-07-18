@@ -1,15 +1,22 @@
 """Local SQL storage of assets table."""
+import logging
+
+import pandas as pd
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session, sessionmaker
 
 from optifolio.market.db.models import Asset, Base
 from optifolio.models.asset import AssetModel
 
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
+
 
 class MarketDB:
     """Class to handle interactions with sqlite market.db database."""
 
     SQLALCHEMY_DATABASE_URL = "sqlite:///market.db"
+    TABLE_NAME = Asset.__tablename__
 
     def __init__(self) -> None:
         """Initialize the market database object."""
@@ -35,7 +42,19 @@ class MarketDB:
 
     def get_tickers(self) -> list[str]:
         """Get all the tickers in the assets table."""
-        return [str(a.ticker) for a in self.get_assets()]
+        return list(self.session.execute(select(Asset.ticker)).scalars().fetchall())
+
+    def get_assets_df(self) -> pd.DataFrame:
+        """Get all the tickers in the assets table."""
+        with self.engine.begin() as conn:
+            return pd.read_sql_query(sql=f"SELECT * FROM {self.TABLE_NAME};", con=conn)
+
+    def get_number_of_shares(self) -> pd.DataFrame:
+        """Get all the tickers in the assets table."""
+        with self.engine.begin() as conn:
+            return pd.read_sql_query(
+                sql=f"SELECT ticker, number_of_shares FROM {self.TABLE_NAME};", con=conn
+            )
 
     def write_assets(
         self,
@@ -54,3 +73,4 @@ class MarketDB:
         self.session.add_all(assets)
         if autocommit:
             self.session.commit()
+            log.info(f"Added {len(assets)} assets.")

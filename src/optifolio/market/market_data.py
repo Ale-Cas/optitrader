@@ -147,9 +147,30 @@ class MarketData:
         yahoo_asset = self.__yahoo_client.get_yahoo_asset(ticker)
         return AssetModel(
             **apca_asset.dict(),
-            **yahoo_asset.dict(exclude_none=True),
-            **finnhub_asset.dict(by_alias=True),
+            **yahoo_asset.dict(exclude_none=True) if yahoo_asset else {},
+            **finnhub_asset.dict(by_alias=True) if finnhub_asset else {},
         )
+
+    def _get_asset_from_ticker(self, ticker: str) -> AssetModel | None:
+        """
+        Return asset info from ticker.
+
+        Parameters
+        ----------
+        `ticker`: str
+            A str representing the ticker.
+
+        Returns
+        -------
+        `asset`
+            AssetModel data model.
+        """
+        try:
+            return self.get_asset_from_ticker(ticker)
+        except Exception as error:
+            log.debug(ticker)
+            log.debug(type(error))
+            return None
 
     async def _async_get_assets(self, tickers: tuple[str, ...]) -> list[AssetModel]:
         """
@@ -165,7 +186,7 @@ class MarketData:
         `assets`
             A list of AssetModel data model.
         """
-        _threads = [asyncio.to_thread(self.get_asset_from_ticker, ticker) for ticker in tickers]
+        _threads = [asyncio.to_thread(self._get_asset_from_ticker, ticker) for ticker in tickers]
         return await asyncio.gather(*_threads)
 
     @lru_cache  # noqa: B019
@@ -191,11 +212,13 @@ class MarketData:
             try:
                 _new_assets = asyncio.run(self._async_get_assets(tickers=tickers_bucket))
             except finnhub.FinnhubAPIException as api_error:
-                log.warning(f"Request for tickers {tickers_bucket}")
-                log.warning(api_error)
-                time.sleep(60 - (time.time() - start))  # wait time limit reset
+                reset_remaining = 60 - (time.time() - start)
+                log.warning(f"Request for tickers {tickers_bucket} sleeping {reset_remaining}")
+                log.warning(type(api_error))
+                if reset_remaining:
+                    time.sleep(reset_remaining)  # wait time limit reset
                 _new_assets = asyncio.run(self._async_get_assets(tickers=tickers_bucket))
-            assets.extend(_new_assets)
+            assets.extend([a for a in _new_assets if a is not None])
         return assets
 
     @lru_cache  # noqa: B019

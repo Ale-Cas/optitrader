@@ -1,5 +1,6 @@
 """Implementation of Yahoo as DataProvider."""
 
+import logging
 from functools import lru_cache
 
 import pandas as pd
@@ -8,6 +9,9 @@ from yahooquery import Ticker
 from optifolio.enums.market import BalanceSheetItem, BarsField, CashFlowItem, IncomeStatementItem
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.models.asset import YahooAssetModel
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger(__name__)
 
 
 class YahooMarketData(BaseDataProvider):
@@ -97,20 +101,24 @@ class YahooMarketData(BaseDataProvider):
     def get_yahoo_asset(self, ticker: str, fail_on_yf_error: bool = False) -> YahooAssetModel:
         """Get asset info from yahoo."""
         ticker = self.parse_ticker_for_yahoo(ticker)
-        _ticker = Ticker(ticker)
-        _profile = _ticker.asset_profile
-        if fail_on_yf_error:
-            assert isinstance(_profile, dict), f"Yahoo query returned {_profile}"
-        elif _profile is None or isinstance(_profile, str):
-            # create empty model with None
+        try:
+            _ticker = Ticker(ticker)
+            _profile = _ticker.asset_profile
+            if fail_on_yf_error:
+                assert isinstance(_profile, dict), f"Yahoo query returned {_profile}"
+            elif _profile is None or isinstance(_profile, str):
+                # create empty model with None
+                return YahooAssetModel()
+            elif isinstance(_profile, dict):
+                _profile = _ticker.asset_profile[ticker]
+            return YahooAssetModel(
+                **_profile,
+                business_summary=_profile["longBusinessSummary"],
+                number_of_shares=_ticker.key_stats[ticker]["sharesOutstanding"],
+            )
+        except Exception as exc:
+            log.debug(f"{ticker}: {type(exc)}")
             return YahooAssetModel()
-        elif isinstance(_profile, dict):
-            _profile = _ticker.asset_profile[ticker]
-        return YahooAssetModel(
-            **_profile,
-            business_summary=_profile["longBusinessSummary"],
-            number_of_shares=_ticker.key_stats[ticker]["sharesOutstanding"],
-        )
 
     def get_number_of_shares(self, ticker: str) -> int:
         """Get the sharesOutstanding field from yahoo query."""
