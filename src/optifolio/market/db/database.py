@@ -3,8 +3,10 @@ import logging
 
 import pandas as pd
 from sqlalchemy import create_engine, select
+from sqlalchemy.exc import DatabaseError
 from sqlalchemy.orm import Session, sessionmaker
 
+from optifolio.config import SETTINGS
 from optifolio.market.db.models import Asset, Base
 from optifolio.models.asset import AssetModel
 
@@ -15,7 +17,7 @@ log = logging.getLogger(__name__)
 class MarketDB:
     """Class to handle interactions with sqlite market.db database."""
 
-    def __init__(self, uri: str = "sqlite:///market.db") -> None:
+    def __init__(self, uri: str = SETTINGS.DB_URI_MARKET) -> None:
         """Initialize the market database object."""
         self.engine = create_engine(uri, connect_args={"check_same_thread": False})
         self._SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
@@ -87,6 +89,22 @@ class MarketDB:
         with self.engine.begin() as conn:
             return pd.read_sql_query(sql=query, con=conn)
 
+    def write_asset(
+        self,
+        asset_model: AssetModel,
+        updated_by: str | None = None,
+        autocommit: bool = True,
+    ) -> None:
+        """Write assets in the database."""
+        asset = Asset(
+            updated_by=updated_by,
+            **asset_model.dict(exclude_none=True, exclude={"symbol"}),
+        )
+        self.session.add(asset)
+        if autocommit:
+            self.session.commit()
+            log.info(f"Added {asset}.")
+
     def write_assets(
         self,
         asset_models: list[AssetModel],
@@ -94,14 +112,12 @@ class MarketDB:
         autocommit: bool = True,
     ) -> None:
         """Write assets in the database."""
-        assets = [
-            Asset(
-                updated_by=updated_by,
-                **asset_model.dict(exclude_none=True, exclude={"symbol"}),
-            )
-            for asset_model in asset_models
-        ]
-        self.session.add_all(assets)
-        if autocommit:
-            self.session.commit()
-            log.info(f"Added {len(assets)} assets.")
+        for asset_model in asset_models:
+            try:
+                self.write_asset(asset_model, updated_by=updated_by, autocommit=autocommit)
+            except DatabaseError as dberror:
+                log.warning(f"{type(dberror)} for {asset_model.ticker}")
+                log.warning(dberror)
+                if autocommit:
+                    self.session.rollback()
+        log.info(f"Added {len(asset_models)} assets.")

@@ -2,6 +2,7 @@
 import pandas as pd
 import pytest
 import vcr
+from alpaca.trading import Asset as AlpacaAsset
 
 from optifolio.enums import UniverseName
 from optifolio.market import InvestmentUniverse, MarketData
@@ -59,6 +60,7 @@ def test_get_total_returns(
     assert sorted(returns.columns) == sorted(test_tickers)
 
 
+@pytest.mark.vcr()
 def test_get_market_caps(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -73,6 +75,38 @@ def test_get_market_caps(
     )
     assert isinstance(mkt_caps, pd.DataFrame)
     assert sorted(mkt_caps.columns) == sorted(test_tickers)
+
+
+@pytest.mark.vcr()
+def test_get_tradable_tickers(
+    market_data: MarketData,
+) -> None:
+    """Test get_tradable_tickers method."""
+    tickers = market_data.get_tradable_tickers()
+    assert isinstance(tickers, tuple)
+    assert isinstance(tickers[0], str)
+    assert all(t.isupper() for t in tickers)
+
+
+@pytest.mark.vcr()
+def test_get_asset_by_name(
+    market_data: MarketData,
+) -> None:
+    """Test get_asset_by_name method."""
+    asset = market_data.get_asset_by_name(
+        name="Apple",
+    )
+    assert isinstance(asset, AlpacaAsset)
+
+
+def test_get_asset_from_ticker_error(
+    market_data: MarketData,
+) -> None:
+    """Test get_asset_from_ticker method."""
+    asset = market_data._get_asset_from_ticker(
+        ticker="INVALID",
+    )
+    assert asset is None
 
 
 @pytest.mark.vcr()
