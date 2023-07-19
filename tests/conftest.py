@@ -38,6 +38,12 @@ def market_data() -> MarketData:
 
 
 @pytest.fixture()
+def market_data_nodb() -> MarketData:
+    """Mock MarketData instance without db."""
+    return MarketData(use_db=False)
+
+
+@pytest.fixture()
 def test_tickers() -> tuple[str, ...]:
     """Mock tickers for tests."""
     return (

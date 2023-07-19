@@ -31,7 +31,13 @@ class FinnhubClient(finnhub.Client):
             time.sleep(1)  # wait time limit reset
             profile = self.company_profile2(symbol=ticker)
         try:
-            return FinnhubAssetModel(**profile, finnhub_name=profile["name"])
+            return FinnhubAssetModel(
+                **profile,
+                industry=profile["finnhubIndustry"],
+                website=profile["weburl"],
+                number_of_shares=profile["shareOutstanding"],
+                finnhub_name=profile["name"],
+            )
         except KeyError as ke:
             log.debug(f"{type(ke)} on {ticker}")
             return None

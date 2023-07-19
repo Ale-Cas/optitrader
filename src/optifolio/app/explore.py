@@ -16,7 +16,7 @@ def main() -> None:
     """Run dashboard."""
     page = Page(name="Explore financial data & news")
     page.display_title()
-    asset = session.market_data.get_asset_from_ticker(ticker=session.ticker)
+    asset = session.market_data.get_asset(ticker=session.ticker)
     submitted = False
     with st.form(key="search"):
         col1, col2 = st.columns(2)
@@ -32,14 +32,17 @@ def main() -> None:
         session.display_tickers()
         submitted = st.form_submit_button("SEARCH 🔍", help="Search for a stock by ticker or name.")
     if submitted:
-        asset = session.market_data.get_asset_from_ticker(ticker=session.ticker)
+        asset = session.market_data.get_asset(ticker=session.ticker)
     prices = session.market_data.load_prices(
         tickers=(session.ticker,), start_date=session.start_date
     )[session.ticker]
-
+    if not asset.name:
+        log.warning(f"Asset {session.ticker} without name.")
+        asset.name = session.ticker
     st.title(f"![Logo]({asset.logo}) {asset.name.title()}")
-    with st.expander("Business summary"):
-        st.write(asset.business_summary)
+    if asset.business_summary:
+        with st.expander("Business summary"):
+            st.write(asset.business_summary)
     last_price = prices[-1]
     col1, col2, col3 = st.columns(3)
     with col1:

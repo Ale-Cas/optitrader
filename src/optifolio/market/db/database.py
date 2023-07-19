@@ -15,14 +15,9 @@ log = logging.getLogger(__name__)
 class MarketDB:
     """Class to handle interactions with sqlite market.db database."""
 
-    SQLALCHEMY_DATABASE_URL = "sqlite:///market.db"
-    TABLE_NAME = Asset.__tablename__
-
-    def __init__(self) -> None:
+    def __init__(self, uri: str = "sqlite:///market.db") -> None:
         """Initialize the market database object."""
-        self.engine = create_engine(
-            self.SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-        )
+        self.engine = create_engine(uri, connect_args={"check_same_thread": False})
         self._SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
         self.session: Session = self._SessionLocal()
 
@@ -36,14 +31,10 @@ class MarketDB:
         with self.engine.begin() as conn:
             Base.metadata.drop_all(conn)
 
-    def get_assets(self) -> list[Asset]:
-        """Get all the assets in the table."""
-        return list(self.session.execute(select(Asset)).scalars().fetchall())
-
-    def get_asset_models(
+    def get_assets(
         self,
         tickers: tuple[str, ...] | None = None,
-    ) -> list[AssetModel]:
+    ) -> list[Asset]:
         """Get all the assets in the table."""
         if tickers:
             return list(
@@ -51,7 +42,24 @@ class MarketDB:
                 .scalars()
                 .fetchall()
             )
-        return [AssetModel(**a.to_dict()) for a in self.get_assets()]
+        return list(self.session.execute(select(Asset)).scalars().fetchall())
+
+    def get_asset(self, ticker: str) -> AssetModel:
+        """Get the asset model from the table by ticker."""
+        return AssetModel.from_orm(
+            list(
+                self.session.execute(select(Asset).where(Asset.ticker == ticker))
+                .scalars()
+                .fetchall()
+            )[0]
+        )
+
+    def get_asset_models(
+        self,
+        tickers: tuple[str, ...] | None = None,
+    ) -> list[AssetModel]:
+        """Get all the assets in the table."""
+        return [AssetModel.from_orm(a) for a in self.get_assets(tickers)]
 
     def get_tickers(self) -> list[str]:
         """Get all the tickers in the assets table."""
@@ -62,13 +70,9 @@ class MarketDB:
         tickers: tuple[str, ...] | None = None,
     ) -> pd.DataFrame:
         """Get all the tickers in the assets table."""
-        query = (
-            f"SELECT * FROM {self.TABLE_NAME} WHERE ticker IN :tickers;"
-            if tickers
-            else f"SELECT * FROM {self.TABLE_NAME};"
-        )
+        query = select(Asset).filter(Asset.ticker.in_(tickers)) if tickers else select(Asset)
         with self.engine.begin() as conn:
-            return pd.read_sql_query(sql=query, con=conn, params={"tickers": tickers})
+            return pd.read_sql_query(sql=query, con=conn)
 
     def get_number_of_shares(
         self,
@@ -76,12 +80,12 @@ class MarketDB:
     ) -> pd.DataFrame:
         """Get all the tickers in the assets table."""
         query = (
-            f"SELECT ticker, number_of_shares FROM {self.TABLE_NAME} WHERE ticker IN :tickers;"
+            select(Asset.ticker, Asset.number_of_shares).filter(Asset.ticker.in_(tickers))
             if tickers
-            else f"SELECT ticker, number_of_shares FROM {self.TABLE_NAME};"
+            else select(Asset.ticker, Asset.number_of_shares)
         )
         with self.engine.begin() as conn:
-            return pd.read_sql_query(sql=query, con=conn, params={"tickers": tickers})
+            return pd.read_sql_query(sql=query, con=conn)
 
     def write_assets(
         self,

@@ -17,7 +17,7 @@ from optifolio.market.db.database import MarketDB
 from optifolio.market.finnhub_market_data import FinnhubClient
 from optifolio.market.news import NewsArticle
 from optifolio.market.yahoo_market_data import YahooMarketData
-from optifolio.models.asset import AssetModel
+from optifolio.models.asset import AssetModel, _YahooFinnhubCommon
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
@@ -132,6 +132,24 @@ class MarketData:
         # remove tickers that do not have enough observations
         return returns.dropna(axis=1, thresh=int(returns.shape[0] * required_pct_obs))
 
+    def get_asset(self, ticker: str) -> AssetModel:
+        """
+        Return asset info from ticker.
+
+        Parameters
+        ----------
+        `ticker`: str
+            A str representing the ticker.
+
+        Returns
+        -------
+        `asset`
+            AssetModel data model.
+        """
+        if self.use_db:
+            return self._db.get_asset(ticker)
+        return self.get_asset_from_ticker(ticker)
+
     @lru_cache  # noqa: B019
     def get_asset_from_ticker(self, ticker: str) -> AssetModel:
         """
@@ -147,13 +165,24 @@ class MarketData:
         `asset`
             AssetModel data model.
         """
+        duplicate_fields = set(_YahooFinnhubCommon.__fields__.keys())
         apca_asset = self.__alpaca_client.get_alpaca_asset(ticker)
         finnhub_asset = self.__finnhub.get_asset_profile(ticker)
         yahoo_asset = self.__yahoo_client.get_yahoo_asset(ticker)
         return AssetModel(
-            **apca_asset.dict(),
-            **yahoo_asset.dict(exclude_none=True) if yahoo_asset else {},
-            **finnhub_asset.dict(by_alias=True) if finnhub_asset else {},
+            **apca_asset.dict(exclude_none=True),
+            **yahoo_asset.dict(
+                exclude=duplicate_fields,
+                exclude_none=True,
+            )
+            if yahoo_asset
+            else {},
+            **finnhub_asset.dict(
+                exclude=duplicate_fields,
+                exclude_none=True,
+            )
+            if finnhub_asset
+            else {},
         )
 
     def _get_asset_from_ticker(self, ticker: str) -> AssetModel | None:
@@ -328,7 +357,7 @@ class MarketData:
     ) -> pd.Series:
         """Get the number of shares for each ticket in tickets."""
         if self.use_db:
-            return self._db.get_number_of_shares(tickers)
+            return self._db.get_number_of_shares(tickers).set_index("ticker")
         return self.__yahoo_client.get_multi_number_of_shares(tickers)
 
     def get_market_caps(
@@ -361,7 +390,7 @@ class MarketData:
             tickers=tickers,
             start_date=start_date,
             end_date=end_date,
-        ) * self.get_total_number_of_shares(tickers)
+        ).mul(self.get_total_number_of_shares(tickers)["number_of_shares"], axis=1)
 
     def get_top_market_caps(
         self,

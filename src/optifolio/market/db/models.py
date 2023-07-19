@@ -48,4 +48,4 @@ class Asset(Base):  # type: ignore
 
     def to_dict(self) -> dict[str, Any]:
         """To dictionary."""
-        return dict(vars(self))
+        return {k: v for k, v in vars(self).items() if k[0] != "_"}

@@ -118,6 +118,8 @@ class YahooMarketData(BaseDataProvider):
             )
         except Exception as exc:
             log.debug(f"{ticker}: {type(exc)}")
+            if fail_on_yf_error:
+                raise AssertionError(f"Yahoo query returned {_profile}") from exc
             return YahooAssetModel()
 
     def get_number_of_shares(self, ticker: str) -> int:

@@ -6,6 +6,7 @@ import vcr
 from optifolio.enums import UniverseName
 from optifolio.market import InvestmentUniverse, MarketData
 from optifolio.market.base_data_provider import BaseDataProvider
+from optifolio.market.db.database import MarketDB
 from optifolio.models import AssetModel
 
 
@@ -15,6 +16,13 @@ def test_base_provider() -> None:
         BaseDataProvider()  # type: ignore
     with pytest.raises(TypeError, match="Protocols cannot be instantiated"):
         super(BaseDataProvider, BaseDataProvider()).__init__()  # type: ignore
+
+
+def test_use_db() -> None:
+    """Test BaseDataProvider."""
+    assert isinstance(MarketData(use_db=True)._db, MarketDB)
+    with pytest.raises(AttributeError, match="has no attribute"):
+        MarketData(use_db=False)._db  # noqa: B018
 
 
 @pytest.mark.vcr()
@@ -71,11 +79,30 @@ def test_get_market_caps(
 def test_get_asset(
     market_data: MarketData,
 ) -> None:
-    """Test get_total_returns method."""
+    """Test get_asset_from_ticker method."""
     asset = market_data.get_asset_from_ticker(
         ticker="AAPL",
     )
     assert isinstance(asset, AssetModel)
+
+
+@pytest.mark.vcr()
+def test_get_asset_nodb(
+    market_data_nodb: MarketData,
+) -> None:
+    """Test get_asset_from_ticker method."""
+    asset = market_data_nodb.get_asset_from_ticker(
+        ticker="AAPL",
+    )
+    assert isinstance(asset, AssetModel)
+
+
+def test_get_assets(
+    market_data: MarketData,
+) -> None:
+    """Test get_assets method."""
+    assets = market_data.get_assets()
+    assert isinstance(assets, list)
 
 
 def test_get_financials(

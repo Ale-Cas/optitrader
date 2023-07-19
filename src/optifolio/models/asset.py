@@ -5,7 +5,7 @@ from typing import Any
 
 import pandas as pd
 from alpaca.trading import AssetClass, AssetExchange, AssetStatus
-from pydantic import BaseModel, Field, root_validator
+from pydantic import BaseModel, root_validator
 
 from optifolio.utils import clean_string
 
@@ -29,14 +29,10 @@ class YahooAssetModel(_YahooFinnhubCommon):
 class FinnhubAssetModel(_YahooFinnhubCommon):
     """Model to represent company_profile2 info from Finhub API."""
 
-    industry: str = Field(alias="finnhubIndustry")
-    website: str = Field(alias="weburl")
-    number_of_shares: int = Field(alias="shareOutstanding")
     country: str
     currency: str
     logo: str
     ipo: date
-    name: str = Field(alias="finnhub_name")
     ticker: str
 
 
@@ -45,8 +41,7 @@ class AssetModel(FinnhubAssetModel, YahooAssetModel):
 
     weight_in_ptf: float | None = None
     asset_class: AssetClass
-    name: str
-    symbol: str
+    symbol: str | None = None
     exchange: AssetExchange
     status: AssetStatus
     tradable: bool
@@ -58,8 +53,9 @@ class AssetModel(FinnhubAssetModel, YahooAssetModel):
         """Validate ticker vs symbol conflict."""
         ticker = values.get("ticker", None)
         symbol = values.get("symbol", None)
-        if (ticker and symbol) and ticker != symbol:
+        if (ticker and symbol) and ticker != symbol or not symbol:
             values["symbol"] = ticker
+
         return values
 
     class Config:
