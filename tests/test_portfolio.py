@@ -180,3 +180,18 @@ def test_get_holdings_empty_df() -> None:
     df = portfolio.get_holdings_df()
     assert isinstance(df, pd.DataFrame)
     assert df.empty
+
+
+def test_get_assets_in_portfolio() -> None:
+    """Test return empty df when there are no assets in the portfolio."""
+    portfolio = Portfolio(
+        weights=pd.Series(
+            {
+                "MSFT": 1.0,
+            }
+        ),
+        market_data=MarketData(),
+    )
+    assets = portfolio.get_assets_in_portfolio()
+    assert isinstance(assets, list)
+    assert len(assets) == 1

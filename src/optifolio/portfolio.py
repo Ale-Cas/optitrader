@@ -64,10 +64,11 @@ class Portfolio:
         ), "You must set the market data to get the assets info."
         weights = self.get_non_zero_weights() if only_non_zero else self.weights
         assets = self.market_data.get_assets(tickers=tuple(weights.keys()))
+        assets_in_ptf = []
         for asset in assets:
             asset.weight_in_ptf = weights.get(asset.ticker)
-            assets.append(asset)
-        return assets
+            assets_in_ptf.append(asset)
+        return assets_in_ptf
 
     def get_assets_df(self) -> pd.DataFrame:
         """Return the assets in the portfolio."""

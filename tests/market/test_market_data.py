@@ -1,4 +1,8 @@
 """Test market_data module."""
+
+from unittest.mock import Mock, patch
+
+import finnhub
 import pandas as pd
 import pytest
 import vcr
@@ -9,6 +13,13 @@ from optifolio.market import InvestmentUniverse, MarketData
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.market.db.database import MarketDB
 from optifolio.models import AssetModel
+
+my_vcr = vcr.VCR(
+    serializer="json",
+    cassette_library_dir="fixtures/cassettes",
+    record_mode="once",
+    match_on=["method", "scheme", "host", "port", "path"],
+)
 
 
 def test_base_provider() -> None:
@@ -58,6 +69,36 @@ def test_get_total_returns(
     )
     assert isinstance(returns, pd.DataFrame)
     assert sorted(returns.columns) == sorted(test_tickers)
+
+
+@pytest.mark.vcr()
+def test_get_assets_from_provider(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+) -> None:
+    """Test get_assets_from_provider method."""
+    assets = market_data.get_assets_from_provider(
+        tickers=test_tickers,
+    )
+    assert isinstance(assets, list)
+    assert len(assets) <= len(test_tickers)
+    assert all(isinstance(a, AssetModel) for a in assets)
+
+
+def test_get_assets_from_provider_error(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+) -> None:
+    """Test get_assets_from_provider method."""
+    response = Mock()
+    response.json = Mock(return_value={"error": "test"})
+    with patch("asyncio.run") as mock_run, patch("time.sleep") as mock_sleep:
+        mock_run.side_effect = finnhub.FinnhubAPIException(response)
+        with pytest.raises(finnhub.FinnhubAPIException):  # noqa: PT012
+            market_data.get_assets_from_provider(
+                tickers=test_tickers,
+            )
+            mock_sleep.assert_any_call()
 
 
 @pytest.mark.vcr()
@@ -120,17 +161,24 @@ def test_get_asset(
     assert isinstance(asset, AssetModel)
 
 
-@pytest.mark.vcr()
-def test_get_asset_nodb(
+@vcr.use_cassette("tests/data/cassettes/test_get_asset.yaml")
+def test_get_get_asset_from_ticker_nodb(
     market_data_nodb: MarketData,
 ) -> None:
     """Test get_asset_from_ticker method."""
-    asset = market_data_nodb.get_asset_from_ticker(
+    assert not market_data_nodb.use_db
+    _asset = market_data_nodb.get_asset_from_ticker(
+        ticker="AAPL",
+    )
+    assert isinstance(_asset, AssetModel)
+    asset = market_data_nodb.get_asset(
         ticker="AAPL",
     )
     assert isinstance(asset, AssetModel)
+    assert asset == _asset
 
 
+@pytest.mark.vcr()
 def test_get_assets(
     market_data: MarketData,
 ) -> None:
@@ -139,6 +187,7 @@ def test_get_assets(
     assert isinstance(assets, list)
 
 
+@pytest.mark.my_vcr()
 def test_get_financials(
     market_data: MarketData,
 ) -> None:
@@ -149,6 +198,7 @@ def test_get_financials(
     assert isinstance(fin_df, pd.DataFrame)
 
 
+@pytest.mark.my_vcr()
 def test_investment_universe_with_top_market_cap(
     market_data: MarketData,
 ) -> None:

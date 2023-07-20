@@ -1,0 +1,77 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/81.0.4044.138 Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/AAPL?type=quarterlyTotalRevenue%2CquarterlyCostOfRevenue%2CquarterlyGrossProfit%2CquarterlyOperatingExpense%2CquarterlyOperatingIncome%2CquarterlyNetIncome%2CquarterlyEBIT%2CquarterlyNormalizedEBITDA%2CquarterlyFreeCashFlow%2CquarterlyOperatingCashFlow%2CquarterlyInvestingCashFlow%2CquarterlyFinancingCashFlow%2CquarterlyTotalAssets%2CquarterlyTotalLiabilitiesNetMinorityInterest%2CquarterlyTotalDebt%2CquarterlyWorkingCapital&period1=493590046&period2=1689865996&merge=false&padTimeSeries=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"timeseries":{"result":[{"meta":{"symbol":["AAPL"],"type":["quarterlyFreeCashFlow"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyFreeCashFlow":[{"dataId":26185,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.079E10,"fmt":"20.79B"}},{"dataId":26185,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.0838E10,"fmt":"20.84B"}},{"dataId":26185,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.0218E10,"fmt":"30.22B"}},{"dataId":26185,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.5644E10,"fmt":"25.64B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyInvestingCashFlow"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyInvestingCashFlow":[{"dataId":26013,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":4.234E9,"fmt":"4.23B"}},{"dataId":26013,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-1.217E9,"fmt":"-1.22B"}},{"dataId":26013,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-1.445E9,"fmt":"-1.45B"}},{"dataId":26013,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.319E9,"fmt":"2.32B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyTotalAssets"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyTotalAssets":[{"dataId":23220,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.36309E11,"fmt":"336.31B"}},{"dataId":23220,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.52755E11,"fmt":"352.75B"}},{"dataId":23220,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.46747E11,"fmt":"346.75B"}},{"dataId":23220,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.3216E11,"fmt":"332.16B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyGrossProfit"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyGrossProfit":[{"dataId":20046,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.5885E10,"fmt":"35.88B"}},{"dataId":20046,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.8095E10,"fmt":"38.09B"}},{"dataId":20046,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":5.0332E10,"fmt":"50.33B"}},{"dataId":20046,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":4.1976E10,"fmt":"41.98B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyOperatingCashFlow"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyOperatingCashFlow":[{"dataId":26014,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.2892E10,"fmt":"22.89B"}},{"dataId":26014,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.4127E10,"fmt":"24.13B"}},{"dataId":26014,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.4005E10,"fmt":"34.01B"}},{"dataId":26014,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.856E10,"fmt":"28.56B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyWorkingCapital"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyWorkingCapital":[{"dataId":23385,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-1.7581E10,"fmt":"-17.58B"}},{"dataId":23385,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-1.8577E10,"fmt":"-18.58B"}},{"dataId":23385,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-8.509E9,"fmt":"-8.51B"}},{"dataId":23385,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-7.162E9,"fmt":"-7.16B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyNetIncome"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyNetIncome":[{"dataId":20091,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.9442E10,"fmt":"19.44B"}},{"dataId":20091,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.0721E10,"fmt":"20.72B"}},{"dataId":20091,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.9998E10,"fmt":"30.00B"}},{"dataId":20091,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.416E10,"fmt":"24.16B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyOperatingExpense"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyOperatingExpense":[{"dataId":20108,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.2809E10,"fmt":"12.81B"}},{"dataId":20108,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.3201E10,"fmt":"13.20B"}},{"dataId":20108,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.4316E10,"fmt":"14.32B"}},{"dataId":20108,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.3658E10,"fmt":"13.66B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyTotalDebt"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyTotalDebt":[{"dataId":23386,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.19691E11,"fmt":"119.69B"}},{"dataId":23386,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.20069E11,"fmt":"120.07B"}},{"dataId":23386,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.1111E11,"fmt":"111.11B"}},{"dataId":23386,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.09615E11,"fmt":"109.61B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyEBIT"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyEBIT":[{"dataId":20189,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.3076E10,"fmt":"23.08B"}},{"dataId":20189,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.4894E10,"fmt":"24.89B"}},{"dataId":20189,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.6016E10,"fmt":"36.02B"}},{"dataId":20189,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.8318E10,"fmt":"28.32B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyOperatingIncome"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyOperatingIncome":[{"dataId":20109,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.3076E10,"fmt":"23.08B"}},{"dataId":20109,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.4894E10,"fmt":"24.89B"}},{"dataId":20109,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.6016E10,"fmt":"36.02B"}},{"dataId":20109,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.8318E10,"fmt":"28.32B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyTotalRevenue"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyTotalRevenue":[{"dataId":20100,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":8.2959E10,"fmt":"82.96B"}},{"dataId":20100,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":9.0146E10,"fmt":"90.15B"}},{"dataId":20100,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":1.17154E11,"fmt":"117.15B"}},{"dataId":20100,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":9.4836E10,"fmt":"94.84B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyFinancingCashFlow"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyFinancingCashFlow":[{"dataId":26012,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-2.7445E10,"fmt":"-27.45B"}},{"dataId":26012,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-2.6794E10,"fmt":"-26.79B"}},{"dataId":26012,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-3.5563E10,"fmt":"-35.56B"}},{"dataId":26012,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":-2.5724E10,"fmt":"-25.72B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyNormalizedEBITDA"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyNormalizedEBITDA":[{"dataId":20420,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.5881E10,"fmt":"25.88B"}},{"dataId":20420,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.7759E10,"fmt":"27.76B"}},{"dataId":20420,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.8932E10,"fmt":"38.93B"}},{"dataId":20420,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.1216E10,"fmt":"31.22B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyCostOfRevenue"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyCostOfRevenue":[{"dataId":20013,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":4.7074E10,"fmt":"47.07B"}},{"dataId":20013,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":5.2051E10,"fmt":"52.05B"}},{"dataId":20013,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":6.6822E10,"fmt":"66.82B"}},{"dataId":20013,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":5.286E10,"fmt":"52.86B"}}]},{"meta":{"symbol":["AAPL"],"type":["quarterlyTotalLiabilitiesNetMinorityInterest"]},"timestamp":[1656547200,1664496000,1672444800,1680220800],"quarterlyTotalLiabilitiesNetMinorityInterest":[{"dataId":23259,"asOfDate":"2022-06-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.78202E11,"fmt":"278.20B"}},{"dataId":23259,"asOfDate":"2022-09-30","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":3.02083E11,"fmt":"302.08B"}},{"dataId":23259,"asOfDate":"2022-12-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.9002E11,"fmt":"290.02B"}},{"dataId":23259,"asOfDate":"2023-03-31","periodType":"3M","currencyCode":"USD","reportedValue":{"raw":2.70002E11,"fmt":"270.00B"}}]}],"error":null}}'
+    headers:
+      Age:
+      - '35'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1356'
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=60, stale-while-revalidate=30
+      content-encoding:
+      - gzip
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Thu, 20 Jul 2023 15:13:20 GMT
+      server:
+      - ATS
+      vary:
+      - Origin,Accept-Encoding
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '13'
+      x-request-id:
+      - de8157ec-ef4f-4544-93b5-8daa213a9032
+      x-yahoo-request-id:
+      - 4625aetibijog
+      y-rid:
+      - 4625aetibijog
+    status:
+      code: 200
+      message: OK
+version: 1
