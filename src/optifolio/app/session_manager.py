@@ -175,17 +175,23 @@ class SessionManager:
 
     def _holdings_to_st(self, holdings_df: pd.DataFrame) -> None:
         """Display holdings df in streamlit."""
-        _cols = [
+        key_cols = [
             "logo",
             "ticker",
             "name",
             "weight_in_ptf",
         ]
+        cols_to_ignore = ["updated_at", "updated_by", "id"]
         st.dataframe(
             holdings_df,
-            column_order=[*_cols, *(c for c in holdings_df.columns if c not in _cols)],
-            column_config={"logo": st.column_config.ImageColumn("logo", help="Company Logo")},
-            hide_index=True,
+            column_order=[
+                *key_cols,
+                *(c for c in holdings_df.columns if c not in key_cols and c not in cols_to_ignore),
+            ],
+            column_config={
+                "logo": st.column_config.ImageColumn("logo", help="Company Logo", width="small")
+            },
+            hide_index=False,
             use_container_width=True,
         )
 
@@ -521,9 +527,13 @@ class SessionManager:
 
     def display_news(self) -> None:
         """Display the news."""
-        st.markdown(
-            f"## Latest {remove_punctuation(self.market_data.get_asset_from_ticker(self.ticker).name.split()[0].title())} News"
-        )
+        asset = self.market_data.get_asset_from_ticker(self.ticker)
+        if asset.name:
+            name = remove_punctuation(asset.name.split()[0].title())
+        else:
+            log.warning(f"Asset not found for ticker: {asset.ticker}")
+            name = asset.ticker
+        st.markdown(f"## Latest {name} News")
 
         num_res = int(
             st.sidebar.number_input(

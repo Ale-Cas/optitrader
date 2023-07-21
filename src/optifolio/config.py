@@ -25,6 +25,10 @@ class Settings(BaseSettings):
     # this means that if the portfolio's weights sum to 0.99 instead of 1 is accepted
     SUM_WEIGHTS_TOLERANCE: float = 1e-2
 
+    # DB SETTINGS
+    DB_URI_MARKET: str = "sqlite:///market.db"  # prod
+    DB_URI_TEST: str = "sqlite:///test.db"  # test
+
     class Config:
         """Configuration."""
 

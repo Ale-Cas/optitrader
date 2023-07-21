@@ -1,12 +1,26 @@
 """Test market_data module."""
+
+from unittest.mock import Mock, patch
+
+import finnhub
 import pandas as pd
 import pytest
 import vcr
+from alpaca.trading import Asset as AlpacaAsset
 
 from optifolio.enums import UniverseName
 from optifolio.market import InvestmentUniverse, MarketData
 from optifolio.market.base_data_provider import BaseDataProvider
+from optifolio.market.db.database import MarketDB
+from optifolio.market.news import AlpacaNewsAPI
 from optifolio.models import AssetModel
+
+my_vcr = vcr.VCR(
+    serializer="json",
+    cassette_library_dir="fixtures/cassettes",
+    record_mode="once",
+    match_on=["method", "scheme", "host", "port", "path"],
+)
 
 
 def test_base_provider() -> None:
@@ -15,6 +29,13 @@ def test_base_provider() -> None:
         BaseDataProvider()  # type: ignore
     with pytest.raises(TypeError, match="Protocols cannot be instantiated"):
         super(BaseDataProvider, BaseDataProvider()).__init__()  # type: ignore
+
+
+def test_use_db() -> None:
+    """Test BaseDataProvider."""
+    assert isinstance(MarketData(use_db=True)._db, MarketDB)
+    with pytest.raises(AttributeError, match="has no attribute"):
+        MarketData(use_db=False)._db  # noqa: B018
 
 
 @pytest.mark.vcr()
@@ -51,6 +72,37 @@ def test_get_total_returns(
     assert sorted(returns.columns) == sorted(test_tickers)
 
 
+@pytest.mark.vcr()
+def test_get_assets_from_provider(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+) -> None:
+    """Test get_assets_from_provider method."""
+    assets = market_data.get_assets_from_provider(
+        tickers=test_tickers,
+    )
+    assert isinstance(assets, list)
+    assert len(assets) <= len(test_tickers)
+    assert all(isinstance(a, AssetModel) for a in assets)
+
+
+def test_get_assets_from_provider_error(
+    market_data: MarketData,
+    test_tickers: tuple[str, ...],
+) -> None:
+    """Test get_assets_from_provider method."""
+    response = Mock()
+    response.json = Mock(return_value={"error": "test"})
+    with patch("asyncio.run") as mock_run, patch("time.sleep") as mock_sleep:
+        mock_run.side_effect = finnhub.FinnhubAPIException(response)
+        with pytest.raises(finnhub.FinnhubAPIException):  # noqa: PT012
+            market_data.get_assets_from_provider(
+                tickers=test_tickers,
+            )
+            mock_sleep.assert_any_call()
+
+
+@pytest.mark.vcr()
 def test_get_market_caps(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -68,16 +120,75 @@ def test_get_market_caps(
 
 
 @pytest.mark.vcr()
+def test_get_tradable_tickers(
+    market_data: MarketData,
+) -> None:
+    """Test get_tradable_tickers method."""
+    tickers = market_data.get_tradable_tickers()
+    assert isinstance(tickers, tuple)
+    assert isinstance(tickers[0], str)
+    assert all(t.isupper() for t in tickers)
+
+
+@pytest.mark.vcr()
+def test_get_asset_by_name(
+    market_data: MarketData,
+) -> None:
+    """Test get_asset_by_name method."""
+    asset = market_data.get_asset_by_name(
+        name="Apple",
+    )
+    assert isinstance(asset, AlpacaAsset)
+
+
+def test_get_asset_from_ticker_error(
+    market_data: MarketData,
+) -> None:
+    """Test get_asset_from_ticker method."""
+    asset = market_data._get_asset_from_ticker(
+        ticker="INVALID",
+    )
+    assert asset is None
+
+
+@pytest.mark.vcr()
 def test_get_asset(
     market_data: MarketData,
 ) -> None:
-    """Test get_total_returns method."""
+    """Test get_asset_from_ticker method."""
     asset = market_data.get_asset_from_ticker(
         ticker="AAPL",
     )
     assert isinstance(asset, AssetModel)
 
 
+@vcr.use_cassette("tests/data/cassettes/test_get_asset.yaml")
+def test_get_get_asset_from_ticker_nodb(
+    market_data_nodb: MarketData,
+) -> None:
+    """Test get_asset_from_ticker method."""
+    assert not market_data_nodb.use_db
+    _asset = market_data_nodb.get_asset_from_ticker(
+        ticker="AAPL",
+    )
+    assert isinstance(_asset, AssetModel)
+    asset = market_data_nodb.get_asset(
+        ticker="AAPL",
+    )
+    assert isinstance(asset, AssetModel)
+    assert asset == _asset
+
+
+@pytest.mark.vcr()
+def test_get_assets(
+    market_data: MarketData,
+) -> None:
+    """Test get_assets method."""
+    assets = market_data.get_assets()
+    assert isinstance(assets, list)
+
+
+@pytest.mark.my_vcr()
 def test_get_financials(
     market_data: MarketData,
 ) -> None:
@@ -88,6 +199,7 @@ def test_get_financials(
     assert isinstance(fin_df, pd.DataFrame)
 
 
+@pytest.mark.my_vcr()
 def test_investment_universe_with_top_market_cap(
     market_data: MarketData,
 ) -> None:
@@ -98,3 +210,12 @@ def test_investment_universe_with_top_market_cap(
         top=_top, tickers=InvestmentUniverse(name=UniverseName.FAANG).tickers
     )
     assert len(tickers) == _top
+
+
+@pytest.mark.my_vcr()
+def test_get_news_df() -> None:
+    """Test get_news_df method."""
+    news_client = AlpacaNewsAPI()
+    test_ticker: tuple[str, ...] = ("AAPL",)
+    news = news_client.get_news_df(tickers=test_ticker)
+    assert isinstance(news, pd.DataFrame)

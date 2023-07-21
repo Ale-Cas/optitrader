@@ -176,7 +176,22 @@ def test_get_holdings_empty_df() -> None:
             }
         ),
     )
-    portfolio.get_assets_in_portfolio = Mock(return_value=[])  # type: ignore
+    portfolio.get_assets_df = Mock(return_value=pd.DataFrame())  # type: ignore
     df = portfolio.get_holdings_df()
     assert isinstance(df, pd.DataFrame)
     assert df.empty
+
+
+def test_get_assets_in_portfolio() -> None:
+    """Test return empty df when there are no assets in the portfolio."""
+    portfolio = Portfolio(
+        weights=pd.Series(
+            {
+                "MSFT": 1.0,
+            }
+        ),
+        market_data=MarketData(),
+    )
+    assets = portfolio.get_assets_in_portfolio()
+    assert isinstance(assets, list)
+    assert len(assets) == 1

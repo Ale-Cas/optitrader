@@ -63,20 +63,29 @@ class Portfolio:
             self.market_data, MarketData
         ), "You must set the market data to get the assets info."
         weights = self.get_non_zero_weights() if only_non_zero else self.weights
-        assets = []
-        for ticker, weight in weights.items():
-            asset = self.market_data.get_asset_from_ticker(ticker=ticker)
-            asset.weight_in_ptf = weight
-            assets.append(asset)
-        return assets
+        assets = self.market_data.get_assets(tickers=tuple(weights.keys()))
+        assets_in_ptf = []
+        for asset in assets:
+            asset.weight_in_ptf = weights.get(asset.ticker)
+            assets_in_ptf.append(asset)
+        return assets_in_ptf
+
+    def get_assets_df(self) -> pd.DataFrame:
+        """Return the assets in the portfolio."""
+        assert isinstance(
+            self.market_data, MarketData
+        ), "You must set the market data to get the assets info."
+        weights = self.get_non_zero_weights()
+        weights.name = "weight_in_ptf"
+        assets = self.market_data.get_assets_df(tuple(weights.keys()))
+        assets.set_index("ticker", inplace=True)
+        return pd.concat([assets, weights], axis=1)
 
     def get_holdings_df(self) -> pd.DataFrame:
         """Return holdings info df."""
-        df = pd.DataFrame(
-            [asset.dict(exclude_none=True) for asset in self.get_assets_in_portfolio()]
-        )
+        df = self.get_assets_df()
         if not df.empty:
-            return df.set_index("symbol").sort_values(by="weight_in_ptf", ascending=False)
+            return df.sort_values(by="weight_in_ptf", ascending=False)
         return df
 
     def get_history(

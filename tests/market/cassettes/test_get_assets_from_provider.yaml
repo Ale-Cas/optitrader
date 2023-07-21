@@ -1,0 +1,393 @@
+interactions:
+- request:
+    body: null
+    headers:
+      APCA-API-KEY-ID:
+      - SECRET
+      APCA-API-SECRET-KEY:
+      - SECRET
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - APCA-PY/0.8.2
+    method: GET
+    uri: https://paper-api.alpaca.markets/v2/assets/AAPL
+  response:
+    body:
+      string: '{"id":"b0b6dd9d-8b9b-48a9-ba46-b9d54906e415","class":"us_equity","exchange":"NASDAQ","symbol":"AAPL","name":"Apple
+        Inc. Common Stock","status":"active","tradable":true,"marginable":true,"maintenance_margin_requirement":30,"shortable":true,"easy_to_borrow":true,"fractionable":true,"attributes":[]}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Apca-Api-Key-Id, Apca-Api-Secret-Key, Authorization
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS, PUT, DELETE, POST, PATCH
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '297'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Thu, 20 Jul 2023 12:36:32 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Vary:
+      - Origin
+      X-Ratelimit-Limit:
+      - '200'
+      X-Ratelimit-Remaining:
+      - '199'
+      X-Ratelimit-Reset:
+      - '1689856592'
+      X-Request-Id:
+      - e9f420457a739601692754e9f1d59b7f
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=TSLA
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
+        NMS - GLOBAL MARKET","finnhubIndustry":"Automobiles","ipo":"2010-06-09","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TSLA.svg","marketCapitalization":923149.809795,"name":"Tesla
+        Inc","phone":"15125168177.0","shareOutstanding":3169.5,"ticker":"TSLA","weburl":"https://www.tesla.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '392'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 20 Jul 2023 12:36:32 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '59'
+      X-Ratelimit-Reset:
+      - '1689856652'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/TSLA?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"quoteSummary":{"result":[{"assetProfile":{"address1":"1 Tesla Road","city":"Austin","state":"TX","zip":"78725","country":"United
+        States","phone":"512 516 8177","website":"https://www.tesla.com","industry":"Auto
+        Manufacturers","industryDisp":"Auto Manufacturers","sector":"Consumer Cyclical","longBusinessSummary":"Tesla,
+        Inc. designs, develops, manufactures, leases, and sells electric vehicles,
+        and energy generation and storage systems in the United States, China, and
+        internationally. It operates in two segments, Automotive, and Energy Generation
+        and Storage. The Automotive segment offers electric vehicles, as well as sells
+        automotive regulatory credits; and non-warranty after-sales vehicle, used
+        vehicles, retail merchandise, and vehicle insurance services. This segment
+        also provides sedans and sport utility vehicles through direct and used vehicle
+        sales, a network of Tesla Superchargers, and in-app upgrades; purchase financing
+        and leasing services; services for electric vehicles through its company-owned
+        service locations and Tesla mobile service technicians; and vehicle limited
+        warranties and extended service plans. The Energy Generation and Storage segment
+        engages in the design, manufacture, installation, sale, and leasing of solar
+        energy generation and energy storage products, and related services to residential,
+        commercial, and industrial customers and utilities through its website, stores,
+        and galleries, as well as through a network of channel partners; and provision
+        of service and repairs to its energy product customers, including under warranty,
+        as well as various financing options to its solar customers. The company was
+        formerly known as Tesla Motors, Inc. and changed its name to Tesla, Inc. in
+        February 2017. Tesla, Inc. was incorporated in 2003 and is headquartered in
+        Austin, Texas.","fullTimeEmployees":127855,"companyOfficers":[{"maxAge":1,"name":"Mr.
+        Elon R. Musk","age":50,"title":"Technoking of Tesla, CEO & Director","yearBorn":1972,"fiscalYear":2022,"totalPay":{"raw":0,"fmt":null,"longFmt":"0"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":27819718656,"fmt":"27.82B","longFmt":"27,819,718,656"}},{"maxAge":1,"name":"Mr.
+        Zachary John Planell Kirkhorn","age":36,"title":"Master of Coin & CFO","yearBorn":1986,"fiscalYear":2022,"totalPay":{"raw":303000,"fmt":"303k","longFmt":"303,000"},"exercisedValue":{"raw":1258505,"fmt":"1.26M","longFmt":"1,258,505"},"unexercisedValue":{"raw":205700880,"fmt":"205.7M","longFmt":"205,700,880"}},{"maxAge":1,"name":"Mr.
+        Andrew D. Baglino","age":41,"title":"Sr. VP of Powertrain & Energy Engineering","yearBorn":1981,"fiscalYear":2022,"totalPay":{"raw":303000,"fmt":"303k","longFmt":"303,000"},"exercisedValue":{"raw":33866368,"fmt":"33.87M","longFmt":"33,866,368"},"unexercisedValue":{"raw":57355632,"fmt":"57.36M","longFmt":"57,355,632"}},{"maxAge":1,"name":"Mr.
+        Vaibhav  Taneja","age":44,"title":"Corp. Controller & Chief Accounting Officer","yearBorn":1978,"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Martin  Viecha","title":"Sr. Director for Investor Relations","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Alan  Prescott","age":43,"title":"VP of Legal","yearBorn":1979,"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Dave  Arnold","title":"Sr. Director of Global Communications","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Brian  Scelfo","title":"Sr.
+        Director of Corp. Devel.","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Jeffrey B. Straubel","age":46,"title":"Independent Director","yearBorn":1976,"fiscalYear":2018,"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Franz  von Holzhausen","title":"Chief Designer","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}}],"auditRisk":8,"boardRisk":10,"compensationRisk":8,"shareHolderRightsRisk":9,"overallRisk":9,"governanceEpochDate":1688169600,"compensationAsOfEpochDate":1672444800,"maxAge":86400}}],"error":null}}'
+    headers:
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=1, stale-while-revalidate=9
+      content-encoding:
+      - gzip
+      content-length:
+      - '1619'
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Thu, 20 Jul 2023 12:36:32 GMT
+      server:
+      - ATS
+      vary:
+      - Origin,Accept-Encoding
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '2'
+      x-request-id:
+      - 645d46ca-3d7b-43bf-bf64-1362584faa28
+      x-yahoo-request-id:
+      - 3dbp9k1ibiaig
+      y-rid:
+      - 3dbp9k1ibiaig
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/81.0.4044.129 Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/V?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"quoteSummary":{"result":[{"assetProfile":{"address1":"PO Box 8999","city":"San
+        Francisco","state":"CA","zip":"94128-8999","country":"United States","phone":"650
+        432 3200","website":"https://usa.visa.com","industry":"Credit Services","industryDisp":"Credit
+        Services","sector":"Financial Services","longBusinessSummary":"Visa Inc. operates
+        as a payments technology company worldwide. The company operates VisaNet,
+        a transaction processing network that enables authorization, clearing, and
+        settlement of payment transactions. It also offers credit, debit, and prepaid
+        card products; tap to pay, tokenization, click to pay; Visa Direct, a real-time
+        payments network; Visa B2B Connect, a multilateral B2B cross-border payments
+        network; Visa Treasury as a Service, a cross-border consumer payments business;
+        and Visa DPS that provides a range of value added services, including fraud
+        mitigation, dispute management, data analytics, campaign management, a suite
+        of digital solutions, and contact center services. Further, the; company provides
+        Cybersource, a payment management platform; and risk and identity solutions,
+        such as Visa Advanced Authorization, Visa Secure, Visa Advanced Identity Score,
+        and Visa Consumer Authentication Service; and Visa Consulting and Analytics,
+        a payments consulting advisory services. It provides its services under the
+        Visa, Visa Electron, Interlink, VPAY, and PLUS brands. The company serves
+        consumers, merchants, financial institutions, and government entities. Visa
+        Inc. was founded in 1958 and is headquartered in San Francisco, California.","fullTimeEmployees":26500,"companyOfficers":[{"maxAge":1,"name":"Mr.
+        Alfred Francis Kelly Jr.","age":64,"title":"Exec. Chairman","yearBorn":1958,"fiscalYear":2022,"totalPay":{"raw":7995941,"fmt":"8M","longFmt":"7,995,941"},"exercisedValue":{"raw":8154600,"fmt":"8.15M","longFmt":"8,154,600"},"unexercisedValue":{"raw":23080916,"fmt":"23.08M","longFmt":"23,080,916"}},{"maxAge":1,"name":"Mr.
+        Ryan M. McInerney","age":47,"title":"Pres, CEO & Director","yearBorn":1975,"fiscalYear":2022,"totalPay":{"raw":4652925,"fmt":"4.65M","longFmt":"4,652,925"},"exercisedValue":{"raw":10620043,"fmt":"10.62M","longFmt":"10,620,043"},"unexercisedValue":{"raw":37819272,"fmt":"37.82M","longFmt":"37,819,272"}},{"maxAge":1,"name":"Mr.
+        Vasant M. Prabhu","age":62,"title":"Chief Financial Officer","yearBorn":1960,"fiscalYear":2022,"totalPay":{"raw":4647635,"fmt":"4.65M","longFmt":"4,647,635"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":25148324,"fmt":"25.15M","longFmt":"25,148,324"}},{"maxAge":1,"name":"Mr.
+        Rajat  Taneja","age":58,"title":"Pres of Technology","yearBorn":1964,"fiscalYear":2022,"totalPay":{"raw":4644622,"fmt":"4.64M","longFmt":"4,644,622"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":30593360,"fmt":"30.59M","longFmt":"30,593,360"}},{"maxAge":1,"name":"Ms.
+        Kelly Mahon Tullier","age":56,"title":"Vice Chair, Chief People & Corp. Affairs
+        Officer and Corp. Sec.","yearBorn":1966,"fiscalYear":2022,"totalPay":{"raw":3262332,"fmt":"3.26M","longFmt":"3,262,332"},"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":10732807,"fmt":"10.73M","longFmt":"10,732,807"}},{"maxAge":1,"name":"Mr.
+        Peter  Andreski","age":49,"title":"Sr. VP, Global Corp. Controller & Chief
+        Accounting Officer","yearBorn":1973,"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Jennifer  Como","title":"Head of Investor Relations","exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Ms.
+        Julie B. Rottenberg","age":54,"title":"Gen. Counsel","yearBorn":1968,"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Frank  Cooper III","age":58,"title":"Chief Marketing Officer","yearBorn":1964,"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}},{"maxAge":1,"name":"Mr.
+        Oliver  Jenkyn","age":49,"title":"Group Pres of Global Markets","yearBorn":1973,"exercisedValue":{"raw":0,"fmt":null,"longFmt":"0"},"unexercisedValue":{"raw":0,"fmt":null,"longFmt":"0"}}],"auditRisk":10,"boardRisk":3,"compensationRisk":2,"shareHolderRightsRisk":3,"overallRisk":4,"governanceEpochDate":1688169600,"compensationAsOfEpochDate":1672444800,"maxAge":86400}}],"error":null}}'
+    headers:
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=1, stale-while-revalidate=9
+      content-encoding:
+      - gzip
+      content-length:
+      - '1659'
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Thu, 20 Jul 2023 12:36:32 GMT
+      server:
+      - ATS
+      vary:
+      - Origin,Accept-Encoding
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '2'
+      x-request-id:
+      - b8aea440-fe94-425e-a280-929291d82817
+      x-yahoo-request-id:
+      - 4ibgr4pibiaig
+      y-rid:
+      - 4ibgr4pibiaig
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/81.0.4044.129 Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/V?modules=defaultKeyStatistics&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: '{"quoteSummary":{"result":[{"defaultKeyStatistics":{"maxAge":1,"priceHint":{"raw":2,"fmt":"2","longFmt":"2"},"enterpriseValue":{"raw":499514310656,"fmt":"499.51B","longFmt":"499,514,310,656"},"forwardPE":{"raw":24.685072,"fmt":"24.69"},"profitMargins":{"raw":0.50953996,"fmt":"50.95%"},"floatShares":{"raw":1617187605,"fmt":"1.62B","longFmt":"1,617,187,605"},"sharesOutstanding":{"raw":1618220032,"fmt":"1.62B","longFmt":"1,618,220,032"},"sharesShort":{"raw":29479105,"fmt":"29.48M","longFmt":"29,479,105"},"sharesShortPriorMonth":{"raw":31404583,"fmt":"31.4M","longFmt":"31,404,583"},"sharesShortPreviousMonthDate":{"raw":1685491200,"fmt":"2023-05-31"},"dateShortInterest":{"raw":1688083200,"fmt":"2023-06-30"},"sharesPercentSharesOut":{"raw":0.014099999,"fmt":"1.41%"},"heldPercentInsiders":{"raw":0.00122,"fmt":"0.12%"},"heldPercentInstitutions":{"raw":0.99063003,"fmt":"99.06%"},"shortRatio":{"raw":3.7,"fmt":"3.7"},"shortPercentOfFloat":{"raw":0.0182,"fmt":"1.82%"},"beta":{"raw":0.970969,"fmt":"0.97"},"impliedSharesOutstanding":{"raw":0,"fmt":null,"longFmt":"0"},"morningStarOverallRating":{},"morningStarRiskRating":{},"category":null,"bookValue":{"raw":17.886,"fmt":"17.89"},"priceToBook":{"raw":13.497708,"fmt":"13.50"},"annualReportExpenseRatio":{},"ytdReturn":{},"beta3Year":{},"totalAssets":{},"yield":{},"fundFamily":null,"fundInceptionDate":{},"legalType":null,"threeYearAverageReturn":{},"fiveYearAverageReturn":{},"priceToSalesTrailing12Months":{},"lastFiscalYearEnd":{"raw":1664496000,"fmt":"2022-09-30"},"nextFiscalYearEnd":{"raw":1696032000,"fmt":"2023-09-30"},"mostRecentQuarter":{"raw":1680220800,"fmt":"2023-03-31"},"earningsQuarterlyGrowth":{"raw":0.167,"fmt":"16.70%"},"revenueQuarterlyGrowth":{},"netIncomeToCommon":{"raw":15484000256,"fmt":"15.48B","longFmt":"15,484,000,256"},"trailingEps":{"raw":7.59,"fmt":"7.59"},"forwardEps":{"raw":9.78,"fmt":"9.78"},"pegRatio":{"raw":1.93,"fmt":"1.93"},"lastSplitFactor":"4:1","lastSplitDate":{"raw":1426723200,"fmt":"2015-03-19"},"enterpriseToRevenue":{"raw":16.122,"fmt":"16.12"},"enterpriseToEbitda":{"raw":23.064,"fmt":"23.06"},"52WeekChange":{"raw":11.670292,"fmt":"1,167.03%"},"SandP52WeekChange":{"raw":14.172972,"fmt":"1,417.30%"},"lastDividendValue":{"raw":0.45,"fmt":"0.45"},"lastDividendDate":{"raw":1683763200,"fmt":"2023-05-11"},"lastCapGain":{},"annualHoldingsTurnover":{}}}],"error":null}}'
+    headers:
+      Age:
+      - '2'
+      Connection:
+      - keep-alive
+      Expect-CT:
+      - max-age=31536000, report-uri="http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only"
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+      cache-control:
+      - public, max-age=1, stale-while-revalidate=9
+      content-encoding:
+      - gzip
+      content-length:
+      - '1018'
+      content-type:
+      - application/json;charset=utf-8
+      date:
+      - Thu, 20 Jul 2023 12:36:32 GMT
+      server:
+      - ATS
+      vary:
+      - Origin,Accept-Encoding
+      x-envoy-decorator-operation:
+      - finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*
+      x-envoy-upstream-service-time:
+      - '4'
+      x-request-id:
+      - a7c0cc3b-899f-49a5-942c-00dab52788ca
+      x-yahoo-request-id:
+      - 1h7bn8dibiaig
+      y-rid:
+      - 1h7bn8dibiaig
+    status:
+      code: 200
+      message: OK
+version: 1
