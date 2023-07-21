@@ -102,7 +102,7 @@ class MarketDB:
         updated_by = updated_by or os.path.relpath(__file__)
         tickers = multi_number_of_shares.index
         for ticker in tickers:
-            num_shares = int(multi_number_of_shares[ticker])
+            num_shares = int(multi_number_of_shares.loc[ticker])
             if num_shares > 0:
                 query = (
                     update(Asset)

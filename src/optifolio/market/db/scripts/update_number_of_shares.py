@@ -13,7 +13,7 @@ def main(db: MarketDB, md: MarketData) -> None:
     """Run script function."""
     file_path = os.path.relpath(__file__)
     db.create_tables()
-    tickers_in_table = db.get_tickers()[400:500]
+    tickers_in_table = db.get_tickers()[500:550]
     shares = md.get_total_number_of_shares(tuple(tickers_in_table))
     df = db.update_number_of_shares(multi_number_of_shares=shares, updated_by=file_path)
     log.debug(df)

@@ -1,6 +1,7 @@
 """Test database module."""
 
 import pytest
+from pandas import DataFrame
 from sqlalchemy.exc import OperationalError
 
 from optifolio.market import MarketData
@@ -29,6 +30,16 @@ def test_get_tickers(db: MarketDB, test_tickers: tuple[str, ...]) -> None:
     assert isinstance(tickers, list)
     assert len(tickers) > 1
     assert isinstance(tickers[0], str)
+
+
+def test_update_number_of_shares(db: MarketDB, test_tickers: tuple[str, ...]) -> None:
+    """Test update_number_of_shares method."""
+    md = MarketData()
+    assets = md.get_assets(tickers=test_tickers)
+    db.write_assets(asset_models=assets, autocommit=True)
+    shares_num = md.get_total_number_of_shares(tickers=test_tickers)
+    shares_updated = db.update_number_of_shares(shares_num)
+    assert isinstance(shares_updated, DataFrame)
 
 
 def test_drop_tables(db: MarketDB) -> None:
