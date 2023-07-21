@@ -1,8 +1,10 @@
 """Local SQL storage of assets table."""
 import logging
+import os
+from datetime import datetime
 
 import pandas as pd
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine, select, update
 from sqlalchemy.exc import DatabaseError
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -65,7 +67,9 @@ class MarketDB:
 
     def get_tickers(self) -> list[str]:
         """Get all the tickers in the assets table."""
-        return list(self.session.execute(select(Asset.ticker)).scalars().fetchall())
+        return list(
+            self.session.execute(select(Asset.ticker).order_by(Asset._id)).scalars().fetchall()
+        )
 
     def get_assets_df(
         self,
@@ -88,6 +92,30 @@ class MarketDB:
         )
         with self.engine.begin() as conn:
             return pd.read_sql_query(sql=query, con=conn)
+
+    def update_number_of_shares(
+        self,
+        multi_number_of_shares: pd.Series,
+        updated_by: str | None = None,
+    ) -> pd.DataFrame:
+        """Update the number_of_shares in the assets table."""
+        updated_by = updated_by or os.path.relpath(__file__)
+        tickers = multi_number_of_shares.index
+        for ticker in tickers:
+            num_shares = int(multi_number_of_shares[ticker])
+            if num_shares > 0:
+                query = (
+                    update(Asset)
+                    .where(Asset.ticker == ticker)
+                    .values(
+                        number_of_shares=num_shares,
+                        updated_at=datetime.utcnow(),
+                        updated_by=updated_by,
+                    )
+                )
+                with self.engine.begin() as conn:
+                    conn.execute(query)
+        return self.get_number_of_shares(tickers=tuple(tickers))
 
     def write_asset(
         self,

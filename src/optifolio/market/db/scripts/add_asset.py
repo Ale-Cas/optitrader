@@ -21,4 +21,4 @@ def main(ticker: str, db: MarketDB, md: MarketData) -> None:
 
 
 if __name__ == "__main__":
-    main(ticker="WMT", db=MarketDB(), md=MarketData(use_db=False))
+    main(ticker="WMT", db=MarketDB(), md=MarketData(use_db=False))  # pragma: no cover

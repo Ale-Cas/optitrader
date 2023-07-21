@@ -34,4 +34,4 @@ def main(db: MarketDB, md: MarketData) -> None:
 
 
 if __name__ == "__main__":
-    main(db=MarketDB(), md=MarketData(use_db=False))
+    main(db=MarketDB(), md=MarketData(use_db=False))  # pragma: no cover

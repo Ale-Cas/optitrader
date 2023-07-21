@@ -130,7 +130,7 @@ class YahooMarketData(BaseDataProvider):
     def get_multi_number_of_shares(self, tickers: tuple[str, ...]) -> pd.Series:
         """Get the sharesOutstanding field from yahoo query."""
         tickers = self.parse_tickers_for_yahoo(tickers)
-        y_tickers = Ticker(symbols=sorted(tickers), asynchronous=True, max_workers=20)
+        y_tickers = Ticker(symbols=sorted(tickers), asynchronous=True, max_workers=10)
         return pd.Series(
             {
                 self.parse_ticker_from_yahoo(ticker): int(
