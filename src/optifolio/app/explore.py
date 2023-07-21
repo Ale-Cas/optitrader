@@ -39,7 +39,42 @@ def main() -> None:
     if not asset.name:
         log.warning(f"Asset {session.ticker} without name.")
         asset.name = session.ticker
-    st.title(f"![Logo]({asset.logo}) {asset.name.title()}")
+
+    st.write(
+        f"""
+        <style>
+            .container {{
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }}
+
+            .logo {{
+                border-radius: 50%;
+                overflow: hidden;
+            }}
+
+            .logo img {{
+                width: 50px;
+                height: 50px;
+            }}
+
+            .title {{
+                font-size: 30px;
+                font-weight: bold;
+                margin-left: 20px;
+            }}
+        </style>
+
+        <div class="container">
+            <div class="logo">
+                <img src="{asset.logo}" alt="Logo">
+            </div>
+            <div class="title">{asset.name.title()}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     if asset.business_summary:
         with st.expander("Business summary"):
             st.write(asset.business_summary)

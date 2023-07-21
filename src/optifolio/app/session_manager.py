@@ -188,7 +188,9 @@ class SessionManager:
                 *key_cols,
                 *(c for c in holdings_df.columns if c not in key_cols and c not in cols_to_ignore),
             ],
-            column_config={"logo": st.column_config.ImageColumn("logo", help="Company Logo")},
+            column_config={
+                "logo": st.column_config.ImageColumn("logo", help="Company Logo", width="small")
+            },
             hide_index=False,
             use_container_width=True,
         )
