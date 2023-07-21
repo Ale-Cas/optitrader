@@ -12,6 +12,7 @@ from optifolio.enums import UniverseName
 from optifolio.market import InvestmentUniverse, MarketData
 from optifolio.market.base_data_provider import BaseDataProvider
 from optifolio.market.db.database import MarketDB
+from optifolio.market.news import AlpacaNewsAPI
 from optifolio.models import AssetModel
 
 my_vcr = vcr.VCR(
@@ -209,3 +210,12 @@ def test_investment_universe_with_top_market_cap(
         top=_top, tickers=InvestmentUniverse(name=UniverseName.FAANG).tickers
     )
     assert len(tickers) == _top
+
+
+@pytest.mark.my_vcr()
+def test_get_news_df() -> None:
+    """Test get_news_df method."""
+    news_client = AlpacaNewsAPI()
+    test_ticker: tuple[str, ...] = ("AAPL",)
+    news = news_client.get_news_df(tickers=test_ticker)
+    assert isinstance(news, pd.DataFrame)

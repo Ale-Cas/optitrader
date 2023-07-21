@@ -1,5 +1,7 @@
 """Test yahoo query integration."""
 
+from unittest.mock import patch
+
 import pytest
 import vcr
 from pandas import DataFrame, Series, Timestamp
@@ -22,7 +24,17 @@ def test_get_yahoo_asset() -> None:
     """Test get_yahoo_asset method."""
     asset = client.get_yahoo_asset(ticker="AAPL")
     assert isinstance(asset, YahooAssetModel)
-    assert any(asset.dict().values())
+    assert all(v is not None for k, v in asset.dict().items() if k != "name")
+
+
+def test_get_yahoo_asset_profile_returning_none() -> None:
+    """Test get_yahoo_asset method."""
+    t = "AAPL"
+    with patch("optifolio.market.yahoo_market_data.Ticker") as mock_ticker:
+        mock_ticker.return_value.asset_profile = None
+        asset = client.get_yahoo_asset(ticker=t)
+    assert isinstance(asset, YahooAssetModel)
+    assert all(a is None for a in asset.dict().values())
 
 
 @pytest.mark.my_vcr()
