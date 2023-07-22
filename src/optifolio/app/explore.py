@@ -78,29 +78,25 @@ def main() -> None:
     if asset.business_summary:
         with st.expander("Business summary"):
             st.write(asset.business_summary)
-    last_price = prices[-1]
+    price = prices[-1]
+    last_price = prices[-2]
+    prev_market_cap = round(asset.number_of_shares * last_price / 1e6, 2)
+    market_cap = round(asset.number_of_shares * price / 1e6, 2)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown(
-            f"""
-            #### Last Day Closing Price\n
-            ### :green[{round(last_price, 2)!s} $]
-            """
+        st.metric(
+            label="Last Day Closing Price ($)",
+            value=round(price, 4),
+            delta=round(price - last_price, 4),
         )
     with col2:
-        st.markdown(
-            f"""
-            #### Market Capitalization\n
-            ### :green[{round(asset.number_of_shares * last_price/ 1e6, 2)!s} Mln $]
-            """
+        st.metric(
+            label="Market Capitalization (Mln $)",
+            value=market_cap,
+            delta=round(market_cap - prev_market_cap, 2),
         )
     with col3:
-        st.markdown(
-            f"""
-            #### Main Exchange\n
-            ### :red[{asset.exchange}]
-            """
-        )
+        st.metric(label="Main Exchange", value=asset.exchange.value)
     st.plotly_chart(
         px.line(
             data_frame=prices,
