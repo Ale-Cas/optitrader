@@ -6,8 +6,8 @@ import pytest
 import vcr
 from pandas import DataFrame, Series, Timestamp
 
-from optifolio.market.yahoo_market_data import YahooMarketData
-from optifolio.models.asset import YahooAssetModel
+from optitrader.market.yahoo_market_data import YahooMarketData
+from optitrader.models.asset import YahooAssetModel
 
 client = YahooMarketData()
 
@@ -30,7 +30,7 @@ def test_get_yahoo_asset() -> None:
 def test_get_yahoo_asset_profile_returning_none() -> None:
     """Test get_yahoo_asset method."""
     t = "AAPL"
-    with patch("optifolio.market.yahoo_market_data.Ticker") as mock_ticker:
+    with patch("optitrader.market.yahoo_market_data.Ticker") as mock_ticker:
         mock_ticker.return_value.asset_profile = None
         asset = client.get_yahoo_asset(ticker=t)
     assert isinstance(asset, YahooAssetModel)

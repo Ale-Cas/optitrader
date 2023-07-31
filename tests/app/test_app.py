@@ -4,7 +4,7 @@ from time import sleep
 
 import pytest
 
-from optifolio.app import about, account, backtester, explore, home
+from optitrader.app import about, account, backtester, explore, home
 
 
 @pytest.mark.timeout(2)

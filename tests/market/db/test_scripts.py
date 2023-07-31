@@ -3,10 +3,10 @@ from unittest.mock import Mock
 
 import pytest
 
-from optifolio.market.db.database import MarketDB
-from optifolio.market.db.scripts import add_asset, create_assets_table, update_number_of_shares
-from optifolio.market.market_data import MarketData
-from optifolio.models.asset import AssetModel
+from optitrader.market.db.database import MarketDB
+from optitrader.market.db.scripts import add_asset, create_assets_table, update_number_of_shares
+from optitrader.market.market_data import MarketData
+from optitrader.models.asset import AssetModel
 
 
 @pytest.mark.timeout(10)

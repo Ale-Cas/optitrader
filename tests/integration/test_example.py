@@ -3,19 +3,19 @@
 import pandas as pd
 import pytest
 
-from optifolio import Optifolio
-from optifolio.config import SETTINGS
-from optifolio.enums import UniverseName
-from optifolio.optimization.objectives import CVaRObjectiveFunction, ObjectiveName
+from optitrader import Optitrader
+from optitrader.config import SETTINGS
+from optitrader.enums import UniverseName
+from optitrader.optimization.objectives import CVaRObjectiveFunction, ObjectiveName
 
 _tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
 
 
 @pytest.mark.timeout(30)
 @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
-def test_optifolio_example_readme() -> None:
+def test_optitrader_example_readme() -> None:
     """Test readme example."""
-    optimal_ptf = Optifolio(
+    optimal_ptf = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
     ).solve()
@@ -25,12 +25,12 @@ def test_optifolio_example_readme() -> None:
 
 @pytest.mark.timeout(10)
 @pytest.mark.vcr()
-def test_optifolio_example_faang(
+def test_optitrader_example_faang(
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test the same example on less stocks."""
-    optimal_ptf = Optifolio(
+    optimal_ptf = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.FAANG,
     ).solve(start_date=test_start_date, end_date=test_end_date)

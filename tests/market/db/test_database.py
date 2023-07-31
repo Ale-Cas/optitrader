@@ -4,8 +4,8 @@ import pytest
 from pandas import DataFrame
 from sqlalchemy.exc import OperationalError
 
-from optifolio.market import MarketData
-from optifolio.market.db.database import MarketDB
+from optitrader.market import MarketData
+from optitrader.market.db.database import MarketDB
 
 
 def test_write_assets(db: MarketDB, test_tickers: tuple[str, ...]) -> None:

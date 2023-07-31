@@ -1,14 +1,14 @@
-"""Test the Optifolio class implementation."""
+"""Test the optitrader class implementation."""
 import pandas as pd
 import pytest
 import vcr
 from alpaca.common import APIError
 
-from optifolio import Optifolio
-from optifolio.config import SETTINGS
-from optifolio.enums import UniverseName
-from optifolio.market import MarketData
-from optifolio.optimization.objectives import (
+from optitrader import Optitrader
+from optitrader.config import SETTINGS
+from optitrader.enums import UniverseName
+from optitrader.market import MarketData
+from optitrader.optimization.objectives import (
     CVaRObjectiveFunction,
     ExpectedReturnsObjectiveFunction,
 )
@@ -17,12 +17,12 @@ _tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
 
 
 @vcr.use_cassette("tests/optimiization/cassettes/test_solver_min_num_assets.yaml")
-def test_optifolio_cvar_universe(
+def test_optitrader_cvar_universe(
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    opt_ptf = Optifolio(
+    opt_ptf = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
     ).solve(
@@ -36,13 +36,13 @@ def test_optifolio_cvar_universe(
 
 
 @pytest.mark.vcr()
-def test_optifolio_cvar_tickers(
+def test_optitrader_cvar_tickers(
     test_tickers: tuple[str, ...],
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    opt_ptf = Optifolio(objectives=[CVaRObjectiveFunction()], tickers=test_tickers).solve(
+    opt_ptf = Optitrader(objectives=[CVaRObjectiveFunction()], tickers=test_tickers).solve(
         start_date=test_start_date,
         end_date=test_end_date,
     )
@@ -51,15 +51,15 @@ def test_optifolio_cvar_tickers(
     assert 1 - weights.sum() <= _tollerance
 
 
-@vcr.use_cassette("tests/cassettes/test_optifolio_cvar.yaml")
-def test_optifolio_custom_market_data(
+@vcr.use_cassette("tests/cassettes/test_optitrader_cvar.yaml")
+def test_optitrader_custom_market_data(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    opt_ptf = Optifolio(
+    opt_ptf = Optitrader(
         objectives=[ExpectedReturnsObjectiveFunction()],
         tickers=test_tickers,
         market_data=market_data,
@@ -72,14 +72,14 @@ def test_optifolio_custom_market_data(
     assert 1 - weights.sum() <= _tollerance
 
 
-def test_optifolio_invalid_market_data(
+def test_optitrader_invalid_market_data(
     test_tickers: tuple[str, ...],
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
     with pytest.raises(expected_exception=APIError, match="forbidden"):
-        Optifolio(
+        Optitrader(
             objectives=[ExpectedReturnsObjectiveFunction()],
             tickers=test_tickers,
             market_data=MarketData(trading_key="invalid"),
@@ -90,14 +90,14 @@ def test_optifolio_invalid_market_data(
 
 
 @vcr.use_cassette("tests/optimiization/cassettes/test_solver_min_num_assets.yaml")
-def test_optifolio_exact_num_assets(
+def test_optitrader_exact_num_assets(
     market_data: MarketData,
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
     _num = 3
-    opt = Optifolio(
+    opt = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
         market_data=market_data,
@@ -110,14 +110,14 @@ def test_optifolio_exact_num_assets(
 
 
 @vcr.use_cassette("tests/optimiization/cassettes/test_solver_min_num_assets.yaml")
-def test_optifolio_max_weight(
+def test_optitrader_max_weight(
     market_data: MarketData,
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
     _max_w = 30
-    opt = Optifolio(
+    opt = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
         market_data=market_data,

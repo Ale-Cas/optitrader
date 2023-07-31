@@ -2,8 +2,8 @@
 import cvxpy as cp
 import pytest
 
-from optifolio.enums.optimization import ConstraintName
-from optifolio.optimization.constraints import (
+from optitrader.enums.optimization import ConstraintName
+from optitrader.optimization.constraints import (
     ConstraintsMap,
     NumberOfAssetsConstraint,
     SumToOneConstraint,

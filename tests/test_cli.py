@@ -1,4 +1,4 @@
-"""Test optifolio CLI."""
+"""Test optitrader CLI."""
 
 import subprocess
 from unittest.mock import MagicMock, Mock
@@ -7,7 +7,7 @@ import pytest
 import typer
 from typer.testing import CliRunner
 
-from optifolio.cli import app, dashboard
+from optitrader.cli import app, dashboard
 
 runner = CliRunner()
 

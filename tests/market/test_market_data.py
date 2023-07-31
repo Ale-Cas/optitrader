@@ -8,12 +8,12 @@ import pytest
 import vcr
 from alpaca.trading import Asset as AlpacaAsset
 
-from optifolio.enums import UniverseName
-from optifolio.market import InvestmentUniverse, MarketData
-from optifolio.market.base_data_provider import BaseDataProvider
-from optifolio.market.db.database import MarketDB
-from optifolio.market.news import AlpacaNewsAPI
-from optifolio.models import AssetModel
+from optitrader.enums import UniverseName
+from optitrader.market import InvestmentUniverse, MarketData
+from optitrader.market.base_data_provider import BaseDataProvider
+from optitrader.market.db.database import MarketDB
+from optitrader.market.news import AlpacaNewsAPI
+from optitrader.models import AssetModel
 
 my_vcr = vcr.VCR(
     serializer="json",

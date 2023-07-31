@@ -7,8 +7,8 @@ import pytest
 from alpaca.common import APIError
 from alpaca.trading import TradeAccount
 
-from optifolio.market.trading import AlpacaTrading
-from optifolio.portfolio import Portfolio
+from optitrader.market.trading import AlpacaTrading
+from optitrader.portfolio import Portfolio
 
 trader = AlpacaTrading()
 
@@ -34,7 +34,7 @@ def test_get_orders_df() -> None:
 
 def test_get_orders_empty_df() -> None:
     """Test get_orders_df method with a mock empty df."""
-    with patch("optifolio.market.trading.AlpacaTrading.get_orders", return_value=[]):
+    with patch("optitrader.market.trading.AlpacaTrading.get_orders", return_value=[]):
         orders_history = trader.get_orders_df()
         assert isinstance(orders_history, pd.DataFrame)
         assert orders_history.empty
@@ -50,7 +50,7 @@ def test_invest_in_portfolio(mock_ptf: Portfolio) -> None:
 def test_invest_in_portfolio_api_error() -> None:
     """Test invest_in_portfolio method."""
     with patch(
-        "optifolio.market.trading.AlpacaTrading.submit_order",
+        "optitrader.market.trading.AlpacaTrading.submit_order",
         side_effect=APIError(error="Mock error"),
     ):
         trader.invest_in_portfolio(
@@ -68,7 +68,7 @@ def test_invest_in_portfolio_api_error() -> None:
 def test_invest_in_portfolio_fail_on_api_error() -> None:
     """Test invest_in_portfolio method."""
     with patch(
-        "optifolio.market.trading.AlpacaTrading.submit_order",
+        "optitrader.market.trading.AlpacaTrading.submit_order",
         side_effect=APIError(error="Mock error"),
     ), pytest.raises(AssertionError):
         trader.invest_in_portfolio(

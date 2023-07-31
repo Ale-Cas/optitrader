@@ -2,8 +2,8 @@
 
 import pytest
 
-from optifolio.enums import ConstraintName
-from optifolio.enums.iterable import IterEnum
+from optitrader.enums import ConstraintName
+from optitrader.enums.iterable import IterEnum
 
 
 def test_constraint_name_iter() -> None:

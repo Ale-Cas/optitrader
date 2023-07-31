@@ -1,8 +1,8 @@
-![Build](https://github.com/Ale-Cas/optifolio/actions/workflows/test.yml/badge.svg)
+![Build](https://github.com/Ale-Cas/optitrader/actions/workflows/test.yml/badge.svg)
 [![python](https://img.shields.io/badge/Python-3.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
-[![codecov](https://codecov.io/github/Ale-Cas/optifolio/branch/master/graph/badge.svg?token=F0COJXH0IJ)](https://codecov.io/github/Ale-Cas/optifolio)
-[![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optifolio)
+[![codecov](https://codecov.io/github/Ale-Cas/optitrader/branch/master/graph/badge.svg?token=F0COJXH0IJ)](https://codecov.io/github/Ale-Cas/optitrader)
+[![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optitrader)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.24.0-FF4B4B.svg?style=flat&logo=Streamlit&logoColor=white)](https://streamlit.io)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Pydantic v1](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/5697b1e4c4a9790ece607654e6c02a160620c7e1/docs/badge/v1.json)](https://pydantic.dev)
@@ -10,32 +10,32 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.63.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
 
 
-# Optifolio
+# optitrader
 
 ## Description 
 
-Optifolio is an open-source Python package for portfolio optimization and quantitative finance applications. 
+optitrader is an open-source Python package for portfolio optimization and quantitative finance applications. 
 It is meant to provide a comprehensive suite of tools to easily build a custom portfolio, analyze the optimization results and it also supports the trade execution by leveraging [Alpaca's Trading API](https://alpaca.markets/docs/trading/).
 
 ## Using
 
-_Python package_: to add and install this package as a dependency of your project, run `poetry add optifolio`.
+_Python package_: to add and install this package as a dependency of your project, run `poetry add optitrader`.
 
-_Python CLI_: to view this app's CLI commands once it's installed, run `optifolio --help`.
+_Python CLI_: to view this app's CLI commands once it's installed, run `optitrader --help`.
 
 _Rest API_: to serve this application as a REST API, run `docker compose up app` and open [localhost:8080](http://localhost:8080) in your browser to see the documentation. Within the Dev Container, this is equivalent to running `poe api`.
 
-_Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `optifolio dashboard`. This is equivalent to running `poe app` and open [localhost:8000](http://localhost:8000) in your browser.
+_Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `optitrader dashboard`. This is equivalent to running `poe app` and open [localhost:8000](http://localhost:8000) in your browser.
 
 ## Example
 
 Once the package has been installed you can use it as follows:
 ```python
-from optifolio import Optifolio
-from optifolio.optimization.objectives import CVaRObjectiveFunction
-from optifolio.enums import UniverseName
+from optitrader import Optitrader
+from optitrader.optimization.objectives import CVaRObjectiveFunction
+from optitrader.enums import UniverseName
 
-optimal_ptf = Optifolio(
+optimal_ptf = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
     ).solve()
@@ -59,11 +59,11 @@ Portfolio(
         }
 )
 ```
-and you can use the available methods of the [Portfolio class](src/optifolio/portfolio.py), such as `pie_plot`:
+and you can use the available methods of the [Portfolio class](src/optitrader/portfolio.py), such as `pie_plot`:
 ```python
 optimal_ptf.pie_plot()
 ```
-![pie plot result](https://github.com/Ale-Cas/optifolio/assets/64859146/d369bdbf-f4dd-44b5-b8d8-8156604caec6)
+![pie plot result](https://github.com/Ale-Cas/optitrader/assets/64859146/d369bdbf-f4dd-44b5-b8d8-8156604caec6)
 
 
 
@@ -123,7 +123,7 @@ This project has been boostrapped using [this cookiecutter template](https://git
 The following development environments are supported:
 
 1. ⭐️ _GitHub Codespaces_: click on _Code_ and select _Create codespace_ to start a Dev Container with [GitHub Codespaces](https://github.com/features/codespaces).
-1. ⭐️ _Dev Container (with container volume)_: click on [Open in Dev Containers](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optifolio) to clone this repository in a container volume and create a Dev Container with VS Code.
+1. ⭐️ _Dev Container (with container volume)_: click on [Open in Dev Containers](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optitrader) to clone this repository in a container volume and create a Dev Container with VS Code.
 1. _Dev Container_: clone this repository, open it with VS Code, and run <kbd>Ctrl/⌘</kbd> + <kbd>⇧</kbd> + <kbd>P</kbd> → _Dev Containers: Reopen in Container_.
 1. _PyCharm_: clone this repository, open it with PyCharm, and [configure Docker Compose as a remote interpreter](https://www.jetbrains.com/help/pycharm/using-docker-compose-as-a-remote-interpreter.html#docker-compose-remote) with the `dev` service.
 1. _Terminal_: clone this repository, open it with your terminal, and run `docker compose up --detach dev` to start a Dev Container in the background, and then run `docker compose exec dev zsh` to open a shell prompt in the Dev Container.
@@ -143,7 +143,7 @@ The following development environments are supported:
 
 
 ## Similar projects 
-Optifolio is built by keeping in mind the availability of other great open-source repositories, such as:
+optitrader is built by keeping in mind the availability of other great open-source repositories, such as:
 
 - [Riskfolio-Lib](https://github.com/dcajasn/Riskfolio-Lib)
 - [PyPortfolioOpt](https://github.com/robertmartin8/PyPortfolioOpt)

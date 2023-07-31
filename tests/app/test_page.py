@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, Mock
 import pytest
 import streamlit as st
 
-from optifolio.app.page import Page
+from optitrader.app.page import Page
 
 
 @pytest.fixture()
@@ -48,9 +48,9 @@ def test_display_code_sidebar(page: Page):
     assert len(st.sidebar.mock_calls) == 2  # noqa: PLR2004 # enter and exit
     st.divider.assert_called_once()
     st.header.assert_called_once_with("💻 Code")
-    st.code.assert_called_once_with("pip install optifolio")
+    st.code.assert_called_once_with("pip install optitrader")
     st.markdown.assert_called_once_with(
-        "[![Repo](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/Ale-Cas/optifolio)"
+        "[![Repo](https://badgen.net/badge/icon/GitHub?icon=github&label)](https://github.com/Ale-Cas/optitrader)"
     )
 
 

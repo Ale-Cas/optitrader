@@ -2,7 +2,7 @@
 import pandas as pd
 import pytest
 
-from optifolio.market.news import AlpacaNewsAPI
+from optitrader.market.news import AlpacaNewsAPI
 
 news_client = AlpacaNewsAPI()
 

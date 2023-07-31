@@ -24,17 +24,17 @@ RUN groupadd --gid $GID user && \
 USER user
 
 # Create and activate a virtual environment.
-RUN python -m venv /opt/optifolio-env
-ENV PATH /opt/optifolio-env/bin:$PATH
-ENV VIRTUAL_ENV /opt/optifolio-env
+RUN python -m venv /opt/optitrader-env
+ENV PATH /opt/optitrader-env/bin:$PATH
+ENV VIRTUAL_ENV /opt/optitrader-env
 
 # Set the working directory.
-WORKDIR /workspaces/optifolio/
+WORKDIR /workspaces/optitrader/
 
 # Install the run time Python dependencies in the virtual environment.
-COPY --chown=user:user poetry.lock* pyproject.toml /workspaces/optifolio/
+COPY --chown=user:user poetry.lock* pyproject.toml /workspaces/optitrader/
 RUN mkdir -p /home/user/.cache/pypoetry/ && mkdir -p /home/user/.config/pypoetry/ && \
-    mkdir -p src/optifolio/ && touch src/optifolio/__init__.py && touch README.md
+    mkdir -p src/optitrader/ && touch src/optitrader/__init__.py && touch README.md
 RUN --mount=type=cache,uid=$UID,gid=$GID,target=/home/user/.cache/pypoetry/ \
     poetry install --only main --no-interaction
 
@@ -75,7 +75,7 @@ RUN --mount=type=cache,uid=$UID,gid=$GID,target=/home/user/.cache/pypoetry/ \
     poetry install --no-interaction
 
 # Persist output generated during docker build so that we can restore it in the dev container.
-COPY --chown=user:user .pre-commit-config.yaml /workspaces/optifolio/
+COPY --chown=user:user .pre-commit-config.yaml /workspaces/optitrader/
 RUN mkdir -p /opt/build/poetry/ && cp poetry.lock /opt/build/poetry/ && \
     git init && pre-commit install --install-hooks && \
     mkdir -p /opt/build/git/ && cp .git/hooks/commit-msg .git/hooks/pre-commit /opt/build/git/
@@ -105,5 +105,5 @@ FROM base AS app
 COPY --chown=user:user . .
 
 # Expose the application.
-ENTRYPOINT ["/opt/optifolio-env/bin/poe"]
+ENTRYPOINT ["/opt/optitrader-env/bin/poe"]
 CMD ["api"]

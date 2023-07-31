@@ -1,5 +1,5 @@
 """Test general utils."""
-from optifolio.utils import clean_string, remove_punctuation
+from optitrader.utils import clean_string, remove_punctuation
 
 
 def test_remove_punctuation():

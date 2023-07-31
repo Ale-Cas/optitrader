@@ -1,8 +1,8 @@
 """Test objectives map."""
 
 
-from optifolio.enums.optimization import ObjectiveName
-from optifolio.optimization.objectives import FinancialsObjectiveFunction, ObjectivesMap
+from optitrader.enums.optimization import ObjectiveName
+from optitrader.optimization.objectives import FinancialsObjectiveFunction, ObjectivesMap
 
 
 def test_objectives_map() -> None:

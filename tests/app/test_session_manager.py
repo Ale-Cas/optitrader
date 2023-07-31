@@ -5,9 +5,9 @@ import pytest
 import streamlit as st
 from pandas import Timestamp
 
-from optifolio import MarketData, Optifolio, Portfolio
-from optifolio.app.session_manager import SessionManager
-from optifolio.enums import ConstraintName, ObjectiveName, RebalanceFrequency, UniverseName
+from optitrader import MarketData, Optitrader, Portfolio
+from optitrader.app.session_manager import SessionManager
+from optitrader.enums import ConstraintName, ObjectiveName, RebalanceFrequency, UniverseName
 
 
 @pytest.fixture()
@@ -113,17 +113,17 @@ def test_set_rebalance_frequency(
     assert session_manager.rebalance_frequency == RebalanceFrequency.MONTHLY
 
 
-def test_get_optifolio(
+def test_get_optitrader(
     session_manager: SessionManager,
 ) -> None:
-    """Test for the get_optifolio method of SessionManager class."""
+    """Test for the get_optitrader method of SessionManager class."""
     session_manager.market_data = MarketData()
 
-    optifolio = session_manager.get_optifolio()
+    optitrader = session_manager.get_optitrader()
 
-    assert isinstance(optifolio, Optifolio)
-    assert optifolio.investment_universe.name == session_manager.universe_name
-    assert optifolio.market_data == session_manager.market_data
+    assert isinstance(optitrader, Optitrader)
+    assert optitrader.investment_universe.name == session_manager.universe_name
+    assert optitrader.market_data == session_manager.market_data
 
 
 @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
@@ -155,8 +155,8 @@ def test_run_optimization(
     assert isinstance(_opt_ptf, Portfolio)  # type: ignore
 
 
-def test_display_optifolio_problem(session_manager: SessionManager) -> None:
-    """Test for the display_optifolio_problem method of SessionManager class."""
+def test_display_optitrader_problem(session_manager: SessionManager) -> None:
+    """Test for the display_optitrader_problem method of SessionManager class."""
     st.sidebar = MagicMock()
     st.expander = MagicMock()
     st.write = Mock()
@@ -166,7 +166,7 @@ def test_display_optifolio_problem(session_manager: SessionManager) -> None:
     session_manager.objective_names = [ObjectiveName.CVAR]
     session_manager.constraint_names = [ConstraintName.SUM_TO_ONE]
 
-    session_manager.display_optifolio_problem()
+    session_manager.display_optitrader_problem()
     st.sidebar.assert_has_calls([call.__enter__(), call.__exit__(None, None, None)])
     st.expander.assert_has_calls(
         [

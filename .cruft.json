@@ -4,9 +4,9 @@
   "checkout": null,
   "context": {
     "cookiecutter": {
-      "package_name": "optifolio",
-      "package_description": "Optifolio is an opne-source Python package for portfolio optimization. ",
-      "package_url": "https://github.com/Ale-Cas/optifolio",
+      "package_name": "optitrader",
+      "package_description": "optitrader is an opne-source Python package for portfolio optimization. ",
+      "package_url": "https://github.com/Ale-Cas/optitrader",
       "author_name": "Alessio Castrica",
       "author_email": "castricaalessio@gmail.com",
       "python_version": "3.10",
@@ -22,8 +22,8 @@
       "docstring_style": "NumPy",
       "private_package_repository_name": "",
       "private_package_repository_url": "",
-      "__package_name_kebab_case": "optifolio",
-      "__package_name_snake_case": "optifolio",
+      "__package_name_kebab_case": "optitrader",
+      "__package_name_snake_case": "optitrader",
       "_template": "https://github.com/radix-ai/poetry-cookiecutter"
     }
   },

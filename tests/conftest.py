@@ -3,12 +3,12 @@
 import pandas as pd
 import pytest
 
-from optifolio.enums import ObjectiveName
-from optifolio.market import MarketData
-from optifolio.market.investment_universe import UniverseName
-from optifolio.models import ObjectiveModel, OptimizationRequest
-from optifolio.optimization.objectives import ObjectiveValue
-from optifolio.portfolio import Portfolio
+from optitrader.enums import ObjectiveName
+from optitrader.market import MarketData
+from optitrader.market.investment_universe import UniverseName
+from optitrader.models import ObjectiveModel, OptimizationRequest
+from optitrader.optimization.objectives import ObjectiveValue
+from optitrader.portfolio import Portfolio
 
 
 @pytest.fixture(scope="package")

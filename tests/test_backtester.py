@@ -4,10 +4,10 @@
 import pandas as pd
 import pytest
 
-from optifolio import Optifolio
-from optifolio.backtester import Backtester
-from optifolio.enums import RebalanceFrequency, UniverseName
-from optifolio.optimization.objectives import CVaRObjectiveFunction
+from optitrader import Optitrader
+from optitrader.backtester import Backtester
+from optitrader.enums import RebalanceFrequency, UniverseName
+from optitrader.optimization.objectives import CVaRObjectiveFunction
 
 
 @pytest.mark.timeout(0.1)
@@ -17,7 +17,7 @@ def test_rebalance_dates(
 ) -> None:
     """Test the rebalance dates method."""
     _freq = RebalanceFrequency.MONTHLY
-    opt = Optifolio(
+    opt = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
     )
@@ -38,7 +38,7 @@ def test_compute_history_values(
 ) -> None:
     """Test the compute_history_values method."""
     _freq = RebalanceFrequency.MONTHLY
-    opt = Optifolio(
+    opt = Optitrader(
         objectives=[CVaRObjectiveFunction()],
         universe_name=UniverseName.POPULAR_STOCKS,
     )

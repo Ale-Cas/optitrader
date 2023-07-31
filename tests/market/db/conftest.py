@@ -3,9 +3,9 @@ from unittest.mock import MagicMock, Mock
 
 import pytest
 
-from optifolio.config import SETTINGS
-from optifolio.market.db.database import MarketDB
-from optifolio.market.db.models import Asset, AssetClass, AssetExchange, AssetStatus
+from optitrader.config import SETTINGS
+from optitrader.market.db.database import MarketDB
+from optitrader.market.db.models import Asset, AssetClass, AssetExchange, AssetStatus
 
 
 @pytest.fixture()

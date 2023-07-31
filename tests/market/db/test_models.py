@@ -1,7 +1,7 @@
 """Test database module."""
 
 
-from optifolio.market.db.models import Asset
+from optitrader.market.db.models import Asset
 
 
 def test_asset_repr(asset: Asset) -> None:

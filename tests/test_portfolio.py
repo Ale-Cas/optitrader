@@ -5,17 +5,17 @@ import pandas as pd
 import plotly.graph_objs as go
 import pytest
 
-from optifolio.config import SETTINGS
-from optifolio.market.market_data import MarketData
-from optifolio.optimization.constraints import NoShortSellConstraint, SumToOneConstraint
-from optifolio.optimization.objectives import (
+from optitrader.config import SETTINGS
+from optitrader.market.market_data import MarketData
+from optitrader.optimization.constraints import NoShortSellConstraint, SumToOneConstraint
+from optitrader.optimization.objectives import (
     CVaRObjectiveFunction,
     MADObjectiveFunction,
     ObjectiveName,
     ObjectiveValue,
 )
-from optifolio.optimization.solver import Solver
-from optifolio.portfolio import Portfolio
+from optitrader.optimization.solver import Solver
+from optitrader.portfolio import Portfolio
 
 _tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
 

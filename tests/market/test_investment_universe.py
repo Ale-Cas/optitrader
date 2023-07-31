@@ -1,8 +1,8 @@
 """Test the investment universe implementation."""
 import pytest
 
-from optifolio.enums import UniverseName
-from optifolio.market import InvestmentUniverse
+from optitrader.enums import UniverseName
+from optitrader.market import InvestmentUniverse
 
 
 def test_investment_universe_with_name() -> None:

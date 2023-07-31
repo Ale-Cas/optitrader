@@ -3,7 +3,7 @@ import pandas as pd
 import pytest
 import vcr
 
-from optifolio.market.alpaca_market_data import AlpacaMarketData, Asset
+from optitrader.market.alpaca_market_data import AlpacaMarketData, Asset
 
 alpaca_market_data = AlpacaMarketData()
 

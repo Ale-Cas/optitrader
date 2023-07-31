@@ -25,7 +25,7 @@ services:
       [
         "sh",
         "-c",
-        "sudo chown user $$SSH_AUTH_SOCK && cp --update /opt/build/poetry/poetry.lock /workspaces/optifolio/ && mkdir -p /workspaces/optifolio/.git/hooks/ && cp --update /opt/build/git/* /workspaces/optifolio/.git/hooks/ && zsh"
+        "sudo chown user $$SSH_AUTH_SOCK && cp --update /opt/build/poetry/poetry.lock /workspaces/optitrader/ && mkdir -p /workspaces/optitrader/.git/hooks/ && cp --update /opt/build/git/* /workspaces/optitrader/.git/hooks/ && zsh"
       ]
     environment:
       - POETRY_PYPI_TOKEN_PYPI

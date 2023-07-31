@@ -1,1 +1,1 @@
-"""optifolio test suite."""
+"""optitrader test suite."""

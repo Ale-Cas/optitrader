@@ -3,24 +3,24 @@ import pandas as pd
 import pytest
 import vcr
 
-from optifolio.config import SETTINGS
-from optifolio.enums.market import UniverseName
-from optifolio.market.investment_universe import InvestmentUniverse
-from optifolio.market.market_data import MarketData
-from optifolio.optimization.constraints import (
+from optitrader.config import SETTINGS
+from optitrader.enums.market import UniverseName
+from optitrader.market.investment_universe import InvestmentUniverse
+from optitrader.market.market_data import MarketData
+from optitrader.optimization.constraints import (
     NoShortSellConstraint,
     NumberOfAssetsConstraint,
     SumToOneConstraint,
     WeightsConstraint,
 )
-from optifolio.optimization.objectives import (
+from optitrader.optimization.objectives import (
     CovarianceObjectiveFunction,
     CVaRObjectiveFunction,
     FinancialsObjectiveFunction,
     MADObjectiveFunction,
     MostDiversifiedObjectiveFunction,
 )
-from optifolio.optimization.solver import Solver
+from optitrader.optimization.solver import Solver
 
 _tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE
 

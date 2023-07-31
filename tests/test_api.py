@@ -1,4 +1,4 @@
-"""Test optifolio REST API."""
+"""Test optitrader REST API."""
 
 import json
 
@@ -6,9 +6,9 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from optifolio.api import app
-from optifolio.config import SETTINGS
-from optifolio.models import OptimizationRequest, OptimizationResponse
+from optitrader.api import app
+from optitrader.config import SETTINGS
+from optitrader.models import OptimizationRequest, OptimizationResponse
 
 client = TestClient(app, base_url="http://127.0.0.1/")
 _tollerance = SETTINGS.SUM_WEIGHTS_TOLERANCE

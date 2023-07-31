@@ -3,12 +3,12 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
-name = "optifolio"
-version = "0.0.0"
-description = "Optifolio is an opne-source Python package for portfolio optimization. "
+name = "optitrader"
+version = "0.0.1"
+description = "optitrader is an opne-source Python package for portfolio optimization. "
 authors = ["Alessio Castrica <castricaalessio@gmail.com>"]
 readme = "README.md"
-repository = "https://github.com/Ale-Cas/optifolio"
+repository = "https://github.com/Ale-Cas/optitrader"
 
 [tool.commitizen]  # https://commitizen-tools.github.io/commitizen/config/
 bump_message = "bump(release): v$current_version → v$new_version"
@@ -18,7 +18,7 @@ version = "0.0.0"
 version_files = ["pyproject.toml:version"]
 
 [tool.poetry.scripts]  # https://python-poetry.org/docs/pyproject/#scripts
-optifolio = "optifolio.cli:app"
+optitrader = "optitrader.cli:app"
 
 [tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
 coloredlogs = ">=15.0.1"
@@ -121,7 +121,7 @@ convention = "numpy"
         --host $host \
         --port $port \
         --reload \
-        optifolio.api:app
+        optitrader.api:app
     } else {
       gunicorn \
         --access-logfile - \
@@ -133,7 +133,7 @@ convention = "numpy"
         --worker-class uvicorn.workers.UvicornWorker \
         --worker-tmp-dir /dev/shm \
         --workers 2 \
-        optifolio.api:app
+        optitrader.api:app
     } fi
     """
 
@@ -163,7 +163,7 @@ convention = "numpy"
       --server.address $host
       --server.port $port
       --theme.base dark
-      src/optifolio/app/1_🏠_Home.py
+      src/optitrader/app/1_🏠_Home.py
     """
   use_exec = true
 
@@ -185,7 +185,7 @@ convention = "numpy"
     pdoc
       --docformat $docformat
       --output-directory $outputdirectory
-      optifolio
+      optitrader
     """
 
     [[tool.poe.tasks.docs.args]]

@@ -7,10 +7,10 @@ import pandas as pd
 import pytest
 import vcr
 
-from optifolio.enums.market import UniverseName
-from optifolio.market.finnhub_market_data import FinnhubClient
-from optifolio.market.investment_universe import InvestmentUniverse
-from optifolio.models.asset import FinnhubAssetModel
+from optitrader.enums.market import UniverseName
+from optitrader.market.finnhub_market_data import FinnhubClient
+from optitrader.market.investment_universe import InvestmentUniverse
+from optitrader.models.asset import FinnhubAssetModel
 
 finnhub_client = FinnhubClient()
 mock_finnhub_client = FinnhubClient()
