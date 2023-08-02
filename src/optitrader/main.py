@@ -2,6 +2,7 @@
 
 import pandas as pd
 
+from optitrader.config import SETTINGS
 from optitrader.enums import UniverseName
 from optitrader.enums.market import BalanceSheetItem, CashFlowItem, IncomeStatementItem
 from optitrader.enums.optimization import ObjectiveName
@@ -42,6 +43,10 @@ class Optitrader:
         tickers: tuple[str, ...] | None = None,
         constraints: list[PortfolioConstraint] | None = None,
         market_data: MarketData | None = None,
+        trading_key: str | None = SETTINGS.ALPACA_TRADING_API_KEY,
+        trading_secret: str | None = SETTINGS.ALPACA_TRADING_API_SECRET,
+        broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
+        broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
     ) -> None:
         """
         Initialize optitrader instance.
@@ -63,7 +68,15 @@ class Optitrader:
         self.investment_universe = InvestmentUniverse(tickers=tickers, name=universe_name)
         self.objectives = objectives
         self.constraints = constraints or [SumToOneConstraint(), NoShortSellConstraint()]
-        self.market_data = market_data or MarketData()
+        assert (
+            market_data or (trading_key and trading_secret) or (broker_key and broker_secret)
+        ), "You must pass either a MarketData instance, the Trading API keys or Broker API keys."
+        self.market_data = market_data or MarketData(
+            trading_key=trading_key,
+            trading_secret=trading_secret,
+            broker_key=broker_key,
+            broker_secret=broker_secret,
+        )
 
     def add_constraint(self, constraint: PortfolioConstraint) -> None:
         """Add a constraint."""

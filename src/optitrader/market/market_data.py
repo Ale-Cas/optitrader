@@ -46,7 +46,7 @@ class MarketData:
             broker_secret=broker_secret,
         )
         self.__yahoo_client = YahooMarketData()
-        self.__finnhub = FinnhubClient()
+        self.__finnhub = FinnhubClient() if SETTINGS.FINHUB_API_KEY else None
         provider_mapping: dict[DataProvider, BaseDataProvider] = {
             DataProvider.ALPACA: self.__alpaca_client,
             DataProvider.YAHOO: self.__yahoo_client,
@@ -167,7 +167,7 @@ class MarketData:
         """
         duplicate_fields = set(_YahooFinnhubCommon.__fields__.keys())
         apca_asset = self.__alpaca_client.get_alpaca_asset(ticker)
-        finnhub_asset = self.__finnhub.get_asset_profile(ticker)
+        finnhub_asset = self.__finnhub.get_asset_profile(ticker) if self.__finnhub else None
         yahoo_asset = self.__yahoo_client.get_yahoo_asset(ticker)
         return AssetModel(
             **apca_asset.dict(exclude_none=True),

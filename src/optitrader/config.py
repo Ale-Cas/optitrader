@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     ALPACA_BROKER_API_SECRET: str | None = None
 
     # FINNHUB
-    FINHUB_API_KEY: str
+    FINHUB_API_KEY: str | None = None
 
     # OPTIMIZATION SETTINGS
     # this means that if the portfolio's weights sum to 0.99 instead of 1 is accepted
