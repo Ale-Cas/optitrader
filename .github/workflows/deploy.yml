@@ -1,6 +1,0 @@
-- name: Build and publish to pypi
-  uses: JRubics/poetry-publish@v1.17
-  with:
-    pypi_token: ${{ secrets.PYPI_TOKEN }}
-    repository_name: "optitrader"
-    repository_url: "https://github.com/Ale-Cas/optitrader"
