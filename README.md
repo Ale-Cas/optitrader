@@ -1,21 +1,25 @@
+<div align="center">
+
+<h1> Optitrader </h1>
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://optitrader.streamlit.app/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.24.0-FF4B4B.svg?style=flat&logo=Streamlit&logoColor=white)](https://streamlit.io)
+
 ![Build](https://github.com/Ale-Cas/optitrader/actions/workflows/test.yml/badge.svg)
 [![python](https://img.shields.io/badge/Python-3.10-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 [![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 [![codecov](https://codecov.io/github/Ale-Cas/optitrader/branch/master/graph/badge.svg?token=F0COJXH0IJ)](https://codecov.io/github/Ale-Cas/optitrader)
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optitrader)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.24.0-FF4B4B.svg?style=flat&logo=Streamlit&logoColor=white)](https://streamlit.io)
+
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Pydantic v1](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/5697b1e4c4a9790ece607654e6c02a160620c7e1/docs/badge/v1.json)](https://pydantic.dev)
 [![jupyter](https://img.shields.io/badge/Jupyter-Lab-F37626.svg?style=flat&logo=Jupyter)](https://jupyterlab.readthedocs.io/en/stable)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.63.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
+</div>
 
+Optitrader is an open-source Python package designed for portfolio optimization, quantitative finance, and algorithmic trading. It empowers users with a wide array of tools to effortlessly construct personalized portfolios, thoroughly analyze optimization outcomes, and seamlessly execute trades using [Alpaca's Trading API](https://alpaca.markets/docs/trading/).
 
-# optitrader
-
-## Description 
-
-optitrader is an open-source Python package for portfolio optimization and quantitative finance applications. 
-It is meant to provide a comprehensive suite of tools to easily build a custom portfolio, analyze the optimization results and it also supports the trade execution by leveraging [Alpaca's Trading API](https://alpaca.markets/docs/trading/).
+Accessible through an intuitive web-based [Streamlit](https://streamlit.io/) dashboard hosted at https://optitrader.streamlit.app, Optitrader enables users to interact with its rich features and harness the potential of portfolio optimization and algorithmic trade execution.
 
 ## Using
 
