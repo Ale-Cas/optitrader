@@ -67,7 +67,7 @@ and you can use the available methods of the [Portfolio class](src/optitrader/po
 ```python
 optimal_ptf.pie_plot()
 ```
-![pie plot result](https://github.com/Ale-Cas/optitrader/assets/64859146/d369bdbf-f4dd-44b5-b8d8-8156604caec6)
+![pieplot](https://github.com/Ale-Cas/optitrader/assets/64859146/3728507d-8f5d-472e-8131-129e2d54c211)
 
 
 
