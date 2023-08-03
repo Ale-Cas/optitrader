@@ -1,0 +1,231 @@
+{
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "GET",
+                "uri": "https://query2.finance.yahoo.com/v6/finance/quoteSummary/INVALIDTICKER?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com",
+                "body": null,
+                "headers": {
+                    "User-Agent": [
+                        "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"
+                    ],
+                    "accept-encoding": [
+                        "gzip, deflate, br"
+                    ],
+                    "accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "accept-language": [
+                        "en-US,en;q=0.9"
+                    ],
+                    "origin": [
+                        "https://finance.yahoo.com"
+                    ],
+                    "referer": [
+                        "https://finance.yahoo.com"
+                    ],
+                    "sec-fetch-dest": [
+                        "empty"
+                    ],
+                    "sec-fetch-mode": [
+                        "cors"
+                    ],
+                    "sec-fetch-site": [
+                        "same-site"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 404,
+                    "message": "Not Found"
+                },
+                "headers": {
+                    "Strict-Transport-Security": [
+                        "max-age=31536000"
+                    ],
+                    "access-control-allow-credentials": [
+                        "true"
+                    ],
+                    "X-XSS-Protection": [
+                        "1; mode=block"
+                    ],
+                    "Cache-Control": [
+                        "max-age=0, private"
+                    ],
+                    "date": [
+                        "Thu, 03 Aug 2023 13:24:13 GMT"
+                    ],
+                    "Expect-CT": [
+                        "max-age=31536000, report-uri=\"http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only\""
+                    ],
+                    "x-request-id": [
+                        "299983f4-46c5-42e3-8f38-e75fa8ba0801"
+                    ],
+                    "Age": [
+                        "0"
+                    ],
+                    "x-yahoo-request-id": [
+                        "2nrj5s1icnajt"
+                    ],
+                    "content-length": [
+                        "141"
+                    ],
+                    "y-rid": [
+                        "2nrj5s1icnajt"
+                    ],
+                    "Expires": [
+                        "-1"
+                    ],
+                    "server": [
+                        "ATS"
+                    ],
+                    "X-Content-Type-Options": [
+                        "nosniff"
+                    ],
+                    "access-control-allow-origin": [
+                        "https://finance.yahoo.com"
+                    ],
+                    "x-envoy-upstream-service-time": [
+                        "2"
+                    ],
+                    "vary": [
+                        "Origin"
+                    ],
+                    "x-envoy-decorator-operation": [
+                        "finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*"
+                    ],
+                    "content-type": [
+                        "application/json;charset=utf-8"
+                    ],
+                    "Referrer-Policy": [
+                        "no-referrer-when-downgrade"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                },
+                "body": {
+                    "string": "{\"quoteSummary\":{\"symbols\":null,\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for ticker symbol: INVALIDTICKER\"}}}"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "GET",
+                "uri": "https://query2.finance.yahoo.com/v6/finance/quoteSummary/INVALIDTICKER?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com",
+                "body": null,
+                "headers": {
+                    "User-Agent": [
+                        "Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"
+                    ],
+                    "accept-encoding": [
+                        "gzip, deflate, br"
+                    ],
+                    "accept": [
+                        "*/*"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ],
+                    "accept-language": [
+                        "en-US,en;q=0.9"
+                    ],
+                    "origin": [
+                        "https://finance.yahoo.com"
+                    ],
+                    "referer": [
+                        "https://finance.yahoo.com"
+                    ],
+                    "sec-fetch-dest": [
+                        "empty"
+                    ],
+                    "sec-fetch-mode": [
+                        "cors"
+                    ],
+                    "sec-fetch-site": [
+                        "same-site"
+                    ]
+                }
+            },
+            "response": {
+                "status": {
+                    "code": 404,
+                    "message": "Not Found"
+                },
+                "headers": {
+                    "Strict-Transport-Security": [
+                        "max-age=31536000"
+                    ],
+                    "access-control-allow-credentials": [
+                        "true"
+                    ],
+                    "X-XSS-Protection": [
+                        "1; mode=block"
+                    ],
+                    "Cache-Control": [
+                        "max-age=0, private"
+                    ],
+                    "date": [
+                        "Thu, 03 Aug 2023 13:24:13 GMT"
+                    ],
+                    "Expect-CT": [
+                        "max-age=31536000, report-uri=\"http://csp.yahoo.com/beacon/csp?src=yahoocom-expect-ct-report-only\""
+                    ],
+                    "x-request-id": [
+                        "ad514736-318b-4858-9299-950251d4640b"
+                    ],
+                    "Age": [
+                        "0"
+                    ],
+                    "x-yahoo-request-id": [
+                        "5pp5a21icnajt"
+                    ],
+                    "content-length": [
+                        "141"
+                    ],
+                    "y-rid": [
+                        "5pp5a21icnajt"
+                    ],
+                    "Expires": [
+                        "-1"
+                    ],
+                    "server": [
+                        "ATS"
+                    ],
+                    "X-Content-Type-Options": [
+                        "nosniff"
+                    ],
+                    "access-control-allow-origin": [
+                        "https://finance.yahoo.com"
+                    ],
+                    "x-envoy-upstream-service-time": [
+                        "1"
+                    ],
+                    "vary": [
+                        "Origin"
+                    ],
+                    "x-envoy-decorator-operation": [
+                        "finance-company-fundamentals-api--mtls-production-ir2.finance-k8s.svc.yahoo.local:4080/*"
+                    ],
+                    "content-type": [
+                        "application/json;charset=utf-8"
+                    ],
+                    "Referrer-Policy": [
+                        "no-referrer-when-downgrade"
+                    ],
+                    "Connection": [
+                        "keep-alive"
+                    ]
+                },
+                "body": {
+                    "string": "{\"quoteSummary\":{\"symbols\":null,\"result\":null,\"error\":{\"code\":\"Not Found\",\"description\":\"Quote not found for ticker symbol: INVALIDTICKER\"}}}"
+                }
+            }
+        }
+    ]
+}

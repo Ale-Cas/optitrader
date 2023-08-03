@@ -17,7 +17,7 @@ from optitrader.models import AssetModel
 
 my_vcr = vcr.VCR(
     serializer="json",
-    cassette_library_dir="fixtures/cassettes",
+    cassette_library_dir="tests/cassettes",
     record_mode="once",
     match_on=["method", "scheme", "host", "port", "path"],
 )
