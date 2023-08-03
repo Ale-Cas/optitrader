@@ -65,9 +65,6 @@ class Optitrader:
             The market data instance to get the data from,
             you can pass your own with your API keys and preferred data provider.
         """
-        self.investment_universe = InvestmentUniverse(tickers=tickers, name=universe_name)
-        self.objectives = objectives
-        self.constraints = constraints or [SumToOneConstraint(), NoShortSellConstraint()]
         assert (
             market_data or (trading_key and trading_secret) or (broker_key and broker_secret)
         ), "You must pass either a MarketData instance, the Trading API keys or Broker API keys."
@@ -77,6 +74,9 @@ class Optitrader:
             broker_key=broker_key,
             broker_secret=broker_secret,
         )
+        self.investment_universe = InvestmentUniverse(tickers=tickers, name=universe_name)
+        self.objectives = objectives
+        self.constraints = constraints or [SumToOneConstraint(), NoShortSellConstraint()]
 
     def add_constraint(self, constraint: PortfolioConstraint) -> None:
         """Add a constraint."""
