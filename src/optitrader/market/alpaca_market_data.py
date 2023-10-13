@@ -22,12 +22,12 @@ class AlpacaMarketData(BaseDataProvider):
         trading_secret: str | None = SETTINGS.ALPACA_TRADING_API_SECRET,
         broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
         broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
+        use_news_client: bool = False,
     ) -> None:
         super().__init__()
         is_trading = trading_key and trading_secret
-        is_broker = broker_key and broker_secret
-        assert (
-            is_trading or is_broker
+        assert is_trading or (
+            broker_key and broker_secret
         ), "Either Trading API or Broker API keys must be provided to use this service."
         self.__data_client = (
             StockHistoricalDataClient(
@@ -57,7 +57,7 @@ class AlpacaMarketData(BaseDataProvider):
                 api_key=broker_key,
                 secret_key=broker_secret,
             )
-            if is_broker
+            if use_news_client
             else None
         )
 
@@ -222,7 +222,7 @@ class AlpacaMarketData(BaseDataProvider):
     def get_asset_by_name(self, name: str) -> Asset:
         """Get an asset by its name."""
         assets = self.get_alpaca_assets()
-        search_result = [a for a in assets if name in str(a.name)][0]
+        search_result = next(a for a in assets if name in str(a.name))
         assert isinstance(search_result, Asset), f"{name} not found."
         return search_result
 

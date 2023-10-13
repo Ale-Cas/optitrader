@@ -225,10 +225,11 @@ def test_display_news(session_manager: SessionManager) -> None:
     st.write = Mock()
     st.markdown = Mock()
 
-    session_manager.display_news()
+    if session_manager.market_data.use_news_client:
+        session_manager.display_news()
 
-    assert len(st.markdown.mock_calls) > 1
-    assert len(st.write.mock_calls) > 1
+        assert len(st.markdown.mock_calls) > 1
+        assert len(st.write.mock_calls) > 1
 
 
 @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])

@@ -34,16 +34,19 @@ class MarketData:
         broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
         broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
         use_db: bool = True,
+        use_news_client: bool = False,
     ) -> None:
         self._trading_key = trading_key
         self._trading_secret = trading_secret
         self._broker_key = broker_key
         self._broker_secret = broker_secret
+        self.use_news_client = use_news_client
         self.__alpaca_client = AlpacaMarketData(
             trading_key=trading_key,
             trading_secret=trading_secret,
             broker_key=broker_key,
             broker_secret=broker_secret,
+            use_news_client=use_news_client,
         )
         self.__yahoo_client = YahooMarketData()
         self.__finnhub = FinnhubClient() if SETTINGS.FINHUB_API_KEY else None

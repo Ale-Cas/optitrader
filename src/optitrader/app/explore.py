@@ -115,4 +115,5 @@ def main() -> None:
             use_container_width=True,
             height=400,
         )
-    session.display_news()
+    if session.market_data.use_news_client:
+        session.display_news()

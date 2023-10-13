@@ -51,11 +51,13 @@ class MarketDB:
     def get_asset(self, ticker: str) -> AssetModel:
         """Get the asset model from the table by ticker."""
         return AssetModel.from_orm(
-            list(
-                self.session.execute(select(Asset).where(Asset.ticker == ticker))
-                .scalars()
-                .fetchall()
-            )[0]
+            next(
+                iter(
+                    self.session.execute(select(Asset).where(Asset.ticker == ticker))
+                    .scalars()
+                    .fetchall()
+                )
+            )
         )
 
     def get_asset_models(

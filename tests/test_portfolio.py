@@ -34,7 +34,7 @@ def test_portfolio_repr() -> None:
     _rep = repr(ptf)
     assert isinstance(_rep, str)
     assert ptf.__class__.__name__ in _rep
-    assert list(test_w.keys())[0] in _rep
+    assert next(iter(test_w.keys())) in _rep
     assert ObjectiveName.CVAR.value in _rep
 
 
