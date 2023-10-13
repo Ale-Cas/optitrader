@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "optitrader"
-version = "0.0.5"
-description = "Optitrader is an opne-source Python package for portfolio optimization. "
+version = "0.1.0"
+description = "Optitrader is an open-source Python package for portfolio optimization and algorithmic trading. "
 authors = ["Alessio Castrica <castricaalessio@gmail.com>"]
 readme = "README.md"
 repository = "https://github.com/Ale-Cas/optitrader"
