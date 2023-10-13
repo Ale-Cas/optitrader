@@ -78,7 +78,7 @@ def test_optitrader_invalid_market_data(
     test_end_date: pd.Timestamp,
 ) -> None:
     """Test optimal portfolio."""
-    with pytest.raises(expected_exception=APIError, match="forbidden"):
+    with pytest.raises(expected_exception=APIError, match="Forbidden"):
         Optitrader(
             objectives=[ExpectedReturnsObjectiveFunction()],
             tickers=test_tickers,

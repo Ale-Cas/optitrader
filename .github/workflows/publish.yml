@@ -1,9 +1,6 @@
 name: Publish
 on:
   push:
-    branches:
-      - main
-      - master
     tags:
       - "v*.*.*"
 jobs:
@@ -23,4 +20,3 @@ jobs:
         uses: JRubics/poetry-publish@v1.17
         with:
           pypi_token: ${{ secrets.PYPI_TOKEN }}
-          plugins: "poetry-dynamic-versioning-plugin"
