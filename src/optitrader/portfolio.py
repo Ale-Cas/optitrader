@@ -155,7 +155,11 @@ class Portfolio:
         """
         end_date = end_date or pd.Timestamp.today()
         start_date = start_date or end_date - pd.Timedelta(days=365)
-        history = self.get_history(start_date=start_date, end_date=end_date)
+        history = (
+            self.get_history(start_date=start_date, end_date=end_date)
+            if len(self.get_tickers()) > 0
+            else pd.Series()
+        )
         return px.line(
             data_frame=history,
             x=history.index,
