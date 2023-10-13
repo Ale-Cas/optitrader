@@ -25,8 +25,9 @@ class AlpacaMarketData(BaseDataProvider):
     ) -> None:
         super().__init__()
         is_trading = trading_key and trading_secret
-        assert is_trading or (
-            broker_key and broker_secret
+        is_broker = broker_key and broker_secret
+        assert (
+            is_trading or is_broker
         ), "Either Trading API or Broker API keys must be provided to use this service."
         self.__data_client = (
             StockHistoricalDataClient(
@@ -51,7 +52,14 @@ class AlpacaMarketData(BaseDataProvider):
                 secret_key=broker_secret,
             )
         )
-        self.__news_client: AlpacaNewsAPI = AlpacaNewsAPI()
+        self.__news_client: AlpacaNewsAPI | None = (
+            AlpacaNewsAPI(
+                api_key=broker_key,
+                secret_key=broker_secret,
+            )
+            if is_broker
+            else None
+        )
 
     def get_bars(
         self,
@@ -228,6 +236,7 @@ class AlpacaMarketData(BaseDataProvider):
         exclude_contentless: bool = True,
     ) -> list[NewsArticle]:
         """Get news articles."""
+        assert self.__news_client, "News client is not defined."
         return self.__news_client.get_news(
             tickers=tickers,
             start=start,
@@ -247,6 +256,7 @@ class AlpacaMarketData(BaseDataProvider):
         exclude_contentless: bool = True,
     ) -> pd.DataFrame:
         """Get news articles in a df."""
+        assert self.__news_client, "News client is not defined."
         return self.__news_client.get_news_df(
             tickers=tickers,
             start=start,
