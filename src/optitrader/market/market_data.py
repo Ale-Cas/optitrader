@@ -15,7 +15,6 @@ from optitrader.market.alpaca_market_data import AlpacaMarketData, Asset
 from optitrader.market.base_data_provider import BaseDataProvider
 from optitrader.market.db.database import MarketDB
 from optitrader.market.finnhub_market_data import FinnhubClient
-from optitrader.market.news import NewsArticle
 from optitrader.market.yahoo_market_data import YahooMarketData
 from optitrader.models.asset import AssetModel, _YahooFinnhubCommon
 
@@ -34,19 +33,16 @@ class MarketData:
         broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
         broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
         use_db: bool = True,
-        use_news_client: bool = False,
     ) -> None:
         self._trading_key = trading_key
         self._trading_secret = trading_secret
         self._broker_key = broker_key
         self._broker_secret = broker_secret
-        self.use_news_client = use_news_client
         self.__alpaca_client = AlpacaMarketData(
             trading_key=trading_key,
             trading_secret=trading_secret,
             broker_key=broker_key,
             broker_secret=broker_secret,
-            use_news_client=use_news_client,
         )
         self.__yahoo_client = YahooMarketData()
         self.__finnhub = FinnhubClient() if SETTINGS.FINHUB_API_KEY else None
@@ -415,41 +411,3 @@ class MarketData:
     ) -> tuple[str, ...]:
         """Get the tickers with the top market cap."""
         return tuple(self.get_top_market_caps(tickers=tickers, top=top).index)
-
-    def get_news(
-        self,
-        tickers: tuple[str, ...],
-        start: pd.Timestamp | None = None,
-        end: pd.Timestamp | None = None,
-        limit: int = 5,
-        include_content: bool = True,
-        exclude_contentless: bool = True,
-    ) -> list[NewsArticle]:
-        """Get news articles."""
-        return self.__alpaca_client.get_news(
-            tickers=tickers,
-            start=start,
-            end=end,
-            limit=limit,
-            include_content=include_content,
-            exclude_contentless=exclude_contentless,
-        )
-
-    def get_news_df(
-        self,
-        tickers: tuple[str, ...],
-        start: pd.Timestamp | None = None,
-        end: pd.Timestamp | None = None,
-        limit: int = 5,
-        include_content: bool = True,
-        exclude_contentless: bool = True,
-    ) -> pd.DataFrame:
-        """Get news articles in a df."""
-        return self.__alpaca_client.get_news_df(
-            tickers=tickers,
-            start=start,
-            end=end,
-            limit=limit,
-            include_content=include_content,
-            exclude_contentless=exclude_contentless,
-        )

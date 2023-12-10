@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 def main() -> None:
     """Run dashboard."""
-    page = Page(name="Explore financial data & news")
+    page = Page(name="Explore financial data")
     page.display_title()
     asset = session.market_data.get_asset(ticker=session.ticker)
     submitted = False
@@ -115,5 +115,3 @@ def main() -> None:
             use_container_width=True,
             height=400,
         )
-    if session.market_data.use_news_client:
-        session.display_news()

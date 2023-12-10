@@ -12,7 +12,6 @@ from optitrader.enums import UniverseName
 from optitrader.market import InvestmentUniverse, MarketData
 from optitrader.market.base_data_provider import BaseDataProvider
 from optitrader.market.db.database import MarketDB
-from optitrader.market.news import AlpacaNewsAPI
 from optitrader.models import AssetModel
 
 my_vcr = vcr.VCR(
@@ -25,9 +24,9 @@ my_vcr = vcr.VCR(
 
 def test_base_provider() -> None:
     """Test BaseDataProvider."""
-    with pytest.raises(TypeError, match="Protocols cannot be instantiated"):
+    with pytest.raises(TypeError, match="Can't instantiate abstract class BaseDataProvider"):
         BaseDataProvider()  # type: ignore
-    with pytest.raises(TypeError, match="Protocols cannot be instantiated"):
+    with pytest.raises(TypeError, match="Can't instantiate abstract class BaseDataProvider"):
         super(BaseDataProvider, BaseDataProvider()).__init__()  # type: ignore
 
 
@@ -210,12 +209,3 @@ def test_investment_universe_with_top_market_cap(
         top=_top, tickers=InvestmentUniverse(name=UniverseName.FAANG).tickers
     )
     assert len(tickers) == _top
-
-
-@pytest.mark.my_vcr()
-def test_get_news_df() -> None:
-    """Test get_news_df method."""
-    news_client = AlpacaNewsAPI()
-    test_ticker: tuple[str, ...] = ("AAPL",)
-    news = news_client.get_news_df(tickers=test_ticker)
-    assert isinstance(news, pd.DataFrame)

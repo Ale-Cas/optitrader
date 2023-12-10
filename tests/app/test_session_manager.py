@@ -220,19 +220,6 @@ def test_display_financials(session_manager: SessionManager) -> None:
 
 
 @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
-def test_display_news(session_manager: SessionManager) -> None:
-    """Test for the display_news method of SessionManager class."""
-    st.write = Mock()
-    st.markdown = Mock()
-
-    if session_manager.market_data.use_news_client:
-        session_manager.display_news()
-
-        assert len(st.markdown.mock_calls) > 1
-        assert len(st.write.mock_calls) > 1
-
-
-@pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
 def test_display_trader_portfolio(session_manager: SessionManager) -> None:
     """Test for the display_trader_portfolio method of SessionManager class."""
     st.metric = Mock()

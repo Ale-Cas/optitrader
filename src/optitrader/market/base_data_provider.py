@@ -1,18 +1,19 @@
 """Module with data provider base class."""
 
-from typing import Protocol
+from abc import ABC, abstractmethod
 
 import pandas as pd
 
 from optitrader.enums import BarsField
 
 
-class BaseDataProvider(Protocol):
+class BaseDataProvider(ABC):
     """Abstract base class for a data provider."""
 
     def __init__(self) -> None:
         super().__init__()
 
+    @abstractmethod
     def get_bars(
         self,
         tickers: tuple[str, ...],
@@ -21,6 +22,7 @@ class BaseDataProvider(Protocol):
     ) -> pd.DataFrame:
         """Get bars from the data provider."""
 
+    @abstractmethod
     def get_prices(
         self,
         tickers: tuple[str, ...],

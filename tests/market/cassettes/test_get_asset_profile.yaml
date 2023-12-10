@@ -15,8 +15,8 @@ interactions:
   response:
     body:
       string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NASDAQ
-        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1980-12-12","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg","marketCapitalization":2984835.8357676417,"name":"Apple
-        Inc","phone":"14089961010.0","shareOutstanding":15728.7,"ticker":"AAPL","weburl":"https://www.apple.com/"}'
+        NMS - GLOBAL MARKET","finnhubIndustry":"Technology","ipo":"1980-12-12","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.svg","marketCapitalization":3043829.09,"name":"Apple
+        Inc","phone":"14089961010","shareOutstanding":15552.75,"ticker":"AAPL","weburl":"https://www.apple.com/"}'
     headers:
       Access-Control-Allow-Credentials:
       - 'true'
@@ -31,11 +31,11 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '397'
+      - '388'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 12 Jul 2023 23:43:52 GMT
+      - Sun, 10 Dec 2023 16:59:56 GMT
       Server:
       - nginx/1.18.0
       X-Ratelimit-Limit:
@@ -43,7 +43,7 @@ interactions:
       X-Ratelimit-Remaining:
       - '59'
       X-Ratelimit-Reset:
-      - '1689205492'
+      - '1702227656'
     status:
       code: 200
       message: OK

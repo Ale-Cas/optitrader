@@ -10,7 +10,6 @@ from alpaca.trading import Asset, AssetClass, AssetStatus, GetAssetsRequest, Tra
 from optitrader.config import SETTINGS
 from optitrader.enums import BarsField
 from optitrader.market.base_data_provider import BaseDataProvider
-from optitrader.market.news import AlpacaNewsAPI, NewsArticle
 
 
 class AlpacaMarketData(BaseDataProvider):
@@ -22,7 +21,6 @@ class AlpacaMarketData(BaseDataProvider):
         trading_secret: str | None = SETTINGS.ALPACA_TRADING_API_SECRET,
         broker_key: str | None = SETTINGS.ALPACA_BROKER_API_KEY,
         broker_secret: str | None = SETTINGS.ALPACA_BROKER_API_SECRET,
-        use_news_client: bool = False,
     ) -> None:
         super().__init__()
         is_trading = trading_key and trading_secret
@@ -51,14 +49,6 @@ class AlpacaMarketData(BaseDataProvider):
                 api_key=broker_key,
                 secret_key=broker_secret,
             )
-        )
-        self.__news_client: AlpacaNewsAPI | None = (
-            AlpacaNewsAPI(
-                api_key=broker_key,
-                secret_key=broker_secret,
-            )
-            if use_news_client
-            else None
         )
 
     def get_bars(
@@ -225,43 +215,3 @@ class AlpacaMarketData(BaseDataProvider):
         search_result = next(a for a in assets if name in str(a.name))
         assert isinstance(search_result, Asset), f"{name} not found."
         return search_result
-
-    def get_news(
-        self,
-        tickers: tuple[str, ...],
-        start: pd.Timestamp | None = None,
-        end: pd.Timestamp | None = None,
-        limit: int = 5,
-        include_content: bool = True,
-        exclude_contentless: bool = True,
-    ) -> list[NewsArticle]:
-        """Get news articles."""
-        assert self.__news_client, "News client is not defined."
-        return self.__news_client.get_news(
-            tickers=tickers,
-            start=start,
-            end=end,
-            limit=limit,
-            include_content=include_content,
-            exclude_contentless=exclude_contentless,
-        )
-
-    def get_news_df(
-        self,
-        tickers: tuple[str, ...],
-        start: pd.Timestamp | None = None,
-        end: pd.Timestamp | None = None,
-        limit: int = 5,
-        include_content: bool = True,
-        exclude_contentless: bool = True,
-    ) -> pd.DataFrame:
-        """Get news articles in a df."""
-        assert self.__news_client, "News client is not defined."
-        return self.__news_client.get_news_df(
-            tickers=tickers,
-            start=start,
-            end=end,
-            limit=limit,
-            include_content=include_content,
-            exclude_contentless=exclude_contentless,
-        )

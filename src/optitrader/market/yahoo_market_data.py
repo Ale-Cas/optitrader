@@ -124,7 +124,8 @@ class YahooMarketData(BaseDataProvider):
 
     def get_number_of_shares(self, ticker: str) -> int:
         """Get the sharesOutstanding field from yahoo query."""
-        _shares = Ticker(self.parse_ticker_for_yahoo(ticker)).key_stats[ticker]
+        yf_stats = Ticker(self.parse_ticker_for_yahoo(ticker)).key_stats
+        _shares = yf_stats.get(ticker, None)
         return int(_shares["sharesOutstanding"]) if isinstance(_shares, dict) else 0
 
     def get_multi_number_of_shares(self, tickers: tuple[str, ...]) -> pd.Series:
@@ -136,7 +137,7 @@ class YahooMarketData(BaseDataProvider):
                 self.parse_ticker_from_yahoo(ticker): int(
                     y_tickers.key_stats[ticker]["sharesOutstanding"]
                 )
-                if isinstance(y_tickers.key_stats[ticker], dict)
+                if isinstance(y_tickers.key_stats.get(ticker, None), dict)
                 else 0
                 for ticker in tickers
             }
@@ -170,5 +171,8 @@ class YahooMarketData(BaseDataProvider):
             frequency="q",
             trailing=False,
         )
-        assert isinstance(fin_df, pd.DataFrame)
-        return fin_df.pivot_table(values=financial_item.value, index="asOfDate", columns="symbol")
+        return (
+            fin_df.pivot_table(values=financial_item.value, index="asOfDate", columns="symbol")
+            if isinstance(fin_df, pd.DataFrame)
+            else pd.DataFrame()
+        )
