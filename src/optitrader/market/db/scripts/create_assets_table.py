@@ -7,7 +7,7 @@ from tqdm import tqdm
 from optitrader.market.db.database import MarketDB
 from optitrader.market.market_data import MarketData
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 

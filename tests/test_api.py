@@ -27,7 +27,7 @@ def test_read_root() -> None:
 @pytest.mark.timeout(10)
 def test_post_optimization(optimization_request: OptimizationRequest) -> None:
     """Test the post optimization endpoint."""
-    response = client.post("/optimization", json=json.loads(optimization_request.json()))
+    response = client.post("/optimization", json=json.loads(optimization_request.model_dump_json()))
     assert httpx.codes.is_success(response.status_code)
     response_model = OptimizationResponse(**response.json())
     assert response_model.objective_values[0].name == optimization_request.objectives[0].name
@@ -40,7 +40,7 @@ def test_post_optimization(optimization_request: OptimizationRequest) -> None:
 def test_post_optimization_invalid_body(optimization_request: OptimizationRequest) -> None:
     """Test the post optimization endpoint."""
     optimization_request.universe_name = None
-    response = client.post("/optimization", json=json.loads(optimization_request.json()))
+    response = client.post("/optimization", json=json.loads(optimization_request.model_dump_json()))
     assert httpx.codes.is_error(response.status_code)
     assert response.status_code == httpx.codes.UNPROCESSABLE_ENTITY
 
@@ -51,7 +51,9 @@ def test_post_optimization_with_fixed_dates(
     optimization_request_w_dates: OptimizationRequest,
 ) -> None:
     """Test the post optimization endpoint."""
-    response = client.post("/optimization", json=json.loads(optimization_request_w_dates.json()))
+    response = client.post(
+        "/optimization", json=json.loads(optimization_request_w_dates.model_dump_json())
+    )
     assert httpx.codes.is_success(response.status_code)
     response_model = OptimizationResponse(**response.json())
     assert (

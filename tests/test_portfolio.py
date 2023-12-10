@@ -51,13 +51,14 @@ def test_portfolio_repr_with_dict_weights() -> None:
 
 
 def test_portfolio_repr_with_invalid_weights() -> None:
-    """Test portfolio representation."""
+    """Test portfolio assertion error."""
     with pytest.raises(AssertionError):
         Portfolio(
             weights={
                 "MSFT": 0.3,
                 "TSLA": 0.5,
-            }
+            },
+            rescale_weights=False,
         )
 
 

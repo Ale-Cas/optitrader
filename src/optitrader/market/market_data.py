@@ -18,7 +18,7 @@ from optitrader.market.finnhub_market_data import FinnhubClient
 from optitrader.market.yahoo_market_data import YahooMarketData
 from optitrader.models.asset import AssetModel, _YahooFinnhubCommon
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -164,19 +164,19 @@ class MarketData:
         `asset`
             AssetModel data model.
         """
-        duplicate_fields = set(_YahooFinnhubCommon.__fields__.keys())
+        duplicate_fields = set(_YahooFinnhubCommon.model_fields)
         apca_asset = self.__alpaca_client.get_alpaca_asset(ticker)
         finnhub_asset = self.__finnhub.get_asset_profile(ticker) if self.__finnhub else None
         yahoo_asset = self.__yahoo_client.get_yahoo_asset(ticker)
         return AssetModel(
-            **apca_asset.dict(exclude_none=True),
-            **yahoo_asset.dict(
+            **apca_asset.model_dump(exclude_none=True),
+            **yahoo_asset.model_dump(
                 exclude=duplicate_fields,
                 exclude_none=True,
             )
             if yahoo_asset
             else {},
-            **finnhub_asset.dict(
+            **finnhub_asset.model_dump(
                 exclude=duplicate_fields,
                 exclude_none=True,
             )
@@ -295,7 +295,7 @@ class MarketData:
         """
         if self.use_db:
             return self._db.get_assets_df(tickers)
-        return pd.DataFrame([a.dict() for a in self.get_assets(tickers)])
+        return pd.DataFrame([a.model_dump() for a in self.get_assets(tickers)])
 
     @lru_cache  # noqa: B019
     def get_financials(self, ticker: str) -> pd.DataFrame:

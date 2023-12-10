@@ -33,7 +33,7 @@ def test_get_yahoo_asset_profile_returning_none() -> None:
         mock_ticker.return_value.asset_profile = None
         asset = client.get_yahoo_asset(ticker=t)
     assert isinstance(asset, YahooAssetModel)
-    assert all(a is None for a in asset.dict().values())
+    assert all(a is None for a in asset.model_dump().values())
 
 
 @pytest.mark.my_vcr()
