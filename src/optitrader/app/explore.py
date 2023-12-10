@@ -8,7 +8,7 @@ import streamlit as st
 from optitrader.app import Page, session
 from optitrader.utils import remove_punctuation
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -78,8 +78,8 @@ def main() -> None:
     if asset.business_summary:
         with st.expander("Business summary"):
             st.write(asset.business_summary)
-    price = prices[-1]
-    last_price = prices[-2]
+    price = prices.iloc[-1]
+    last_price = prices.iloc[-2]
     prev_market_cap = round(asset.number_of_shares * last_price / 1e6, 2)
     market_cap = round(asset.number_of_shares * price / 1e6, 2)
     col1, col2, col3 = st.columns(3)

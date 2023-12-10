@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 import cvxpy as cp
 import numpy as np
 import pandas as pd
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from optitrader.enums import ObjectiveName
 
@@ -26,11 +26,7 @@ class OptimizationVariables(_BaseObjectiveModel):
     """Objective optimization variables."""
 
     minimize: cp.Minimize
-
-    class Config:
-        """Configuration."""
-
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
 
 class PortfolioObjective(metaclass=ABCMeta):

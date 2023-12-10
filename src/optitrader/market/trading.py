@@ -13,7 +13,7 @@ from optitrader.config import SETTINGS
 from optitrader.market.market_data import MarketData
 from optitrader.portfolio import Portfolio
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -47,7 +47,7 @@ class AlpacaTrading(TradingClient):
         """Get Portfolio from starting positions."""
         pos = self.get_all_positions()
         assert isinstance(pos, list)
-        _pos_series = pd.Series({p.symbol: float(p.market_value) for p in pos})
+        _pos_series = pd.Series({p.symbol: float(p.market_value) for p in pos if p.market_value})
         return Portfolio(weights=_pos_series / _pos_series.sum(), market_data=self.market_data)
 
     def get_account_portfolio_history(self) -> pd.DataFrame:
@@ -84,7 +84,7 @@ class AlpacaTrading(TradingClient):
         )
         assert isinstance(orders, list)
         _idx = "symbol"
-        df = pd.DataFrame([o.dict() for o in orders])
+        df = pd.DataFrame([o.model_dump() for o in orders])
         if _idx in df.columns:
             return df.set_index(["symbol"])
         return df

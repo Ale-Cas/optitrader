@@ -10,7 +10,7 @@ from optitrader.enums.market import BalanceSheetItem, BarsField, CashFlowItem, I
 from optitrader.market.base_data_provider import BaseDataProvider
 from optitrader.models.asset import YahooAssetModel
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 

@@ -56,4 +56,4 @@ def test_compute_history_values(
     history_values = backtester.compute_history_values()
     assert isinstance(history_values, pd.Series)
     assert not history_values.empty
-    assert history_values[0] == 1
+    assert history_values.iloc[0] == 1

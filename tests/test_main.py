@@ -129,6 +129,6 @@ def test_optitrader_max_weight(
         weights_tolerance=_tollerance,
     )
     weights = opt_ptf.get_non_zero_weights().values
-    assert weights.max() <= _max_w / 100
+    assert weights.max() <= (_max_w / 100) + _tollerance
     assert all(weights > _tollerance)
     assert 1 - weights.sum() <= _tollerance

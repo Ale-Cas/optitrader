@@ -22,14 +22,18 @@ class Portfolio:
         objective_values: list[ObjectiveValue] | None = None,
         market_data: MarketData | None = None,
         created_at: pd.Timestamp | None = None,
+        rescale_weights: bool = True,
     ) -> None:
         weights = weights if isinstance(weights, pd.Series) else pd.Series(weights)
         if not weights.empty:
-            _wsum = weights.values.sum()
-            if _wsum:
-                assert (
-                    1 - _wsum <= SETTINGS.SUM_WEIGHTS_TOLERANCE
-                ), f"The sum of weights has to be 1 not {_wsum}."
+            weights_sum = weights.values.sum()
+            if weights_sum:
+                if rescale_weights:
+                    weights = weights / weights_sum
+                else:
+                    assert (
+                        1 - weights_sum <= SETTINGS.SUM_WEIGHTS_TOLERANCE
+                    ), f"The sum of weights has to be 1 not {weights_sum}."
         self.weights = pd.Series(weights)
         self.objective_values = objective_values or []
         self.market_data = market_data

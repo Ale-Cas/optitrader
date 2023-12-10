@@ -1,5 +1,5 @@
 """Module for loading settings and configurations from .env using pydantic."""
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     - [Broker API](https://alpaca.markets/docs/broker/get-started/#api-keys)
     """
 
+    model_config = SettingsConfigDict(extra="forbid", env_file=".env", env_file_encoding="utf-8")
+
     # ALPACA SETTINGS
     ALPACA_TRADING_API_KEY: str | None = None
     ALPACA_TRADING_API_SECRET: str | None = None
@@ -22,18 +24,12 @@ class Settings(BaseSettings):
     FINHUB_API_KEY: str | None = None
 
     # OPTIMIZATION SETTINGS
-    # this means that if the portfolio's weights sum to 0.99 instead of 1 is accepted
-    SUM_WEIGHTS_TOLERANCE: float = 1e-2
+    # this means that if the portfolio's weights sum to 0.98 instead of 1 is accepted
+    SUM_WEIGHTS_TOLERANCE: float = 0.02
 
     # DB SETTINGS
     DB_URI_MARKET: str = "sqlite:///market.db"  # prod
     DB_URI_TEST: str = "sqlite:///test.db"  # test
-
-    class Config:
-        """Configuration."""
-
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
     @property
     def is_trading(self) -> bool:

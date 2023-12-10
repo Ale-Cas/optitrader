@@ -25,14 +25,14 @@ coloredlogs = ">=15.0.1"
 fastapi = { extras = ["all"], version = ">=0.92.0" }
 gunicorn = ">=20.1.0"
 poethepoet = ">=0.20.0"
-pydantic = ">=1.10.7"
+pydantic = "^2.5.2"
 python = ">=3.10,<4.0"
 streamlit = "^1.24.0"
 typer = { extras = ["all"], version = ">=0.9.0" }
 uvicorn = { extras = ["standard"], version = ">=0.20.0" }
-pandas = "1.5.3"
+pandas = "^2.1.4"
 cvxpy = "^1.4.1"
-alpaca-py = "^0.8.2"
+alpaca-py = "^0.13.4"
 yahooquery = "^2.3.1"
 matplotlib = "^3.7.1"
 typeguard = "^4.0.0"
@@ -103,6 +103,9 @@ warn_unreachable = true
 addopts = "--color=yes --doctest-modules --exitfirst --failed-first --verbosity=2 --junitxml=reports/pytest.xml"
 testpaths = ["src", "tests"]
 xfail_strict = true
+markers = [
+    "my_vcr: custom vcr matcher",
+]
 
 [tool.ruff]  # https://github.com/charliermarsh/ruff
 fix = true
