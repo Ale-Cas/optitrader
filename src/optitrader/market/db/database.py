@@ -12,7 +12,7 @@ from optitrader.config import SETTINGS
 from optitrader.market.db.models import Asset, Base
 from optitrader.models.asset import AssetModel
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -50,7 +50,7 @@ class MarketDB:
 
     def get_asset(self, ticker: str) -> AssetModel:
         """Get the asset model from the table by ticker."""
-        return AssetModel.from_orm(
+        return AssetModel.model_validate(
             next(
                 iter(
                     self.session.execute(select(Asset).where(Asset.ticker == ticker))
@@ -65,7 +65,7 @@ class MarketDB:
         tickers: tuple[str, ...] | None = None,
     ) -> list[AssetModel]:
         """Get all the assets in the table."""
-        return [AssetModel.from_orm(a) for a in self.get_assets(tickers)]
+        return [AssetModel.model_validate(a) for a in self.get_assets(tickers)]
 
     def get_tickers(self) -> list[str]:
         """Get all the tickers in the assets table."""
@@ -128,7 +128,7 @@ class MarketDB:
         """Write assets in the database."""
         asset = Asset(
             updated_by=updated_by,
-            **asset_model.dict(exclude_none=True, exclude={"symbol"}),
+            **asset_model.model_dump(exclude_none=True, exclude={"symbol"}),
         )
         self.session.add(asset)
         if autocommit:

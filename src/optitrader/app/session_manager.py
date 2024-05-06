@@ -23,7 +23,7 @@ from optitrader.market.trading import AlpacaTrading
 from optitrader.optimization.constraints import ConstraintsMap
 from optitrader.optimization.objectives import ObjectivesMap
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -590,4 +590,4 @@ class SessionManager:
                 orders = self.trader.invest_in_portfolio(portfolio=self._opt_ptf, amount=amount)
                 st.success("Orders submitted successfully!", icon="✅")
         if self._opt_ptf and orders:
-            self._orders_to_st(pd.DataFrame([o.dict() for o in orders]).set_index("symbol"))
+            self._orders_to_st(pd.DataFrame([o.model_dump() for o in orders]).set_index("symbol"))

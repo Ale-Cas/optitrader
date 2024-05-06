@@ -5,7 +5,7 @@ from typing import Any
 
 import pandas as pd
 from alpaca.trading import AssetClass, AssetExchange, AssetStatus
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel, ConfigDict, model_validator
 
 from optitrader.utils import clean_string
 
@@ -39,6 +39,8 @@ class FinnhubAssetModel(_YahooFinnhubCommon):
 class AssetModel(FinnhubAssetModel, YahooAssetModel):
     """Model to represent an asset."""
 
+    model_config = ConfigDict(from_attributes=True)
+
     weight_in_ptf: float | None = None
     asset_class: AssetClass
     symbol: str | None = None
@@ -48,20 +50,16 @@ class AssetModel(FinnhubAssetModel, YahooAssetModel):
     marginable: bool
     fractionable: bool
 
-    @root_validator()
-    def validate_ticker_symbol(cls, values: dict[str, Any]) -> dict[str, Any]:  # noqa: N805
+    @model_validator(mode="before")
+    @classmethod
+    def validate_ticker_symbol(cls, values: dict[str, Any]) -> dict[str, Any]:
         """Validate ticker vs symbol conflict."""
-        ticker = values.get("ticker", None)
-        symbol = values.get("symbol", None)
-        if (ticker and symbol) and ticker != symbol or not symbol:
-            values["symbol"] = ticker
-
+        if isinstance(values, dict):
+            ticker = values.get("ticker", None)
+            symbol = values.get("symbol", None)
+            if (ticker and symbol) and ticker != symbol or not symbol:
+                values["symbol"] = ticker
         return values
-
-    class Config:
-        """Configuration."""
-
-        orm_mode = True
 
     def to_series(self) -> pd.Series:
         """Cast to series."""
@@ -70,7 +68,9 @@ class AssetModel(FinnhubAssetModel, YahooAssetModel):
                 clean_string(k).title(): clean_string(str(v))
                 if not isinstance(v, Enum)
                 else clean_string(v.value).title()
-                for k, v in self.dict(exclude={"weight_in_ptf", "business_summary", "logo"}).items()
+                for k, v in self.model_dump(
+                    exclude={"weight_in_ptf", "business_summary", "logo"}
+                ).items()
                 if k not in {"ipo", "ticker"}
             },
             name="",

@@ -197,7 +197,7 @@ class AlpacaMarketData(BaseDataProvider):
         """Get alpaca assets dataframe."""
         return pd.DataFrame(
             [
-                a.dict()
+                a.model_dump()
                 for a in self.get_alpaca_assets(
                     status=status,
                     asset_class=asset_class,

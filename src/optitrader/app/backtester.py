@@ -4,7 +4,7 @@ import logging
 
 from optitrader.app import Page, session
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 

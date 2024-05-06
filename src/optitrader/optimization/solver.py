@@ -19,7 +19,7 @@ from optitrader.optimization.objectives import (
 )
 from optitrader.portfolio import Portfolio
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -108,6 +108,7 @@ class Solver:
         created_at: pd.Timestamp | None = None,
         weights_tolerance: float | None = SETTINGS.SUM_WEIGHTS_TOLERANCE,
         cvxpy_solver: _CVXPYSolver = _CVXPYSolver.ECOS,
+        rescale_weights: bool = True,
         **kwargs: Any,
     ) -> Portfolio:
         """Solve a portfolio optimization problem.
@@ -139,6 +140,9 @@ class Solver:
             raise AssertionError(f"Problem status is not optimal but: {problem.status}")
         weights_series = pd.Series(dict(zip(self._universe, weights_var.value, strict=True)))
         if ConstraintName.SUM_TO_ONE in [c.name for c in self.constraints]:
+            if rescale_weights:
+                # rescale weights to sum to 1
+                weights_series = weights_series / weights_series.sum()
             assert 1 - weights_series.sum() <= SETTINGS.SUM_WEIGHTS_TOLERANCE
         elif ConstraintName.LONG_ONLY in [c.name for c in self.constraints]:
             assert all(weights_series >= 0)

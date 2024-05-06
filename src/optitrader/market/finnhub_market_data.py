@@ -10,7 +10,7 @@ import pandas as pd
 from optitrader.config import SETTINGS
 from optitrader.models.asset import FinnhubAssetModel
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 log = logging.getLogger(__name__)
 
 
@@ -35,7 +35,7 @@ class FinnhubClient(finnhub.Client):
                 **profile,
                 industry=profile["finnhubIndustry"],
                 website=profile["weburl"],
-                number_of_shares=profile["shareOutstanding"],
+                number_of_shares=int(profile["shareOutstanding"] * 1e6),
                 finnhub_name=profile["name"],
             )
         except KeyError as ke:
@@ -68,4 +68,4 @@ class FinnhubClient(finnhub.Client):
 
     def get_companies_df(self, tickers: tuple[str, ...]) -> pd.DataFrame:
         """Get the dataframe of companies profiles."""
-        return pd.DataFrame([a.dict() for a in self.get_companies_profiles(tickers)])
+        return pd.DataFrame([a.model_dump() for a in self.get_companies_profiles(tickers)])

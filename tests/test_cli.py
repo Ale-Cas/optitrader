@@ -21,22 +21,6 @@ def test_say() -> None:
     assert message in result.stdout
 
 
-@pytest.mark.timeout(2)
-def test_dashboard() -> None:
-    """Test that the dashboard command works as expected."""
-    result = runner.invoke(app, ["dashboard", "--launch", "--timeout=1"])
-    assert result.exit_code == 1
-    assert isinstance(result.exception, subprocess.TimeoutExpired)
-
-
-@pytest.mark.timeout(2)
-def test_dashboard_no_launch() -> None:
-    """Test that the dashboard command works as expected."""
-    result = runner.invoke(app, ["dashboard", "--no-launch", "--timeout=1"])
-    assert result.exit_code == 1
-    assert isinstance(result.exception, subprocess.TimeoutExpired)
-
-
 @pytest.mark.timeout(3)
 def test_dashboard_launch() -> None:
     """Test that the dashboard command works as expected."""

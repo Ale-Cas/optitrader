@@ -4,6 +4,8 @@
 from collections import OrderedDict
 from datetime import date, datetime, timedelta
 
+from pydantic import Field
+
 from optitrader.config import SETTINGS
 from optitrader.enums import ConstraintName
 from optitrader.market.investment_universe import UniverseName
@@ -46,15 +48,17 @@ class ConstraintModel(BaseModel):
 class OptimizationRequest(BaseModel):
     """Optimization request body."""
 
-    tickers: tuple[str, ...] | None
-    universe_name: UniverseName | None
+    tickers: tuple[str, ...] | None = None
+    universe_name: UniverseName | None = None
     start_date: date = datetime.utcnow().date() - timedelta(days=365 * 2)
     end_date: date = datetime.utcnow().date() - timedelta(days=1)
     objectives: list[ObjectiveModel]
-    constraints: list[ConstraintModel] = [  # noqa: RUF012
-        ConstraintModel(name=ConstraintName.SUM_TO_ONE),
-        ConstraintModel(name=ConstraintName.LONG_ONLY),
-    ]
+    constraints: list[ConstraintModel] = Field(
+        default=[
+            ConstraintModel(name=ConstraintName.SUM_TO_ONE),
+            ConstraintModel(name=ConstraintName.LONG_ONLY),
+        ]
+    )
     weights_tolerance: float | None = SETTINGS.SUM_WEIGHTS_TOLERANCE
 
 

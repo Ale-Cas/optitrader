@@ -6,8 +6,6 @@ from alpaca.trading import AssetClass, AssetExchange, AssetStatus
 from sqlalchemy import Boolean, Column, Date, DateTime, Enum, Integer, String
 from sqlalchemy.orm import declarative_base
 
-# metadata_ = MetaData(schema="market")
-# Base = declarative_base(metadata=metadata_)
 Base = declarative_base()
 
 
