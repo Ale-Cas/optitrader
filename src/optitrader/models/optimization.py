@@ -1,6 +1,5 @@
 """Base models for the optimization API router."""
 
-
 from collections import OrderedDict
 from datetime import date, datetime, timedelta
 

@@ -31,9 +31,9 @@ class Portfolio:
                 if rescale_weights:
                     weights = weights / weights_sum
                 else:
-                    assert (
-                        1 - weights_sum <= SETTINGS.SUM_WEIGHTS_TOLERANCE
-                    ), f"The sum of weights has to be 1 not {weights_sum}."
+                    assert 1 - weights_sum <= SETTINGS.SUM_WEIGHTS_TOLERANCE, (
+                        f"The sum of weights has to be 1 not {weights_sum}."
+                    )
         self.weights = pd.Series(weights)
         self.objective_values = objective_values or []
         self.market_data = market_data
@@ -63,9 +63,9 @@ class Portfolio:
 
     def get_assets_in_portfolio(self, only_non_zero: bool = True) -> list[AssetModel]:
         """Return the assets in the portfolio."""
-        assert isinstance(
-            self.market_data, MarketData
-        ), "You must set the market data to get the assets info."
+        assert isinstance(self.market_data, MarketData), (
+            "You must set the market data to get the assets info."
+        )
         weights = self.get_non_zero_weights() if only_non_zero else self.weights
         assets = self.market_data.get_assets(tickers=tuple(weights.keys()))
         assets_in_ptf = []
@@ -76,9 +76,9 @@ class Portfolio:
 
     def get_assets_df(self) -> pd.DataFrame:
         """Return the assets in the portfolio."""
-        assert isinstance(
-            self.market_data, MarketData
-        ), "You must set the market data to get the assets info."
+        assert isinstance(self.market_data, MarketData), (
+            "You must set the market data to get the assets info."
+        )
         weights = self.get_non_zero_weights()
         weights.name = "weight_in_ptf"
         assets = self.market_data.get_assets_df(tuple(weights.keys()))
@@ -112,9 +112,9 @@ class Portfolio:
         `history`: pd.Series
             A timeseries with the portfolio value at each date.
         """
-        assert isinstance(
-            self.market_data, MarketData
-        ), "You must set the market data to get the assets info."
+        assert isinstance(self.market_data, MarketData), (
+            "You must set the market data to get the assets info."
+        )
         rets = self.market_data.get_total_returns(
             tickers=self.get_tickers(),
             start_date=start_date,

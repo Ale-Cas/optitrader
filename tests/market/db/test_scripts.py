@@ -1,4 +1,5 @@
 """Test the scripts for the database creation."""
+
 from unittest.mock import Mock
 
 import pytest

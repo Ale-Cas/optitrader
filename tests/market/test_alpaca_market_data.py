@@ -1,4 +1,5 @@
 """Test market_data module."""
+
 import pandas as pd
 import pytest
 import vcr
@@ -8,7 +9,7 @@ from optitrader.market.alpaca_market_data import AlpacaMarketData, Asset
 alpaca_market_data = AlpacaMarketData()
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_bars(
     test_tickers: tuple[str, ...],
     test_start_date: pd.Timestamp,
@@ -23,7 +24,7 @@ def test_get_bars(
     assert isinstance(bars, pd.DataFrame)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_assets_df() -> None:
     """Test load_prices method."""
     assets_df = alpaca_market_data.get_assets_df()

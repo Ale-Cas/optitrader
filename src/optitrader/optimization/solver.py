@@ -1,4 +1,5 @@
 """Portfolio optimization problem module."""
+
 import logging
 from enum import Enum
 from typing import Any
@@ -80,19 +81,21 @@ class Solver:
         self, weights_variable: cp.Variable
     ) -> tuple[list[OptimizationVariables], list[cp.Constraint]]:
         """Get portfolio optimization problem."""
-        assert (
-            self.objectives
-        ), "To get a portfolio optimization problem, at least one objective is needed."
+        assert self.objectives, (
+            "To get a portfolio optimization problem, at least one objective is needed."
+        )
         cvxpy_objectives: list[OptimizationVariables] = []
         cvxpy_constraints: list[cp.Constraint] = []
         for obj_fun in self.objectives:
             objective, constr_list = obj_fun.get_objective_and_auxiliary_constraints(
-                returns=self.financials_df
-                if (
-                    isinstance(obj_fun, FinancialsObjectiveFunction)
-                    or obj_fun.name == ObjectiveName.FINANCIALS
-                )
-                else self.returns,
+                returns=(
+                    self.financials_df
+                    if (
+                        isinstance(obj_fun, FinancialsObjectiveFunction)
+                        or obj_fun.name == ObjectiveName.FINANCIALS
+                    )
+                    else self.returns
+                ),
                 weights_variable=weights_variable,
             )
             cvxpy_objectives.append(objective)
@@ -138,7 +141,11 @@ class Solver:
             problem.solve()
         if problem.status != "optimal":
             raise AssertionError(f"Problem status is not optimal but: {problem.status}")
-        weights_series = pd.Series(dict(zip(self._universe, weights_var.value, strict=True)))
+        if weights_var.value is None:
+            raise AssertionError("weights_var is None.")
+        weights_series = pd.Series(
+            dict(zip(self._universe, weights_var.value.tolist(), strict=True))
+        )
         if ConstraintName.SUM_TO_ONE in [c.name for c in self.constraints]:
             if rescale_weights:
                 # rescale weights to sum to 1

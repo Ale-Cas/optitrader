@@ -1,4 +1,5 @@
 """Investment Universe module."""
+
 from functools import lru_cache
 
 import pandas as pd

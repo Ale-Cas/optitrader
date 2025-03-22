@@ -18,14 +18,14 @@ def test_account() -> None:
     assert isinstance(trader.account, TradeAccount)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_account_portfolio_history() -> None:
     """Test get_account_portfolio_history method."""
     history = trader.get_account_portfolio_history()
     assert isinstance(history, pd.DataFrame)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_orders_df() -> None:
     """Test get_orders_df method."""
     orders_history = trader.get_orders_df()
@@ -40,7 +40,7 @@ def test_get_orders_empty_df() -> None:
         assert orders_history.empty
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_invest_in_portfolio(mock_ptf: Portfolio) -> None:
     """Test invest_in_portfolio method."""
     orders = trader.invest_in_portfolio(portfolio=mock_ptf, amount=10)
@@ -67,10 +67,13 @@ def test_invest_in_portfolio_api_error() -> None:
 
 def test_invest_in_portfolio_fail_on_api_error() -> None:
     """Test invest_in_portfolio method."""
-    with patch(
-        "optitrader.market.trading.AlpacaTrading.submit_order",
-        side_effect=APIError(error="Mock error"),
-    ), pytest.raises(AssertionError):
+    with (
+        patch(
+            "optitrader.market.trading.AlpacaTrading.submit_order",
+            side_effect=APIError(error="Mock error"),
+        ),
+        pytest.raises(AssertionError),
+    ):
         trader.invest_in_portfolio(
             portfolio=Portfolio(
                 weights=pd.Series(

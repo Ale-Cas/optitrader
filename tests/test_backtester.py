@@ -1,6 +1,5 @@
 """Test backtester."""
 
-
 import pandas as pd
 import pytest
 
@@ -32,7 +31,7 @@ def test_rebalance_dates(
     assert dates.freq.name == _freq.value
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_compute_history_values(
     test_start_date: pd.Timestamp,
 ) -> None:

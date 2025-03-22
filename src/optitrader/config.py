@@ -1,4 +1,5 @@
 """Module for loading settings and configurations from .env using pydantic."""
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 

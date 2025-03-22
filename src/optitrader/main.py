@@ -65,9 +65,9 @@ class Optitrader:
             The market data instance to get the data from,
             you can pass your own with your API keys and preferred data provider.
         """
-        assert (
-            market_data or (trading_key and trading_secret) or (broker_key and broker_secret)
-        ), "You must pass either a MarketData instance, the Trading API keys or Broker API keys."
+        assert market_data or (trading_key and trading_secret) or (broker_key and broker_secret), (
+            "You must pass either a MarketData instance, the Trading API keys or Broker API keys."
+        )
         self.market_data = market_data or MarketData(
             trading_key=trading_key,
             trading_secret=trading_secret,
@@ -96,9 +96,9 @@ class Optitrader:
         max_num_assets: int | None = None,
         max_weight_pct: int | None = None,
         min_weight_pct: int | None = None,
-        financial_item: IncomeStatementItem
-        | CashFlowItem
-        | BalanceSheetItem = IncomeStatementItem.NET_INCOME,
+        financial_item: (
+            IncomeStatementItem | CashFlowItem | BalanceSheetItem
+        ) = IncomeStatementItem.NET_INCOME,
     ) -> Portfolio:
         """
         Solve the optimization problem and return the optimal portfolio.
@@ -128,12 +128,12 @@ class Optitrader:
             The optimal portfolio from the Solver.
         """
         if num_assets:
-            assert (
-                not min_num_assets
-            ), "Cannot provide minimum number of assets if you provided the exact number of assets."
-            assert (
-                not max_num_assets
-            ), "Cannot provide maximum number of assets if you provided the exact number of assets."
+            assert not min_num_assets, (
+                "Cannot provide minimum number of assets if you provided the exact number of assets."
+            )
+            assert not max_num_assets, (
+                "Cannot provide maximum number of assets if you provided the exact number of assets."
+            )
             if num_assets == len(self.investment_universe):
                 self.add_constraint(
                     WeightsConstraint(
@@ -146,9 +146,9 @@ class Optitrader:
                     NumberOfAssetsConstraint(lower_bound=num_assets, upper_bound=num_assets)
                 )
         elif min_num_assets or max_num_assets:
-            assert (
-                not num_assets
-            ), "Cannot provide exact number of assets if you provided the minimum or maximum number of assets."
+            assert not num_assets, (
+                "Cannot provide exact number of assets if you provided the minimum or maximum number of assets."
+            )
             self.add_constraint(
                 NumberOfAssetsConstraint(lower_bound=min_num_assets, upper_bound=max_num_assets)
             )
@@ -167,12 +167,14 @@ class Optitrader:
             ),
             constraints=self.constraints,
             objectives=self.objectives,
-            financials_df=self.market_data.get_multi_financials_by_item(
-                tickers=self.investment_universe.tickers,
-                financial_item=financial_item,
-            )
-            if ObjectiveName.FINANCIALS in [o.name for o in self.objectives]
-            else None,
+            financials_df=(
+                self.market_data.get_multi_financials_by_item(
+                    tickers=self.investment_universe.tickers,
+                    financial_item=financial_item,
+                )
+                if ObjectiveName.FINANCIALS in [o.name for o in self.objectives]
+                else None
+            ),
         ).solve(
             weights_tolerance=weights_tolerance,
             created_at=end_date,

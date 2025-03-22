@@ -7,10 +7,10 @@ from optitrader.enums.optimization import ConstraintName, ObjectiveName
 
 __all__ = [
     "BarsField",
-    "DataProvider",
-    "UniverseName",
-    "IterEnum",
     "ConstraintName",
+    "DataProvider",
+    "IterEnum",
     "ObjectiveName",
     "RebalanceFrequency",
+    "UniverseName",
 ]

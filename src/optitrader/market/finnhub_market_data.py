@@ -44,7 +44,7 @@ class FinnhubClient(finnhub.Client):
                 profile = self.get_asset_profile(ticker=t)
             # On top of all plan's limit, there is a 30 API calls/ second limit.
             except finnhub.FinnhubAPIException as api_error:
-                log.debug(f"Requests number {i+1} for ticker {t} sleeping 60 seconds")
+                log.debug(f"Requests number {i + 1} for ticker {t} sleeping 60 seconds")
                 log.debug(type(api_error))
                 # get company profile v2 with 60 rpm
                 time.sleep(60)  # wait time 1 minute for limit reset

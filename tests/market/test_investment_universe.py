@@ -1,11 +1,12 @@
 """Test the investment universe implementation."""
+
 import pytest
 
 from optitrader.enums import UniverseName
 from optitrader.market import InvestmentUniverse
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_investment_universe_with_name() -> None:
     """Test the investment universe initialization with the name."""
     univ = InvestmentUniverse(name=UniverseName.POPULAR_STOCKS)
@@ -14,7 +15,7 @@ def test_investment_universe_with_name() -> None:
     assert len(univ.tickers) == 5  # noqa: PLR2004
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_scrape_wikipedia_tickers() -> None:
     """Scrape tickers test."""
     tickers = InvestmentUniverse(name=UniverseName.SP500).tickers

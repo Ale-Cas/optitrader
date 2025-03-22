@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "optitrader"
-version = "0.2.1"
+version = "0.2.2"
 description = "Optitrader is an open-source Python package for portfolio optimization and algorithmic trading. "
 authors = ["Alessio Castrica <castricaalessio@gmail.com>"]
 readme = "README.md"
@@ -25,25 +25,23 @@ coloredlogs = ">=15.0.1"
 fastapi = { extras = ["all"], version = ">=0.92.0" }
 gunicorn = ">=20.1.0"
 poethepoet = ">=0.20.0"
-pydantic = "^2.5.2"
+pydantic = ">=2.5.2"
 python = ">=3.10,<4.0"
-streamlit = "^1.24.0"
+streamlit = ">=1.43.2"
 typer = { extras = ["all"], version = ">=0.9.0" }
 uvicorn = { extras = ["standard"], version = ">=0.20.0" }
-pandas = "^2.1.4"
-cvxpy = "^1.4.1"
+pandas = ">=2.2.3"
+cvxpy = ">=1.6.4"
 alpaca-py = "^0.13.4"
 yahooquery = "^2.3.1"
 matplotlib = "^3.7.1"
 typeguard = "^4.0.0"
-plotly = "==5.15.0"
+plotly = ">=5.15.0"
 html5lib = "^1.1"
 lxml = "==4.9.2"
 finnhub-python = "^2.4.18"
 sqlalchemy = "^2.0.19"
 watchdog = "^3.0.0"
-scs = "==3.2.3"
-pyarrow = "^14.0.1"
 certifi = "^2023.11.17"
 nbformat = "^5.9.2"
 protobuf = "^4.25.1"
@@ -51,19 +49,18 @@ nbconvert = "^7.12.0"
 scipy = "^1.11.4"
 urllib3 = "^2.1.0"
 jupyter-server = "^2.12.1"
-requests = "^2.32.3"
+requests = ">=2.32.3"
 
 [tool.poetry.group.test.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
-black = { extras = ["jupyter"], version = ">=23.3.0" }
 commitizen = ">=3.2.1"
 coverage = { extras = ["toml"], version = ">=7.2.5" }
 mypy = ">=1.2.0"
 pre-commit = ">=3.3.1"
-pytest = ">=7.3.1"
+pytest = ">=8.0.2"
 pytest-clarity = ">=1.0.1"
 pytest-mock = ">=3.10.0"
 pytest-xdist = ">=3.2.1"
-ruff = ">=0.0.270"
+ruff = ">=0.2.0"
 pytest-vcr = "^1.0.2"
 pytest-timeout = "^2.1.0"
 types-requests = "^2.32.0.20250306"
@@ -111,13 +108,14 @@ markers = [
 
 [tool.ruff]  # https://github.com/charliermarsh/ruff
 fix = true
-ignore-init-module-imports = true
 line-length = 100
-select = ["A", "ASYNC", "B", "C4", "C90", "D", "DTZ", "E", "F", "FLY", "I", "ISC", "N", "NPY", "PGH", "PIE", "PLC", "PLE", "PLR", "PLW", "PT", "RET", "RUF", "RSE", "SIM", "TID", "UP", "W", "YTT"]
-ignore = ["E501", "PGH001", "PGH002", "PGH003", "RET504", "S101", "DTZ011", "DTZ003", "PLR0913"]
-unfixable = ["F401", "F841"]
 src = ["src", "tests"]
 target-version = "py310"
+
+[tool.ruff.lint]
+select = ["A", "ASYNC", "B", "C4", "C90", "D", "DTZ", "E", "F", "FLY", "I", "ISC", "N", "NPY", "PGH", "PIE", "PLC", "PLE", "PLR", "PLW", "PT", "RET", "RUF", "RSE", "SIM", "TID", "UP", "W", "YTT"]
+ignore = ["E501", "S307", "G010", "PGH003", "RET504", "S101", "DTZ011", "DTZ003", "PLR0913"]
+unfixable = ["F401", "F841"]
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"

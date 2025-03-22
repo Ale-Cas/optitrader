@@ -1,4 +1,5 @@
 """Streamlit base page component."""
+
 import streamlit as st
 
 

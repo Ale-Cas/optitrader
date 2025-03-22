@@ -1,4 +1,5 @@
 """Add an asset to the assets table."""
+
 import logging
 import os
 

@@ -45,11 +45,13 @@ def compute_optimal_portfolio(
         )
     opt_ptf = Solver(
         returns=market.get_total_returns(
-            tickers=InvestmentUniverse(name=request_body.universe_name).tickers
-            if request_body.universe_name
-            else request_body.tickers
-            if request_body.tickers  # for mypy
-            else (),
+            tickers=(
+                InvestmentUniverse(name=request_body.universe_name).tickers
+                if request_body.universe_name
+                else request_body.tickers
+                if request_body.tickers
+                else ()  # for mypy
+            ),
             start_date=pd.Timestamp(request_body.start_date),
             end_date=pd.Timestamp(request_body.end_date),
         ),

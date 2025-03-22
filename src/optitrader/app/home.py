@@ -1,4 +1,5 @@
 """Streamlit homepage."""
+
 import streamlit as st
 
 from optitrader.app import Page, session

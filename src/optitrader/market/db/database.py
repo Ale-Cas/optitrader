@@ -1,4 +1,5 @@
 """Local SQL storage of assets table."""
+
 import logging
 import os
 from datetime import datetime

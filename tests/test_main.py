@@ -1,4 +1,5 @@
 """Test the optitrader class implementation."""
+
 import pandas as pd
 import pytest
 import vcr
@@ -35,7 +36,7 @@ def test_optitrader_cvar_universe(
     assert 1 - weights.sum() <= _tollerance
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_optitrader_cvar_tickers(
     test_tickers: tuple[str, ...],
     test_start_date: pd.Timestamp,

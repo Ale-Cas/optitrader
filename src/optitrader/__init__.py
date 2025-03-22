@@ -5,7 +5,7 @@ from optitrader.market import MarketData
 from optitrader.portfolio import Portfolio
 
 __all__ = [
+    "MarketData",
     "Optitrader",
     "Portfolio",
-    "MarketData",
 ]

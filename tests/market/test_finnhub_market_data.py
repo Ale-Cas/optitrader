@@ -1,4 +1,5 @@
 """Test finnhub_market_data module."""
+
 from unittest.mock import patch
 
 import pandas as pd
@@ -23,7 +24,7 @@ def test_get_asset_profile_key_error(finnhub_client: FinnhubClient) -> None:
         )
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_asset_profile(finnhub_client: FinnhubClient) -> None:
     """Test get_asset_profile method."""
     asset = finnhub_client.get_asset_profile(
@@ -32,7 +33,7 @@ def test_get_asset_profile(finnhub_client: FinnhubClient) -> None:
     assert isinstance(asset, FinnhubAssetModel)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_companies_profiles(
     finnhub_client: FinnhubClient,
     test_tickers: tuple[str, ...],

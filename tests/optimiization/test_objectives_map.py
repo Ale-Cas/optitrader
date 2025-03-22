@@ -1,6 +1,5 @@
 """Test objectives map."""
 
-
 from optitrader.enums.optimization import ObjectiveName
 from optitrader.optimization.objectives import FinancialsObjectiveFunction, ObjectivesMap
 

@@ -24,7 +24,7 @@ def test_optitrader_example_readme() -> None:
 
 
 @pytest.mark.timeout(10)
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_optitrader_example_faang(
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,

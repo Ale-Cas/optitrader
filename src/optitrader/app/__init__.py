@@ -5,6 +5,6 @@ from optitrader.app.session_manager import SessionManager
 
 session = SessionManager()
 __all__ = [
-    "session",
     "Page",
+    "session",
 ]

@@ -1,4 +1,5 @@
 """Update the number of shares in the assets table."""
+
 import logging
 import os
 

@@ -1,6 +1,5 @@
 """Test database module."""
 
-
 from optitrader.market.db.models import Asset
 
 

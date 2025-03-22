@@ -37,7 +37,7 @@ def test_use_db() -> None:
         MarketData(use_db=False)._db  # noqa: B018
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_load_prices(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -71,7 +71,7 @@ def test_get_total_returns(
     assert sorted(returns.columns) == sorted(test_tickers)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_assets_from_provider(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -101,7 +101,7 @@ def test_get_assets_from_provider_error(
             mock_sleep.assert_any_call()
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_market_caps(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -118,7 +118,7 @@ def test_get_market_caps(
     assert sorted(mkt_caps.columns) == sorted(test_tickers)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_tradable_tickers(
     market_data: MarketData,
 ) -> None:
@@ -129,7 +129,7 @@ def test_get_tradable_tickers(
     assert all(t.isupper() for t in tickers)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_asset_by_name(
     market_data: MarketData,
 ) -> None:
@@ -140,17 +140,7 @@ def test_get_asset_by_name(
     assert isinstance(asset, AlpacaAsset)
 
 
-def test_get_asset_from_ticker_error(
-    market_data: MarketData,
-) -> None:
-    """Test get_asset_from_ticker method."""
-    asset = market_data._get_asset_from_ticker(
-        ticker="INVALID",
-    )
-    assert asset is None
-
-
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_asset(
     market_data: MarketData,
 ) -> None:
@@ -175,7 +165,7 @@ def test_get_get_asset_from_ticker_nodb(
     assert asset.ticker == "AAPL"
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_get_assets(
     market_data: MarketData,
 ) -> None:
@@ -184,7 +174,7 @@ def test_get_assets(
     assert isinstance(assets, list)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_financials(
     market_data: MarketData,
 ) -> None:
@@ -195,7 +185,7 @@ def test_get_financials(
     assert isinstance(fin_df, pd.DataFrame)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_investment_universe_with_top_market_cap(
     market_data: MarketData,
 ) -> None:

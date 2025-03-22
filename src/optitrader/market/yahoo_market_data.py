@@ -134,11 +134,11 @@ class YahooMarketData(BaseDataProvider):
         y_tickers = Ticker(symbols=sorted(tickers), asynchronous=True, max_workers=10)
         return pd.Series(
             {
-                self.parse_ticker_from_yahoo(ticker): int(
-                    y_tickers.key_stats[ticker]["sharesOutstanding"]
+                self.parse_ticker_from_yahoo(ticker): (
+                    int(y_tickers.key_stats[ticker]["sharesOutstanding"])
+                    if isinstance(y_tickers.key_stats.get(ticker, None), dict)
+                    else 0
                 )
-                if isinstance(y_tickers.key_stats.get(ticker, None), dict)
-                else 0
                 for ticker in tickers
             }
         )
@@ -160,9 +160,9 @@ class YahooMarketData(BaseDataProvider):
     def get_multi_financials_by_item(
         self,
         tickers: tuple[str, ...],
-        financial_item: IncomeStatementItem
-        | CashFlowItem
-        | BalanceSheetItem = IncomeStatementItem.NET_INCOME,
+        financial_item: (
+            IncomeStatementItem | CashFlowItem | BalanceSheetItem
+        ) = IncomeStatementItem.NET_INCOME,
     ) -> pd.DataFrame:
         """Get financials from yahoo finance."""
         tickers = self.parse_tickers_for_yahoo(tickers)
