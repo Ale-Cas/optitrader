@@ -5,6 +5,7 @@ from optitrader.enums import UniverseName
 from optitrader.market import InvestmentUniverse
 
 
+@pytest.mark.vcr()
 def test_investment_universe_with_name() -> None:
     """Test the investment universe initialization with the name."""
     univ = InvestmentUniverse(name=UniverseName.POPULAR_STOCKS)

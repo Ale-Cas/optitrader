@@ -2,6 +2,7 @@
 from functools import lru_cache
 
 import pandas as pd
+import requests
 from pydantic import BaseModel
 
 from optitrader.enums import UniverseName
@@ -90,7 +91,9 @@ class InvestmentUniverse:
         }
         params = _scraped_univ_map[self.name]
         # TODO: these tables have a lot of information such as changes, GICS sectors and industries and name
-        _html = pd.read_html(f"https://en.wikipedia.org/wiki/{params.url_path}", flavor="html5lib")
+        response = requests.get(f"https://en.wikipedia.org/wiki/{params.url_path}", verify=False)
+        response.raise_for_status()
+        _html = pd.read_html(response.text, flavor="html5lib")
         tickers: tuple[str, ...] = tuple(_html[params.html_index][params.column_name])
         # basic validation on the tickers
         for t in tickers:

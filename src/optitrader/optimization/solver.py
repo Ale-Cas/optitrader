@@ -45,9 +45,10 @@ class Solver:
             raise AssertionError("Passed `returns` contains NaN.")
         self.returns = returns
         if any(isinstance(o, FinancialsObjectiveFunction) for o in objectives):
-            assert isinstance(
-                financials_df, pd.DataFrame
-            ), "You must pass the `financials_df` parameter."
+            if not isinstance(financials_df, pd.DataFrame):
+                raise ValueError("You must pass the `financials_df` parameter.")
+            if financials_df.empty:
+                raise ValueError("Passed `financials_df` is empty.")
             if financials_df.isna().sum().sum():
                 values_per_column = 4
                 selected_values = {}
@@ -69,7 +70,6 @@ class Solver:
                 except Exception as e:
                     raise AssertionError("Passed `financials_df` contains NaN.") from e
             financials_df = financials_df.pct_change().iloc[1:].fillna(0).T
-            assert not financials_df.empty
         self.financials_df = financials_df
         self.objectives = objectives
         self.constraints = constraints
