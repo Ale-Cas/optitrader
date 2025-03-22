@@ -2,7 +2,6 @@
 
 import logging
 import time
-from functools import lru_cache
 
 import finnhub
 import pandas as pd
@@ -20,8 +19,7 @@ class FinnhubClient(finnhub.Client):
     def __init__(self, api_key: str | None = None):
         super().__init__(api_key=api_key or SETTINGS.FINHUB_API_KEY)
 
-    @lru_cache  # noqa: B019
-    def get_asset_profile(self, ticker: str) -> FinnhubAssetModel | None:
+    def get_asset_profile(self, ticker: str) -> FinnhubAssetModel:
         """Get the company profile for each ticker."""
         try:
             profile = self.company_profile2(symbol=ticker)
@@ -30,19 +28,14 @@ class FinnhubClient(finnhub.Client):
             log.debug(type(api_error))
             time.sleep(1)  # wait time limit reset
             profile = self.company_profile2(symbol=ticker)
-        try:
-            return FinnhubAssetModel(
-                **profile,
-                industry=profile["finnhubIndustry"],
-                website=profile["weburl"],
-                number_of_shares=int(profile["shareOutstanding"] * 1e6),
-                finnhub_name=profile["name"],
-            )
-        except KeyError as ke:
-            log.debug(f"{type(ke)} on {ticker}")
-            return None
+        return FinnhubAssetModel(
+            **profile,
+            industry=profile["finnhubIndustry"],
+            website=profile["weburl"],
+            number_of_shares=int(profile["shareOutstanding"] * 1e6),
+            finnhub_name=profile["name"],
+        )
 
-    @lru_cache  # noqa: B019
     def get_companies_profiles(self, tickers: tuple[str, ...]) -> list[FinnhubAssetModel]:
         """Get the company profile for each ticker."""
         profiles = []
@@ -51,18 +44,15 @@ class FinnhubClient(finnhub.Client):
                 profile = self.get_asset_profile(ticker=t)
             # On top of all plan's limit, there is a 30 API calls/ second limit.
             except finnhub.FinnhubAPIException as api_error:
-                log.debug(f"Request number {i+1} for ticker {t}")
+                log.debug(f"Requests number {i+1} for ticker {t} sleeping 60 seconds")
                 log.debug(type(api_error))
-                time.sleep(1)  # wait time limit reset
-                try:
-                    profile = self.get_asset_profile(ticker=t)
-                except finnhub.FinnhubAPIException as api_error:
-                    log.debug(f"Requests number {i+1} for ticker {t} sleeping 60 seconds")
-                    log.debug(type(api_error))
-                    # get company profile v2 with 60 rpm
-                    time.sleep(60)  # wait time 1 minute for limit reset
-                    profile = self.get_asset_profile(ticker=t)
-            if profile:
+                # get company profile v2 with 60 rpm
+                time.sleep(60)  # wait time 1 minute for limit reset
+                profile = self.get_asset_profile(ticker=t)
+            except Exception:
+                log.exception(f"Error getting profile for ticker {t}")
+                continue
+            else:
                 profiles.append(profile)
         return profiles
 

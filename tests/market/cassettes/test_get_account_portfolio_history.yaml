@@ -1,0 +1,61 @@
+interactions:
+- request:
+    body: null
+    headers:
+      APCA-API-KEY-ID:
+      - SECRET
+      APCA-API-SECRET-KEY:
+      - SECRET
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - APCA-PY/0.13.4
+    method: GET
+    uri: https://paper-api.alpaca.markets/v2/account/portfolio/history?timeframe=1D
+  response:
+    body:
+      string: '{"timestamp":[1740186000,1740445200,1740531600,1740618000,1740704400,1740790800,1741050000,1741136400,1741222800,1741309200,1741395600,1741651200,1741737600,1741824000,1741910400,1741996800,1742256000,1742342400,1742428800,1742515200],"equity":[101642.420000,101621.380000,101604.950000,101578.390000,101558.000000,101584.960000,101573.210000,101585.040000,101602.910000,101586.410000,101581.530000,101531.970000,101546.480000,101546.030000,101528.200000,101543.610000,101538.350000,101537.720000,101553.390000,101545.750000],"profit_loss":[-9.350000,-21.040000,-16.430000,-26.560000,-20.390000,26.960000,-11.750000,11.830000,17.870000,-16.500000,-4.880000,-49.560000,14.510000,-0.450000,-17.830000,15.410000,-5.260000,-0.630000,15.670000,-7.640000],"profit_loss_pct":[-0.000100,-0.000200,-0.000200,-0.000300,-0.000200,0.000300,-0.000100,0.000100,0.000200,-0.000200,0.000000,-0.000500,0.000100,0.000000,-0.000200,0.000200,-0.000100,0.000000,0.000200,-0.000100],"base_value":101651.770000,"base_value_asof":"2025-02-20","timeframe":"1D"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Apca-Api-Key-Id, Apca-Api-Secret-Key, Authorization, Content-Type
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS, PUT, DELETE, POST, PATCH
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 21 Mar 2025 22:27:18 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Portfolio-History-Engine-Version:
+      - v2
+      X-Ratelimit-Limit:
+      - '200'
+      X-Ratelimit-Remaining:
+      - '199'
+      X-Ratelimit-Reset:
+      - '1742596038'
+      X-Request-Id:
+      - 92b2aefa0c7a570cb2f60d348fdd881d
+    status:
+      code: 200
+      message: OK
+version: 1

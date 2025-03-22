@@ -51,6 +51,7 @@ nbconvert = "^7.12.0"
 scipy = "^1.11.4"
 urllib3 = "^2.1.0"
 jupyter-server = "^2.12.1"
+requests = "^2.32.3"
 
 [tool.poetry.group.test.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
 black = { extras = ["jupyter"], version = ">=23.3.0" }
@@ -65,6 +66,7 @@ pytest-xdist = ">=3.2.1"
 ruff = ">=0.0.270"
 pytest-vcr = "^1.0.2"
 pytest-timeout = "^2.1.0"
+types-requests = "^2.32.0.20250306"
 
 [tool.poetry.group.dev.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
 cruft = ">=2.14.0"

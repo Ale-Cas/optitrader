@@ -1,0 +1,569 @@
+interactions:
+- request:
+    body: null
+    headers:
+      APCA-API-KEY-ID:
+      - SECRET
+      APCA-API-SECRET-KEY:
+      - SECRET
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - APCA-PY/0.13.4
+    method: GET
+    uri: https://paper-api.alpaca.markets/v2/assets/TSLA
+  response:
+    body:
+      string: '{"id":"8ccae427-5dd0-45b3-b5fe-7ba5e422c766","cusip":"88160R101","class":"us_equity","exchange":"NASDAQ","symbol":"TSLA","name":"Tesla,
+        Inc. Common Stock","status":"active","tradable":true,"marginable":true,"maintenance_margin_requirement":40,"margin_requirement_long":"40","margin_requirement_short":"40","shortable":true,"easy_to_borrow":true,"fractionable":true,"attributes":["fractional_eh_enabled","has_options"]}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Apca-Api-Key-Id, Apca-Api-Secret-Key, Authorization, Content-Type
+      Access-Control-Allow-Methods:
+      - GET, OPTIONS, PUT, DELETE, POST, PATCH
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Max-Age:
+      - '1728000'
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '418'
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Fri, 21 Mar 2025 22:27:11 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Vary:
+      - Origin
+      X-Ratelimit-Limit:
+      - '200'
+      X-Ratelimit-Remaining:
+      - '196'
+      X-Ratelimit-Reset:
+      - '1742596032'
+      X-Request-Id:
+      - f65ec0cc61fadb00e216119154866db8
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - finnhub/python
+    method: GET
+    uri: https://api.finnhub.io/api/v1//stock/profile2?token=ceifakaad3i3rvm4evkgceifakaad3i3rvm4evl0&symbol=V
+  response:
+    body:
+      string: '{"country":"US","currency":"USD","estimateCurrency":"USD","exchange":"NEW
+        YORK STOCK EXCHANGE, INC.","finnhubIndustry":"Financial Services","ipo":"2008-03-25","logo":"https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/V.png","marketCapitalization":663239.327028,"name":"Visa
+        Inc","phone":"16504323200","shareOutstanding":1953.58,"ticker":"V","weburl":"https://usa.visa.com/"}'
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Origin
+      Access-Control-Allow-Methods:
+      - POST, GET, OPTIONS, PUT, DELETE
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '393'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 21 Mar 2025 22:27:11 GMT
+      Server:
+      - nginx/1.18.0
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '56'
+      X-Ratelimit-Reset:
+      - '1742596091'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like
+        Gecko) Chrome/81.0.4044.129 Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/TSLA?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en-us\">\n  <head>\n    <meta http-equiv=\"content-type\"
+        content=\"text/html; charset=UTF-8\">\n    <meta charset=\"utf-8\">\n    <title>Yahoo</title>\n
+        \   <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimal-ui\">\n
+        \   <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n    <style>\n
+        \     html {\n          height: 100%;\n      }\n      body {\n          background:
+        #fafafc url(https://s.yimg.com/nn/img/sad-panda-201402200631.png) 50% 50%;\n
+        \         background-size: cover;\n          height: 100%;\n          text-align:
+        center;\n          font: 300 18px \"helvetica neue\", helvetica, verdana,
+        tahoma, arial, sans-serif;\n          margin: 0;\n      }\n      table {\n
+        \         height: 100%;\n          width: 100%;\n          table-layout: fixed;\n
+        \         border-collapse: collapse;\n          border-spacing: 0;\n          border:
+        none;\n      }\n      h1 {\n          font-size: 42px;\n          font-weight:
+        400;\n          color: #400090;\n      }\n      p {\n          color: #1A1A1A;\n
+        \     }\n      #message-1 {\n          font-weight: bold;\n          margin:
+        0;\n      }\n      #message-2 {\n          display: inline-block;\n          *display:
+        inline;\n          zoom: 1;\n          max-width: 17em;\n          _width:
+        17em;\n      }\n      </style>\n      <script>\n      \n      </script>\n
+        \ </head>\n  <body>\n  <!-- status code : 404 -->\n  <!-- Could not process
+        this request -->\n  <!-- host machine: media-router-api7033.prod.media.ir2.yahoo.com
+        -->\n  <!-- timestamp: 1742596031.503 -->\n  <!-- url: https://query2.finance.yahoo.com/v6/finance/quoteSummary/TSLA?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com-->\n
+        \ <script type=\"text/javascript\">\n    function buildUrl(url, parameters){\n
+        \     var qs = [];\n      for(var key in parameters) {\n        var value
+        = parameters[key];\n        qs.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(value));\n
+        \     }\n      url = url + \"?\" + qs.join('&');\n      return url;\n    }\n\n
+        \   function generateBRBMarkup(site) {\n      params.source = 'brb';\n      generateBeaconMarkup(params);\n
+        \     var englishHeader = 'Will be right back...';\n      var englishMessage1
+        = 'Thank you for your patience.';\n      var englishMessage2 = 'Our engineers
+        are working quickly to resolve the issue.';\n      var defaultLogoStyle =
+        '';\n      var siteDataMap = {\n        'default': {\n          logo: 'https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage.png',\n
+        \         logoAlt: 'Yahoo Logo',\n          logoStyle: defaultLogoStyle,\n
+        \         header: englishHeader,\n          message1: englishMessage1,\n          message2:
+        englishMessage2\n        }\n      };\n\n      var siteDetails = siteDataMap['default'];\n\n
+        \     document.write('<table><tbody><tr><td>');\n      document.write('<div
+        id=\"content\">');\n      document.write('<img src=\"' + siteDetails['logo']
+        + '\" alt=\"' + siteDetails['logoAlt'] + '\" style=\"' + siteDetails['logoStyle']
+        + '\">');\n      document.write('<h1 style=\"margin-top:20px;\">' + siteDetails['header']
+        + '</h1>');\n      document.write('<p id=\"message-1\">' + siteDetails['message1']
+        + '</p>');\n      document.write('<p id=\"message-2\">' + siteDetails['message2']
+        + '</p>');\n      document.write('</div>');\n      document.write('</td></tr></tbody></table>');\n
+        \   }\n\n    function generateBeaconMarkup(params) {\n        document.write('<img
+        src=\"' + buildUrl('//geo.yahoo.com/b', params) + '\" style=\"display:none;\"
+        width=\"0px\" height=\"0px\"/>');\n        var beacon = new Image();\n        beacon.src
+        = buildUrl('//bcn.fp.yahoo.com/p', params);\n    }\n\n    var hostname = window.location.hostname;\n
+        \   var device = 'desktop';\n    var ynet = ('-' === '1');\n    var prid =
+        '-';\n    var crid = '04sahr5jtrptv';\n    var time = new Date().getTime();\n
+        \   var params = {\n        s: '1197757129',\n        t: time,\n        err_url:
+        document.URL,\n        err: '404',\n        test: '-',\n        ats_host:
+        'media-router-api7033.prod.media.ir2.yahoo.com',\n        prid: prid,\n        crid:
+        crid,\n        message: 'Could not process this request'\n    };\n\n    if(ynet)
+        {\n        document.write('<div style=\"height: 5px; background-color: red;\"></div>');\n
+        \   }\n    generateBRBMarkup(hostname, params);\n\n  </script>\n  <noscript>\n
+        \ <table>\n    <tbody>\n      <tr>\n        <td>\n          <div id=\"englishContent\">\n
+        \           <h1 style=\"margin-top:20px;\">Will be right back...</h1>\n            <p
+        id=\"message-1\">Thank you for your patience.</p>\n            <p id=\"message-2\">Our
+        engineers are working quickly to resolve the issue.</p>\n          </div>\n
+        \       </td>\n      </tr>\n    </tbody>\n  </table>\n  </noscript>\n  </body>\n</html>\n"
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Language:
+      - en
+      Content-Length:
+      - '4625'
+      Content-Type:
+      - text/html
+      Date:
+      - Fri, 21 Mar 2025 22:27:11 GMT
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - ATS
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/JPM?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en-us\">\n  <head>\n    <meta http-equiv=\"content-type\"
+        content=\"text/html; charset=UTF-8\">\n    <meta charset=\"utf-8\">\n    <title>Yahoo</title>\n
+        \   <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimal-ui\">\n
+        \   <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n    <style>\n
+        \     html {\n          height: 100%;\n      }\n      body {\n          background:
+        #fafafc url(https://s.yimg.com/nn/img/sad-panda-201402200631.png) 50% 50%;\n
+        \         background-size: cover;\n          height: 100%;\n          text-align:
+        center;\n          font: 300 18px \"helvetica neue\", helvetica, verdana,
+        tahoma, arial, sans-serif;\n          margin: 0;\n      }\n      table {\n
+        \         height: 100%;\n          width: 100%;\n          table-layout: fixed;\n
+        \         border-collapse: collapse;\n          border-spacing: 0;\n          border:
+        none;\n      }\n      h1 {\n          font-size: 42px;\n          font-weight:
+        400;\n          color: #400090;\n      }\n      p {\n          color: #1A1A1A;\n
+        \     }\n      #message-1 {\n          font-weight: bold;\n          margin:
+        0;\n      }\n      #message-2 {\n          display: inline-block;\n          *display:
+        inline;\n          zoom: 1;\n          max-width: 17em;\n          _width:
+        17em;\n      }\n      </style>\n      <script>\n      \n      </script>\n
+        \ </head>\n  <body>\n  <!-- status code : 404 -->\n  <!-- Could not process
+        this request -->\n  <!-- host machine: media-router-api7033.prod.media.ir2.yahoo.com
+        -->\n  <!-- timestamp: 1742596031.551 -->\n  <!-- url: https://query2.finance.yahoo.com/v6/finance/quoteSummary/JPM?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com-->\n
+        \ <script type=\"text/javascript\">\n    function buildUrl(url, parameters){\n
+        \     var qs = [];\n      for(var key in parameters) {\n        var value
+        = parameters[key];\n        qs.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(value));\n
+        \     }\n      url = url + \"?\" + qs.join('&');\n      return url;\n    }\n\n
+        \   function generateBRBMarkup(site) {\n      params.source = 'brb';\n      generateBeaconMarkup(params);\n
+        \     var englishHeader = 'Will be right back...';\n      var englishMessage1
+        = 'Thank you for your patience.';\n      var englishMessage2 = 'Our engineers
+        are working quickly to resolve the issue.';\n      var defaultLogoStyle =
+        '';\n      var siteDataMap = {\n        'default': {\n          logo: 'https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage.png',\n
+        \         logoAlt: 'Yahoo Logo',\n          logoStyle: defaultLogoStyle,\n
+        \         header: englishHeader,\n          message1: englishMessage1,\n          message2:
+        englishMessage2\n        }\n      };\n\n      var siteDetails = siteDataMap['default'];\n\n
+        \     document.write('<table><tbody><tr><td>');\n      document.write('<div
+        id=\"content\">');\n      document.write('<img src=\"' + siteDetails['logo']
+        + '\" alt=\"' + siteDetails['logoAlt'] + '\" style=\"' + siteDetails['logoStyle']
+        + '\">');\n      document.write('<h1 style=\"margin-top:20px;\">' + siteDetails['header']
+        + '</h1>');\n      document.write('<p id=\"message-1\">' + siteDetails['message1']
+        + '</p>');\n      document.write('<p id=\"message-2\">' + siteDetails['message2']
+        + '</p>');\n      document.write('</div>');\n      document.write('</td></tr></tbody></table>');\n
+        \   }\n\n    function generateBeaconMarkup(params) {\n        document.write('<img
+        src=\"' + buildUrl('//geo.yahoo.com/b', params) + '\" style=\"display:none;\"
+        width=\"0px\" height=\"0px\"/>');\n        var beacon = new Image();\n        beacon.src
+        = buildUrl('//bcn.fp.yahoo.com/p', params);\n    }\n\n    var hostname = window.location.hostname;\n
+        \   var device = 'desktop';\n    var ynet = ('-' === '1');\n    var prid =
+        '-';\n    var crid = '7l9jf3pjtrptv';\n    var time = new Date().getTime();\n
+        \   var params = {\n        s: '1197757129',\n        t: time,\n        err_url:
+        document.URL,\n        err: '404',\n        test: '-',\n        ats_host:
+        'media-router-api7033.prod.media.ir2.yahoo.com',\n        prid: prid,\n        crid:
+        crid,\n        message: 'Could not process this request'\n    };\n\n    if(ynet)
+        {\n        document.write('<div style=\"height: 5px; background-color: red;\"></div>');\n
+        \   }\n    generateBRBMarkup(hostname, params);\n\n  </script>\n  <noscript>\n
+        \ <table>\n    <tbody>\n      <tr>\n        <td>\n          <div id=\"englishContent\">\n
+        \           <h1 style=\"margin-top:20px;\">Will be right back...</h1>\n            <p
+        id=\"message-1\">Thank you for your patience.</p>\n            <p id=\"message-2\">Our
+        engineers are working quickly to resolve the issue.</p>\n          </div>\n
+        \       </td>\n      </tr>\n    </tbody>\n  </table>\n  </noscript>\n  </body>\n</html>\n"
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Language:
+      - en
+      Content-Length:
+      - '4624'
+      Content-Type:
+      - text/html
+      Date:
+      - Fri, 21 Mar 2025 22:27:11 GMT
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - ATS
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/AAPL?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en-us\">\n  <head>\n    <meta http-equiv=\"content-type\"
+        content=\"text/html; charset=UTF-8\">\n    <meta charset=\"utf-8\">\n    <title>Yahoo</title>\n
+        \   <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimal-ui\">\n
+        \   <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n    <style>\n
+        \     html {\n          height: 100%;\n      }\n      body {\n          background:
+        #fafafc url(https://s.yimg.com/nn/img/sad-panda-201402200631.png) 50% 50%;\n
+        \         background-size: cover;\n          height: 100%;\n          text-align:
+        center;\n          font: 300 18px \"helvetica neue\", helvetica, verdana,
+        tahoma, arial, sans-serif;\n          margin: 0;\n      }\n      table {\n
+        \         height: 100%;\n          width: 100%;\n          table-layout: fixed;\n
+        \         border-collapse: collapse;\n          border-spacing: 0;\n          border:
+        none;\n      }\n      h1 {\n          font-size: 42px;\n          font-weight:
+        400;\n          color: #400090;\n      }\n      p {\n          color: #1A1A1A;\n
+        \     }\n      #message-1 {\n          font-weight: bold;\n          margin:
+        0;\n      }\n      #message-2 {\n          display: inline-block;\n          *display:
+        inline;\n          zoom: 1;\n          max-width: 17em;\n          _width:
+        17em;\n      }\n      </style>\n      <script>\n      \n      </script>\n
+        \ </head>\n  <body>\n  <!-- status code : 404 -->\n  <!-- Could not process
+        this request -->\n  <!-- host machine: media-router-api7017.prod.media.ir2.yahoo.com
+        -->\n  <!-- timestamp: 1742596031.589 -->\n  <!-- url: https://query2.finance.yahoo.com/v6/finance/quoteSummary/AAPL?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com-->\n
+        \ <script type=\"text/javascript\">\n    function buildUrl(url, parameters){\n
+        \     var qs = [];\n      for(var key in parameters) {\n        var value
+        = parameters[key];\n        qs.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(value));\n
+        \     }\n      url = url + \"?\" + qs.join('&');\n      return url;\n    }\n\n
+        \   function generateBRBMarkup(site) {\n      params.source = 'brb';\n      generateBeaconMarkup(params);\n
+        \     var englishHeader = 'Will be right back...';\n      var englishMessage1
+        = 'Thank you for your patience.';\n      var englishMessage2 = 'Our engineers
+        are working quickly to resolve the issue.';\n      var defaultLogoStyle =
+        '';\n      var siteDataMap = {\n        'default': {\n          logo: 'https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage.png',\n
+        \         logoAlt: 'Yahoo Logo',\n          logoStyle: defaultLogoStyle,\n
+        \         header: englishHeader,\n          message1: englishMessage1,\n          message2:
+        englishMessage2\n        }\n      };\n\n      var siteDetails = siteDataMap['default'];\n\n
+        \     document.write('<table><tbody><tr><td>');\n      document.write('<div
+        id=\"content\">');\n      document.write('<img src=\"' + siteDetails['logo']
+        + '\" alt=\"' + siteDetails['logoAlt'] + '\" style=\"' + siteDetails['logoStyle']
+        + '\">');\n      document.write('<h1 style=\"margin-top:20px;\">' + siteDetails['header']
+        + '</h1>');\n      document.write('<p id=\"message-1\">' + siteDetails['message1']
+        + '</p>');\n      document.write('<p id=\"message-2\">' + siteDetails['message2']
+        + '</p>');\n      document.write('</div>');\n      document.write('</td></tr></tbody></table>');\n
+        \   }\n\n    function generateBeaconMarkup(params) {\n        document.write('<img
+        src=\"' + buildUrl('//geo.yahoo.com/b', params) + '\" style=\"display:none;\"
+        width=\"0px\" height=\"0px\"/>');\n        var beacon = new Image();\n        beacon.src
+        = buildUrl('//bcn.fp.yahoo.com/p', params);\n    }\n\n    var hostname = window.location.hostname;\n
+        \   var device = 'desktop';\n    var ynet = ('-' === '1');\n    var prid =
+        '-';\n    var crid = '0fvnpq5jtrptv';\n    var time = new Date().getTime();\n
+        \   var params = {\n        s: '1197757129',\n        t: time,\n        err_url:
+        document.URL,\n        err: '404',\n        test: '-',\n        ats_host:
+        'media-router-api7017.prod.media.ir2.yahoo.com',\n        prid: prid,\n        crid:
+        crid,\n        message: 'Could not process this request'\n    };\n\n    if(ynet)
+        {\n        document.write('<div style=\"height: 5px; background-color: red;\"></div>');\n
+        \   }\n    generateBRBMarkup(hostname, params);\n\n  </script>\n  <noscript>\n
+        \ <table>\n    <tbody>\n      <tr>\n        <td>\n          <div id=\"englishContent\">\n
+        \           <h1 style=\"margin-top:20px;\">Will be right back...</h1>\n            <p
+        id=\"message-1\">Thank you for your patience.</p>\n            <p id=\"message-2\">Our
+        engineers are working quickly to resolve the issue.</p>\n          </div>\n
+        \       </td>\n      </tr>\n    </tbody>\n  </table>\n  </noscript>\n  </body>\n</html>\n"
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Language:
+      - en
+      Content-Length:
+      - '4625'
+      Content-Type:
+      - text/html
+      Date:
+      - Fri, 21 Mar 2025 22:27:11 GMT
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - ATS
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+    status:
+      code: 404
+      message: Not Found
+- request:
+    body: null
+    headers:
+      Connection:
+      - keep-alive
+      User-Agent:
+      - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138
+        Safari/537.36
+      accept:
+      - '*/*'
+      accept-encoding:
+      - gzip, deflate, br
+      accept-language:
+      - en-US,en;q=0.9
+      origin:
+      - https://finance.yahoo.com
+      referer:
+      - https://finance.yahoo.com
+      sec-fetch-dest:
+      - empty
+      sec-fetch-mode:
+      - cors
+      sec-fetch-site:
+      - same-site
+    method: GET
+    uri: https://query2.finance.yahoo.com/v6/finance/quoteSummary/JPM?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en-us\">\n  <head>\n    <meta http-equiv=\"content-type\"
+        content=\"text/html; charset=UTF-8\">\n    <meta charset=\"utf-8\">\n    <title>Yahoo</title>\n
+        \   <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,minimal-ui\">\n
+        \   <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n    <style>\n
+        \     html {\n          height: 100%;\n      }\n      body {\n          background:
+        #fafafc url(https://s.yimg.com/nn/img/sad-panda-201402200631.png) 50% 50%;\n
+        \         background-size: cover;\n          height: 100%;\n          text-align:
+        center;\n          font: 300 18px \"helvetica neue\", helvetica, verdana,
+        tahoma, arial, sans-serif;\n          margin: 0;\n      }\n      table {\n
+        \         height: 100%;\n          width: 100%;\n          table-layout: fixed;\n
+        \         border-collapse: collapse;\n          border-spacing: 0;\n          border:
+        none;\n      }\n      h1 {\n          font-size: 42px;\n          font-weight:
+        400;\n          color: #400090;\n      }\n      p {\n          color: #1A1A1A;\n
+        \     }\n      #message-1 {\n          font-weight: bold;\n          margin:
+        0;\n      }\n      #message-2 {\n          display: inline-block;\n          *display:
+        inline;\n          zoom: 1;\n          max-width: 17em;\n          _width:
+        17em;\n      }\n      </style>\n      <script>\n      \n      </script>\n
+        \ </head>\n  <body>\n  <!-- status code : 404 -->\n  <!-- Could not process
+        this request -->\n  <!-- host machine: media-router-api7034.prod.media.ir2.yahoo.com
+        -->\n  <!-- timestamp: 1742596031.639 -->\n  <!-- url: https://query2.finance.yahoo.com/v6/finance/quoteSummary/JPM?modules=assetProfile&formatted=false&lang=en-US&region=US&corsDomain=finance.yahoo.com-->\n
+        \ <script type=\"text/javascript\">\n    function buildUrl(url, parameters){\n
+        \     var qs = [];\n      for(var key in parameters) {\n        var value
+        = parameters[key];\n        qs.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(value));\n
+        \     }\n      url = url + \"?\" + qs.join('&');\n      return url;\n    }\n\n
+        \   function generateBRBMarkup(site) {\n      params.source = 'brb';\n      generateBeaconMarkup(params);\n
+        \     var englishHeader = 'Will be right back...';\n      var englishMessage1
+        = 'Thank you for your patience.';\n      var englishMessage2 = 'Our engineers
+        are working quickly to resolve the issue.';\n      var defaultLogoStyle =
+        '';\n      var siteDataMap = {\n        'default': {\n          logo: 'https://s.yimg.com/rz/p/yahoo_frontpage_en-US_s_f_p_205x58_frontpage.png',\n
+        \         logoAlt: 'Yahoo Logo',\n          logoStyle: defaultLogoStyle,\n
+        \         header: englishHeader,\n          message1: englishMessage1,\n          message2:
+        englishMessage2\n        }\n      };\n\n      var siteDetails = siteDataMap['default'];\n\n
+        \     document.write('<table><tbody><tr><td>');\n      document.write('<div
+        id=\"content\">');\n      document.write('<img src=\"' + siteDetails['logo']
+        + '\" alt=\"' + siteDetails['logoAlt'] + '\" style=\"' + siteDetails['logoStyle']
+        + '\">');\n      document.write('<h1 style=\"margin-top:20px;\">' + siteDetails['header']
+        + '</h1>');\n      document.write('<p id=\"message-1\">' + siteDetails['message1']
+        + '</p>');\n      document.write('<p id=\"message-2\">' + siteDetails['message2']
+        + '</p>');\n      document.write('</div>');\n      document.write('</td></tr></tbody></table>');\n
+        \   }\n\n    function generateBeaconMarkup(params) {\n        document.write('<img
+        src=\"' + buildUrl('//geo.yahoo.com/b', params) + '\" style=\"display:none;\"
+        width=\"0px\" height=\"0px\"/>');\n        var beacon = new Image();\n        beacon.src
+        = buildUrl('//bcn.fp.yahoo.com/p', params);\n    }\n\n    var hostname = window.location.hostname;\n
+        \   var device = 'desktop';\n    var ynet = ('-' === '1');\n    var prid =
+        '-';\n    var crid = '735e2mtjtrptv';\n    var time = new Date().getTime();\n
+        \   var params = {\n        s: '1197757129',\n        t: time,\n        err_url:
+        document.URL,\n        err: '404',\n        test: '-',\n        ats_host:
+        'media-router-api7034.prod.media.ir2.yahoo.com',\n        prid: prid,\n        crid:
+        crid,\n        message: 'Could not process this request'\n    };\n\n    if(ynet)
+        {\n        document.write('<div style=\"height: 5px; background-color: red;\"></div>');\n
+        \   }\n    generateBRBMarkup(hostname, params);\n\n  </script>\n  <noscript>\n
+        \ <table>\n    <tbody>\n      <tr>\n        <td>\n          <div id=\"englishContent\">\n
+        \           <h1 style=\"margin-top:20px;\">Will be right back...</h1>\n            <p
+        id=\"message-1\">Thank you for your patience.</p>\n            <p id=\"message-2\">Our
+        engineers are working quickly to resolve the issue.</p>\n          </div>\n
+        \       </td>\n      </tr>\n    </tbody>\n  </table>\n  </noscript>\n  </body>\n</html>\n"
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - no-store
+      Connection:
+      - keep-alive
+      Content-Language:
+      - en
+      Content-Length:
+      - '4624'
+      Content-Type:
+      - text/html
+      Date:
+      - Fri, 21 Mar 2025 22:27:11 GMT
+      Referrer-Policy:
+      - no-referrer-when-downgrade
+      Server:
+      - ATS
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Content-Type-Options:
+      - nosniff
+      X-XSS-Protection:
+      - 1; mode=block
+      access-control-allow-credentials:
+      - 'true'
+      access-control-allow-origin:
+      - https://finance.yahoo.com
+    status:
+      code: 404
+      message: Not Found
+version: 1

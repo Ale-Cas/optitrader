@@ -159,6 +159,7 @@ def test_get_asset(
         ticker="AAPL",
     )
     assert isinstance(asset, AssetModel)
+    assert asset.ticker == "AAPL"
 
 
 @vcr.use_cassette("tests/data/cassettes/test_get_asset.yaml")
@@ -167,15 +168,11 @@ def test_get_get_asset_from_ticker_nodb(
 ) -> None:
     """Test get_asset_from_ticker method."""
     assert not market_data_nodb.use_db
-    _asset = market_data_nodb.get_asset_from_ticker(
-        ticker="AAPL",
-    )
-    assert isinstance(_asset, AssetModel)
     asset = market_data_nodb.get_asset(
         ticker="AAPL",
     )
     assert isinstance(asset, AssetModel)
-    assert asset == _asset
+    assert asset.ticker == "AAPL"
 
 
 @pytest.mark.vcr()

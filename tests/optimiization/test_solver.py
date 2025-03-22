@@ -118,6 +118,7 @@ def test_solver_mdp(
 
 
 @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
+@pytest.mark.skip(reason="Yahoo finance returns empty dataframe")
 def test_solver_financials(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -152,6 +153,7 @@ def test_solver_financials(
 
 
 @pytest.mark.vcr(match_on=["method", "scheme", "host", "port", "path"])
+@pytest.mark.skip(reason="Yahoo finance returns empty dataframe")
 def test_solver_financials_and_cvar(
     market_data: MarketData,
     test_start_date: pd.Timestamp,
