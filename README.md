@@ -12,7 +12,7 @@
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Ale-Cas/optitrader)
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![Pydantic v1](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/5697b1e4c4a9790ece607654e6c02a160620c7e1/docs/badge/v1.json)](https://pydantic.dev)
+[![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/5697b1e4c4a9790ece607654e6c02a160620c7e1/docs/badge/v2.json)](https://pydantic.dev)
 [![jupyter](https://img.shields.io/badge/Jupyter-Lab-F37626.svg?style=flat&logo=Jupyter)](https://jupyterlab.readthedocs.io/en/stable)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.63.0-009688.svg?style=flat&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com)
 </div>
@@ -21,15 +21,26 @@ Optitrader is an open-source Python package designed for portfolio optimization,
 
 Accessible through an intuitive web-based [Streamlit](https://streamlit.io/) dashboard hosted at https://optitrader.streamlit.app, Optitrader enables users to interact with its rich features and harness the potential of portfolio optimization and algorithmic trade execution.
 
+## Table of Contents
+
+- [Using](#using)
+  - [Streamlit Dashboard](#using)
+  - [Python Package](#using)
+  - [Python CLI](#using) 
+  - [REST API](#using)
+- [Example](#example)
+- [Contributing](#contributing)
+
+
 ## Using
+
+_Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `optitrader dashboard`. This is equivalent to running `poe app` and open [localhost:8000](http://localhost:8000) in your browser.
 
 _Python package_: to add and install this package as a dependency of your project, run `poetry add optitrader`.
 
 _Python CLI_: to view this app's CLI commands once it's installed, run `optitrader --help`.
 
 _Rest API_: to serve this application as a REST API, run `docker compose up app` and open [localhost:8080](http://localhost:8080) in your browser to see the documentation. Within the Dev Container, this is equivalent to running `poe api`.
-
-_Streamlit Dashboard_: to use this application from a Streamlit dashboard, run `optitrader dashboard`. This is equivalent to running `poe app` and open [localhost:8000](http://localhost:8000) in your browser.
 
 ## Example
 
