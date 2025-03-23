@@ -205,6 +205,7 @@ class MarketData:
         _threads = [asyncio.to_thread(self.get_asset_from_ticker, ticker) for ticker in tickers]
         return await asyncio.gather(*_threads)
 
+    @lru_cache  # noqa: B019
     def get_assets_from_provider(self, tickers: tuple[str, ...]) -> list[AssetModel]:
         """
         Return assets info from ticker.
