@@ -1,4 +1,5 @@
 """Configurations, mocking and fixtures for the database."""
+
 from unittest.mock import MagicMock, Mock
 
 import pytest
@@ -8,7 +9,7 @@ from optitrader.market.db.database import MarketDB
 from optitrader.market.db.models import Asset, AssetClass, AssetExchange, AssetStatus
 
 
-@pytest.fixture()
+@pytest.fixture
 def asset() -> Asset:
     """Mock market database."""
     return Asset(
@@ -35,7 +36,7 @@ def asset() -> Asset:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def db() -> MarketDB:
     """Market database fixture."""
     _db = MarketDB(uri=SETTINGS.DB_URI_TEST)
@@ -44,7 +45,7 @@ def db() -> MarketDB:
     return _db
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_db(db: MarketDB) -> MarketDB:
     """Mock market database."""
     _db = MagicMock(spec=db)

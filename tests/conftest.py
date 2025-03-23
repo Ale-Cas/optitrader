@@ -31,19 +31,19 @@ def vcr_config(record_mode: str = "once"):
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def market_data() -> MarketData:
     """Mock MarketData instance."""
     return MarketData()
 
 
-@pytest.fixture()
+@pytest.fixture
 def market_data_nodb() -> MarketData:
     """Mock MarketData instance without db."""
     return MarketData(use_db=False)
 
 
-@pytest.fixture()
+@pytest.fixture
 def test_tickers() -> tuple[str, ...]:
     """Mock tickers for tests."""
     return (
@@ -55,19 +55,19 @@ def test_tickers() -> tuple[str, ...]:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def test_start_date() -> pd.Timestamp:
     """Start date for testing."""
     return pd.Timestamp("2023-01-01").normalize()
 
 
-@pytest.fixture()
+@pytest.fixture
 def test_end_date() -> pd.Timestamp:
     """Start date for testing."""
     return pd.Timestamp("2023-06-01").normalize()
 
 
-@pytest.fixture()
+@pytest.fixture
 def optimization_request() -> OptimizationRequest:
     """Mock optimization_request."""
     return OptimizationRequest(
@@ -76,7 +76,7 @@ def optimization_request() -> OptimizationRequest:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def optimization_request_w_dates(
     test_start_date: pd.Timestamp,
     test_end_date: pd.Timestamp,
@@ -90,7 +90,7 @@ def optimization_request_w_dates(
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def mock_ptf() -> Portfolio:
     """Mock portfolio."""
     return Portfolio(

@@ -1,5 +1,7 @@
 """Investment Universe module."""
+
 from functools import lru_cache
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -93,7 +95,7 @@ class InvestmentUniverse:
         # TODO: these tables have a lot of information such as changes, GICS sectors and industries and name
         response = requests.get(f"https://en.wikipedia.org/wiki/{params.url_path}", verify=False)
         response.raise_for_status()
-        _html = pd.read_html(response.text, flavor="html5lib")
+        _html = pd.read_html(StringIO(response.text), flavor="html5lib")
         tickers: tuple[str, ...] = tuple(_html[params.html_index][params.column_name])
         # basic validation on the tickers
         for t in tickers:

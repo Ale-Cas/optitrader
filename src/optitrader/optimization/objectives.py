@@ -1,4 +1,5 @@
 """Objective function module."""
+
 from abc import ABCMeta, abstractmethod
 
 import cvxpy as cp

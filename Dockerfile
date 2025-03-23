@@ -3,7 +3,7 @@ ARG PYTHON_VERSION=3.10
 FROM python:$PYTHON_VERSION-slim AS base
 
 # Install Poetry.
-ENV POETRY_VERSION 1.4.2
+ENV POETRY_VERSION 1.8.5
 RUN --mount=type=cache,target=/root/.cache/pip/ \
     pip install poetry~=$POETRY_VERSION
 

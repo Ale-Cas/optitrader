@@ -1,4 +1,5 @@
 """AssetModel base model."""
+
 from datetime import date
 from enum import Enum
 from typing import Any
@@ -55,9 +56,9 @@ class AssetModel(FinnhubAssetModel, YahooAssetModel):
     def validate_ticker_symbol(cls, values: dict[str, Any]) -> dict[str, Any]:
         """Validate ticker vs symbol conflict."""
         if isinstance(values, dict):
-            ticker = values.get("ticker", None)
-            symbol = values.get("symbol", None)
-            if (ticker and symbol) and ticker != symbol or not symbol:
+            ticker = values.get("ticker")
+            symbol = values.get("symbol")
+            if ((ticker and symbol) and ticker != symbol) or not symbol:
                 values["symbol"] = ticker
         return values
 
@@ -65,9 +66,11 @@ class AssetModel(FinnhubAssetModel, YahooAssetModel):
         """Cast to series."""
         return pd.Series(
             {
-                clean_string(k).title(): clean_string(str(v))
-                if not isinstance(v, Enum)
-                else clean_string(v.value).title()
+                clean_string(k).title(): (
+                    clean_string(str(v))
+                    if not isinstance(v, Enum)
+                    else clean_string(v.value).title()
+                )
                 for k, v in self.model_dump(
                     exclude={"weight_in_ptf", "business_summary", "logo"}
                 ).items()

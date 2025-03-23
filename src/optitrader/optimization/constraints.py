@@ -1,4 +1,5 @@
 """Objectives."""
+
 from abc import ABCMeta, abstractmethod
 
 import cvxpy as cp
@@ -115,14 +116,14 @@ class WeightsConstraint(BoundedConstraint):
         constraints = []
         if self.lower_bound is not None:
             assert self.lower_bound >= 0, "The lower bound percentage cannot be less than 0."
-            assert (
-                self.lower_bound <= _tot
-            ), f"The lower bound percentage cannot be more than {_tot}."
+            assert self.lower_bound <= _tot, (
+                f"The lower bound percentage cannot be more than {_tot}."
+            )
             constraints.append(weights_variable >= self.lower_bound / _tot)
         if self.upper_bound is not None:
-            assert (
-                self.upper_bound <= _tot
-            ), f"The upper bound percentage cannot be more than {_tot}."
+            assert self.upper_bound <= _tot, (
+                f"The upper bound percentage cannot be more than {_tot}."
+            )
             constraints.append(weights_variable <= self.upper_bound / _tot)
         return constraints
 

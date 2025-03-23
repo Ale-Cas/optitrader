@@ -1,6 +1,6 @@
 # https://pre-commit.com
 default_install_hook_types: [commit-msg, pre-commit]
-default_stages: [commit, manual]
+default_stages: [pre-commit, manual]
 fail_fast: false
 repos:
   - repo: meta
@@ -18,9 +18,7 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
     hooks:
-      # disabled for large vcr cassette
-      # might re-enable it in the future
-      # - id: check-added-large-files
+      - id: check-added-large-files
       - id: check-ast
       - id: check-builtin-literals
       - id: check-case-conflict
@@ -53,29 +51,29 @@ repos:
         require_serial: true
         language: system
         stages: [commit-msg]
-      - id: ruff
-        name: ruff
-        entry: ruff
-        args: ["--extend-fixable=F401,F841", "--fix-only"]
+      - id: ruff-check
+        name: ruff check
+        entry: ruff check
+        args: ["--force-exclude", "--extend-fixable=ERA001,F401,F841,T201,T203"]
         require_serial: true
         language: system
-        types: [python]
-      - id: black
-        name: black
-        entry: black
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: ruff format
+        entry: ruff format
+        args: [--force-exclude]
         require_serial: true
         language: system
-        types: [python]
+        types_or: [python, pyi]
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck
+        args: [--check-sourced]
+        language: system
+        types: [shell]
       - id: poetry-check
         name: poetry check
-        entry: poetry check
-        language: system
-        files: pyproject.toml
-        pass_filenames: false
-      - id: poetry-lock-check
-        name: poetry lock check
-        entry: poetry lock
-        args: [--check]
+        entry: poetry check --lock
         language: system
         pass_filenames: false
       - id: mypy

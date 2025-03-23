@@ -1,4 +1,5 @@
 """Test objectives map."""
+
 import cvxpy as cp
 import pytest
 

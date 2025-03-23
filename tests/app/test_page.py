@@ -1,4 +1,5 @@
 """Test page module."""
+
 from unittest.mock import MagicMock, Mock
 
 import pytest
@@ -7,7 +8,7 @@ import streamlit as st
 from optitrader.app.page import Page
 
 
-@pytest.fixture()
+@pytest.fixture
 def page():
     """Test page."""
     return Page(name="Test Page")

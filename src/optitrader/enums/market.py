@@ -1,4 +1,5 @@
 """All market data related Enums."""
+
 from optitrader.enums import IterEnum
 
 

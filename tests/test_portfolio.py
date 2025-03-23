@@ -1,4 +1,5 @@
 """Test the solver implementation."""
+
 from unittest.mock import Mock
 
 import pandas as pd
@@ -101,7 +102,7 @@ def test_portfolio_pie_plot(
     assert isinstance(figure, go.Figure)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_portfolio_history_plot(
     mock_ptf: Portfolio,
     market_data: MarketData,
@@ -118,7 +119,7 @@ def test_portfolio_history_plot(
     assert isinstance(figure, go.Figure)
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_portfolio_from_solver(
     market_data: MarketData,
     test_tickers: tuple[str, ...],
@@ -143,7 +144,7 @@ def test_portfolio_from_solver(
     assert not history.empty
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_portfolio_get_holdings_df(
     market_data: MarketData,
     test_tickers: tuple[str, ...],

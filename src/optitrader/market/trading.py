@@ -1,4 +1,5 @@
 """Trading module."""
+
 import logging
 
 import pandas as pd
@@ -98,9 +99,9 @@ class AlpacaTrading(TradingClient):
         assert bp, "No buying power in the account."
         _bp = round(number=float(bp), ndigits=2)
         amount = round(number=float(amount), ndigits=2)
-        assert (
-            _bp > amount
-        ), f"The passed `amount` {amount} is greater then the account buying power {_bp}"
+        assert _bp > amount, (
+            f"The passed `amount` {amount} is greater then the account buying power {_bp}"
+        )
         acct = self.get_account()
         assert isinstance(acct, TradeAccount)
         orders_resp = []

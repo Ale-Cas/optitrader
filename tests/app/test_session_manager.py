@@ -1,4 +1,5 @@
 """Test session manager suite."""
+
 from unittest.mock import MagicMock, Mock, call
 
 import pytest
@@ -10,7 +11,7 @@ from optitrader.app.session_manager import SessionManager
 from optitrader.enums import ConstraintName, ObjectiveName, RebalanceFrequency, UniverseName
 
 
-@pytest.fixture()
+@pytest.fixture
 def session_manager() -> SessionManager:
     """Session manager."""
     return SessionManager()

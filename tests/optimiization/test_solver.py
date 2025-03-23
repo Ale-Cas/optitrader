@@ -1,4 +1,5 @@
 """Test the solver implementation."""
+
 import pandas as pd
 import pytest
 import vcr
@@ -188,7 +189,7 @@ def test_solver_financials_and_cvar(
     assert len(weights.values) > 1
 
 
-@pytest.mark.vcr()
+@pytest.mark.vcr
 def test_solver_min_num_assets(
     market_data: MarketData,
     test_start_date: pd.Timestamp,

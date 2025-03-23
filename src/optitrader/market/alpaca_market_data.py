@@ -24,9 +24,9 @@ class AlpacaMarketData(BaseDataProvider):
     ) -> None:
         super().__init__()
         is_trading = trading_key and trading_secret
-        assert is_trading or (
-            broker_key and broker_secret
-        ), "Either Trading API or Broker API keys must be provided to use this service."
+        assert is_trading or (broker_key and broker_secret), (
+            "Either Trading API or Broker API keys must be provided to use this service."
+        )
         self.__data_client = (
             StockHistoricalDataClient(
                 api_key=trading_key,

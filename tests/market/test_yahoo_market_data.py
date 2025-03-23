@@ -19,7 +19,7 @@ my_vcr = vcr.VCR(
 )
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_yahoo_asset() -> None:
     """Test get_yahoo_asset method."""
     asset = client.get_yahoo_asset(ticker="AAPL")
@@ -36,7 +36,7 @@ def test_get_yahoo_asset_profile_returning_none() -> None:
     assert all(a is None for a in asset.model_dump().values())
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_yahoo_asset_failure() -> None:
     """Test get_yahoo_asset method."""
     with pytest.raises(AssertionError, match="Yahoo query"):
@@ -50,28 +50,28 @@ def test_get_yahoo_invalid_asset() -> None:
     assert isinstance(asset, YahooAssetModel)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_bars(test_start_date: Timestamp) -> None:
     """Test get_bars method."""
     bars = client.get_bars(tickers=("AAPL",), start_date=test_start_date)
     assert isinstance(bars, DataFrame)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_prices(test_start_date: Timestamp) -> None:
     """Test get_prices method."""
     prices = client.get_prices(tickers=("AAPL", "TSLA", "BRK.B"), start_date=test_start_date)
     assert isinstance(prices, DataFrame)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_yahoo_number_of_shares() -> None:
     """Test get_yahoo_asset method."""
     shares = client.get_number_of_shares(ticker="AAPL")
     assert isinstance(shares, int)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_multi_number_of_shares() -> None:
     """Test get_yahoo_asset method."""
     test_tickers = ("AAPL", "MSFT", "BRK.B")
@@ -80,7 +80,7 @@ def test_get_multi_number_of_shares() -> None:
     assert sorted(shares.index) == sorted(test_tickers)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_financials() -> None:
     """Test get_financials method."""
     fin_df = client.get_financials(ticker="AAPL")
@@ -88,7 +88,7 @@ def test_get_financials() -> None:
     assert all(fin_df.columns == client.financials)
 
 
-@pytest.mark.my_vcr()
+@pytest.mark.my_vcr
 def test_get_multi_financials_by_item(test_tickers: tuple[str, ...]) -> None:
     """Test get_multi_financials_by_item method."""
     fin_df = client.get_multi_financials_by_item(tickers=test_tickers)
