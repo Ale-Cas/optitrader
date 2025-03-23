@@ -71,7 +71,12 @@ def test_get_total_returns(
     assert sorted(returns.columns) == sorted(test_tickers)
 
 
-@pytest.mark.vcr
+@pytest.mark.vcr(
+    # need to adjust the vcr matcher because the requests are async
+    # so they might occur in different order
+    allow_playback_repeats=True,
+    match_on=["method", "scheme", "host", "port"],
+)
 def test_get_assets_from_provider(
     market_data: MarketData,
     test_tickers: tuple[str, ...],

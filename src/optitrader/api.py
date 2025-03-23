@@ -2,6 +2,8 @@
 
 import logging
 from collections import OrderedDict
+from collections.abc import AsyncGenerator
+from contextlib import asynccontextmanager
 
 import coloredlogs
 import pandas as pd
@@ -13,17 +15,19 @@ from optitrader.market.market_data import MarketData
 from optitrader.models import OptimizationRequest, OptimizationResponse
 from optitrader.optimization.solver import Solver
 
-app = FastAPI(title="optitrader API")
 
-
-@app.on_event("startup")
-def startup_event() -> None:
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     """Run API startup events."""
     # Remove all handlers associated with the root logger object.
     for handler in logging.root.handlers:
         logging.root.removeHandler(handler)
     # Add coloredlogs' coloured StreamHandler to the root logger.
     coloredlogs.install()
+    yield
+
+
+app = FastAPI(title="optitrader API", lifespan=lifespan)
 
 
 @app.get("/")
