@@ -65,6 +65,6 @@ def compute_optimal_portfolio(
         weights_tolerance=request_body.weights_tolerance,
     )
     return OptimizationResponse(
-        weights=opt_ptf.get_non_zero_weights().to_dict(OrderedDict),
+        weights=opt_ptf.get_non_zero_weights().to_dict(into=OrderedDict),
         objective_values=opt_ptf.objective_values,
     )
