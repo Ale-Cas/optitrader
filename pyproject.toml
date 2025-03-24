@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "optitrader"
-version = "0.2.2"
+version = "0.2.3"
 description = "Optitrader is an open-source Python package for portfolio optimization and algorithmic trading. "
 authors = ["Alessio Castrica <castricaalessio@gmail.com>"]
 readme = "README.md"
@@ -42,7 +42,7 @@ lxml = "==4.9.2"
 finnhub-python = "^2.4.18"
 sqlalchemy = "^2.0.19"
 watchdog = "^3.0.0"
-certifi = "^2023.11.17"
+certifi = ">=2024.7.4"
 nbformat = "^5.9.2"
 protobuf = "^4.25.1"
 nbconvert = "^7.12.0"
@@ -67,7 +67,7 @@ types-requests = "^2.32.0.20250306"
 
 [tool.poetry.group.dev.dependencies]  # https://python-poetry.org/docs/master/managing-dependencies/
 cruft = ">=2.14.0"
-jupyterlab = ">=3.6.3, <=4.0.2"
+jupyterlab = ">=4.2.5"
 pdoc = ">=13.1.1"
 
 [tool.black]  # https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
