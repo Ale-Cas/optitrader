@@ -65,9 +65,10 @@ class Optitrader:
             The market data instance to get the data from,
             you can pass your own with your API keys and preferred data provider.
         """
-        assert market_data or (trading_key and trading_secret) or (broker_key and broker_secret), (
-            "You must pass either a MarketData instance, the Trading API keys or Broker API keys."
-        )
+        if not (market_data or (trading_key and trading_secret) or (broker_key and broker_secret)):
+            raise AssertionError(
+                "You must pass either a MarketData instance, the Trading API keys or Broker API keys."
+            )
         self.market_data = market_data or MarketData(
             trading_key=trading_key,
             trading_secret=trading_secret,
@@ -128,12 +129,14 @@ class Optitrader:
             The optimal portfolio from the Solver.
         """
         if num_assets:
-            assert not min_num_assets, (
-                "Cannot provide minimum number of assets if you provided the exact number of assets."
-            )
-            assert not max_num_assets, (
-                "Cannot provide maximum number of assets if you provided the exact number of assets."
-            )
+            if min_num_assets:
+                raise AssertionError(
+                    "Cannot provide minimum number of assets if you provided the exact number of assets."
+                )
+            if max_num_assets:
+                raise AssertionError(
+                    "Cannot provide maximum number of assets if you provided the exact number of assets."
+                )
             if num_assets == len(self.investment_universe):
                 self.add_constraint(
                     WeightsConstraint(
@@ -146,9 +149,10 @@ class Optitrader:
                     NumberOfAssetsConstraint(lower_bound=num_assets, upper_bound=num_assets)
                 )
         elif min_num_assets or max_num_assets:
-            assert not num_assets, (
-                "Cannot provide exact number of assets if you provided the minimum or maximum number of assets."
-            )
+            if num_assets:
+                raise AssertionError(
+                    "Cannot provide exact number of assets if you provided the minimum or maximum number of assets."
+                )
             self.add_constraint(
                 NumberOfAssetsConstraint(lower_bound=min_num_assets, upper_bound=max_num_assets)
             )

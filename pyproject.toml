@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "optitrader"
-version = "0.2.3"
+version = "0.2.4"
 description = "Optitrader is an open-source Python package for portfolio optimization and algorithmic trading. "
 authors = ["Alessio Castrica <castricaalessio@gmail.com>"]
 readme = "README.md"
@@ -27,7 +27,7 @@ gunicorn = ">=20.1.0"
 poethepoet = ">=0.20.0"
 pydantic = ">=2.5.2"
 python = ">=3.10,<4.0"
-streamlit = ">=1.43.2"
+streamlit = ">=1.45.0"
 typer = { extras = ["all"], version = ">=0.9.0" }
 uvicorn = { extras = ["standard"], version = ">=0.20.0" }
 pandas = ">=2.2.3"
@@ -38,9 +38,8 @@ matplotlib = "^3.7.1"
 typeguard = "^4.0.0"
 plotly = ">=5.15.0"
 html5lib = "^1.1"
-lxml = "==4.9.2"
 finnhub-python = "^2.4.18"
-sqlalchemy = "^2.0.19"
+sqlalchemy = ">=2.0.40"
 watchdog = "^3.0.0"
 certifi = ">=2024.7.4"
 nbformat = "^5.9.2"
@@ -117,10 +116,10 @@ select = ["A", "ASYNC", "B", "C4", "C90", "D", "DTZ", "E", "F", "FLY", "I", "ISC
 ignore = ["E501", "S307", "G010", "PGH003", "RET504", "S101", "DTZ011", "DTZ003", "PLR0913"]
 unfixable = ["F401", "F841"]
 
-[tool.ruff.flake8-tidy-imports]
+[tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
 [tool.poe.tasks]  # https://github.com/nat-n/poethepoet
